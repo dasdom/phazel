@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
+		F2E492681E37FF45000C7187 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492671E37FF45000C7187 /* ViewController.swift */; };
+		F2E4926B1E37FF45000C7187 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E492691E37FF45000C7187 /* Main.storyboard */; };
+		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
+		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
+		F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4927A1E37FF46000C7187 /* phazelTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F2E492771E37FF46000C7187 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2E492611E37FF45000C7187;
+			remoteInfo = phazel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F2E492621E37FF45000C7187 /* phazel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phazel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E492651E37FF45000C7187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F2E492671E37FF45000C7187 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F2E4926A1E37FF45000C7187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F2E4926C1E37FF45000C7187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2E4926F1E37FF45000C7187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F2E492711E37FF45000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2E492761E37FF46000C7187 /* phazelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phazelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E4927A1E37FF46000C7187 /* phazelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phazelTests.swift; sourceTree = "<group>"; };
+		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F2E4925F1E37FF45000C7187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2E492731E37FF46000C7187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F2E492591E37FF45000C7187 = {
+			isa = PBXGroup;
+			children = (
+				F2E492641E37FF45000C7187 /* phazel */,
+				F2E492791E37FF46000C7187 /* phazelTests */,
+				F2E492631E37FF45000C7187 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F2E492631E37FF45000C7187 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2E492621E37FF45000C7187 /* phazel.app */,
+				F2E492761E37FF46000C7187 /* phazelTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2E492641E37FF45000C7187 /* phazel */ = {
+			isa = PBXGroup;
+			children = (
+				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
+				F2E492671E37FF45000C7187 /* ViewController.swift */,
+				F2E492691E37FF45000C7187 /* Main.storyboard */,
+				F2E4926C1E37FF45000C7187 /* Assets.xcassets */,
+				F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */,
+				F2E492711E37FF45000C7187 /* Info.plist */,
+			);
+			path = phazel;
+			sourceTree = "<group>";
+		};
+		F2E492791E37FF46000C7187 /* phazelTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2E4927A1E37FF46000C7187 /* phazelTests.swift */,
+				F2E4927C1E37FF46000C7187 /* Info.plist */,
+			);
+			path = phazelTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2E492611E37FF45000C7187 /* phazel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2E4927F1E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazel" */;
+			buildPhases = (
+				F2E4925E1E37FF45000C7187 /* Sources */,
+				F2E4925F1E37FF45000C7187 /* Frameworks */,
+				F2E492601E37FF45000C7187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = phazel;
+			productName = phazel;
+			productReference = F2E492621E37FF45000C7187 /* phazel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F2E492751E37FF46000C7187 /* phazelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2E492821E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazelTests" */;
+			buildPhases = (
+				F2E492721E37FF46000C7187 /* Sources */,
+				F2E492731E37FF46000C7187 /* Frameworks */,
+				F2E492741E37FF46000C7187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2E492781E37FF46000C7187 /* PBXTargetDependency */,
+			);
+			name = phazelTests;
+			productName = phazelTests;
+			productReference = F2E492761E37FF46000C7187 /* phazelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2E4925A1E37FF45000C7187 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = dasdom;
+				TargetAttributes = {
+					F2E492611E37FF45000C7187 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q6PD97MRX4;
+						ProvisioningStyle = Automatic;
+					};
+					F2E492751E37FF46000C7187 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q6PD97MRX4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F2E492611E37FF45000C7187;
+					};
+				};
+			};
+			buildConfigurationList = F2E4925D1E37FF45000C7187 /* Build configuration list for PBXProject "phazel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F2E492591E37FF45000C7187;
+			productRefGroup = F2E492631E37FF45000C7187 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2E492611E37FF45000C7187 /* phazel */,
+				F2E492751E37FF46000C7187 /* phazelTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2E492601E37FF45000C7187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */,
+				F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */,
+				F2E4926B1E37FF45000C7187 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2E492741E37FF46000C7187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2E4925E1E37FF45000C7187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2E492681E37FF45000C7187 /* ViewController.swift in Sources */,
+				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2E492721E37FF46000C7187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2E492781E37FF46000C7187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2E492611E37FF45000C7187 /* phazel */;
+			targetProxy = F2E492771E37FF46000C7187 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F2E492691E37FF45000C7187 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2E4926A1E37FF45000C7187 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2E4926F1E37FF45000C7187 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F2E4927D1E37FF46000C7187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F2E4927E1E37FF46000C7187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F2E492801E37FF46000C7187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = phazel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F2E492811E37FF46000C7187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = phazel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F2E492831E37FF46000C7187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = phazelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/phazel.app/phazel";
+			};
+			name = Debug;
+		};
+		F2E492841E37FF46000C7187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = phazelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/phazel.app/phazel";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F2E4925D1E37FF45000C7187 /* Build configuration list for PBXProject "phazel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2E4927D1E37FF46000C7187 /* Debug */,
+				F2E4927E1E37FF46000C7187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2E4927F1E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2E492801E37FF46000C7187 /* Debug */,
+				F2E492811E37FF46000C7187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F2E492821E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2E492831E37FF46000C7187 /* Debug */,
+				F2E492841E37FF46000C7187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F2E4925A1E37FF45000C7187 /* Project object */;
+}
