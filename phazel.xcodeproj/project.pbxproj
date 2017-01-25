@@ -10,7 +10,6 @@
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
-		F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4927A1E37FF46000C7187 /* phazelTests.swift */; };
 		F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492851E38009B000C7187 /* URLCreatorTests.swift */; };
 		F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492891E3801E0000C7187 /* URLCreator.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +31,6 @@
 		F2E4926F1E37FF45000C7187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2E492711E37FF45000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E492761E37FF46000C7187 /* phazelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phazelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2E4927A1E37FF46000C7187 /* phazelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phazelTests.swift; sourceTree = "<group>"; };
 		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E492851E38009B000C7187 /* URLCreatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLCreatorTests.swift; path = Networking/URLCreatorTests.swift; sourceTree = "<group>"; };
 		F2E492891E3801E0000C7187 /* URLCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCreator.swift; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 		F2E492791E37FF46000C7187 /* phazelTests */ = {
 			isa = PBXGroup;
 			children = (
-				F2E4927A1E37FF46000C7187 /* phazelTests.swift */,
 				F2E492871E3800A9000C7187 /* Networking */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
 			);
@@ -226,7 +223,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
-				F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +414,7 @@
 				F2E492811E37FF46000C7187 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2E492821E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazelTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +423,7 @@
 				F2E492841E37FF46000C7187 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
