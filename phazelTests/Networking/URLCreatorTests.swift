@@ -22,12 +22,16 @@ class URLCreatorTests: XCTestCase {
         let password = "@#$%^&*\\/?"
         guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
         
-        //XCTAssertEqual(url, URL(string: "https://api.pnut.io/v0/oauth/access_token?client_id=42&password_grant_secret=23&username=foo&"))
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.pnut.io")
         XCTAssertEqual(urlComponents?.path, "/v0/oauth/access_token")
         let queryIems = urlComponents?.queryItems
         XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "username", value: username))) ?? false, "Found queryItems: \(queryIems)")
         XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "password", value: password))) ?? false, "Found queryItems: \(queryIems)")
+        XCTAssertTrue(url.absoluteString.contains("client_id="))
+        XCTAssertTrue(url.absoluteString.contains("password_grant_secret="))
+        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "grant_type", value: "password"))) ?? false, "Found queryItems: \(queryIems)")
+        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages"))) ?? false, "Found queryItems: \(queryIems)")
     }
 }

@@ -10,19 +10,42 @@ enum URLCreator {
     func url() -> URL? {
         switch self {
         case .auth(let username, let password):
-            guard let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: queryItemAllowedCharacterSet),
-                let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: queryItemAllowedCharacterSet) else { fatalError() }
-            let urlString = "\(baseURLString)oauth/access_token?username=\(encodedUsername)&password=\(encodedPassword)"
-            print(urlString)
-            return URL(string: urlString)
+            var queryItems = [URLQueryItem(name: "username", value: username),
+                              URLQueryItem(name: "password", value: password),
+                              URLQueryItem(name: "grant_type", value: "password"),
+                              URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages")]
+            
+            if let secretsDict = secretsDict {
+                for (key, value) in secretsDict {
+                    queryItems.append(URLQueryItem(name: key, value: value))
+                }
+            }
+            
+            let urlComponents = URLComponents(queryItems: queryItems)
+            return urlComponents.url
         }
     }
-    
-    private var baseURLString: String {
-        return "https://api.pnut.io/v0/"
+}
+
+extension URLCreator {
+    fileprivate var secretsDict: [String:String]? {
+        guard let secretURL = Bundle.main.url(forResource: "secrets", withExtension: "json") else { fatalError() }
+        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
+        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
+        return secretsDict as? [String:String]
     }
     
-    private var queryItemAllowedCharacterSet: CharacterSet {
+    fileprivate var queryItemAllowedCharacterSet: CharacterSet {
         return CharacterSet(charactersIn: "/%&=?$#+-~@<>|\\*,.()[]{}^!").inverted
+    }
+}
+
+extension URLComponents {
+    init(queryItems: [URLQueryItem]) {
+        self.init()
+        scheme = "https"
+        host = "api.pnut.io"
+        path = "/v0/oauth/access_token"
+        self.queryItems = queryItems
     }
 }
