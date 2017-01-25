@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
-		F2E492681E37FF45000C7187 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492671E37FF45000C7187 /* ViewController.swift */; };
-		F2E4926B1E37FF45000C7187 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E492691E37FF45000C7187 /* Main.storyboard */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
 		F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4927A1E37FF46000C7187 /* phazelTests.swift */; };
+		F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492851E38009B000C7187 /* URLCreatorTests.swift */; };
+		F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492891E3801E0000C7187 /* URLCreator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +28,14 @@
 /* Begin PBXFileReference section */
 		F2E492621E37FF45000C7187 /* phazel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phazel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E492651E37FF45000C7187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F2E492671E37FF45000C7187 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F2E4926A1E37FF45000C7187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2E4926C1E37FF45000C7187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2E4926F1E37FF45000C7187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F2E492711E37FF45000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E492761E37FF46000C7187 /* phazelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phazelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E4927A1E37FF46000C7187 /* phazelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phazelTests.swift; sourceTree = "<group>"; };
 		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2E492851E38009B000C7187 /* URLCreatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLCreatorTests.swift; path = Networking/URLCreatorTests.swift; sourceTree = "<group>"; };
+		F2E492891E3801E0000C7187 /* URLCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCreator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
-				F2E492671E37FF45000C7187 /* ViewController.swift */,
-				F2E492691E37FF45000C7187 /* Main.storyboard */,
+				F2E492881E3801CF000C7187 /* Networking */,
 				F2E4926C1E37FF45000C7187 /* Assets.xcassets */,
 				F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */,
 				F2E492711E37FF45000C7187 /* Info.plist */,
@@ -91,9 +90,26 @@
 			isa = PBXGroup;
 			children = (
 				F2E4927A1E37FF46000C7187 /* phazelTests.swift */,
+				F2E492871E3800A9000C7187 /* Networking */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
 			);
 			path = phazelTests;
+			sourceTree = "<group>";
+		};
+		F2E492871E3800A9000C7187 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				F2E492851E38009B000C7187 /* URLCreatorTests.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		F2E492881E3801CF000C7187 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				F2E492891E3801E0000C7187 /* URLCreator.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +199,6 @@
 			files = (
 				F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */,
 				F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */,
-				F2E4926B1E37FF45000C7187 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E492681E37FF45000C7187 /* ViewController.swift in Sources */,
+				F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
 				F2E4927B1E37FF46000C7187 /* phazelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,14 +241,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F2E492691E37FF45000C7187 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F2E4926A1E37FF45000C7187 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
