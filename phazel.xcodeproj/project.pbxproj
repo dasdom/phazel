@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A971E3A89E70056155C /* APIClientTests.swift */; };
+		F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A991E3A90A90056155C /* URLRequestStub.swift */; };
+		F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A9B1E3A93300056155C /* APIClient.swift */; };
+		F2C12A9F1E3A93770056155C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A9E1E3A93770056155C /* KeychainManager.swift */; };
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
@@ -26,6 +30,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2C12A971E3A89E70056155C /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClientTests.swift; path = Networking/APIClientTests.swift; sourceTree = "<group>"; };
+		F2C12A991E3A90A90056155C /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
+		F2C12A9B1E3A93300056155C /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		F2C12A9E1E3A93770056155C /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		F2E492621E37FF45000C7187 /* phazel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phazel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E492651E37FF45000C7187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E4926C1E37FF45000C7187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2C12A9D1E3A93680056155C /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				F2C12A9E1E3A93770056155C /* KeychainManager.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		F2E492591E37FF45000C7187 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
+				F2C12A9D1E3A93680056155C /* Keychain */,
 				F2E492881E3801CF000C7187 /* Networking */,
 				F2E4926C1E37FF45000C7187 /* Assets.xcassets */,
 				F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */,
@@ -91,6 +108,7 @@
 			children = (
 				F2E492871E3800A9000C7187 /* Networking */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
+				F2C12A991E3A90A90056155C /* URLRequestStub.swift */,
 			);
 			path = phazelTests;
 			sourceTree = "<group>";
@@ -99,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492851E38009B000C7187 /* URLCreatorTests.swift */,
+				F2C12A971E3A89E70056155C /* APIClientTests.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -107,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492891E3801E0000C7187 /* URLCreator.swift */,
+				F2C12A9B1E3A93300056155C /* APIClient.swift */,
 				F2E4928B1E393816000C7187 /* secrets.json */,
 			);
 			path = Networking;
@@ -219,6 +239,8 @@
 			files = (
 				F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
+				F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */,
+				F2C12A9F1E3A93770056155C /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +248,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */,
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
+				F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
