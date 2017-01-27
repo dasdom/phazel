@@ -51,5 +51,9 @@ extension APIClientTests {
         func token(for username: String) -> String? {
             return token
         }
+        
+        func deleteToken(for username: String) {
+            
+        }
     }
 }
