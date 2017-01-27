@@ -18,17 +18,23 @@ struct APIClient {
             }
             
             var success = false
-            guard let data = data else { return }
-
-            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return }
-            guard let jsonDict = json as? [String:Any] else { return }
-            guard let rawToken = jsonDict[JSONKey.access_token.rawValue] else { return }
-            guard let token = rawToken as? String else { return }
+            guard let token = self.extractToken(from: data) else { return }
             
             self.keychainManager.set(token: token, for: username)
             success = true
         }
         dataTask.resume()
+    }
+}
+
+extension APIClient {
+    fileprivate func extractToken(from data: Data?) -> String? {
+        guard let data = data,
+            let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let jsonDict = json as? [String:Any],
+            let rawToken = jsonDict[JSONKey.access_token.rawValue]
+            else { return nil }
+        return rawToken as? String
     }
 }
 
