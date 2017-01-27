@@ -4,8 +4,16 @@
 
 import Foundation
 
-struct APIClient {
-    let keychainManager: KeychainManagerProtocol
+class APIClient {
+    lazy var keychainManager: KeychainManagerProtocol = KeychainManager()
+    
+    init(keychainManager: KeychainManagerProtocol) {
+        self.keychainManager = keychainManager
+    }
+    
+    init() {
+        
+    }
     
     func login(username: String, password: String, completion: @escaping (Bool) -> ()) {
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }

@@ -37,6 +37,12 @@ class APIClientTests: XCTestCase {
             XCTAssertEqual(urlComponents?.path, "/v0/oauth/access_token")
         }
     }
+    
+    func test_HasKeychainManagerSet() {
+        let sut = APIClient()
+        
+        XCTAssertNotNil(sut.keychainManager)
+    }
 }
 
 extension APIClientTests {
