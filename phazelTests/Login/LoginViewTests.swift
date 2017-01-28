@@ -36,6 +36,12 @@ class LoginViewTests: XCTestCase {
         XCTAssertTrue(textField.isDescendant(of: sut))
     }
     
+    func test_usernameTextField_doesNot_translateAutoresizingMasks() {
+        guard let textField = sut.value(forKey: "usernameTextField") as? UITextField else { return XCTFail() }
+        
+        XCTAssertFalse(textField.translatesAutoresizingMaskIntoConstraints)
+    }
+    
     func test_password_returnsTextFrom_passwordTextField() {
         guard let textField = sut.value(forKey: "passwordTextField") as? UITextField else { return XCTFail() }
         textField.text = "Bar"
@@ -56,11 +62,22 @@ class LoginViewTests: XCTestCase {
         
         XCTAssertTrue(textField.isSecureTextEntry)
     }
-
     
+    func test_passwordTextField_doesNot_translateAutoresizingMasks() {
+        guard let textField = sut.value(forKey: "passwordTextField") as? UITextField else { return XCTFail() }
+        
+        XCTAssertFalse(textField.translatesAutoresizingMaskIntoConstraints)
+    }
+
     func test_loginButton_isDescendantOf_SUT() {
         guard let button = sut.value(forKey: "loginButton") as? UIButton else { return XCTFail() }
         
         XCTAssertTrue(button.isDescendant(of: sut))
+    }
+    
+    func test_button_doesNot_translateAutoresizingMasks() {
+        guard let button = sut.value(forKey: "loginButton") as? UIButton else { return XCTFail() }
+        
+        XCTAssertFalse(button.translatesAutoresizingMaskIntoConstraints)
     }
 }

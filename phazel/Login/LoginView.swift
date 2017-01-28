@@ -9,20 +9,20 @@ protocol LoginViewProtocol {
     var password: String? { get }
 }
 
-class LoginView: UIView {
+class LoginView: DDHView {
 
-    let usernameTextField: UITextField
-    let passwordTextField: UITextField
-    let loginButton: UIButton
+    let usernameTextField: DDHTextField
+    let passwordTextField: DDHTextField
+    let loginButton: DDHButton
     
     override init(frame: CGRect) {
         
-        usernameTextField = UITextField()
+        usernameTextField = DDHTextField()
         
-        passwordTextField = UITextField()
+        passwordTextField = DDHTextField()
         passwordTextField.isSecureTextEntry = true
         
-        loginButton = UIButton(type: .system)
+        loginButton = DDHButton(type: .system)
         
         super.init(frame: frame)
         
