@@ -7,41 +7,53 @@ import XCTest
 
 class APIClientTests: XCTestCase {
     
+    var sut: APIClient!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        sut = APIClient()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        
         super.tearDown()
     }
     
-    func test_LoginRequests_WhenSuccessful_CallsKeychainManager() {
+    func test_LoginRequest_WhenSuccessful_CallsKeychainManager() {
         let mockKeychainManager = MockKeychainManager()
-        let sut = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
-        let requestExpectation = expectation(description: "Login request")
-        URLRequestStub.stub(with: data, expect: requestExpectation)
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
-        var catchedSuccess = false
-        sut.login(username: "Foo", password: "Bar") { success in
-            catchedSuccess = success
+        localSUT.login(username: "Foo", password: "Bar") { success, _ in
+            XCTAssertTrue(success)
         }
         
         waitForExpectations(timeout: 0.1) { error in
-            XCTAssertTrue(catchedSuccess)
             XCTAssertEqual(mockKeychainManager.token, "42")
-            let urlComponents = URLRequestStub.lastURLComponents()
-            XCTAssertEqual(urlComponents?.host, "api.pnut.io")
-            XCTAssertEqual(urlComponents?.path, "/v0/oauth/access_token")
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
         }
     }
     
     func test_HasKeychainManagerSet() {
-        let sut = APIClient()
-        
         XCTAssertNotNil(sut.keychainManager)
+    }
+    
+    func test_LoginRequest_WhenFailed_ReturnsError() {
+        let mockKeychainManager = MockKeychainManager()
+        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let error = NSError(domain: "FooDomain", code: 42, userInfo: nil)
+        URLRequestStub.stub(error: error, expect: expectation(description: "Failed request"))
+        
+        localSUT.login(username: "Foo", password: "Bar") { _, requestError in
+            XCTAssertEqual(requestError as? NSError, error)
+        }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertNil(mockKeychainManager.token)
+        }
     }
 }
 

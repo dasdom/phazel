@@ -5,7 +5,7 @@
 import Foundation
 
 class APIClient {
-    lazy var keychainManager: KeychainManagerProtocol = KeychainManager()
+    private(set) lazy var keychainManager: KeychainManagerProtocol = KeychainManager()
     
     init(keychainManager: KeychainManagerProtocol) {
         self.keychainManager = keychainManager
@@ -15,14 +15,14 @@ class APIClient {
         
     }
     
-    func login(username: String, password: String, completion: @escaping (Bool) -> ()) {
+    func login(username: String, password: String, completion: @escaping (Bool, Error?) -> ()) {
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: url) { data, response, error in
             
             defer {
-                completion(success)
+                completion(success, error)
             }
             
             var success = false

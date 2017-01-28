@@ -10,9 +10,16 @@ class URLRequestStub: URLProtocol {
     static var data: Data?
     static var expectation: XCTestExpectation?
     static var lastURL: URL?
+    static var error: Error?
     
-    class func stub(with: Data, expect: XCTestExpectation) {
-        data = with
+    class func stub(data: Data, expect: XCTestExpectation) {
+        self.data = data
+        expectation = expect
+        URLProtocol.registerClass(URLRequestStub.self)
+    }
+    
+    class func stub(error: Error, expect: XCTestExpectation) {
+        self.error = error
         expectation = expect
         URLProtocol.registerClass(URLRequestStub.self)
     }
@@ -27,14 +34,25 @@ class URLRequestStub: URLProtocol {
     }
     
     override func startLoading() {
-        guard let data = URLRequestStub.data else { fatalError() }
-        DispatchQueue.global().async {
-            self.client?.urlProtocol(self, didLoad: data)
-            self.client?.urlProtocolDidFinishLoading(self)
-            URLProtocol.unregisterClass(URLRequestStub.self)
-            DispatchQueue.main.async {
-                URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.001)
+        if let data = URLRequestStub.data {
+            DispatchQueue.global().async {
+                self.client?.urlProtocol(self, didLoad: data)
+                self.client?.urlProtocolDidFinishLoading(self)
+                URLProtocol.unregisterClass(URLRequestStub.self)
+                DispatchQueue.main.async {
+                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.001)
+                }
             }
+        } else if let error = URLRequestStub.error {
+            DispatchQueue.global().async {
+                self.client?.urlProtocol(self, didFailWithError: error)
+                URLProtocol.unregisterClass(URLRequestStub.self)
+                DispatchQueue.main.async {
+                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.001)
+                }
+            }
+        } else {
+            fatalError()
         }
     }
     
