@@ -4,11 +4,6 @@
 
 import UIKit
 
-protocol LoginViewProtocol {
-    var username: String? { get }
-    var password: String? { get }
-}
-
 class LoginView: DDHView {
 
     let usernameTextField: DDHTextField
@@ -23,6 +18,7 @@ class LoginView: DDHView {
         passwordTextField.isSecureTextEntry = true
         
         loginButton = DDHButton(type: .system)
+        loginButton.addTarget(nil, action: .login, for: .touchUpInside)
         
         super.init(frame: frame)
         
@@ -45,4 +41,17 @@ extension LoginView: LoginViewProtocol {
     var password: String? {
         return passwordTextField.text
     }
+}
+
+protocol LoginViewProtocol {
+    var username: String? { get }
+    var password: String? { get }
+}
+
+@objc protocol LoginProtocol {
+    @objc func login()
+}
+
+fileprivate extension Selector {
+    static let login = #selector(LoginProtocol.login)
 }

@@ -80,4 +80,17 @@ class LoginViewTests: XCTestCase {
         
         XCTAssertFalse(button.translatesAutoresizingMaskIntoConstraints)
     }
+    
+    func test_button_hasNilTarget() {
+        guard let button = sut.value(forKey: "loginButton") as? UIButton else { return XCTFail() }
+
+        XCTAssertEqual(button.allTargets.count, 1)
+    }
+    
+    func test_button_hasAction() {
+        guard let button = sut.value(forKey: "loginButton") as? UIButton else { return XCTFail() }
+
+        let action = button.actions(forTarget: nil, forControlEvent: .touchUpInside)?.first
+        XCTAssertEqual(action, "login")
+    }
 }

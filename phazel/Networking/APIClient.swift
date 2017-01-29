@@ -15,21 +15,21 @@ class APIClient {
         
     }
     
-    func login(username: String, password: String, completion: @escaping (Bool, Error?) -> ()) {
+    func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
         
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { data, response, error in
+        let dataTask = session.dataTask(with: url) { data, _, error in
             
             defer {
-                completion(success, error)
+                completion(result)
             }
             
-            var success = false
+            let loginUser = self.extractLoginUser(from: data)
+            let result = Result(value: loginUser, error: error)
             guard let token = self.extractToken(from: data) else { return }
             
             self.keychainManager.set(token: token, for: username)
-            success = true
         }
         dataTask.resume()
     }
@@ -44,8 +44,18 @@ extension APIClient {
             else { return nil }
         return rawToken as? String
     }
+    
+    fileprivate func extractLoginUser(from data: Data?) -> LoginUser? {
+        guard let data = data,
+            let json = try? JSONSerialization.jsonObject(with: data, options: []),
+            let jsonDict = json as? [String:Any],
+            let username = jsonDict[JSONKey.username.rawValue] as? String,
+            let userId = jsonDict[JSONKey.user_id.rawValue] as? Int
+            else { return nil }
+        return LoginUser(id: userId, username: username)
+    }
 }
 
 enum JSONKey: String {
-    case access_token, username
+    case access_token, username, user_id
 }

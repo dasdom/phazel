@@ -11,6 +11,9 @@
 		F28D2E661E3D422000DB692B /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E651E3D422000DB692B /* DDHView.swift */; };
 		F28D2E681E3D42CA00DB692B /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E671E3D42CA00DB692B /* DDHTextField.swift */; };
 		F28D2E6A1E3D433C00DB692B /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E691E3D433C00DB692B /* DDHButton.swift */; };
+		F28D2E6C1E3E5CFC00DB692B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E6B1E3E5CFC00DB692B /* Result.swift */; };
+		F28D2E6E1E3E64FA00DB692B /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */; };
+		F28D2E721E3E80D200DB692B /* LoginUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E711E3E80D200DB692B /* LoginUserTests.swift */; };
 		F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A971E3A89E70056155C /* APIClientTests.swift */; };
 		F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A991E3A90A90056155C /* URLRequestStub.swift */; };
 		F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A9B1E3A93300056155C /* APIClient.swift */; };
@@ -40,6 +43,9 @@
 		F28D2E651E3D422000DB692B /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
 		F28D2E671E3D42CA00DB692B /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
 		F28D2E691E3D433C00DB692B /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
+		F28D2E6B1E3E5CFC00DB692B /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginUser.swift; path = Model/LoginUser.swift; sourceTree = "<group>"; };
+		F28D2E711E3E80D200DB692B /* LoginUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserTests.swift; sourceTree = "<group>"; };
 		F2C12A971E3A89E70056155C /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClientTests.swift; path = Networking/APIClientTests.swift; sourceTree = "<group>"; };
 		F2C12A991E3A90A90056155C /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
 		F2C12A9B1E3A93300056155C /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -82,8 +88,25 @@
 				F28D2E651E3D422000DB692B /* DDHView.swift */,
 				F28D2E671E3D42CA00DB692B /* DDHTextField.swift */,
 				F28D2E691E3D433C00DB692B /* DDHButton.swift */,
+				F28D2E6B1E3E5CFC00DB692B /* Result.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		F28D2E6F1E3E7C4400DB692B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F28D2E701E3E80AD00DB692B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F28D2E711E3E80D200DB692B /* LoginUserTests.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		F2C12A9D1E3A93680056155C /* Keychain */ = {
@@ -140,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
+				F28D2E6F1E3E7C4400DB692B /* Model */,
 				F28D2E641E3D41A000DB692B /* Foundation */,
 				F2C12A9D1E3A93680056155C /* Keychain */,
 				F2E492881E3801CF000C7187 /* Networking */,
@@ -154,6 +178,7 @@
 		F2E492791E37FF46000C7187 /* phazelTests */ = {
 			isa = PBXGroup;
 			children = (
+				F28D2E701E3E80AD00DB692B /* Model */,
 				F2C12AA21E3BAA5D0056155C /* Keychain */,
 				F2E492871E3800A9000C7187 /* Networking */,
 				F2C12AA31E3BED240056155C /* Login */,
@@ -287,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F28D2E6C1E3E5CFC00DB692B /* Result.swift in Sources */,
 				F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */,
 				F28D2E661E3D422000DB692B /* DDHView.swift in Sources */,
 				F28D2E681E3D42CA00DB692B /* DDHTextField.swift in Sources */,
@@ -294,6 +320,7 @@
 				F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */,
 				F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */,
 				F28D2E6A1E3D433C00DB692B /* DDHButton.swift in Sources */,
+				F28D2E6E1E3E64FA00DB692B /* LoginUser.swift in Sources */,
 				F2C12A9F1E3A93770056155C /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +331,7 @@
 			files = (
 				F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
+				F28D2E721E3E80D200DB692B /* LoginUserTests.swift in Sources */,
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
 				F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */,
 				F2C12AA11E3BAA570056155C /* KeychainManagerTests.swift in Sources */,

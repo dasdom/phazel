@@ -27,8 +27,11 @@ class APIClientTests: XCTestCase {
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
-        localSUT.login(username: "Foo", password: "Bar") { success, _ in
-            XCTAssertTrue(success)
+        let expectedUser = LoginUser(id: 23, username: "foo")
+        localSUT.login(username: "Foo", password: "Bar") { result in
+            if case .success(let user) = result {
+                XCTAssertEqual(user, expectedUser)
+            }
         }
         
         waitForExpectations(timeout: 0.1) { error in
@@ -47,8 +50,10 @@ class APIClientTests: XCTestCase {
         let error = NSError(domain: "FooDomain", code: 42, userInfo: nil)
         URLRequestStub.stub(error: error, expect: expectation(description: "Failed request"))
         
-        localSUT.login(username: "Foo", password: "Bar") { _, requestError in
-            XCTAssertEqual(requestError as? NSError, error)
+        localSUT.login(username: "Foo", password: "Bar") { result in
+            if case .failure(let requestError) = result {
+                XCTAssertEqual(requestError as NSError, error)
+            }
         }
         
         waitForExpectations(timeout: 0.1) { error in
