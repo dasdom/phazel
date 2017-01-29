@@ -37,22 +37,25 @@ class APIClient {
 
 extension APIClient {
     fileprivate func extractToken(from data: Data?) -> String? {
-        guard let data = data,
-            let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let jsonDict = json as? [String:Any],
+        guard let jsonDict = jsonDict(from: data),
             let rawToken = jsonDict[JSONKey.access_token.rawValue]
             else { return nil }
         return rawToken as? String
     }
     
     fileprivate func extractLoginUser(from data: Data?) -> LoginUser? {
-        guard let data = data,
-            let json = try? JSONSerialization.jsonObject(with: data, options: []),
-            let jsonDict = json as? [String:Any],
+        guard let jsonDict = jsonDict(from: data),
             let username = jsonDict[JSONKey.username.rawValue] as? String,
             let userId = jsonDict[JSONKey.user_id.rawValue] as? Int
             else { return nil }
         return LoginUser(id: userId, username: username)
+    }
+    
+    private func jsonDict(from data: Data?) -> [String:Any]? {
+        guard let data = data,
+            let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            else { return nil }
+        return json as? [String:Any]
     }
 }
 
