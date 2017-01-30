@@ -4,15 +4,15 @@
 
 import Foundation
 
-class APIClient {
-    private(set) lazy var keychainManager: KeychainManagerProtocol = KeychainManager()
+protocol APIClientProtocol {
+    func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
+}
+
+class APIClient: APIClientProtocol {
+    let keychainManager: KeychainManagerProtocol
     
-    init(keychainManager: KeychainManagerProtocol) {
+    init(keychainManager: KeychainManagerProtocol = KeychainManager()) {
         self.keychainManager = keychainManager
-    }
-    
-    init() {
-        
     }
     
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
