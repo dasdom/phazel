@@ -4,10 +4,16 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate {
+    func loginDidSucceed(with loginUser: LoginUser)
+    func loginDidFail(with error: Error)
+}
+
 class LoginViewController: UIViewController {
 
     let contentView: LoginViewProtocol
     let apiClient: APIClientProtocol
+    var delegate: LoginViewControllerDelegate?
     
     init(contentView: LoginViewProtocol, apiClient: APIClientProtocol = APIClient()) {
         
@@ -33,6 +39,12 @@ extension LoginViewController: LoginProtocol {
         guard let password = contentView.password else { fatalError() }
         self.apiClient.login(username: username, password: password) { result in
             
+            switch result {
+            case .success(let loginUser):
+                self.delegate?.loginDidSucceed(with: loginUser)
+            case .failure(let error):
+                self.delegate?.loginDidFail(with: error)
+            }
         }
     }
 }
