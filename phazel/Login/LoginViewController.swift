@@ -9,7 +9,7 @@ protocol LoginViewControllerDelegate {
     func loginDidFail(with error: Error)
 }
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
 
     let contentView: LoginViewProtocol
     let apiClient: APIClientProtocol

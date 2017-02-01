@@ -8,7 +8,7 @@ protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
 }
 
-class APIClient: APIClientProtocol {
+final class APIClient: APIClientProtocol {
     let keychainManager: KeychainManagerProtocol
     
     init(keychainManager: KeychainManagerProtocol = KeychainManager()) {

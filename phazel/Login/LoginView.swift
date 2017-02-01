@@ -4,7 +4,7 @@
 
 import UIKit
 
-class LoginView: DDHView {
+final class LoginView: DDHView {
 
     let usernameTextField: DDHTextField
     let passwordTextField: DDHTextField
