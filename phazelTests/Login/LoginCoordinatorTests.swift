@@ -8,16 +8,20 @@ import XCTest
 class LoginCoordinatorTests: XCTestCase {
     
     var sut: LoginCoordinator!
-    let mockNavigationController = MockNavigationController()
+    var mockRootViewController: MockViewController!
+    var mockNavigationController: MockNavigationController!
     
     override func setUp() {
         super.setUp()
 
+        mockRootViewController = MockViewController()
+        mockNavigationController = MockNavigationController(rootViewController: mockRootViewController)
         sut = LoginCoordinator(navigationController: mockNavigationController)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+
+        sut = nil
         super.tearDown()
     }
     
@@ -25,13 +29,30 @@ class LoginCoordinatorTests: XCTestCase {
         XCTAssertTrue(sut is LoginViewControllerDelegate)
     }
     
+    func test_failurePresents_AlertViewController() {
+        
+        sut.loginDidFail(with: NSError(domain: "Foo", code: 42, userInfo: nil))
+        
+        XCTAssertTrue(mockRootViewController.inTestPresentedViewController is UIAlertController)
+    }
 }
 
 extension LoginCoordinatorTests {
-    class MockNavigationController: UINavigationController {
+//    class MockNavigationController: UINavigationController {
+//        
+//        var inTestPresentedViewController: UIViewController?
+//        
+//        override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+//            inTestPresentedViewController = viewControllerToPresent
+//        }
+//    }
+    
+    class MockViewController: UIViewController {
+        
+        var inTestPresentedViewController: UIViewController?
         
         override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-            
+            inTestPresentedViewController = viewControllerToPresent
         }
     }
 }

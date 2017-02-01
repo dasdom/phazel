@@ -7,7 +7,7 @@ import UIKit
 
 final class LoginCoordinator: LoginViewControllerDelegate {
     
-    let navigationController: UINavigationController
+    private let navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
@@ -16,7 +16,12 @@ final class LoginCoordinator: LoginViewControllerDelegate {
     func loginDidSucceed(with loginUser: LoginUser) {
         
     }
+    
     func loginDidFail(with error: Error) {
         
+        let alertController = UIAlertController(title: "Foo", message: "Bar", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        navigationController.viewControllers.last?.present(alertController, animated: true, completion: nil)
     }
 }
