@@ -20,6 +20,4 @@ class LoginCoordinator: XCTestCase {
         super.tearDown()
     }
     
-    
-    
 }
