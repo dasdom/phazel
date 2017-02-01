@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55BB81101E41CD64008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinator.swift */; };
 		F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */; };
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		55BB810F1E41CD64008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */,
 				F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */,
+				55BB810F1E41CD64008C58CD /* LoginCoordinator.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
 				F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */,
+				55BB81101E41CD64008C58CD /* LoginCoordinator.swift in Sources */,
 				F2C12AA11E3BAA570056155C /* KeychainManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
