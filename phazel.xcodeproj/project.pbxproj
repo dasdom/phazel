@@ -11,6 +11,7 @@
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */; };
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
+		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F28D2E661E3D422000DB692B /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E651E3D422000DB692B /* DDHView.swift */; };
 		F28D2E681E3D42CA00DB692B /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E671E3D42CA00DB692B /* DDHTextField.swift */; };
@@ -47,6 +48,7 @@
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F28D2E651E3D422000DB692B /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
 		F28D2E671E3D42CA00DB692B /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2425A4E1E43D8D2001B7E46 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		F28D2E641E3D41A000DB692B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
+				F2425A4E1E43D8D2001B7E46 /* Extensions */,
 				F28D2E6F1E3E7C4400DB692B /* Model */,
 				F28D2E641E3D41A000DB692B /* Foundation */,
 				F2C12A9D1E3A93680056155C /* Keychain */,
@@ -325,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F28D2E6C1E3E5CFC00DB692B /* Result.swift in Sources */,
+				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,
 				F2E4928A1E3801E0000C7187 /* URLCreator.swift in Sources */,
 				F28D2E661E3D422000DB692B /* DDHView.swift in Sources */,
 				F28D2E681E3D42CA00DB692B /* DDHTextField.swift in Sources */,

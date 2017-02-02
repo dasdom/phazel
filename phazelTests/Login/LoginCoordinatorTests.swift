@@ -9,14 +9,14 @@ class LoginCoordinatorTests: XCTestCase {
     
     var sut: LoginCoordinator!
     var mockRootViewController: MockViewController!
-    var mockNavigationController: MockNavigationController!
     
     override func setUp() {
         super.setUp()
 
         mockRootViewController = MockViewController()
-        mockNavigationController = MockNavigationController(rootViewController: mockRootViewController)
-        sut = LoginCoordinator(navigationController: mockNavigationController)
+        let window = UIWindow()
+        window.rootViewController = mockRootViewController
+        sut = LoginCoordinator(window: window)
     }
     
     override func tearDown() {
@@ -35,6 +35,7 @@ class LoginCoordinatorTests: XCTestCase {
         
         XCTAssertTrue(mockRootViewController.inTestPresentedViewController is UIAlertController)
     }
+    
 }
 
 extension LoginCoordinatorTests {

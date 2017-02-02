@@ -7,10 +7,10 @@ import UIKit
 
 final class LoginCoordinator: LoginViewControllerDelegate {
     
-    private let navigationController: UINavigationController
+    private let window: UIWindow
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
+    init(window: UIWindow) {
+        self.window = window
     }
     
     func loginDidSucceed(with loginUser: LoginUser) {
@@ -22,6 +22,6 @@ final class LoginCoordinator: LoginViewControllerDelegate {
         let alertController = UIAlertController(title: "Foo", message: "Bar", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
-        navigationController.viewControllers.last?.present(alertController, animated: true, completion: nil)
+        window.visibleViewController?.present(alertController, animated: true, completion: nil)
     }
 }
