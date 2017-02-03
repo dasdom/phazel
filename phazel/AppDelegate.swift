@@ -1,7 +1,3 @@
-//
-//  AppDelegate.swift
-//  phazel
-//
 //  Created by dasdom on 24/01/2017.
 //  Copyright © 2017 dasdom. All rights reserved.
 //

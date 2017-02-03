@@ -2,6 +2,8 @@
 //  Copyright © 2017 dasdom. All rights reserved.
 //
 
+// Copied from: http://stackoverflow.com/a/35773783/498796
+
 import UIKit
 
 extension UIWindow {
