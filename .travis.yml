@@ -1,0 +1,10 @@
+language: objective-c
+osx_image: xcode8
+ixcode_project: phazel.xcodeproj
+xcode_scheme: phazel
+
+script:
+  - xcodebuild test -scheme phazel
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
