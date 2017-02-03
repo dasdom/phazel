@@ -104,11 +104,11 @@ extension LoginViewControllerTests {
         var loginUser: LoginUser? = nil
         var error: Error? = nil
         
-        func loginDidSucceed(with loginUser: LoginUser) {
+        func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser) {
             self.loginUser = loginUser
         }
         
-        func loginDidFail(with error: Error) {
+        func loginDidFail(viewController: LoginViewController, with error: Error) {
             self.error = error
         }
     }

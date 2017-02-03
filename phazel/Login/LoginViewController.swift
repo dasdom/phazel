@@ -5,11 +5,11 @@
 import UIKit
 
 protocol LoginViewControllerDelegate {
-    func loginDidSucceed(with loginUser: LoginUser)
-    func loginDidFail(with error: Error)
+    func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser)
+    func loginDidFail(viewController: LoginViewController, with error: Error)
 }
 
-final class LoginViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     let contentView: LoginViewProtocol
     let apiClient: APIClientProtocol
@@ -41,9 +41,9 @@ extension LoginViewController: LoginProtocol {
             
             switch result {
             case .success(let loginUser):
-                self.delegate?.loginDidSucceed(with: loginUser)
+                self.delegate?.loginDidSucceed(viewController: self, with: loginUser)
             case .failure(let error):
-                self.delegate?.loginDidFail(with: error)
+                self.delegate?.loginDidFail(viewController: self, with: error)
             }
         }
     }

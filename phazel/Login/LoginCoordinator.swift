@@ -5,23 +5,37 @@
 import Foundation
 import UIKit
 
+protocol LoginCoordinatorDelegate {
+    func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)
+}
+
 final class LoginCoordinator: LoginViewControllerDelegate {
     
     private let window: UIWindow
+    var childViewControllers = [UIViewController]()
+    var delegate: LoginCoordinatorDelegate?
     
     init(window: UIWindow) {
         self.window = window
     }
     
-    func loginDidSucceed(with loginUser: LoginUser) {
-        
+    func start() {
+        let loginViewController = LoginViewController(contentView: LoginView())
+        childViewControllers.append(loginViewController)
+        window.visibleViewController?.present(loginViewController, animated: true, completion: nil)
     }
     
-    func loginDidFail(with error: Error) {
+    func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser) {
+        
+        viewController.dismiss(animated: true, completion: nil)
+        delegate?.coordinatorDidLogin(coordinator: self, with: loginUser)
+    }
+    
+    func loginDidFail(viewController: LoginViewController, with error: Error) {
         
         let alertController = UIAlertController(title: "Foo", message: "Bar", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
-        window.visibleViewController?.present(alertController, animated: true, completion: nil)
+        viewController.present(alertController, animated: true, completion: nil)
     }
 }

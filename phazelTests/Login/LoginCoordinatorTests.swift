@@ -8,20 +8,21 @@ import XCTest
 class LoginCoordinatorTests: XCTestCase {
     
     var sut: LoginCoordinator!
-    var mockRootViewController: MockViewController!
+    var window: UIWindow!
     
     override func setUp() {
         super.setUp()
 
-        mockRootViewController = MockViewController()
-        let window = UIWindow()
-        window.rootViewController = mockRootViewController
+        window = UIWindow()
+        window.rootViewController = UIViewController()
+        window.makeKeyAndVisible()
         sut = LoginCoordinator(window: window)
     }
     
     override func tearDown() {
-
         sut = nil
+        window = nil
+        
         super.tearDown()
     }
     
@@ -29,31 +30,58 @@ class LoginCoordinatorTests: XCTestCase {
         XCTAssertTrue(sut is LoginViewControllerDelegate)
     }
     
-    func test_failurePresents_AlertViewController() {
+    func test_start_setsLoginViewController_asVisibleController() {
+        sut.start()
         
-        sut.loginDidFail(with: NSError(domain: "Foo", code: 42, userInfo: nil))
+        XCTAssertTrue(window.visibleViewController is LoginViewController)
+        XCTAssertEqual(sut.childViewControllers.count, 1)
+    }
+
+    func test_failure_PresentsAlertViewController() {
+        let mockLoginViewController = MockLoginViewController(contentView: LoginView())
         
-        XCTAssertTrue(mockRootViewController.inTestPresentedViewController is UIAlertController)
+        sut.loginDidFail(viewController: mockLoginViewController, with: NSError(domain: "Foo", code: 42, userInfo: nil))
+        
+        XCTAssertTrue(mockLoginViewController.inTestPresentedViewController is UIAlertController)
     }
     
+    func test_success_dismissesController() {
+        let mockLoginViewController = MockLoginViewController(contentView: LoginView())
+        let coordinatorDelegate = MockLoginCoordinatorDelegate()
+        sut.delegate = coordinatorDelegate
+        
+        let loginUser = LoginUser(id: 42, username: "foo")
+        sut.loginDidSucceed(viewController: mockLoginViewController, with: loginUser)
+        
+        XCTAssertTrue(mockLoginViewController.didDismiss)
+        XCTAssertEqual(coordinatorDelegate.loginUser, loginUser)
+        XCTAssertEqual(sut.childViewControllers.count, 0)
+    }
 }
 
 extension LoginCoordinatorTests {
-//    class MockNavigationController: UINavigationController {
-//        
-//        var inTestPresentedViewController: UIViewController?
-//        
-//        override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-//            inTestPresentedViewController = viewControllerToPresent
-//        }
-//    }
     
-    class MockViewController: UIViewController {
+    class MockLoginViewController: LoginViewController {
         
         var inTestPresentedViewController: UIViewController?
+        var didDismiss = false
         
         override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
             inTestPresentedViewController = viewControllerToPresent
+        }
+        
+        override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+            didDismiss = true
+            completion?()
+        }
+    }
+    
+    class MockLoginCoordinatorDelegate: LoginCoordinatorDelegate {
+        
+        var loginUser: LoginUser?
+        
+        func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
+            self.loginUser = loginUser
         }
     }
 }
