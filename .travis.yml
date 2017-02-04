@@ -4,7 +4,7 @@ ixcode_project: phazel.xcodeproj
 xcode_scheme: phazel
 
 script:
-  - xcodebuild test -scheme phazel -sdk iphonesimulator10.0 -destination "platform=iOS Simulator,name='iPhone SE'"
+  - xcodebuild test -scheme phazel -destination "platform=iOS Simulator,name='iPhone SE',OS=10.0"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
