@@ -26,10 +26,6 @@ class LoginCoordinatorTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_isLoginViewControllerDelegate() {
-        XCTAssertTrue(sut is LoginViewControllerDelegate)
-    }
-    
     func test_start_setsLoginViewController_asVisibleController() {
         sut.start()
         
@@ -55,6 +51,15 @@ class LoginCoordinatorTests: XCTestCase {
         
         XCTAssertTrue(mockLoginViewController.didDismiss)
         XCTAssertEqual(coordinatorDelegate.loginUser, loginUser)
+    }
+    
+    func test_success_removesLoginViewController() {
+        sut.start()
+        guard let loginViewController = window.visibleViewController as? LoginViewController else { return XCTFail() }
+        
+        let loginUser = LoginUser(id: 42, username: "foo")
+        sut.loginDidSucceed(viewController: loginViewController, with: loginUser)
+        
         XCTAssertEqual(sut.childViewControllers.count, 0)
     }
 }

@@ -28,10 +28,6 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.view is MockView)
     }
     
-    func test_isLoginProtocol() {
-        XCTAssertTrue(sut is LoginProtocol)
-    }
-    
     func test_login_callsAPIClientMethod() {
         let mockView = MockView()
         let result = Result(value: LoginUser(id: 23, username: "foo"), error: nil)

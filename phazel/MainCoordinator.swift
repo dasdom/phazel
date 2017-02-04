@@ -2,9 +2,22 @@
 //  Copyright © 2017 dasdom. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class MainCoordinator: LoginCoordinatorDelegate {
+    
+    private let window: UIWindow
+    private let tabBarController: UITabBarController
+    
+    init(window: UIWindow) {
+        self.window = window
+        tabBarController = UITabBarController()
+    }
+    
+    func start() {
+        window.rootViewController = tabBarController
+    }
+    
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
         
     }

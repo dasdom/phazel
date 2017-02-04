@@ -29,6 +29,10 @@ final class LoginCoordinator: LoginViewControllerDelegate {
         
         viewController.dismiss(animated: true, completion: nil)
         delegate?.coordinatorDidLogin(coordinator: self, with: loginUser)
+        
+        if let index = childViewControllers.index(where: { $0 == viewController }) {
+            childViewControllers.remove(at: index)
+        }
     }
     
     func loginDidFail(viewController: LoginViewController, with error: Error) {

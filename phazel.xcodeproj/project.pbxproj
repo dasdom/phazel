@@ -13,6 +13,7 @@
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
 		F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */; };
+		F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F28D2E661E3D422000DB692B /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E651E3D422000DB692B /* DDHView.swift */; };
 		F28D2E681E3D42CA00DB692B /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E671E3D42CA00DB692B /* DDHTextField.swift */; };
@@ -51,6 +52,7 @@
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
 		F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F28D2E651E3D422000DB692B /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
 		F28D2E671E3D42CA00DB692B /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		F2E492791E37FF46000C7187 /* phazelTests */ = {
 			isa = PBXGroup;
 			children = (
+				F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */,
 				F28D2E701E3E80AD00DB692B /* Model */,
 				F2C12AA21E3BAA5D0056155C /* Keychain */,
 				F2E492871E3800A9000C7187 /* Networking */,
@@ -361,6 +364,7 @@
 			files = (
 				F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
+				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,
 				F28D2E721E3E80D200DB692B /* LoginUserTests.swift in Sources */,
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
@@ -488,6 +492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = phazel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel;
@@ -501,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = phazel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel;
