@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
+		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
 		F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */; };
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
@@ -48,6 +49,7 @@
 /* Begin PBXFileReference section */
 		55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
@@ -96,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F23BE3A21E4683910068E82F /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		F2425A4E1E43D8D2001B7E46 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +221,7 @@
 				F2C12AA21E3BAA5D0056155C /* Keychain */,
 				F2E492871E3800A9000C7187 /* Networking */,
 				F2C12AA31E3BED240056155C /* Login */,
+				F23BE3A21E4683910068E82F /* Timeline */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
 				F2C12A991E3A90A90056155C /* URLRequestStub.swift */,
 			);
@@ -362,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */,
 				F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
 				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,

@@ -6,6 +6,7 @@ import Foundation
 
 enum URLCreator {
     case auth(username: String, password: String)
+    case posts(before: Int?, since: Int?)
     
     func url() -> URL? {
         switch self {
@@ -21,7 +22,19 @@ enum URLCreator {
                 }
             }
             
-            let urlComponents = URLComponents(queryItems: queryItems)
+            let urlComponents = URLComponents(path: "/v0/oauth/access_token", queryItems: queryItems)
+            return urlComponents.url
+        case .posts(let before, let since):
+            var queryItems: [URLQueryItem] = []
+            
+            if let before = before {
+                queryItems.append(URLQueryItem(name: "before_id", value: "\(before)"))
+            }
+            if let since = since {
+                queryItems.append(URLQueryItem(name: "since_id", value: "\(since)"))
+            }
+            
+            let urlComponents = URLComponents(path: "/v0/posts/streams/unified", queryItems: queryItems)
             return urlComponents.url
         }
     }
@@ -41,11 +54,11 @@ extension URLCreator {
 }
 
 extension URLComponents {
-    init(queryItems: [URLQueryItem]) {
+    init(path: String, queryItems: [URLQueryItem]) {
         self.init()
         scheme = "https"
         host = "api.pnut.io"
-        path = "/v0/oauth/access_token"
+        self.path = path
         self.queryItems = queryItems
     }
 }
