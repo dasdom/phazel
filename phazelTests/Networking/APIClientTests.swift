@@ -60,6 +60,19 @@ class APIClientTests: XCTestCase {
             XCTAssertNil(mockKeychainManager.token)
         }
     }
+    
+    func test_postsRequest_returnsPosts() {
+        let returnJson = ["{",
+                          "\"meta\": {", "\"more\": true,", "\"max_id\": \"9226\",", "\"min_id\": \"9186\",", "\"code\": 200", "},",
+                          "\"data\": [",
+                          "{",
+                          "\"created_at\": \"2017-02-05T15:12:52Z\",",
+                          "\"guid\": \"0AEB868D-31C8-4CCF-866D-A553B036B5AE\",",
+                          "\"id\": \"9226\",",
+                          "\"source\": {", "\"name\": \"Goober\"", "},",
+                          "\"user\": {", "\"username\": \"33MHz\",", "\"name\": \"Robert\",", "\"content\": {", "\"avatar_image\": {", "\"width\": 1200,", "\"height\": 1200,", "\"link\": \"https://d26y28lt6cxszo.cloudfront.net/avatar/4hxiGBxrSHhBzcABGX45sJxcFsHEJ_1Kq2o04iZ2-siG--l1CONPCNRvzhwW1HWXQ3DqNxyvzj4LlY1x9EJ_Or1xGGqM9iAQxFnV1lIOx6hVnq6Tm6oX714IGgovER3dYC98oLsoj7ND\",", "\"is_default\": false", "},", "\"follows_you\": true,", "\"you_blocked\": false,", "\"you_follow\": true,", "},",
+                          "\"content\": {", "\"html\": \"<span itemscope=\"https://pnut.io/schemas/Post\"><span data-mention-id=\"194\" data-mention-name=\"Nasendackel\" itemprop=\"mention\">@Nasendackel</span> Danke! I'm glad folks are enjoying it!<br>/<span data-mention-id=\"119\" data-mention-name=\"teebeuteltier\" itemprop=\"mention\">@teebeuteltier</span></span>\",", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier\",", "},", "\"you_bookmarked\": false,", "\"you_reposted\": false,", "\"pagination_id\": \"9226\"", "}"].joined(separator: "\n")
+    }
 }
 
 extension APIClientTests {

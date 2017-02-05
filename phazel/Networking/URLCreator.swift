@@ -29,9 +29,9 @@ enum URLCreator {
             
             if let before = before {
                 queryItems.append(URLQueryItem(name: "before_id", value: "\(before)"))
-            }
-            if let since = since {
+            } else if let since = since {
                 queryItems.append(URLQueryItem(name: "since_id", value: "\(since)"))
+                queryItems.append(URLQueryItem(name: "count", value: "200"))
             }
             
             let urlComponents = URLComponents(path: "/v0/posts/streams/unified", queryItems: queryItems)
