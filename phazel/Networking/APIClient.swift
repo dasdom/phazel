@@ -16,6 +16,7 @@ final class APIClient: APIClientProtocol {
     }
     
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
+        
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
         
         let session = URLSession.shared
@@ -30,6 +31,20 @@ final class APIClient: APIClientProtocol {
             guard let token = self.extractToken(from: data) else { return }
             
             self.keychainManager.set(token: token, for: username)
+        }
+        dataTask.resume()
+    }
+    
+    func posts(before: Int?, since: Int?, completion: @escaping (Result<[Post]>) -> ()) {
+        
+        guard let url = URLCreator.posts(before: before, since: since).url() else { fatalError() }
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url) { data, _, error in
+            
+            let posts = self.extractPosts(from: data)
+            let result = Result(value: posts, error: error)
+            completion(result)
         }
         dataTask.resume()
     }
@@ -51,14 +66,29 @@ extension APIClient {
         return LoginUser(id: userId, username: username)
     }
     
+    fileprivate func extractPosts(from data: Data?) -> [Post]? {
+        guard let jsonDict = jsonDict(from: data) else { return nil }
+        guard let allRawPosts = jsonDict[JSONKey.data.rawValue] as? [[String:Any]] else { return nil }
+        
+        var posts: [Post] = []
+        for rawPost in allRawPosts {
+            posts.append(Post(with: rawPost))
+        }
+        return posts
+    }
+    
     private func jsonDict(from data: Data?) -> [String:Any]? {
-        guard let data = data,
-            let json = try? JSONSerialization.jsonObject(with: data, options: [])
-            else { return nil }
+        guard let data = data else { return nil }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
         return json as? [String:Any]
+    }
+    
+    private func jsonArray(from data: Data?) -> [Any]? {
+        guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
+        return json as? [Any]
     }
 }
 
 enum JSONKey: String {
-    case access_token, username, user_id
+    case access_token, username, user_id, data
 }

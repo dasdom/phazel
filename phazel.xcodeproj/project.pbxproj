@@ -10,6 +10,8 @@
 		55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
+		F23BE3A61E4915A00068E82F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A51E4915A00068E82F /* Post.swift */; };
+		F23BE3A81E491F640068E82F /* DictionaryCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A71E491F640068E82F /* DictionaryCreatable.swift */; };
 		F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */; };
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
@@ -50,6 +52,8 @@
 		55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewControllerTests.swift; sourceTree = "<group>"; };
+		F23BE3A51E4915A00068E82F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Model/Post.swift; sourceTree = "<group>"; };
+		F23BE3A71E491F640068E82F /* DictionaryCreatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryCreatable.swift; path = Model/DictionaryCreatable.swift; sourceTree = "<group>"; };
 		F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */,
+				F23BE3A51E4915A00068E82F /* Post.swift */,
+				F23BE3A71E491F640068E82F /* DictionaryCreatable.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -361,9 +367,11 @@
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
 				F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */,
 				55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */,
+				F23BE3A61E4915A00068E82F /* Post.swift in Sources */,
 				F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */,
 				F28D2E6A1E3D433C00DB692B /* DDHButton.swift in Sources */,
 				F28D2E6E1E3E64FA00DB692B /* LoginUser.swift in Sources */,
+				F23BE3A81E491F640068E82F /* DictionaryCreatable.swift in Sources */,
 				F2C12A9F1E3A93770056155C /* KeychainManager.swift in Sources */,
 				F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */,
 			);

@@ -27,16 +27,18 @@ class APIClientTests: XCTestCase {
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
-        let expectedUser = LoginUser(id: 23, username: "foo")
+        var catchesUser: LoginUser? = nil
         localSUT.login(username: "Foo", password: "Bar") { result in
             if case .success(let user) = result {
-                XCTAssertEqual(user, expectedUser)
+                catchesUser = user
             }
         }
         
         waitForExpectations(timeout: 0.1) { error in
             XCTAssertEqual(mockKeychainManager.token, "42")
             XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
+            let expectedUser = LoginUser(id: 23, username: "foo")
+            XCTAssertEqual(catchesUser, expectedUser)
         }
     }
     
@@ -53,6 +55,8 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "Foo", password: "Bar") { result in
             if case .failure(let requestError) = result {
                 XCTAssertEqual(requestError as NSError, error)
+            } else {
+                XCTFail()
             }
         }
         
@@ -70,8 +74,23 @@ class APIClientTests: XCTestCase {
                           "\"guid\": \"0AEB868D-31C8-4CCF-866D-A553B036B5AE\",",
                           "\"id\": \"9226\",",
                           "\"source\": {", "\"name\": \"Goober\"", "},",
-                          "\"user\": {", "\"username\": \"33MHz\",", "\"name\": \"Robert\",", "\"content\": {", "\"avatar_image\": {", "\"width\": 1200,", "\"height\": 1200,", "\"link\": \"https://d26y28lt6cxszo.cloudfront.net/avatar/4hxiGBxrSHhBzcABGX45sJxcFsHEJ_1Kq2o04iZ2-siG--l1CONPCNRvzhwW1HWXQ3DqNxyvzj4LlY1x9EJ_Or1xGGqM9iAQxFnV1lIOx6hVnq6Tm6oX714IGgovER3dYC98oLsoj7ND\",", "\"is_default\": false", "},", "\"follows_you\": true,", "\"you_blocked\": false,", "\"you_follow\": true,", "},",
-                          "\"content\": {", "\"html\": \"<span itemscope=\"https://pnut.io/schemas/Post\"><span data-mention-id=\"194\" data-mention-name=\"Nasendackel\" itemprop=\"mention\">@Nasendackel</span> Danke! I'm glad folks are enjoying it!<br>/<span data-mention-id=\"119\" data-mention-name=\"teebeuteltier\" itemprop=\"mention\">@teebeuteltier</span></span>\",", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier\",", "},", "\"you_bookmarked\": false,", "\"you_reposted\": false,", "\"pagination_id\": \"9226\"", "}"].joined(separator: "\n")
+                          "\"user\": {", "},",
+                          "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "},", "\"you_bookmarked\": false,", "\"you_reposted\": false,", "\"pagination_id\": \"9226\"", "}]}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedPosts: [Post]? = nil
+        sut.posts(before: nil, since: nil) { result in
+            if case .success(let posts) = result {
+                catchedPosts = posts
+            }
+        }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
+            XCTAssertEqual(catchedPosts?.count, 1)
+        }
     }
 }
 
