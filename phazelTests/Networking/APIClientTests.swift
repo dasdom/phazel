@@ -21,7 +21,33 @@ class APIClientTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_LoginRequest_WhenSuccessful_CallsKeychainManager() {
+    func test_loginRequest_whenSuccessful_setsToken() {
+        let mockKeychainManager = MockKeychainManager()
+        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
+        
+        localSUT.login(username: "Foo", password: "Bar") { _ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertEqual(mockKeychainManager.token, "42")
+        }
+    }
+    
+    func test_loginRequest_url() {
+        let mockKeychainManager = MockKeychainManager()
+        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
+        
+        localSUT.login(username: "Foo", password: "Bar") { _ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
+        }
+    }
+    
+    func test_loginRequest_whenSuccessful_returnsUser() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
@@ -35,8 +61,6 @@ class APIClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 0.1) { error in
-            XCTAssertEqual(mockKeychainManager.token, "42")
-            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
             let expectedUser = LoginUser(id: 23, username: "foo")
             XCTAssertEqual(catchesUser, expectedUser)
         }
@@ -52,15 +76,15 @@ class APIClientTests: XCTestCase {
         let error = NSError(domain: "FooDomain", code: 42, userInfo: nil)
         URLRequestStub.stub(error: error, expect: expectation(description: "Failed request"))
         
+        var catchedError: Error? = nil
         localSUT.login(username: "Foo", password: "Bar") { result in
             if case .failure(let requestError) = result {
-                XCTAssertEqual(requestError as NSError, error)
-            } else {
-                XCTFail()
+                catchedError = requestError
             }
         }
         
-        waitForExpectations(timeout: 0.1) { error in
+        waitForExpectations(timeout: 0.1) { _ in
+            XCTAssertEqual(catchedError as? NSError, error)
             XCTAssertNil(mockKeychainManager.token)
         }
     }

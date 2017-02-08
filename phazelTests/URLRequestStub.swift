@@ -14,12 +14,14 @@ class URLRequestStub: URLProtocol {
     
     class func stub(data: Data, expect: XCTestExpectation) {
         self.data = data
+        error = nil
         expectation = expect
         URLProtocol.registerClass(URLRequestStub.self)
     }
     
     class func stub(error: Error, expect: XCTestExpectation) {
         self.error = error
+        data = nil
         expectation = expect
         URLProtocol.registerClass(URLRequestStub.self)
     }
@@ -37,6 +39,7 @@ class URLRequestStub: URLProtocol {
         if let data = URLRequestStub.data {
             DispatchQueue.global().async {
                 self.client?.urlProtocol(self, didLoad: data)
+                URLRequestStub.data = nil
                 self.client?.urlProtocolDidFinishLoading(self)
                 URLProtocol.unregisterClass(URLRequestStub.self)
                 DispatchQueue.main.async {
@@ -46,6 +49,7 @@ class URLRequestStub: URLProtocol {
         } else if let error = URLRequestStub.error {
             DispatchQueue.global().async {
                 self.client?.urlProtocol(self, didFailWithError: error)
+                URLRequestStub.error = nil
                 URLProtocol.unregisterClass(URLRequestStub.self)
                 DispatchQueue.main.async {
                     URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.005)

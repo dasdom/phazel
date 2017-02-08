@@ -4,14 +4,24 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>phazel.xcscheme</key>
+		<key>Pnut.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
+		</dict>
+		<key>phazel.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>55160CD71E4B04830043A3CC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F2E492611E37FF45000C7187</key>
 		<dict>
 			<key>primary</key>

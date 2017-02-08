@@ -48,9 +48,9 @@ extension URLCreator {
         return secretsDict as? [String:String]
     }
     
-    fileprivate var queryItemAllowedCharacterSet: CharacterSet {
-        return CharacterSet(charactersIn: "/%&=?$#+-~@<>|\\*,.()[]{}^!").inverted
-    }
+//    fileprivate var queryItemAllowedCharacterSet: CharacterSet {
+//        return CharacterSet(charactersIn: "/%&=?$#+-~@<>|\\*,.()[]{}^!").inverted
+//    }
 }
 
 extension URLComponents {

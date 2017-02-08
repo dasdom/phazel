@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55160CDB1E4B04840043A3CC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55160CDA1E4B04840043A3CC /* ShareViewController.swift */; };
+		55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55160CDC1E4B04840043A3CC /* MainInterface.storyboard */; };
+		55160CE21E4B04840043A3CC /* Pnut.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 55160CD81E4B04830043A3CC /* Pnut.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
@@ -39,6 +42,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55160CE01E4B04840043A3CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55160CD71E4B04830043A3CC;
+			remoteInfo = Pnut;
+		};
 		F2E492771E37FF46000C7187 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
@@ -48,7 +58,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		55160CE61E4B04840043A3CC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				55160CE21E4B04840043A3CC /* Pnut.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		55160CD81E4B04830043A3CC /* Pnut.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Pnut.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		55160CDA1E4B04840043A3CC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		55160CDD1E4B04840043A3CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		55160CDF1E4B04840043A3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewControllerTests.swift; sourceTree = "<group>"; };
@@ -85,6 +113,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55160CD51E4B04830043A3CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E4925F1E37FF45000C7187 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,6 +137,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55160CD91E4B04840043A3CC /* Pnut */ = {
+			isa = PBXGroup;
+			children = (
+				55160CDA1E4B04840043A3CC /* ShareViewController.swift */,
+				55160CDC1E4B04840043A3CC /* MainInterface.storyboard */,
+				55160CDF1E4B04840043A3CC /* Info.plist */,
+			);
+			path = Pnut;
+			sourceTree = "<group>";
+		};
+		55160CE71E4B05830043A3CC /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Posting;
+			sourceTree = "<group>";
+		};
 		F23BE3A21E4683910068E82F /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +240,7 @@
 			children = (
 				F2E492641E37FF45000C7187 /* phazel */,
 				F2E492791E37FF46000C7187 /* phazelTests */,
+				55160CD91E4B04840043A3CC /* Pnut */,
 				F2E492631E37FF45000C7187 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -197,6 +250,7 @@
 			children = (
 				F2E492621E37FF45000C7187 /* phazel.app */,
 				F2E492761E37FF46000C7187 /* phazelTests.xctest */,
+				55160CD81E4B04830043A3CC /* Pnut.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,6 +282,7 @@
 				F2E492871E3800A9000C7187 /* Networking */,
 				F2C12AA31E3BED240056155C /* Login */,
 				F23BE3A21E4683910068E82F /* Timeline */,
+				55160CE71E4B05830043A3CC /* Posting */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
 				F2C12A991E3A90A90056155C /* URLRequestStub.swift */,
 			);
@@ -256,6 +311,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		55160CD71E4B04830043A3CC /* Pnut */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55160CE51E4B04840043A3CC /* Build configuration list for PBXNativeTarget "Pnut" */;
+			buildPhases = (
+				55160CD41E4B04830043A3CC /* Sources */,
+				55160CD51E4B04830043A3CC /* Frameworks */,
+				55160CD61E4B04830043A3CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pnut;
+			productName = Pnut;
+			productReference = 55160CD81E4B04830043A3CC /* Pnut.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F2E492611E37FF45000C7187 /* phazel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2E4927F1E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazel" */;
@@ -263,10 +335,12 @@
 				F2E4925E1E37FF45000C7187 /* Sources */,
 				F2E4925F1E37FF45000C7187 /* Frameworks */,
 				F2E492601E37FF45000C7187 /* Resources */,
+				55160CE61E4B04840043A3CC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				55160CE11E4B04840043A3CC /* PBXTargetDependency */,
 			);
 			name = phazel;
 			productName = phazel;
@@ -301,6 +375,11 @@
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
+					55160CD71E4B04830043A3CC = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q6PD97MRX4;
+						ProvisioningStyle = Automatic;
+					};
 					F2E492611E37FF45000C7187 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Q6PD97MRX4;
@@ -329,11 +408,20 @@
 			targets = (
 				F2E492611E37FF45000C7187 /* phazel */,
 				F2E492751E37FF46000C7187 /* phazelTests */,
+				55160CD71E4B04830043A3CC /* Pnut */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		55160CD61E4B04830043A3CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E492601E37FF45000C7187 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -354,6 +442,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		55160CD41E4B04830043A3CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55160CDB1E4B04840043A3CC /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E4925E1E37FF45000C7187 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +493,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55160CE11E4B04840043A3CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55160CD71E4B04830043A3CC /* Pnut */;
+			targetProxy = 55160CE01E4B04840043A3CC /* PBXContainerItemProxy */;
+		};
 		F2E492781E37FF46000C7187 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F2E492611E37FF45000C7187 /* phazel */;
@@ -405,6 +506,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		55160CDC1E4B04840043A3CC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55160CDD1E4B04840043A3CC /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -416,6 +525,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		55160CE31E4B04840043A3CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = Pnut/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel.Pnut;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		55160CE41E4B04840043A3CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = Pnut/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.phazel.Pnut;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		F2E4927D1E37FF46000C7187 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -510,6 +645,7 @@
 		F2E492801E37FF46000C7187 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -524,6 +660,7 @@
 		F2E492811E37FF46000C7187 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -568,6 +705,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		55160CE51E4B04840043A3CC /* Build configuration list for PBXNativeTarget "Pnut" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55160CE31E4B04840043A3CC /* Debug */,
+				55160CE41E4B04840043A3CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		F2E4925D1E37FF45000C7187 /* Build configuration list for PBXProject "phazel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
