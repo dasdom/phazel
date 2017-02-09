@@ -15,6 +15,8 @@
 		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
 		F23BE3A61E4915A00068E82F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A51E4915A00068E82F /* Post.swift */; };
 		F23BE3A81E491F640068E82F /* DictionaryCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A71E491F640068E82F /* DictionaryCreatable.swift */; };
+		F23BE3AD1E4BCDF30068E82F /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3AC1E4BCDF30068E82F /* URLRequestStub.swift */; };
+		F23BE3AF1E4BCE2A0068E82F /* MockKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3AE1E4BCE2A0068E82F /* MockKeychainManager.swift */; };
 		F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */; };
 		F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */; };
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
@@ -28,7 +30,6 @@
 		F28D2E6E1E3E64FA00DB692B /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */; };
 		F28D2E721E3E80D200DB692B /* LoginUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E711E3E80D200DB692B /* LoginUserTests.swift */; };
 		F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A971E3A89E70056155C /* APIClientTests.swift */; };
-		F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A991E3A90A90056155C /* URLRequestStub.swift */; };
 		F2C12A9C1E3A93300056155C /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A9B1E3A93300056155C /* APIClient.swift */; };
 		F2C12A9F1E3A93770056155C /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12A9E1E3A93770056155C /* KeychainManager.swift */; };
 		F2C12AA11E3BAA570056155C /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA01E3BAA570056155C /* KeychainManagerTests.swift */; };
@@ -82,6 +83,8 @@
 		F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewControllerTests.swift; sourceTree = "<group>"; };
 		F23BE3A51E4915A00068E82F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Model/Post.swift; sourceTree = "<group>"; };
 		F23BE3A71E491F640068E82F /* DictionaryCreatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DictionaryCreatable.swift; path = Model/DictionaryCreatable.swift; sourceTree = "<group>"; };
+		F23BE3AC1E4BCDF30068E82F /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
+		F23BE3AE1E4BCE2A0068E82F /* MockKeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainManager.swift; sourceTree = "<group>"; };
 		F2425A4A1E3FD263001B7E46 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F2425A4C1E3FD31E001B7E46 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
@@ -95,7 +98,6 @@
 		F28D2E6D1E3E64FA00DB692B /* LoginUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginUser.swift; path = Model/LoginUser.swift; sourceTree = "<group>"; };
 		F28D2E711E3E80D200DB692B /* LoginUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserTests.swift; sourceTree = "<group>"; };
 		F2C12A971E3A89E70056155C /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIClientTests.swift; path = Networking/APIClientTests.swift; sourceTree = "<group>"; };
-		F2C12A991E3A90A90056155C /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
 		F2C12A9B1E3A93300056155C /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		F2C12A9E1E3A93770056155C /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		F2C12AA01E3BAA570056155C /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainManagerTests.swift; path = Keychain/KeychainManagerTests.swift; sourceTree = "<group>"; };
@@ -160,6 +162,15 @@
 				F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */,
 			);
 			path = Timeline;
+			sourceTree = "<group>";
+		};
+		F23BE3AB1E4BCDF30068E82F /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				F23BE3AC1E4BCDF30068E82F /* URLRequestStub.swift */,
+				F23BE3AE1E4BCE2A0068E82F /* MockKeychainManager.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		F2425A4E1E43D8D2001B7E46 /* Extensions */ = {
@@ -283,8 +294,8 @@
 				F2C12AA31E3BED240056155C /* Login */,
 				F23BE3A21E4683910068E82F /* Timeline */,
 				55160CE71E4B05830043A3CC /* Posting */,
+				F23BE3AB1E4BCDF30068E82F /* Mocks */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
-				F2C12A991E3A90A90056155C /* URLRequestStub.swift */,
 			);
 			path = phazelTests;
 			sourceTree = "<group>";
@@ -478,11 +489,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */,
-				F2C12A9A1E3A90A90056155C /* URLRequestStub.swift in Sources */,
+				F23BE3AD1E4BCDF30068E82F /* URLRequestStub.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
 				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,
 				F28D2E721E3E80D200DB692B /* LoginUserTests.swift in Sources */,
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
+				F23BE3AF1E4BCE2A0068E82F /* MockKeychainManager.swift in Sources */,
 				F2E492861E38009C000C7187 /* URLCreatorTests.swift in Sources */,
 				F2C12A981E3A89E70056155C /* APIClientTests.swift in Sources */,
 				55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */,
@@ -712,6 +724,7 @@
 				55160CE41E4B04840043A3CC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F2E4925D1E37FF45000C7187 /* Build configuration list for PBXProject "phazel" */ = {
 			isa = XCConfigurationList;

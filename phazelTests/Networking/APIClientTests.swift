@@ -91,15 +91,12 @@ class APIClientTests: XCTestCase {
     
     func test_postsRequest_returnsPosts() {
         let returnJson = ["{",
-                          "\"meta\": {", "\"more\": true,", "\"max_id\": \"9226\",", "\"min_id\": \"9186\",", "\"code\": 200", "},",
                           "\"data\": [",
                           "{",
-                          "\"created_at\": \"2017-02-05T15:12:52Z\",",
-                          "\"guid\": \"0AEB868D-31C8-4CCF-866D-A553B036B5AE\",",
-                          "\"id\": \"9226\",",
-                          "\"source\": {", "\"name\": \"Goober\"", "},",
-                          "\"user\": {", "},",
-                          "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "},", "\"you_bookmarked\": false,", "\"you_reposted\": false,", "\"pagination_id\": \"9226\"", "}]}"].joined(separator: "\n")
+                          "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "}",
+                          "}",
+                          "]",
+                          "}"].joined(separator: "\n")
         
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
@@ -114,25 +111,6 @@ class APIClientTests: XCTestCase {
         waitForExpectations(timeout: 0.1) { error in
             XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
             XCTAssertEqual(catchedPosts?.count, 1)
-        }
-    }
-}
-
-extension APIClientTests {
-    class MockKeychainManager: KeychainManagerProtocol {
-        
-        var token: String?
-        
-        func set(token: String, for username: String) {
-            self.token = token
-        }
-        
-        func token(for username: String) -> String? {
-            return token
-        }
-        
-        func deleteToken(for username: String) {
-            
         }
     }
 }
