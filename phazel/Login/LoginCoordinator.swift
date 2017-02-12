@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import Roaster
 
 protocol LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)

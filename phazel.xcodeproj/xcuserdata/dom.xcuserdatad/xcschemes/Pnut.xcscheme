@@ -43,13 +43,23 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F23BE4101E508E300068E82F"
+               BuildableName = "RoasterTests.xctest"
+               BlueprintName = "RoasterTests"
+               ReferencedContainer = "container:phazel.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "55160CD71E4B04830043A3CC"
-            BuildableName = "Pnut.appex"
-            BlueprintName = "Pnut"
+            BlueprintIdentifier = "F2E492611E37FF45000C7187"
+            BuildableName = "phazel.app"
+            BlueprintName = "phazel"
             ReferencedContainer = "container:phazel.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

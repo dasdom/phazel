@@ -4,11 +4,16 @@
 
 import Foundation
 
-struct LoginUser: Equatable {
+public struct LoginUser: Equatable {
     let id: Int
     let username: String
     
-    static func ==(lhs: LoginUser, rhs: LoginUser) -> Bool {
+    public init(id: Int, username: String) {
+        self.id = id
+        self.username = username
+    }
+    
+    public static func ==(lhs: LoginUser, rhs: LoginUser) -> Bool {
         if lhs.username != rhs.username {
             return false
         }

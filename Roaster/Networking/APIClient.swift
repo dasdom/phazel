@@ -4,18 +4,18 @@
 
 import Foundation
 
-protocol APIClientProtocol {
+public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
 }
 
-final class APIClient: APIClientProtocol {
+final public class APIClient: APIClientProtocol {
     let keychainManager: KeychainManagerProtocol
     
-    init(keychainManager: KeychainManagerProtocol = KeychainManager()) {
+    public init(keychainManager: KeychainManagerProtocol = KeychainManager()) {
         self.keychainManager = keychainManager
     }
     
-    func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
+    public func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
         
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
         

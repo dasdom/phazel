@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Roaster
 @testable import phazel
 
 class MockKeychainManager: KeychainManagerProtocol {

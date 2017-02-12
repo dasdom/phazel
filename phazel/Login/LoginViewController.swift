@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Roaster
 
 protocol LoginViewControllerDelegate {
     func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser)

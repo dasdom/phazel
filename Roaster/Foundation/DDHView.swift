@@ -4,14 +4,14 @@
 
 import UIKit
 
-class DDHButton: UIButton {
-
-    override init(frame: CGRect) {
+open class DDHView: UIView {
+    
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

@@ -3,7 +3,7 @@
 //
 
 import XCTest
-@testable import phazel
+@testable import Roaster
 
 class URLCreatorTests: XCTestCase {
 

@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Roaster.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>phazel.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>55160CD71E4B04830043A3CC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F23BE4081E508E300068E82F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F23BE4101E508E300068E82F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

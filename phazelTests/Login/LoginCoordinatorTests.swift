@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import Roaster
 @testable import phazel
 
 class LoginCoordinatorTests: XCTestCase {

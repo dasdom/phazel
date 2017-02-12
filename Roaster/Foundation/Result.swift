@@ -4,11 +4,11 @@
 
 import Foundation
 
-enum Result<T> {
+public enum Result<T> {
     case success(T)
     case failure(Error)
     
-    init(value: T?, error: Error?) {
+    public init(value: T?, error: Error?) {
         switch (value, error) {
         case (let v?, _):
             // Ignore error if value is non-nil

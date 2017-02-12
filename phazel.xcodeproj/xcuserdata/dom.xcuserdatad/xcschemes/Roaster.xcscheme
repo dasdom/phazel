@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F2E492611E37FF45000C7187"
-               BuildableName = "phazel.app"
-               BlueprintName = "phazel"
+               BlueprintIdentifier = "F23BE4081E508E300068E82F"
+               BuildableName = "Roaster.framework"
+               BlueprintName = "Roaster"
                ReferencedContainer = "container:phazel.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,39 +26,9 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F2E492751E37FF46000C7187"
-               BuildableName = "phazelTests.xctest"
-               BlueprintName = "phazelTests"
-               ReferencedContainer = "container:phazel.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F23BE4101E508E300068E82F"
-               BuildableName = "RoasterTests.xctest"
-               BlueprintName = "RoasterTests"
-               ReferencedContainer = "container:phazel.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F2E492611E37FF45000C7187"
-            BuildableName = "phazel.app"
-            BlueprintName = "phazel"
-            ReferencedContainer = "container:phazel.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -72,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F2E492611E37FF45000C7187"
-            BuildableName = "phazel.app"
-            BlueprintName = "phazel"
+            BlueprintIdentifier = "F23BE4081E508E300068E82F"
+            BuildableName = "Roaster.framework"
+            BlueprintName = "Roaster"
             ReferencedContainer = "container:phazel.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -91,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F2E492611E37FF45000C7187"
-            BuildableName = "phazel.app"
-            BlueprintName = "phazel"
+            BlueprintIdentifier = "F23BE4081E508E300068E82F"
+            BuildableName = "Roaster.framework"
+            BlueprintName = "Roaster"
             ReferencedContainer = "container:phazel.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

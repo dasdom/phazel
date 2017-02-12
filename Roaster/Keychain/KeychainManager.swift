@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol KeychainManagerProtocol {
+public protocol KeychainManagerProtocol {
     func set(token: String, for username: String)
     func token(for username: String) -> String?
     func deleteToken(for username: String)
