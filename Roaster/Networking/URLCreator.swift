@@ -7,6 +7,7 @@ import Foundation
 enum URLCreator {
     case auth(username: String, password: String)
     case posts(before: Int?, since: Int?)
+    case post
     
     func url() -> URL? {
         switch self {
@@ -22,8 +23,9 @@ enum URLCreator {
                 }
             }
             
-            let urlComponents = URLComponents(path: "/v0/oauth/access_token", queryItems: queryItems)
+            let urlComponents = URLComponents(path: "/\(version)/oauth/access_token", queryItems: queryItems)
             return urlComponents.url
+        
         case .posts(let before, let since):
             var queryItems: [URLQueryItem] = []
             
@@ -34,7 +36,11 @@ enum URLCreator {
                 queryItems.append(URLQueryItem(name: "count", value: "200"))
             }
             
-            let urlComponents = URLComponents(path: "/v0/posts/streams/unified", queryItems: queryItems)
+            let urlComponents = URLComponents(path: "/\(version)/posts/streams/unified", queryItems: queryItems)
+            return urlComponents.url
+        
+        case .post:
+            let urlComponents = URLComponents(path: "/\(version)/posts", queryItems: [])
             return urlComponents.url
         }
     }
@@ -52,6 +58,10 @@ extension URLCreator {
 //    fileprivate var queryItemAllowedCharacterSet: CharacterSet {
 //        return CharacterSet(charactersIn: "/%&=?$#+-~@<>|\\*,.()[]{}^!").inverted
 //    }
+    
+    fileprivate var version: String {
+        return "v0"
+    }
 }
 
 extension URLComponents {

@@ -113,4 +113,26 @@ class APIClientTests: XCTestCase {
             XCTAssertEqual(catchedPosts?.count, 1)
         }
     }
+    
+    func test_postRequest_hasPostData() {
+        let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedPostId: String? = nil
+        sut.post(text: "Foo bar") { result in
+            if case .success(let postId) = result {
+                catchedPostId = postId
+            }
+        }
+        
+        waitForExpectations(timeout: 0.1) { _ in
+            XCTAssertEqual(catchedPostId, "2392")
+            
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts")
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertEqual(stringData, "text=Foo bar", "Found: \(stringData)")
+        }
+    }
 }

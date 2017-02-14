@@ -48,6 +48,23 @@ final public class APIClient: APIClientProtocol {
         }
         dataTask.resume()
     }
+    
+    func post(text: String, completion: @escaping (Result<String>) -> ()) {
+        
+        guard let url = URLCreator.post.url() else { fatalError() }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = "text=\(text)".data(using: .utf8)
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request) { data, _, error in
+            
+            let postId = self.extractPostId(from: data)
+            let result = Result(value: postId, error: error)
+            completion(result)
+        }
+        dataTask.resume()
+    }
 }
 
 extension APIClient {
@@ -75,6 +92,13 @@ extension APIClient {
             posts.append(Post(with: rawPost))
         }
         return posts
+    }
+    
+    fileprivate func extractPostId(from data: Data?) -> String? {
+        guard let jsonDict = jsonDict(from: data) else { return nil }
+        guard let rawPost = jsonDict[JSONKey.data.rawValue] as? [String:Any] else { return nil }
+        
+        return rawPost["id"] as? String
     }
     
     private func jsonDict(from data: Data?) -> [String:Any]? {

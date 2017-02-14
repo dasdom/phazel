@@ -10,6 +10,7 @@ class URLRequestStub: URLProtocol {
     static var data: Data?
     static var expectation: XCTestExpectation?
     static var lastURL: URL?
+    static var lastRequest: URLRequest?
     static var error: Error?
     
     class func stub(data: Data, expect: XCTestExpectation) {
@@ -40,6 +41,9 @@ class URLRequestStub: URLProtocol {
             DispatchQueue.global().async {
                 self.client?.urlProtocol(self, didLoad: data)
                 URLRequestStub.data = nil
+                var theRequest = self.request
+                theRequest.httpBody = self.extractBody(from: self.request.httpBodyStream)
+                URLRequestStub.lastRequest = theRequest
                 self.client?.urlProtocolDidFinishLoading(self)
                 URLProtocol.unregisterClass(URLRequestStub.self)
                 DispatchQueue.main.async {
@@ -67,5 +71,22 @@ class URLRequestStub: URLProtocol {
     class func lastURLComponents() -> URLComponents? {
         guard let url = lastURL else { return nil }
         return URLComponents(url: url, resolvingAgainstBaseURL: true)
+    }
+    
+    func extractBody(from stream: InputStream?) -> Data? {
+        
+        guard let stream = stream else { return nil }
+        
+        let bufferSize = 1024
+        var buffer = Array<UInt8>(repeating: 0, count: bufferSize)
+        
+        stream.open()
+        let bytesRead = stream.read(&buffer, maxLength: bufferSize)
+        stream.close()
+        if bytesRead >= 0 {
+            return Data(bytes: &buffer, count: bytesRead)
+        } else {
+            return nil
+        }
     }
 }

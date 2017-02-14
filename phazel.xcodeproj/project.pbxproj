@@ -14,7 +14,6 @@
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
 		F23BE4121E508E300068E82F /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
-		F23BE4191E508E300068E82F /* RoasterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE4181E508E300068E82F /* RoasterTests.swift */; };
 		F23BE41B1E508E300068E82F /* Roaster.h in Headers */ = {isa = PBXBuildFile; fileRef = F23BE40B1E508E300068E82F /* Roaster.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F23BE41E1E508E300068E82F /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
 		F23BE41F1E508E300068E82F /* Roaster.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -122,7 +121,6 @@
 		F23BE40B1E508E300068E82F /* Roaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Roaster.h; sourceTree = "<group>"; };
 		F23BE40C1E508E300068E82F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F23BE4111E508E300068E82F /* RoasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F23BE4181E508E300068E82F /* RoasterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoasterTests.swift; sourceTree = "<group>"; };
 		F23BE41A1E508E300068E82F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F23BE4281E508EA90068E82F /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		F23BE42A1E508EA90068E82F /* URLCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCreator.swift; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 				F2CE76CA1E50913500140C78 /* Model */,
 				F2CE76B41E50909D00140C78 /* Keychain */,
 				F23BE42E1E508EB50068E82F /* Networking */,
-				F23BE4181E508E300068E82F /* RoasterTests.swift */,
 				F23BE41A1E508E300068E82F /* Info.plist */,
 			);
 			path = RoasterTests;
@@ -644,7 +641,6 @@
 				F2CE76D21E5093BA00140C78 /* MockKeychainManager.swift in Sources */,
 				F23BE4321E508EB50068E82F /* URLCreatorTests.swift in Sources */,
 				F2CE76D31E5093BA00140C78 /* URLRequestStub.swift in Sources */,
-				F23BE4191E508E300068E82F /* RoasterTests.swift in Sources */,
 				F23BE4311E508EB50068E82F /* APIClientTests.swift in Sources */,
 				F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */,
 			);

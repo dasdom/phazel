@@ -128,3 +128,27 @@ extension URLCreatorTests {
         XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "count", value: "200"))) ?? false, "Found queryItems: \(queryIems)")
     }
 }
+
+// MARK: - Posting
+extension URLCreatorTests {
+    func test_postURL_scheme() {
+        guard let url = URLCreator.post.url() else { return XCTFail() }
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_postURL_host() {
+        guard let url = URLCreator.post.url() else { return XCTFail() }
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_postURL_path() {
+        guard let url = URLCreator.post.url() else { return XCTFail() }
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/posts")
+    }
+}
