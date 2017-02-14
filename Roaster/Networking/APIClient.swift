@@ -10,9 +10,11 @@ public protocol APIClientProtocol {
 
 final public class APIClient: APIClientProtocol {
     let keychainManager: KeychainManagerProtocol
+    let userDefaults: UserDefaults
     
-    public init(keychainManager: KeychainManagerProtocol = KeychainManager()) {
+    public init(keychainManager: KeychainManagerProtocol = KeychainManager(), userDefaults: UserDefaults = UserDefaults.standard) {
         self.keychainManager = keychainManager
+        self.userDefaults = userDefaults
     }
     
     public func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
@@ -38,9 +40,18 @@ final public class APIClient: APIClientProtocol {
     func posts(before: Int?, since: Int?, completion: @escaping (Result<[Post]>) -> ()) {
         
         guard let url = URLCreator.posts(before: before, since: since).url() else { fatalError() }
+        guard let username = currentUsername else {
+            return completion(Result(value: nil, error: NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)))
+        }
+        guard let token = keychainManager.token(for: username) else {
+            return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { data, _, error in
+        let dataTask = session.dataTask(with: request) { data, _, error in
             
             let posts = self.extractPosts(from: data)
             let result = Result(value: posts, error: error)
@@ -52,9 +63,17 @@ final public class APIClient: APIClientProtocol {
     func post(text: String, completion: @escaping (Result<String>) -> ()) {
         
         guard let url = URLCreator.post.url() else { fatalError() }
+        guard let username = currentUsername else {
+            return completion(Result(value: nil, error: NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)))
+        }
+        guard let token = keychainManager.token(for: username) else {
+            return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = "text=\(text)".data(using: .utf8)
+        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
@@ -110,6 +129,10 @@ extension APIClient {
     private func jsonArray(from data: Data?) -> [Any]? {
         guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: []) else { return nil }
         return json as? [Any]
+    }
+    
+    fileprivate var currentUsername: String? {
+        return userDefaults.string(forKey: "username")
     }
 }
 

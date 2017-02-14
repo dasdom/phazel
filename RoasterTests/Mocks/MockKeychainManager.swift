@@ -10,6 +10,10 @@ class MockKeychainManager: KeychainManagerProtocol {
     
     var token: String?
     
+    init(token: String? = nil) {
+        self.token = token
+    }
+    
     func set(token: String, for username: String) {
         self.token = token
     }
