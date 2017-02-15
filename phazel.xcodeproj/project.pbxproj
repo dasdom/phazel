@@ -30,10 +30,6 @@
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
 		F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B81E5090B000140C78 /* KeychainManager.swift */; };
-		F2CE76C31E50911F00140C78 /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76BB1E50911F00140C78 /* DDHButton.swift */; };
-		F2CE76C41E50911F00140C78 /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76BC1E50911F00140C78 /* DDHTextField.swift */; };
-		F2CE76C51E50911F00140C78 /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76BD1E50911F00140C78 /* DDHView.swift */; };
-		F2CE76C61E50911F00140C78 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76BE1E50911F00140C78 /* Result.swift */; };
 		F2CE76C71E50911F00140C78 /* DictionaryCreatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76C01E50911F00140C78 /* DictionaryCreatable.swift */; };
 		F2CE76C81E50911F00140C78 /* LoginUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76C11E50911F00140C78 /* LoginUser.swift */; };
 		F2CE76C91E50911F00140C78 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76C21E50911F00140C78 /* Post.swift */; };
@@ -42,6 +38,15 @@
 		F2CE76D31E5093BA00140C78 /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */; };
 		F2CE76D51E5094A600140C78 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = F2CE76D41E5094A600140C78 /* secrets.json */; };
 		F2CE76D71E53388700140C78 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D61E53388700140C78 /* MockUserDefaults.swift */; };
+		F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DA1E548E3A00140C78 /* PostViewController.swift */; };
+		F2CE76DD1E54917000140C78 /* PostViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */; };
+		F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DE1E54923A00140C78 /* PostView.swift */; };
+		F2CE76E11E54F15100140C78 /* PostViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E01E54F15100140C78 /* PostViewTests.swift */; };
+		F2CE76E41E54F3A900140C78 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E31E54F3A900140C78 /* Result.swift */; };
+		F2CE76E91E54F3BD00140C78 /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E61E54F3BD00140C78 /* DDHButton.swift */; };
+		F2CE76EA1E54F3BD00140C78 /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */; };
+		F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E81E54F3BD00140C78 /* DDHView.swift */; };
+		F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76EC1E54F41300140C78 /* DDHTextView.swift */; };
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
@@ -136,10 +141,6 @@
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		F2CE76B81E5090B000140C78 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
-		F2CE76BB1E50911F00140C78 /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
-		F2CE76BC1E50911F00140C78 /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
-		F2CE76BD1E50911F00140C78 /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
-		F2CE76BE1E50911F00140C78 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		F2CE76C01E50911F00140C78 /* DictionaryCreatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryCreatable.swift; sourceTree = "<group>"; };
 		F2CE76C11E50911F00140C78 /* LoginUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUser.swift; sourceTree = "<group>"; };
 		F2CE76C21E50911F00140C78 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -148,6 +149,15 @@
 		F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
 		F2CE76D41E5094A600140C78 /* secrets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		F2CE76D61E53388700140C78 /* MockUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
+		F2CE76DA1E548E3A00140C78 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewControllerTests.swift; sourceTree = "<group>"; };
+		F2CE76DE1E54923A00140C78 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		F2CE76E01E54F15100140C78 /* PostViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewTests.swift; sourceTree = "<group>"; };
+		F2CE76E31E54F3A900140C78 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		F2CE76E61E54F3BD00140C78 /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
+		F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
+		F2CE76E81E54F3BD00140C78 /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
+		F2CE76EC1E54F41300140C78 /* DDHTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextView.swift; sourceTree = "<group>"; };
 		F2E492621E37FF45000C7187 /* phazel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phazel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E492651E37FF45000C7187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E4926C1E37FF45000C7187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -208,13 +218,6 @@
 			path = Pnut;
 			sourceTree = "<group>";
 		};
-		55160CE71E4B05830043A3CC /* Posting */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Posting;
-			sourceTree = "<group>";
-		};
 		F23BE3A21E4683910068E82F /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,7 +229,7 @@
 		F23BE40A1E508E300068E82F /* Roaster */ = {
 			isa = PBXGroup;
 			children = (
-				F2CE76BA1E50911F00140C78 /* Foundation */,
+				F2CE76E21E54F3A900140C78 /* Helper */,
 				F2CE76BF1E50911F00140C78 /* Model */,
 				F2CE76B71E5090B000140C78 /* Keychain */,
 				F23BE4271E508EA90068E82F /* Networking */,
@@ -310,17 +313,6 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
-		F2CE76BA1E50911F00140C78 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				F2CE76BB1E50911F00140C78 /* DDHButton.swift */,
-				F2CE76BC1E50911F00140C78 /* DDHTextField.swift */,
-				F2CE76BD1E50911F00140C78 /* DDHView.swift */,
-				F2CE76BE1E50911F00140C78 /* Result.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
 		F2CE76BF1E50911F00140C78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +339,43 @@
 				F2CE76D61E53388700140C78 /* MockUserDefaults.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		F2CE76D81E548DE000140C78 /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+				F2CE76DE1E54923A00140C78 /* PostView.swift */,
+				F2CE76DA1E548E3A00140C78 /* PostViewController.swift */,
+			);
+			path = Posting;
+			sourceTree = "<group>";
+		};
+		F2CE76D91E548E0800140C78 /* Posting */ = {
+			isa = PBXGroup;
+			children = (
+				F2CE76E01E54F15100140C78 /* PostViewTests.swift */,
+				F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */,
+			);
+			path = Posting;
+			sourceTree = "<group>";
+		};
+		F2CE76E21E54F3A900140C78 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F2CE76E31E54F3A900140C78 /* Result.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F2CE76E51E54F3BD00140C78 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				F2CE76E61E54F3BD00140C78 /* DDHButton.swift */,
+				F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */,
+				F2CE76E81E54F3BD00140C78 /* DDHView.swift */,
+				F2CE76EC1E54F41300140C78 /* DDHTextView.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		F2E492591E37FF45000C7187 = {
@@ -379,8 +408,10 @@
 				F2CE76D41E5094A600140C78 /* secrets.json */,
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
 				F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */,
+				F2CE76E51E54F3BD00140C78 /* Foundation */,
 				F2425A4E1E43D8D2001B7E46 /* Extensions */,
 				F2C12AA41E3BED580056155C /* Login */,
+				F2CE76D81E548DE000140C78 /* Posting */,
 				F2E4926C1E37FF45000C7187 /* Assets.xcassets */,
 				F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */,
 				F2E492711E37FF45000C7187 /* Info.plist */,
@@ -394,7 +425,7 @@
 				F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */,
 				F2C12AA31E3BED240056155C /* Login */,
 				F23BE3A21E4683910068E82F /* Timeline */,
-				55160CE71E4B05830043A3CC /* Posting */,
+				F2CE76D91E548E0800140C78 /* Posting */,
 				F2E4927C1E37FF46000C7187 /* Info.plist */,
 			);
 			path = phazelTests;
@@ -624,14 +655,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F23BE42D1E508EA90068E82F /* URLCreator.swift in Sources */,
-				F2CE76C51E50911F00140C78 /* DDHView.swift in Sources */,
 				F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */,
 				F2CE76C81E50911F00140C78 /* LoginUser.swift in Sources */,
-				F2CE76C31E50911F00140C78 /* DDHButton.swift in Sources */,
-				F2CE76C61E50911F00140C78 /* Result.swift in Sources */,
 				F2CE76C71E50911F00140C78 /* DictionaryCreatable.swift in Sources */,
+				F2CE76E41E54F3A900140C78 /* Result.swift in Sources */,
 				F23BE42B1E508EA90068E82F /* APIClient.swift in Sources */,
-				F2CE76C41E50911F00140C78 /* DDHTextField.swift in Sources */,
 				F2CE76C91E50911F00140C78 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -654,8 +682,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
 				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,
+				F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */,
+				F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */,
+				F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */,
+				F2CE76EA1E54F3BD00140C78 /* DDHTextField.swift in Sources */,
+				F2CE76E91E54F3BD00140C78 /* DDHButton.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
 				55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */,
 				F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */,
@@ -669,8 +703,10 @@
 			files = (
 				F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
+				F2CE76DD1E54917000140C78 /* PostViewControllerTests.swift in Sources */,
 				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
+				F2CE76E11E54F15100140C78 /* PostViewTests.swift in Sources */,
 				55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

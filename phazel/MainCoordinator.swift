@@ -8,15 +8,17 @@ import Roaster
 final class MainCoordinator: LoginCoordinatorDelegate {
     
     private let window: UIWindow
-    private let tabBarController: UITabBarController
+//    private let tabBarController: UITabBarController
+    private let postViewController: PostViewController
     
     init(window: UIWindow) {
         self.window = window
-        tabBarController = UITabBarController()
+//        tabBarController = UITabBarController()
+        postViewController = PostViewController(contentView: PostView())
     }
     
     func start() {
-        window.rootViewController = tabBarController
+        window.rootViewController = postViewController
     }
     
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {

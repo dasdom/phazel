@@ -183,8 +183,7 @@ class APIClientTests: XCTestCase {
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
-        localSUT.post(text: "Foo bar") { _ in
-        }
+        localSUT.post(text: "Foo bar") { _ in }
         
         waitForExpectations(timeout: 0.1) { _ in
             guard let header = URLRequestStub.lastRequest?.allHTTPHeaderFields else { return XCTFail() }

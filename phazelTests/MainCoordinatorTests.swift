@@ -25,10 +25,10 @@ class MainCoordinatorTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_start_setsTabBarController_asRoot() {
+    func test_start_setsPostViewController_asRoot() {
         sut.start()
         
-        XCTAssertTrue(window.rootViewController is UITabBarController, "Found: \(window.visibleViewController)")
+        XCTAssertTrue(window.rootViewController is PostViewController, "Found: \(window.visibleViewController)")
     }
     
 }
