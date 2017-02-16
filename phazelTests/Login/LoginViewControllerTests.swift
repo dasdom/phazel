@@ -30,10 +30,9 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func test_login_callsAPIClientMethod() {
-        let mockView = MockView()
         let result = Result(value: LoginUser(id: 23, username: "foo"), error: nil)
         let mockAPIClient = MockAPIClient(result: result)
-        let localSUT = LoginViewController(contentView: mockView, apiClient: mockAPIClient)
+        let localSUT = LoginViewController(contentView: MockView(), apiClient: mockAPIClient)
         
         localSUT.login()
         
@@ -42,9 +41,8 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func test_login_callsDelegateMethod_whenSuccessful() {
-        let mockView = MockView()
         let result = Result(value: LoginUser(id: 23, username: "foo"), error: nil)
-        let localSUT = LoginViewController(contentView: mockView, apiClient: MockAPIClient(result: result))
+        let localSUT = LoginViewController(contentView: MockView(), apiClient: MockAPIClient(result: result))
         let mockDelegate = MockLoginViewControllerDelegate()
         localSUT.delegate = mockDelegate
         
@@ -55,9 +53,8 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func test_login_callsDelegateMethod_whenFailed() {
-        let mockView = MockView()
         let result = Result<LoginUser>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil))
-        let localSUT = LoginViewController(contentView: mockView, apiClient: MockAPIClient(result: result))
+        let localSUT = LoginViewController(contentView: MockView(), apiClient: MockAPIClient(result: result))
         let mockDelegate = MockLoginViewControllerDelegate()
         localSUT.delegate = mockDelegate
 
@@ -93,6 +90,10 @@ extension LoginViewControllerTests {
             self.username = username
             self.password = password
             completion(result)
+        }
+        
+        func post(text: String, completion: @escaping (Result<String>) -> ()) {
+            
         }
     }
     

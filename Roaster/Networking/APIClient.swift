@@ -6,6 +6,7 @@ import Foundation
 
 public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
+    func post(text: String, completion: @escaping (Result<String>) -> ())
 }
 
 final public class APIClient: APIClientProtocol {
@@ -60,7 +61,7 @@ final public class APIClient: APIClientProtocol {
         dataTask.resume()
     }
     
-    func post(text: String, completion: @escaping (Result<String>) -> ()) {
+    public func post(text: String, completion: @escaping (Result<String>) -> ()) {
         
         guard let url = URLCreator.post.url() else { fatalError() }
         guard let username = currentUsername else {
