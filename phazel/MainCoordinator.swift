@@ -5,23 +5,30 @@
 import UIKit
 import Roaster
 
-final class MainCoordinator: LoginCoordinatorDelegate {
+final class MainCoordinator: CoodinatorProtocol, LoginCoordinatorDelegate {
     
     private let window: UIWindow
-//    private let tabBarController: UITabBarController
-    private let postViewController: PostViewController
+    var childCoordinators: [CoodinatorProtocol] = []
     
     init(window: UIWindow) {
         self.window = window
-//        tabBarController = UITabBarController()
-        postViewController = PostViewController(contentView: PostView())
     }
     
     func start() {
-        window.rootViewController = postViewController
+        let postCoordinator = PostCoordinator(window: window)
+        childCoordinators.append(postCoordinator)
+        postCoordinator.start()
+        
+        let loginCoordinator = LoginCoordinator(window: window)
+        childCoordinators.append(loginCoordinator)
+        loginCoordinator.start()
     }
     
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
         
     }
+}
+
+protocol CoodinatorProtocol {
+    func start()
 }

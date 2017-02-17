@@ -29,6 +29,8 @@ class MainCoordinatorTests: XCTestCase {
         sut.start()
         
         XCTAssertTrue(window.rootViewController is PostViewController, "Found: \(window.visibleViewController)")
+        XCTAssert(sut.childCoordinators.first is PostCoordinator)
+        XCTAssert(sut.childCoordinators.last is LoginCoordinator)
     }
     
 }

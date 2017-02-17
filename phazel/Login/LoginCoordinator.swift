@@ -10,7 +10,7 @@ protocol LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)
 }
 
-final class LoginCoordinator: LoginViewControllerDelegate {
+final class LoginCoordinator: CoodinatorProtocol, LoginViewControllerDelegate {
     
     private let window: UIWindow
     var childViewControllers = [UIViewController]()
@@ -23,6 +23,7 @@ final class LoginCoordinator: LoginViewControllerDelegate {
     func start() {
         let loginViewController = LoginViewController(contentView: LoginView())
         childViewControllers.append(loginViewController)
+        
         window.visibleViewController?.present(loginViewController, animated: true, completion: nil)
     }
     

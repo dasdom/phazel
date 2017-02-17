@@ -26,6 +26,8 @@
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
 		F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */; };
 		F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */; };
+		F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEB1E5738220005B688 /* PostCoordinator.swift */; };
+		F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
@@ -137,6 +139,8 @@
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
 		F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
+		F25C6FEB1E5738220005B688 /* PostCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
+		F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinatorTests.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
@@ -346,6 +350,7 @@
 			children = (
 				F2CE76DE1E54923A00140C78 /* PostView.swift */,
 				F2CE76DA1E548E3A00140C78 /* PostViewController.swift */,
+				F25C6FEB1E5738220005B688 /* PostCoordinator.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 			children = (
 				F2CE76E01E54F15100140C78 /* PostViewTests.swift */,
 				F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */,
+				F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -684,6 +690,7 @@
 			files = (
 				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
+				F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */,
 				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,
 				F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */,
 				F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */,
@@ -703,6 +710,7 @@
 			files = (
 				F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
+				F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */,
 				F2CE76DD1E54917000140C78 /* PostViewControllerTests.swift in Sources */,
 				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
