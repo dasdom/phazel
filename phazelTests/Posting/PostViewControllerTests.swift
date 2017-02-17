@@ -58,12 +58,39 @@ class PostViewControllerTests: XCTestCase {
         guard case .failure(let error) = result else { return XCTFail() }
         XCTAssertEqual(mockDelegate.error as? NSError, error as NSError)
     }
+    
+    func test_send_callsReset_whenSuccessful() {
+        let mockAPIClient = MockAPIClient(result: Result(value: "42", error: nil))
+        let mockView = MockView()
+        let localSUT = PostViewController(contentView: mockView, apiClient: mockAPIClient)
+        
+        localSUT.send()
+        
+        XCTAssertTrue(mockView.resetted)
+    }
+    
+    func test_send_doesNotCallReset_whenFailed() {
+        let mockAPIClient = MockAPIClient(result: Result<String>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil)))
+        let mockView = MockView()
+        let localSUT = PostViewController(contentView: mockView, apiClient: mockAPIClient)
+        
+        localSUT.send()
+        
+        XCTAssertFalse(mockView.resetted)
+    }
 }
 
 extension PostViewControllerTests {
     class MockView: UIView, PostViewProtocol {
+        
+        var resetted = false
+        
         var text: String? {
             return "Foo"
+        }
+        
+        func reset() {
+            resetted = true
         }
     }
     

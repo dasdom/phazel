@@ -54,4 +54,13 @@ class PostViewTests: XCTestCase {
         let action = button.actions(forTarget: nil, forControlEvent: .touchUpInside)?.first
         XCTAssertEqual(action, "send")
     }
+    
+    func test_reset_clearsTextView() {
+        guard let textView = sut.value(forKey: "textView") as? UITextView else { return XCTFail() }
+        textView.text = "Foo bar"
+        
+        sut.reset()
+        
+        XCTAssertEqual(textView.text.characters.count, 0)
+    }
 }

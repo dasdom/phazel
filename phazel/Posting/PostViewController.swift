@@ -39,8 +39,10 @@ extension PostViewController: PostProtocol {
         guard let text = contentView.text else { return }
         apiClient.post(text: text) { result in
             
+            
             switch result {
             case .success(let postId):
+                self.contentView.reset()
                 self.delegate?.postDidSucceed(viewController: self, with: postId)
             case .failure(let error):
                 self.delegate?.postDidFail(viewController: self, with: error)

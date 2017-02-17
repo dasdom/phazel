@@ -31,10 +31,15 @@ extension PostView: PostViewProtocol {
     var text: String? {
         return textView.text
     }
+    
+    func reset() {
+        textView.text = ""
+    }
 }
 
 protocol PostViewProtocol {
     var text: String? { get }
+    func reset()
 }
 
 @objc protocol PostProtocol {
