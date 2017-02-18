@@ -32,4 +32,23 @@ class PostCoordinatorTests: XCTestCase {
         XCTAssertEqual(sut.childViewControllers.count, 1)
     }
     
+    func test_postDidFail_showsAlert() {
+        let mockViewController = MockPostViewController(contentView: PostView())
+        
+        sut.postDidFail(viewController: mockViewController, with: NSError(domain: "Foo", code: 42, userInfo: nil))
+
+        XCTAssertTrue(mockViewController.inTestPresentedViewController is UIAlertController)
+    }
+}
+
+extension PostCoordinatorTests {
+    
+    class MockPostViewController: PostViewController {
+        
+        var inTestPresentedViewController: UIViewController?
+
+        override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+            inTestPresentedViewController = viewControllerToPresent
+        }
+    }
 }

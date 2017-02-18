@@ -20,3 +20,17 @@ final class PostCoordinator: CoodinatorProtocol {
         window.rootViewController = postViewController
     }
 }
+
+extension PostCoordinator: PostViewControllerDelegate {
+    
+    func postDidSucceed(viewController: PostViewController, with postId: String) {
+        
+    }
+    
+    func postDidFail(viewController: PostViewController, with error: Error) {
+        let alertController = UIAlertController(title: "Foo", message: "Bar", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+}

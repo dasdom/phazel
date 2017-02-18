@@ -10,7 +10,7 @@ protocol LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)
 }
 
-final class LoginCoordinator: CoodinatorProtocol, LoginViewControllerDelegate {
+final class LoginCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
     var childViewControllers = [UIViewController]()
@@ -26,7 +26,9 @@ final class LoginCoordinator: CoodinatorProtocol, LoginViewControllerDelegate {
         
         window.visibleViewController?.present(loginViewController, animated: true, completion: nil)
     }
-    
+}
+
+extension LoginCoordinator: LoginViewControllerDelegate {
     func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser) {
         
         viewController.dismiss(animated: true, completion: nil)

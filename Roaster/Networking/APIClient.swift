@@ -7,6 +7,7 @@ import Foundation
 public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
     func post(text: String, completion: @escaping (Result<String>) -> ())
+    func isLoggedIn() -> Bool
 }
 
 final public class APIClient: APIClientProtocol {
@@ -84,6 +85,14 @@ final public class APIClient: APIClientProtocol {
             completion(result)
         }
         dataTask.resume()
+    }
+}
+
+//MARK: - Status
+extension APIClient {
+    public func isLoggedIn() -> Bool {
+        guard let username = currentUsername, let _ = keychainManager.token(for: username) else { return false }
+        return true
     }
 }
 

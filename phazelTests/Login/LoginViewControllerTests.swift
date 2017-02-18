@@ -95,6 +95,10 @@ extension LoginViewControllerTests {
         func post(text: String, completion: @escaping (Result<String>) -> ()) {
             
         }
+        
+        func isLoggedIn() -> Bool {
+            return false
+        }
     }
     
     class MockLoginViewControllerDelegate: LoginViewControllerDelegate {

@@ -111,6 +111,10 @@ extension PostViewControllerTests {
             self.text = text
             completion(result)
         }
+        
+        func isLoggedIn() -> Bool {
+            return false
+        }
     }
     
     class MockPostViewControllerDelegate: PostViewControllerDelegate {
