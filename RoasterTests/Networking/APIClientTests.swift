@@ -89,6 +89,25 @@ class APIClientTests: XCTestCase {
         }
     }
     
+    func test_login_returnsError_whenAPIReturnsErrorInMeta() {
+        let mockKeychainManager = MockKeychainManager()
+        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        guard let data = "{\"meta\":{\"code\":404,\"error_message\":\"Not Found\"}}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
+        
+        var catchedError: Error? = nil
+        localSUT.login(username: "Foo", password: "Bar") { result in
+            if case .failure(let requestError) = result {
+                catchedError = requestError
+            }
+        }
+        
+        waitForExpectations(timeout: 0.1) { _ in
+            XCTAssertEqual(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
+            XCTAssertNil(mockKeychainManager.token)
+        }
+    }
+    
     func test_postsRequest_returnsPosts() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{",

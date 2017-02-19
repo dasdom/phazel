@@ -8,7 +8,11 @@ class DDHButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         translatesAutoresizingMaskIntoConstraints = false
+//        layer.borderColor = UIColor.tint.cgColor
+//        layer.borderWidth = 1
+        layer.cornerRadius = 5
     }
     
     required init?(coder aDecoder: NSCoder) {
