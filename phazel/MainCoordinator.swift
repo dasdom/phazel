@@ -5,15 +5,15 @@
 import UIKit
 import Roaster
 
-final class MainCoordinator: CoodinatorProtocol, LoginCoordinatorDelegate {
+final class MainCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
-    private let apiClient: APIClientProtocol
+//    private let apiClient: APIClientProtocol
     var childCoordinators: [CoodinatorProtocol] = []
     
-    init(window: UIWindow, apiClient: APIClientProtocol = APIClient()) {
+    init(window: UIWindow) {
         self.window = window
-        self.apiClient = apiClient
+//        self.apiClient = apiClient
     }
     
     func start() {
@@ -21,14 +21,13 @@ final class MainCoordinator: CoodinatorProtocol, LoginCoordinatorDelegate {
         childCoordinators.append(postCoordinator)
         postCoordinator.start()
         
-        if !apiClient.isLoggedIn() {
-            let loginCoordinator = LoginCoordinator(window: window)
-            childCoordinators.append(loginCoordinator)
-            loginCoordinator.start()
-        }
-    }
-    
-    func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
+        window.makeKeyAndVisible()
+        
+//        if !apiClient.isLoggedIn() {
+//            let loginCoordinator = LoginCoordinator(window: window)
+//            childCoordinators.append(loginCoordinator)
+//            loginCoordinator.start()
+//        }
     }
 }
 

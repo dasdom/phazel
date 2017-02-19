@@ -22,6 +22,7 @@ final class LoginCoordinator: CoodinatorProtocol {
     
     func start() {
         let loginViewController = LoginViewController(contentView: LoginView())
+        loginViewController.delegate = self
         childViewControllers.append(loginViewController)
         
         window.visibleViewController?.present(loginViewController, animated: true, completion: nil)

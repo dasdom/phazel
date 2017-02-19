@@ -18,6 +18,8 @@ class PostView: DDHView {
         
         super.init(frame: frame)
         
+        backgroundColor = UIColor.brown
+        
         addSubview(textView)
         addSubview(sendButton)
     }

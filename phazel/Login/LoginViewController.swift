@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     let contentView: LoginViewProtocol
     let apiClient: APIClientProtocol
     var delegate: LoginViewControllerDelegate?
-    
+
     init(contentView: LoginViewProtocol, apiClient: APIClientProtocol = APIClient()) {
         
         self.contentView = contentView
@@ -32,6 +32,7 @@ class LoginViewController: UIViewController {
         guard let contentView = self.contentView as? UIView else { fatalError() }
         view = contentView
     }
+    
 }
 
 extension LoginViewController: LoginProtocol {

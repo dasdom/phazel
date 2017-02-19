@@ -15,9 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = window else { fatalError() }
         mainCoordinator = MainCoordinator(window: window)
         mainCoordinator?.start()
-        
-        window.makeKeyAndVisible()
-        
+                
         return true
     }
     

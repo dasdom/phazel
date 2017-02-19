@@ -33,6 +33,13 @@ class LoginCoordinatorTests: XCTestCase {
         XCTAssertTrue(window.visibleViewController is LoginViewController)
         XCTAssertEqual(sut.childViewControllers.count, 1)
     }
+    
+    func test_start_setsDelegateOfViewController() {
+        sut.start()
+        
+        guard let viewController = sut.childViewControllers.last as? LoginViewController else { return XCTFail() }
+        XCTAssertTrue(viewController.delegate is LoginCoordinator)
+    }
 
     func test_failure_PresentsAlertViewController() {
         let mockLoginViewController = MockLoginViewController(contentView: LoginView())

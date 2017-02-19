@@ -122,6 +122,10 @@ extension PostViewControllerTests {
         var postId: String?
         var error: Error?
         
+        func viewDidAppear(viewController: PostViewController) {
+            
+        }
+        
         func postDidSucceed(viewController: PostViewController, with postId: String) {
            self.postId = postId
         }

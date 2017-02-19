@@ -22,6 +22,8 @@ final class LoginView: DDHView {
         
         super.init(frame: frame)
         
+        backgroundColor = UIColor.yellow
+        
         addSubview(usernameTextField)
         addSubview(passwordTextField)
         addSubview(loginButton)

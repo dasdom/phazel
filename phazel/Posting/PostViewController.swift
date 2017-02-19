@@ -6,6 +6,7 @@ import UIKit
 import Roaster
 
 protocol PostViewControllerDelegate {
+    func viewDidAppear(viewController: PostViewController)
     func postDidSucceed(viewController: PostViewController, with postId: String)
     func postDidFail(viewController: PostViewController, with error: Error)
 }
@@ -31,6 +32,12 @@ class PostViewController: UIViewController {
     override func loadView() {
         guard let contentView = self.contentView as? UIView else { fatalError() }
         view = contentView
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.delegate?.viewDidAppear(viewController: self)
     }
 }
 
