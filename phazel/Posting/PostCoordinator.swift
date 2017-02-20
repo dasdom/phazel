@@ -22,7 +22,11 @@ final class PostCoordinator: CoodinatorProtocol {
         postViewController.delegate = self
         childViewControllers.append(postViewController)
         
-        window.rootViewController = postViewController
+        let navigationController = UINavigationController(rootViewController: postViewController)
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.barTintColor = UIColor.background
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        window.rootViewController = navigationController
     }
 }
 

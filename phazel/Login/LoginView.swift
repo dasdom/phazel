@@ -69,11 +69,16 @@ extension LoginView: LoginViewProtocol {
     var password: String? {
         return passwordTextField.text
     }
+    
+    func setFirstResponder() {
+        usernameTextField.becomeFirstResponder()
+    }
 }
 
 protocol LoginViewProtocol {
     var username: String? { get }
     var password: String? { get }
+    func setFirstResponder()
 }
 
 @objc protocol LoginProtocol {

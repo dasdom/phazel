@@ -33,7 +33,7 @@ class PostCoordinatorTests: XCTestCase {
     func test_start_setsPostViewController_asRoot() {
         sut.start()
         
-        XCTAssertTrue(window.rootViewController is PostViewController)
+        XCTAssertTrue(window.rootViewController is UINavigationController)
         XCTAssertEqual(sut.childViewControllers.count, 1)
     }
     

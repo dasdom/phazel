@@ -33,6 +33,11 @@ class LoginViewController: UIViewController {
         view = contentView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        contentView.setFirstResponder()
+    }
 }
 
 extension LoginViewController: LoginProtocol {

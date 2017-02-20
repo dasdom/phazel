@@ -28,42 +28,10 @@ class MainCoordinatorTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_start_setsPostViewController_asRoot() {
+    func test_start_setsPostViewController_toVisible() {
         sut.start()
         
-        XCTAssertTrue(window.rootViewController is PostViewController, "Found: \(window.visibleViewController)")
+        XCTAssertTrue(window.visibleViewController is PostViewController)
         XCTAssertTrue(sut.childCoordinators.first is PostCoordinator)
     }
- 
-//    func test_start_showsLogin_ifNotLoggedIn() {
-//        sut.start()
-//        apiClient._isLoggedIn = false
-//        
-//        XCTAssertTrue(sut.childCoordinators.last is LoginCoordinator)
-//    }
-//    
-//    func test_start_doesNotShowsLogin_ifLoggedIn() {
-//        apiClient._isLoggedIn = true
-//        
-//        sut.start()
-//        
-//        XCTAssertFalse(sut.childCoordinators.last is LoginCoordinator)
-//    }
 }
-
-//extension MainCoordinatorTests {
-//    class MockAPIClient: APIClientProtocol {
-//        
-//        var _isLoggedIn = false
-//        
-//        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
-//        }
-//        
-//        func post(text: String, completion: @escaping (Result<String>) -> ()) {
-//        }
-//        
-//        func isLoggedIn() -> Bool {
-//            return self._isLoggedIn
-//        }
-//    }
-//}

@@ -16,6 +16,7 @@ class PostViewController: UIViewController {
     let contentView: PostViewProtocol
     let apiClient: APIClientProtocol
     var delegate: PostViewControllerDelegate?
+    fileprivate var bottomConstraint: NSLayoutConstraint?
     
     init(contentView: PostViewProtocol, apiClient: APIClientProtocol = APIClient()) {
         
@@ -28,16 +29,51 @@ class PostViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     override func loadView() {
         guard let contentView = self.contentView as? UIView else { fatalError() }
         view = contentView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        title = "Create a nut"
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.delegate?.viewDidAppear(viewController: self)
+        
+        contentView.setFirstResponder()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        contentView.topView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10).isActive = true
+        bottomConstraint = contentView.topView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -10)
+        bottomConstraint?.isActive = true
+        
+    }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        guard let frame = sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let convertedFrame = view.convert(frame, from: nil)
+        
+        bottomConstraint?.constant = -convertedFrame.size.height - 10
+//        UIView.animate(withDuration: 0.2, animations: { 
+            self.view.layoutIfNeeded()
+//        }) { finished in
+//            
+//        }
     }
 }
 
@@ -56,3 +92,8 @@ extension PostViewController: PostProtocol {
         }
     }
 }
+
+fileprivate extension Selector {
+    static let keyboardWillShow = #selector(PostViewController.keyboardWillShow(sender:))
+}
+
