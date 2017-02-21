@@ -68,12 +68,8 @@ class PostViewController: UIViewController {
         guard let frame = sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         let convertedFrame = view.convert(frame, from: nil)
         
-        bottomConstraint?.constant = -convertedFrame.size.height - 10
-//        UIView.animate(withDuration: 0.2, animations: { 
-            self.view.layoutIfNeeded()
-//        }) { finished in
-//            
-//        }
+        bottomConstraint?.constant = -convertedFrame.height - 10
+        self.view.layoutIfNeeded()
     }
 }
 

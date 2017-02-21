@@ -92,6 +92,14 @@ extension PostViewControllerTests {
         func reset() {
             resetted = true
         }
+        
+        func setFirstResponder() {
+            
+        }
+        
+        var topView: UIView {
+            return UIView()
+        }
     }
     
     class MockAPIClient: APIClientProtocol {

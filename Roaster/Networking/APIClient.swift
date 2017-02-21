@@ -23,18 +23,35 @@ final public class APIClient: APIClientProtocol {
         
         guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
         
+        print("url: \(url)")
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { data, _, error in
+        let dataTask = session.dataTask(with: url) { data, _, taskError in
             
-            defer {
-                completion(result)
+            if let data = data {
+                let dataString = String(data: data, encoding: .utf8)
+                print("dataString: \(dataString)")
             }
             
-            let loginUser = self.extractLoginUser(from: data)
-            let result = Result(value: loginUser, error: error)
-            guard let token = self.extractToken(from: data) else { return }
+            var error = taskError
+            if let meta = self.extractMeta(from: data) {
+                if meta.code != 200 && meta.code != 201 {
+                    error = NSError(domain: "DDHPnutAPIError", code: meta.code, userInfo: [NSLocalizedDescriptionKey: meta.errorMessage ?? "Unknown error"])
+                }
+            }
             
-            self.keychainManager.set(token: token, for: username)
+            DispatchQueue.main.async {
+                let loginUser = self.extractLoginUser(from: data)
+                let result = Result(value: loginUser, error: error)
+                
+                defer {
+                    completion(result)
+                }
+                
+                guard let token = self.extractToken(from: data) else { return }
+                
+                self.keychainManager.set(token: token, for: username)
+            }
+
         }
         dataTask.resume()
     }
@@ -97,6 +114,14 @@ extension APIClient {
 }
 
 extension APIClient {
+    fileprivate func extractMeta(from data: Data?) -> Meta? {
+        guard let jsonDict = jsonDict(from: data),
+            let metaDict = jsonDict[JSONKey.meta.rawValue] as? [String:Any]
+            else { return nil }
+        
+        return Meta(with: metaDict)
+    }
+    
     fileprivate func extractToken(from data: Data?) -> String? {
         guard let jsonDict = jsonDict(from: data),
             let rawToken = jsonDict[JSONKey.access_token.rawValue]
@@ -147,5 +172,5 @@ extension APIClient {
 }
 
 enum JSONKey: String {
-    case access_token, username, user_id, data
+    case access_token, username, user_id, data, meta
 }

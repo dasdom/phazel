@@ -43,9 +43,12 @@ extension URLCreatorTests {
         let password = "@#$%^&*\\/?"
         guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
         
+        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+        let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet)
+        let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet)
         let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "username", value: username))) ?? false, "Found queryItems: \(queryIems)")
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "password", value: password))) ?? false, "Found queryItems: \(queryIems)")
+        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "username", value: encodedUsername))) ?? false, "Found queryItems: \(queryIems)")
+        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "password", value: encodedPassword))) ?? false, "Found queryItems: \(queryIems)")
     }
 
     func test_authURL_clientId() {

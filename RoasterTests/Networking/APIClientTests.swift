@@ -21,7 +21,7 @@ class APIClientTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_loginRequest_whenSuccessful_setsToken() {
+    func test_login_whenSuccessful_setsToken() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
@@ -34,7 +34,7 @@ class APIClientTests: XCTestCase {
         }
     }
     
-    func test_loginRequest_url() {
+    func test_login_url() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
@@ -47,7 +47,7 @@ class APIClientTests: XCTestCase {
         }
     }
     
-    func test_loginRequest_whenSuccessful_returnsUser() {
+    func test_login_whenSuccessful_returnsUser() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
@@ -70,7 +70,7 @@ class APIClientTests: XCTestCase {
         XCTAssertNotNil(sut.keychainManager)
     }
     
-    func test_LoginRequest_WhenFailed_ReturnsError() {
+    func test_login_WhenFailed_ReturnsError() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
         let error = NSError(domain: "FooDomain", code: 42, userInfo: nil)

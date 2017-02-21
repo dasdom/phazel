@@ -12,8 +12,11 @@ enum URLCreator {
     func url() -> URL? {
         switch self {
         case .auth(let username, let password):
-            var queryItems = [URLQueryItem(name: "username", value: username),
-                              URLQueryItem(name: "password", value: password),
+            let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+            let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet)
+            let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet)
+            var queryItems = [URLQueryItem(name: "username", value: encodedUsername),
+                              URLQueryItem(name: "password", value: encodedPassword),
                               URLQueryItem(name: "grant_type", value: "password"),
                               URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages")]
             

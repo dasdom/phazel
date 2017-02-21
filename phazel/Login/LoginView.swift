@@ -45,6 +45,9 @@ final class LoginView: DDHView {
         
         backgroundColor = UIColor.background
         
+        usernameTextField.delegate = self
+        passwordTextField.delegate = self
+
         addSubview(stackView)
 
         let views = ["stackView": stackView]
@@ -58,6 +61,38 @@ final class LoginView: DDHView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension LoginView: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let nsString = textField.text as NSString?
+        let finalString = nsString?.replacingCharacters(in: range, with: string)
+        
+        if textField == usernameTextField {
+            if let username = finalString,
+                username.characters.count > 0,
+                let password = passwordTextField.text,
+                password.characters.count > 0 {
+                
+                loginButton.isEnabled = true
+            } else {
+                loginButton.isEnabled = false
+            }
+        } else if textField == passwordTextField {
+            if let username = usernameTextField.text,
+                username.characters.count > 0,
+                let password = finalString,
+                password.characters.count > 0 {
+                
+                loginButton.isEnabled = true
+            } else {
+                loginButton.isEnabled = false
+            }
+        }
+        
+        return true
     }
 }
 

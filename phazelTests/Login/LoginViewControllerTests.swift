@@ -74,6 +74,10 @@ extension LoginViewControllerTests {
         var password: String? {
             return "Bar"
         }
+        
+        func setFirstResponder() {
+            
+        }
     }
     
     class MockAPIClient: APIClientProtocol {

@@ -54,6 +54,7 @@
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
 		F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */; };
+		F2F33C871E5CE20A007E53E1 /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F33C861E5CE20A007E53E1 /* Meta.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +174,7 @@
 		F2E492761E37FF46000C7187 /* phazelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phazelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		F2F33C861E5CE20A007E53E1 /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +329,7 @@
 				F2CE76C01E50911F00140C78 /* DictionaryCreatable.swift */,
 				F2CE76C11E50911F00140C78 /* LoginUser.swift */,
 				F2CE76C21E50911F00140C78 /* Post.swift */,
+				F2F33C861E5CE20A007E53E1 /* Meta.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */,
 				F2CE76C81E50911F00140C78 /* LoginUser.swift in Sources */,
 				F2CE76C71E50911F00140C78 /* DictionaryCreatable.swift in Sources */,
+				F2F33C871E5CE20A007E53E1 /* Meta.swift in Sources */,
 				F2CE76E41E54F3A900140C78 /* Result.swift in Sources */,
 				F23BE42B1E508EA90068E82F /* APIClient.swift in Sources */,
 				F2CE76C91E50911F00140C78 /* Post.swift in Sources */,
