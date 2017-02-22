@@ -12,78 +12,72 @@ class URLCreatorTests: XCTestCase {
 // MARK: - Auth
 extension URLCreatorTests {
     func test_authURL_scheme() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+        guard let url = URLCreator.auth.url() else { return XCTFail() }
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         XCTAssertEqual(urlComponents?.scheme, "https")
     }
     
     func test_authURL_host() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+        guard let url = URLCreator.auth.url() else { return XCTFail() }
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         XCTAssertEqual(urlComponents?.host, "api.pnut.io")
     }
     
     func test_authURL_path() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+        guard let url = URLCreator.auth.url() else { return XCTFail() }
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         XCTAssertEqual(urlComponents?.path, "/v0/oauth/access_token")
     }
 
-    func test_authURL_usernameAndPassword() {
-        let username = "föö"
-        let password = "@#$%^&*\\/?"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
-        
-        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
-        let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet)
-        let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet)
-        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "username", value: encodedUsername))) ?? false, "Found queryItems: \(queryIems)")
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "password", value: encodedPassword))) ?? false, "Found queryItems: \(queryIems)")
-    }
-
-    func test_authURL_clientId() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
-        
-        XCTAssertTrue(url.absoluteString.contains("client_id="))
-    }
-    
-    func test_authURL_passwordGrantSecret() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
-        
-        XCTAssertTrue(url.absoluteString.contains("password_grant_secret="))
-    }
-    
-    func test_authURL_grantType() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
-        
-        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "grant_type", value: "password"))) ?? false, "Found queryItems: \(queryIems)")
-    }
-    
-    func test_authURL_scope() {
-        let username = "foo"
-        let password = "bar"
-        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
-        
-        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages"))) ?? false, "Found queryItems: \(queryIems)")
-    }
+//    func test_authURL_usernameAndPassword() {
+//        let username = "föö"
+//        let password = "@#$%^&*\\/?"
+//        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+//        
+//        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+//        let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet)
+//        let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet)
+//        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
+//        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "username", value: encodedUsername))) ?? false, "Found queryItems: \(queryIems)")
+//        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "password", value: encodedPassword))) ?? false, "Found queryItems: \(queryIems)")
+//    }
+//
+//    func test_authURL_clientId() {
+//        let username = "foo"
+//        let password = "bar"
+//        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+//        
+//        XCTAssertTrue(url.absoluteString.contains("client_id="))
+//    }
+//    
+//    func test_authURL_passwordGrantSecret() {
+//        let username = "foo"
+//        let password = "bar"
+//        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+//        
+//        XCTAssertTrue(url.absoluteString.contains("password_grant_secret="))
+//    }
+//    
+//    func test_authURL_grantType() {
+//        let username = "foo"
+//        let password = "bar"
+//        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+//        
+//        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
+//        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "grant_type", value: "password"))) ?? false, "Found queryItems: \(queryIems)")
+//    }
+//    
+//    func test_authURL_scope() {
+//        let username = "foo"
+//        let password = "bar"
+//        guard let url = URLCreator.auth(username: username, password:password).url() else { return XCTFail() }
+//        
+//        let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
+//        XCTAssertTrue((queryIems?.contains(URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages"))) ?? false, "Found queryItems: \(queryIems)")
+//    }
  
 }
 

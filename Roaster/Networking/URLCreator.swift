@@ -5,28 +5,14 @@
 import Foundation
 
 enum URLCreator {
-    case auth(username: String, password: String)
+    case auth
     case posts(before: Int?, since: Int?)
     case post
     
     func url() -> URL? {
         switch self {
-        case .auth(let username, let password):
-            let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
-            let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet)
-            let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet)
-            var queryItems = [URLQueryItem(name: "username", value: encodedUsername),
-                              URLQueryItem(name: "password", value: encodedPassword),
-                              URLQueryItem(name: "grant_type", value: "password"),
-                              URLQueryItem(name: "scope", value: "stream,write_post,follow,update_profile,presence,messages")]
-            
-            if let secretsDict = secretsDict {
-                for (key, value) in secretsDict {
-                    queryItems.append(URLQueryItem(name: key, value: value))
-                }
-            }
-            
-            let urlComponents = URLComponents(path: "/\(version)/oauth/access_token", queryItems: queryItems)
+        case .auth:
+            let urlComponents = URLComponents(path: "/\(version)/oauth/access_token", queryItems: [])
             return urlComponents.url
         
         case .posts(let before, let since):

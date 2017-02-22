@@ -10,6 +10,7 @@
 		55160CDB1E4B04840043A3CC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55160CDA1E4B04840043A3CC /* ShareViewController.swift */; };
 		55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55160CDC1E4B04840043A3CC /* MainInterface.storyboard */; };
 		55160CE21E4B04840043A3CC /* Pnut.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 55160CD81E4B04830043A3CC /* Pnut.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		557AA78A1E5DEABE0089E2DB /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 557AA7891E5DEABE0089E2DB /* secrets.json */; };
 		55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */; };
@@ -39,7 +40,6 @@
 		F2CE76CC1E50913500140C78 /* LoginUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76CB1E50913500140C78 /* LoginUserTests.swift */; };
 		F2CE76D21E5093BA00140C78 /* MockKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D01E5093BA00140C78 /* MockKeychainManager.swift */; };
 		F2CE76D31E5093BA00140C78 /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */; };
-		F2CE76D51E5094A600140C78 /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = F2CE76D41E5094A600140C78 /* secrets.json */; };
 		F2CE76D71E53388700140C78 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D61E53388700140C78 /* MockUserDefaults.swift */; };
 		F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DA1E548E3A00140C78 /* PostViewController.swift */; };
 		F2CE76DD1E54917000140C78 /* PostViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */; };
@@ -125,6 +125,7 @@
 		55160CDA1E4B04840043A3CC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		55160CDD1E4B04840043A3CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		55160CDF1E4B04840043A3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		557AA7891E5DEABE0089E2DB /* secrets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		F23BE3A31E47050C0068E82F /* PostsCollectionViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewControllerTests.swift; sourceTree = "<group>"; };
@@ -155,7 +156,6 @@
 		F2CE76CB1E50913500140C78 /* LoginUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserTests.swift; sourceTree = "<group>"; };
 		F2CE76D01E5093BA00140C78 /* MockKeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainManager.swift; sourceTree = "<group>"; };
 		F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
-		F2CE76D41E5094A600140C78 /* secrets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		F2CE76D61E53388700140C78 /* MockUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
 		F2CE76DA1E548E3A00140C78 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		F2CE76DC1E54917000140C78 /* PostViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewControllerTests.swift; sourceTree = "<group>"; };
@@ -418,7 +418,7 @@
 		F2E492641E37FF45000C7187 /* phazel */ = {
 			isa = PBXGroup;
 			children = (
-				F2CE76D41E5094A600140C78 /* secrets.json */,
+				557AA7891E5DEABE0089E2DB /* secrets.json */,
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
 				F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */,
 				F2F25A4B1E5A35FC0028C9D2 /* Settings */,
@@ -649,7 +649,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2CE76D51E5094A600140C78 /* secrets.json in Resources */,
+				557AA78A1E5DEABE0089E2DB /* secrets.json in Resources */,
 				F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */,
 				F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */,
 			);

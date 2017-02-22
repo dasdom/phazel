@@ -21,11 +21,23 @@ final public class APIClient: APIClientProtocol {
     
     public func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
         
-        guard let url = URLCreator.auth(username: username, password: password).url() else { fatalError() }
+        guard let url = URLCreator.auth.url() else { fatalError() }
         
         print("url: \(url)")
+        
+        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+        guard let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet),
+            let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet) else {
+                fatalError()
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let bodyString = "username=\(encodedUsername)&password=\(encodedPassword)"
+        request.httpBody = bodyString.data(using: .utf8)
+        
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { data, _, taskError in
+        let dataTask = session.dataTask(with: request) { data, _, taskError in
             
             if let data = data {
                 let dataString = String(data: data, encoding: .utf8)

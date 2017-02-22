@@ -29,7 +29,7 @@ class APIClientTests: XCTestCase {
         
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
-        waitForExpectations(timeout: 0.1) { error in
+        waitForExpectations(timeout: 0.2) { error in
             XCTAssertEqual(mockKeychainManager.token, "42")
         }
     }
@@ -42,8 +42,26 @@ class APIClientTests: XCTestCase {
         
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
-        waitForExpectations(timeout: 0.1) { error in
+        waitForExpectations(timeout: 0.2) { error in
             XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
+        }
+    }
+    
+    func test_login_hasUsername_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        guard let encodedUsername = encode("föö"), let encodedPassword = encode("@#$%^&*\\/?") else {
+                return XCTFail()
+        }
+        localSUT.login(username: encodedUsername, password: encodedPassword) { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertTrue(stringData?.contains("username=\(encodedUsername)") ?? false)
+            XCTAssertTrue(stringData?.contains("password=\(encodedPassword)") ?? false)
         }
     }
     
@@ -60,7 +78,7 @@ class APIClientTests: XCTestCase {
             }
         }
         
-        waitForExpectations(timeout: 0.1) { error in
+        waitForExpectations(timeout: 0.2) { error in
             let expectedUser = LoginUser(id: 23, username: "foo")
             XCTAssertEqual(catchesUser, expectedUser)
         }
@@ -83,7 +101,7 @@ class APIClientTests: XCTestCase {
             }
         }
         
-        waitForExpectations(timeout: 0.1) { _ in
+        waitForExpectations(timeout: 0.2) { _ in
             XCTAssertEqual(catchedError as? NSError, error)
             XCTAssertNil(mockKeychainManager.token)
         }
@@ -102,7 +120,7 @@ class APIClientTests: XCTestCase {
             }
         }
         
-        waitForExpectations(timeout: 0.1) { _ in
+        waitForExpectations(timeout: 0.2) { _ in
             XCTAssertEqual(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
             XCTAssertNil(mockKeychainManager.token)
         }
@@ -210,5 +228,12 @@ class APIClientTests: XCTestCase {
                 return key == "Authorization" && value == "Bearer 42"
             }), "Found header: \(header)")
         }
+    }
+}
+
+extension APIClientTests {
+    func encode(_ string: String) -> String? {
+        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+        return string.addingPercentEncoding(withAllowedCharacters: characterSet)
     }
 }
