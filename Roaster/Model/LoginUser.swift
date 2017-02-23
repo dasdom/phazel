@@ -5,10 +5,10 @@
 import Foundation
 
 public struct LoginUser: Equatable {
-    let id: Int
+    let id: String
     let username: String
     
-    public init(id: Int, username: String) {
+    public init(id: String, username: String) {
         self.id = id
         self.username = username
     }

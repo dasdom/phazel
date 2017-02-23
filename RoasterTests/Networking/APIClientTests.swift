@@ -52,23 +52,95 @@ class APIClientTests: XCTestCase {
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
-        guard let encodedUsername = encode("föö"), let encodedPassword = encode("@#$%^&*\\/?") else {
+        guard let encodedUsername = encode("föö") else {
                 return XCTFail()
         }
-        localSUT.login(username: encodedUsername, password: encodedPassword) { _ in }
+        localSUT.login(username: encodedUsername, password: "foo") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
             guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
             let stringData = String(data: bodyData, encoding: .utf8)
             XCTAssertTrue(stringData?.contains("username=\(encodedUsername)") ?? false)
+        }
+    }
+    
+    func test_login_hasPassword_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        guard let encodedPassword = encode("@#$%^&*\\/?") else {
+            return XCTFail()
+        }
+        localSUT.login(username: "foo", password: encodedPassword) { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
             XCTAssertTrue(stringData?.contains("password=\(encodedPassword)") ?? false)
+        }
+    }
+    
+    func test_login_hasClientId_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertTrue(stringData?.contains("client_id=") ?? false)
+        }
+    }
+    
+    func test_login_hasPasswordGrantSecret_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertTrue(stringData?.contains("password_grant_secret=") ?? false)
+        }
+    }
+    
+    func test_login_hasGrantType_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertTrue(stringData?.contains("grant_type=password") ?? false)
+        }
+    }
+    
+    func test_login_hasScope_inPostData() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
+            let stringData = String(data: bodyData, encoding: .utf8)
+            XCTAssertTrue(stringData?.contains("scope=stream,write_post,follow,update_profile,presence,messages") ?? false)
         }
     }
     
     func test_login_whenSuccessful_returnsUser() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
-        guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
+        guard let data = "{\"access_token\":\"42\", \"user_id\":\"23\", \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
         var catchesUser: LoginUser? = nil
@@ -76,13 +148,30 @@ class APIClientTests: XCTestCase {
             if case .success(let user) = result {
                 catchesUser = user
             }
+            if case .failure(let error) = result {
+                print(error)
+            }
         }
         
         waitForExpectations(timeout: 0.2) { error in
-            let expectedUser = LoginUser(id: 23, username: "foo")
+            let expectedUser = LoginUser(id: "23", username: "foo")
             XCTAssertEqual(catchesUser, expectedUser)
         }
     }
+    
+    func test_login_setsUsername_inKeychain() {
+        let mockUserDefaults = MockUserDefaults(string: "horst")
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: mockUserDefaults)
+        guard let data = "{\"access_token\":\"42\", \"user_id\":\"23\", \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 0.2) { _ in
+            XCTAssertEqual(mockUserDefaults.string, "foo")
+        }
+    }
+
     
     func test_HasKeychainManagerSet() {
         XCTAssertNotNil(sut.keychainManager)

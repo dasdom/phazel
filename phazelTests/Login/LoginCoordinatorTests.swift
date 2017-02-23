@@ -54,7 +54,7 @@ class LoginCoordinatorTests: XCTestCase {
         let coordinatorDelegate = MockLoginCoordinatorDelegate()
         sut.delegate = coordinatorDelegate
         
-        let loginUser = LoginUser(id: 42, username: "foo")
+        let loginUser = LoginUser(id: "42", username: "foo")
         sut.loginDidSucceed(viewController: mockLoginViewController, with: loginUser)
         
         XCTAssertTrue(mockLoginViewController.didDismiss)
@@ -65,7 +65,7 @@ class LoginCoordinatorTests: XCTestCase {
         sut.start()
         guard let loginViewController = window.visibleViewController as? LoginViewController else { return XCTFail() }
         
-        let loginUser = LoginUser(id: 42, username: "foo")
+        let loginUser = LoginUser(id: "42", username: "foo")
         sut.loginDidSucceed(viewController: loginViewController, with: loginUser)
         
         XCTAssertEqual(sut.childViewControllers.count, 0)

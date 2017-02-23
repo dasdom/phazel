@@ -33,7 +33,16 @@ final public class APIClient: APIClientProtocol {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let bodyString = "username=\(encodedUsername)&password=\(encodedPassword)"
+        var bodyString = "username=\(encodedUsername)&password=\(encodedPassword)"
+        
+        if let secretsDict = secretsDict {
+            for (key, value) in secretsDict {
+                bodyString.append("&\(key)=\(value)")
+            }
+        }
+        bodyString.append("&grant_type=password")
+        bodyString.append("&scope=stream,write_post,follow,update_profile,presence,messages")
+        
         request.httpBody = bodyString.data(using: .utf8)
         
         let session = URLSession.shared
@@ -62,6 +71,9 @@ final public class APIClient: APIClientProtocol {
                 guard let token = self.extractToken(from: data) else { return }
                 
                 self.keychainManager.set(token: token, for: username)
+                if let username = loginUser?.username {
+                    self.userDefaults.set(username, forKey: "username")
+                }
             }
 
         }
@@ -109,19 +121,29 @@ final public class APIClient: APIClientProtocol {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
             
-            let postId = self.extractPostId(from: data)
-            let result = Result(value: postId, error: error)
-            completion(result)
+            DispatchQueue.main.async {
+                let postId = self.extractPostId(from: data)
+                let result = Result(value: postId, error: error)
+                completion(result)
+            }
         }
         dataTask.resume()
     }
 }
 
-//MARK: - Status
+//MARK: - Helper
 extension APIClient {
     public func isLoggedIn() -> Bool {
         guard let username = currentUsername, let _ = keychainManager.token(for: username) else { return false }
         return true
+    }
+    
+    fileprivate var secretsDict: [String:String]? {
+        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
+        guard let secretURL = url else { fatalError("No file at \(url)") }
+        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
+        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
+        return secretsDict as? [String:String]
     }
 }
 
@@ -144,7 +166,7 @@ extension APIClient {
     fileprivate func extractLoginUser(from data: Data?) -> LoginUser? {
         guard let jsonDict = jsonDict(from: data),
             let username = jsonDict[JSONKey.username.rawValue] as? String,
-            let userId = jsonDict[JSONKey.user_id.rawValue] as? Int
+            let userId = jsonDict[JSONKey.user_id.rawValue] as? String
             else { return nil }
         return LoginUser(id: userId, username: username)
     }

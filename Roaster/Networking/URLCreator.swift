@@ -36,13 +36,13 @@ enum URLCreator {
 }
 
 extension URLCreator {
-    fileprivate var secretsDict: [String:String]? {
-        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
-        guard let secretURL = url else { fatalError("No file at \(url)") }
-        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
-        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
-        return secretsDict as? [String:String]
-    }
+//    fileprivate var secretsDict: [String:String]? {
+//        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
+//        guard let secretURL = url else { fatalError("No file at \(url)") }
+//        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
+//        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
+//        return secretsDict as? [String:String]
+//    }
     
 //    fileprivate var queryItemAllowedCharacterSet: CharacterSet {
 //        return CharacterSet(charactersIn: "/%&=?$#+-~@<>|\\*,.()[]{}^!").inverted
@@ -59,6 +59,8 @@ extension URLComponents {
         scheme = "https"
         host = "api.pnut.io"
         self.path = path
-        self.queryItems = queryItems
+        if queryItems.count > 0 {
+            self.queryItems = queryItems
+        }
     }
 }

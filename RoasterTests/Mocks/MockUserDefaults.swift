@@ -17,4 +17,10 @@ class MockUserDefaults: UserDefaults {
     override func string(forKey defaultName: String) -> String? {
         return string
     }
+    
+    override func set(_ value: Any?, forKey defaultName: String) {
+        if let stringValue = value as? String {
+            string = stringValue
+        }
+    }
 }

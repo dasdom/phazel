@@ -92,7 +92,7 @@ class PostCoordinatorTests: XCTestCase {
         let loginCoordinator = LoginCoordinator(window: window)
         sut.childCoordinators.append(loginCoordinator)
         
-        let loginUser = LoginUser(id: 42, username: "foo")
+        let loginUser = LoginUser(id: "42", username: "foo")
         sut.coordinatorDidLogin(coordinator: loginCoordinator, with: loginUser)
         
         XCTAssertEqual(sut.childCoordinators.count, 0)

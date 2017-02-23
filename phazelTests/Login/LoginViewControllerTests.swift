@@ -30,7 +30,7 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func test_login_callsAPIClientMethod() {
-        let result = Result(value: LoginUser(id: 23, username: "foo"), error: nil)
+        let result = Result(value: LoginUser(id: "23", username: "foo"), error: nil)
         let mockAPIClient = MockAPIClient(result: result)
         let localSUT = LoginViewController(contentView: MockView(), apiClient: mockAPIClient)
         
@@ -41,7 +41,7 @@ class LoginViewControllerTests: XCTestCase {
     }
     
     func test_login_callsDelegateMethod_whenSuccessful() {
-        let result = Result(value: LoginUser(id: 23, username: "foo"), error: nil)
+        let result = Result(value: LoginUser(id: "23", username: "foo"), error: nil)
         let localSUT = LoginViewController(contentView: MockView(), apiClient: MockAPIClient(result: result))
         let mockDelegate = MockLoginViewControllerDelegate()
         localSUT.delegate = mockDelegate
