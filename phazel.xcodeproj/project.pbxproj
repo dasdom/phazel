@@ -55,6 +55,7 @@
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
 		F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */; };
 		F2F33C871E5CE20A007E53E1 /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F33C861E5CE20A007E53E1 /* Meta.swift */; };
+		F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		F2F33C861E5CE20A007E53E1 /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
+		F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,6 +389,7 @@
 				F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */,
 				F2CE76E81E54F3BD00140C78 /* DDHView.swift */,
 				F2CE76EC1E54F41300140C78 /* DDHTextView.swift */,
+				F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 			files = (
 				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
 				F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */,
+				F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
 				F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */,
 				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,

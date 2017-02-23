@@ -8,6 +8,7 @@ class PostView: DDHView {
     
     let textView: DDHTextView
     let sendButton: DDHButton
+    fileprivate let countLabel: UILabel
     fileprivate let stackView: UIStackView
     
     override init(frame: CGRect) {
@@ -17,14 +18,31 @@ class PostView: DDHView {
         textView.textColor = UIColor.white
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         
-        sendButton = DDHButton()
+        countLabel = DDHLabel()
+        countLabel.backgroundColor = UIColor.background
+        countLabel.textColor = UIColor.lightGray
+        countLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+        countLabel.textAlignment = .right
+        countLabel.text = "256"
+        
+        sendButton = DDHButton(type: .system)
         sendButton.addTarget(nil, action: .send, for: .touchUpInside)
-        sendButton.backgroundColor = UIColor.red
         sendButton.setTitle("Send", for: .normal)
         sendButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        sendButton.backgroundColor = UIColor.buttonBackground
-
-        stackView = UIStackView(arrangedSubviews: [textView, sendButton])
+//        sendButton.backgroundColor = UIColor.buttonBackground
+        sendButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        sendButton.isEnabled = false
+        
+        let countStackView = UIStackView(arrangedSubviews: [countLabel])
+        countStackView.alignment = .top
+        
+        let topStackView = UIStackView(arrangedSubviews: [textView, countStackView])
+        
+        let sendButtonStackView = UIStackView(arrangedSubviews: [sendButton])
+        sendButtonStackView.alignment = .trailing
+        sendButtonStackView.axis = .vertical
+        
+        stackView = UIStackView(arrangedSubviews: [topStackView, sendButtonStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -32,6 +50,7 @@ class PostView: DDHView {
         super.init(frame: frame)
         
         backgroundColor = UIColor.background
+        textView.delegate = self
         
         addSubview(stackView)
         
@@ -62,6 +81,25 @@ extension PostView: PostViewProtocol {
     
     func setFirstResponder() {
         textView.becomeFirstResponder()
+    }
+}
+
+extension PostView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let remainingCharacters = 256 - textView.text.characters.count
+        countLabel.text = "\(remainingCharacters)"
+        
+        if remainingCharacters < 0 {
+            countLabel.textColor = UIColor.red
+            sendButton.isEnabled = false
+        } else {
+            countLabel.textColor = UIColor.lightGray
+            if textView.text.characters.count == 0 {
+                sendButton.isEnabled = false
+            } else {
+                sendButton.isEnabled = true
+            }
+        }
     }
 }
 

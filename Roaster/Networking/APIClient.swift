@@ -134,7 +134,14 @@ final public class APIClient: APIClientProtocol {
 //MARK: - Helper
 extension APIClient {
     public func isLoggedIn() -> Bool {
-        guard let username = currentUsername, let _ = keychainManager.token(for: username) else { return false }
+        guard let username = currentUsername else {
+            print("No username")
+            return false
+        }
+        guard let _ = keychainManager.token(for: username) else {
+            print("No keychain item")
+            return false
+        }
         return true
     }
     
