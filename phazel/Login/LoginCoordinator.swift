@@ -42,7 +42,7 @@ extension LoginCoordinator: LoginViewControllerDelegate {
     
     func loginDidFail(viewController: LoginViewController, with error: Error) {
         
-        let alertController = UIAlertController(title: "Foo", message: "Bar", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         viewController.present(alertController, animated: true, completion: nil)

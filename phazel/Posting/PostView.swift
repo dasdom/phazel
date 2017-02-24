@@ -77,6 +77,7 @@ extension PostView: PostViewProtocol {
     
     func reset() {
         textView.text = ""
+        sendButton.isEnabled = false
     }
     
     func setFirstResponder() {

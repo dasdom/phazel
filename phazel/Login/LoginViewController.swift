@@ -5,7 +5,7 @@
 import UIKit
 import Roaster
 
-protocol LoginViewControllerDelegate {
+protocol LoginViewControllerDelegate: class {
     func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser)
     func loginDidFail(viewController: LoginViewController, with error: Error)
 }
@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
 
     let contentView: LoginViewProtocol
     let apiClient: APIClientProtocol
-    var delegate: LoginViewControllerDelegate?
+    weak var delegate: LoginViewControllerDelegate?
 
     init(contentView: LoginViewProtocol, apiClient: APIClientProtocol = APIClient()) {
         
@@ -44,7 +44,10 @@ extension LoginViewController: LoginProtocol {
     func login() {
         guard let username = contentView.username else { fatalError() }
         guard let password = contentView.password else { fatalError() }
+        contentView.set(animating: true)
         self.apiClient.login(username: username, password: password) { result in
+            
+            self.contentView.set(animating: false)
             
             switch result {
             case .success(let loginUser):

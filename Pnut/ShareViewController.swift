@@ -7,6 +7,12 @@ import Social
 
 class ShareViewController: SLComposeServiceViewController {
 
+    override func presentationAnimationDidFinish() {
+        let items = extensionContext?.inputItems
+        
+        print("items: \(items)")
+    }
+    
     override func isContentValid() -> Bool {
         // Do validation of contentText and/or NSExtensionContext attachments here
         return true

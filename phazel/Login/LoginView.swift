@@ -9,6 +9,8 @@ final class LoginView: DDHView {
     let usernameTextField: DDHTextField
     let passwordTextField: DDHTextField
     let loginButton: DDHButton
+    fileprivate let spinner: UIActivityIndicatorView
+    let loginButtonTitle = "Login"
     
     override init(frame: CGRect) {
         
@@ -31,10 +33,17 @@ final class LoginView: DDHView {
 
         loginButton = DDHButton(type: .system)
         loginButton.addTarget(nil, action: .login, for: .touchUpInside)
-        loginButton.setTitle("Login", for: .normal)
+        loginButton.setTitle(loginButtonTitle, for: .normal)
         loginButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         loginButton.isEnabled = false
         loginButton.backgroundColor = UIColor.buttonBackground
+        
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        spinner.hidesWhenStopped = true
+//        spinner.startAnimating()
+        
+        loginButton.addSubview(spinner)
         
         let stackView = UIStackView(arrangedSubviews: [label, usernameTextField, passwordTextField, loginButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +65,8 @@ final class LoginView: DDHView {
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[stackView]", options: [], metrics: nil, views: views)
         layoutConstraints += [usernameTextField.heightAnchor.constraint(equalToConstant: 30)]
         layoutConstraints += [passwordTextField.heightAnchor.constraint(equalToConstant: 30)]
+        layoutConstraints += [spinner.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)]
+        layoutConstraints += [spinner.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor)]
         NSLayoutConstraint.activate(layoutConstraints)
     }
     
@@ -108,12 +119,23 @@ extension LoginView: LoginViewProtocol {
     func setFirstResponder() {
         usernameTextField.becomeFirstResponder()
     }
+    
+    func set(animating: Bool) {
+        if animating {
+            loginButton.setTitle(nil, for: .normal)
+            spinner.startAnimating()
+        } else {
+            loginButton.setTitle(loginButtonTitle, for: .normal)
+            spinner.stopAnimating()
+        }
+    }
 }
 
 protocol LoginViewProtocol {
     var username: String? { get }
     var password: String? { get }
     func setFirstResponder()
+    func set(animating: Bool)
 }
 
 @objc protocol LoginProtocol {

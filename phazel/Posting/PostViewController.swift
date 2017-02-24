@@ -5,7 +5,7 @@
 import UIKit
 import Roaster
 
-protocol PostViewControllerDelegate {
+protocol PostViewControllerDelegate: class {
     func viewDidAppear(viewController: PostViewController)
     func postDidSucceed(viewController: PostViewController, with postId: String)
     func postDidFail(viewController: PostViewController, with error: Error)
@@ -15,7 +15,7 @@ class PostViewController: UIViewController {
 
     let contentView: PostViewProtocol
     let apiClient: APIClientProtocol
-    var delegate: PostViewControllerDelegate?
+    weak var delegate: PostViewControllerDelegate?
     fileprivate var bottomConstraint: NSLayoutConstraint?
     
     init(contentView: PostViewProtocol, apiClient: APIClientProtocol = APIClient()) {
