@@ -4,4 +4,4 @@
 
 iOS client for pnut.io. Work in progress.
 
-![](phazel/screenshots/Simulator Screen Shot 25 Feb 2017, 09.08.50.png)
+![](https://raw.githubusercontent.com/dasdom/phazel/master/screenshots/Simulator%20Screen%20Shot%2025%20Feb%202017%2C%2009.08.50.png)
