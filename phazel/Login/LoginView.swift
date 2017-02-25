@@ -16,9 +16,10 @@ final class LoginView: DDHView {
         
         let label = UILabel()
         label.textColor = UIColor.white
-        label.text = "Please log in"
+        label.text = "Please log in with\nyour pnut.io account"
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
         
         usernameTextField = DDHTextField()
         usernameTextField.font = UIFont.preferredFont(forTextStyle: .body)
