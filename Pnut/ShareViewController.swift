@@ -4,30 +4,106 @@
 
 import UIKit
 import Social
+import MobileCoreServices
+import Roaster
 
 class ShareViewController: SLComposeServiceViewController {
 
+    var urlToShare: URL?
+    
     override func presentationAnimationDidFinish() {
-        let items = extensionContext?.inputItems
+        guard let items = extensionContext?.inputItems else {
+            print("No inputItems")
+            return
+        }
         
         print("items: \(items)")
+        
+        guard !items.isEmpty, let item = items[0] as? NSExtensionItem else {
+            print("No NSExtensionItem")
+            return
+        }
+        
+        guard let attachments = item.attachments else {
+            print("No attachments")
+            return
+        }
+        
+        for attachment in attachments {
+            guard let itemProvider = attachment as? NSItemProvider else {
+                print("No NSItemProvider")
+                return
+            }
+            
+            print("itemProvier: \(itemProvider)")
+            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
+            
+            extractTextAndURL(from: itemProvider, completion: { text, url in
+                if let textToShare = text {
+                    self.textView.text = textToShare
+                }
+                self.urlToShare = url
+            })
+            
+        }
+        
     }
     
     override func isContentValid() -> Bool {
-        // Do validation of contentText and/or NSExtensionContext attachments here
-        return true
+        
+        charactersRemaining = Int(256 - contentText.characters.count) as NSNumber!
+        
+        return contentText.characters.count < 256
     }
 
     override func didSelectPost() {
         // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
     
         // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        
+        let textToShare: String
+        guard let url = urlToShare, let text = contentText else {
+            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+            return
+        }
+        
+        textToShare = "[\(text)](\(url))"
+        
+        
+        let apiClient = APIClient()
+        apiClient.post(text: textToShare) { result in
+            switch result {
+            case .success(let postId):
+                print("postId: \(postId)")
+                self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+            case .failure(let error):
+                print("error: \(error)")
+                break
+            }
+        }
+        
     }
 
     override func configurationItems() -> [Any]! {
         // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
         return []
     }
+}
 
+// MARK: - Data extractors
+extension ShareViewController {
+    func extractTextAndURL(from itemProvider: NSItemProvider, completion: @escaping (String?, URL) -> ()) {
+        
+        let urlType = "public.url"
+        
+        if itemProvider.hasItemConformingToTypeIdentifier(urlType) {
+            itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
+                
+                if let url = item as? URL {
+                    completion(nil, url)
+                }
+            })
+        }
+        
+    }
 }
