@@ -100,6 +100,11 @@ extension PostViewControllerTests {
         var topView: UIView {
             return UIView()
         }
+        
+        func set(animating: Bool) {
+            
+        }
+
     }
     
     class MockAPIClient: APIClientProtocol {

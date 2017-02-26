@@ -5,7 +5,7 @@
 import XCTest
 @testable import Roaster
 
-class APIClientTests: XCTestCase {
+class APIClientTests: DDHTestCase {
     
     var sut: APIClient!
     
@@ -30,7 +30,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { error in
-            XCTAssertEqual(mockKeychainManager.token, "42")
+            self.Equal(mockKeychainManager.token, "42")
         }
     }
     
@@ -43,7 +43,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { error in
-            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
+            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
         }
     }
     
@@ -58,9 +58,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: encodedUsername, password: "foo") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("username=\(encodedUsername)") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "username=\(encodedUsername)")
         }
     }
     
@@ -75,9 +73,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: encodedPassword) { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("password=\(encodedPassword)") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "password=\(encodedPassword)")
         }
     }
     
@@ -89,9 +85,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("client_id=") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "client_id=")
         }
     }
     
@@ -103,9 +97,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("password_grant_secret=") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "password_grant_secret=")
         }
     }
     
@@ -117,9 +109,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("grant_type=password") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "grant_type=password")
         }
     }
     
@@ -131,9 +121,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertTrue(stringData?.contains("scope=stream,write_post,follow,update_profile,presence,messages") ?? false)
+            self.body(of: URLRequestStub.lastRequest, contains: "scope=stream,write_post,follow,update_profile,presence,messages")
         }
     }
     
@@ -155,7 +143,7 @@ class APIClientTests: XCTestCase {
         
         waitForExpectations(timeout: 0.2) { error in
             let expectedUser = LoginUser(id: "23", username: "foo")
-            XCTAssertEqual(catchesUser, expectedUser)
+            self.Equal(catchesUser, expectedUser)
         }
     }
     
@@ -168,7 +156,7 @@ class APIClientTests: XCTestCase {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            XCTAssertEqual(mockUserDefaults.string, "foo")
+            self.Equal(mockUserDefaults.string, "foo")
         }
     }
 
@@ -191,7 +179,7 @@ class APIClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 0.2) { _ in
-            XCTAssertEqual(catchedError as? NSError, error)
+            self.Equal(catchedError as? NSError, error)
             XCTAssertNil(mockKeychainManager.token)
         }
     }
@@ -210,7 +198,7 @@ class APIClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 0.2) { _ in
-            XCTAssertEqual(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
+            self.Equal(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
             XCTAssertNil(mockKeychainManager.token)
         }
     }
@@ -236,8 +224,8 @@ class APIClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 0.1) { error in
-            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
-            XCTAssertEqual(catchedPosts?.count, 1)
+            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
+            self.Equal(catchedPosts?.count, 1)
         }
     }
     
@@ -268,7 +256,7 @@ class APIClientTests: XCTestCase {
         waitForExpectations(timeout: 0.1) { _ in
             guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
             let stringData = String(data: bodyData, encoding: .utf8)
-            XCTAssertEqual(stringData, "text=Foo bar", "Found: \(stringData)")
+            self.Equal(stringData, "text=Foo bar", "Found: \(stringData)")
         }
     }
     
@@ -281,7 +269,7 @@ class APIClientTests: XCTestCase {
         localSUT.post(text: "Foo bar") { _ in }
         
         waitForExpectations(timeout: 0.1) { _ in
-            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts")
+            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts")
         }
     }
     
@@ -299,7 +287,7 @@ class APIClientTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 0.1) { _ in
-            XCTAssertEqual(catchedPostId, "2392")
+            self.Equal(catchedPostId, "2392")
         }
     }
     

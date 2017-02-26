@@ -78,6 +78,10 @@ extension LoginViewControllerTests {
         func setFirstResponder() {
             
         }
+        
+        func set(animating: Bool) {
+
+        }
     }
     
     class MockAPIClient: APIClientProtocol {
