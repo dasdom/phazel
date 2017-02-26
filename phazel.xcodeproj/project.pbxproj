@@ -27,6 +27,8 @@
 		F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */; };
 		F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */; };
 		F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */; };
+		F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
+		F25549E01E61F22600CE5D14 /* Extract.js in Resources */ = {isa = PBXBuildFile; fileRef = F25549DF1E61F22600CE5D14 /* Extract.js */; };
 		F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEB1E5738220005B688 /* PostCoordinator.swift */; };
 		F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */; };
 		F25C6FF01E5893BC0005B688 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */; };
@@ -144,6 +146,7 @@
 		F2425A4F1E43D8EB001B7E46 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
 		F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
+		F25549DF1E61F22600CE5D14 /* Extract.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Extract.js; sourceTree = "<group>"; };
 		F25C6FEB1E5738220005B688 /* PostCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinatorTests.swift; sourceTree = "<group>"; };
 		F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +229,7 @@
 		55160CD91E4B04840043A3CC /* Pnut */ = {
 			isa = PBXGroup;
 			children = (
+				F25549DF1E61F22600CE5D14 /* Extract.js */,
 				F2F33C8B1E609818007E53E1 /* Pnut.entitlements */,
 				55160CDA1E4B04840043A3CC /* ShareViewController.swift */,
 				55160CDC1E4B04840043A3CC /* MainInterface.storyboard */,
@@ -650,6 +655,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F25549E01E61F22600CE5D14 /* Extract.js in Resources */,
 				55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -861,6 +867,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.Roaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -886,6 +894,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.Roaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

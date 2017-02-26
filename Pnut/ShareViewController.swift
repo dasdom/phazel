@@ -40,7 +40,9 @@ class ShareViewController: SLComposeServiceViewController {
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
                 if let textToShare = text {
-                    self.textView.text = textToShare
+                    DispatchQueue.main.async {
+                        self.textView.text = textToShare
+                    }
                 }
                 self.urlToShare = url
             })
@@ -94,13 +96,37 @@ class ShareViewController: SLComposeServiceViewController {
 extension ShareViewController {
     func extractTextAndURL(from itemProvider: NSItemProvider, completion: @escaping (String?, URL) -> ()) {
         
-        let urlType = "public.url"
+        let urlType = kUTTypePropertyList as String
         
         if itemProvider.hasItemConformingToTypeIdentifier(urlType) {
             itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
                 
-                if let url = item as? URL {
-                    completion(nil, url)
+//                if let url = item as? URL {
+//                    completion(nil, url)
+//                }
+                
+                guard let item = item as? NSDictionary else { return }
+                guard let elements = item[NSExtensionJavaScriptPreprocessingResultsKey] as? [String:String] else {
+                    print("No elmenents")
+                    return
+                }
+                
+//                print(elements["URL"])
+//                print(elements["selection"])
+//                print(elements["title"])
+                
+                var textToShare: String? = nil
+                if let selectedText = elements["selection"], selectedText.characters.count > 0 {
+                    textToShare = selectedText
+                } else if let title = elements["title"], title.characters.count > 0 {
+                    textToShare = title
+                } else if let urlString = elements["URL"] {
+                    textToShare = urlString
+                }
+                
+                if let urlString = elements["URL"], let url = URL(string: urlString) {
+                    completion(textToShare, url)
+                    
                 }
             })
         }

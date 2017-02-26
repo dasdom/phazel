@@ -76,7 +76,10 @@ class PostViewController: UIViewController {
 extension PostViewController: PostProtocol {
     func send() {
         guard let text = contentView.text else { return }
+        contentView.set(animating: true)
         apiClient.post(text: text) { result in
+            
+            self.contentView.set(animating: false)
             
             switch result {
             case .success(let postId):

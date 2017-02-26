@@ -10,7 +10,7 @@ final class LoginView: DDHView {
     let passwordTextField: DDHTextField
     let loginButton: DDHButton
     fileprivate let spinner: UIActivityIndicatorView
-    let loginButtonTitle = "Login"
+    fileprivate let loginButtonTitle = "Login"
     
     override init(frame: CGRect) {
         
