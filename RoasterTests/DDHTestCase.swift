@@ -44,9 +44,16 @@ extension DDHTestCase {
         return variable
     }
     
-    func body(of request: URLRequest?, _ message: @autoclosure () -> String = "", contains string: String, file: StaticString = #file, line: UInt = #line) {
-        guard let bodyData = request?.httpBody else { return XCTFail(message(), file: file, line: line) }
+    func body(of request: URLRequest?, contains string: String, file: StaticString = #file, line: UInt = #line) {
+        guard let bodyData = request?.httpBody else { return XCTFail("No request or body", file: file, line: line) }
         let stringData = String(data: bodyData, encoding: .utf8)
         self.True(stringData?.contains(string))
+    }
+    
+    func header(of request: URLRequest?, containsValue value: String, forKey key: String, file: StaticString = #file, line: UInt = #line) {
+        guard let header = request?.allHTTPHeaderFields else { return XCTFail("No request or header fields", file: file, line: line) }
+        self.True(header.contains(where: { (key, value) -> Bool in
+            return key == "Authorization" && value == "Bearer 42"
+        }), "Found header: \(header)")
     }
 }

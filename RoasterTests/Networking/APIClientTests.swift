@@ -20,7 +20,10 @@ class APIClientTests: DDHTestCase {
         
         super.tearDown()
     }
-    
+}
+
+// MARK: - Login
+extension APIClientTests {
     func test_login_whenSuccessful_setsToken() {
         let mockKeychainManager = MockKeychainManager()
         let localSUT = APIClient(keychainManager: mockKeychainManager)
@@ -202,8 +205,56 @@ class APIClientTests: DDHTestCase {
             XCTAssertNil(mockKeychainManager.token)
         }
     }
+}
+
+// MARK: - Posts
+extension APIClientTests {
+    func test_posts_hasCorrectPath() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let returnJson = ["{",
+                          "\"data\": [",
+                          "{",
+                          "\"content\": {", "\"text\": \"\"", "}",
+                          "}",
+                          "]",
+                          "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.posts(before: nil, since: nil) { _ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
+        }
+    }
     
-    func test_postsRequest_returnsPosts() {
+    func test_posts_returnsPosts() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let returnJson = ["{",
+                          "\"data\": [",
+                          "{",
+                          "\"content\": {", "\"text\": \"\"", "}",
+                          "}",
+                          "]",
+                          "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedPosts: [Post]? = nil
+        localSUT.posts(before: nil, since: nil) { result in
+            if case .success(let posts) = result {
+                catchedPosts = posts
+            }
+        }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            self.Equal(catchedPosts?.count, 1)
+        }
+    }
+    
+    func test_posts_returnsPostWithText() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{",
                           "\"data\": [",
@@ -224,28 +275,26 @@ class APIClientTests: DDHTestCase {
         }
         
         waitForExpectations(timeout: 0.1) { error in
-            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
-            self.Equal(catchedPosts?.count, 1)
+            self.Equal(catchedPosts?.first?.text, "@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier")
         }
     }
     
-    func test_postsRequest_authentication() {
+    func test_posts_authentication() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
-        let returnJson = ["{", "}"].joined(separator: "\n")
-        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
         localSUT.posts(before: nil, since: nil) { _ in }
         
         waitForExpectations(timeout: 0.1) { error in
-            guard let header = URLRequestStub.lastRequest?.allHTTPHeaderFields else { return XCTFail() }
-            XCTAssertTrue(header.contains(where: { (key, value) -> Bool in
-                return key == "Authorization" && value == "Bearer 42"
-            }), "Found header: \(header)")
+            self.header(of: URLRequestStub.lastRequest, containsValue: "Bearer 42", forKey: "Authorization")
         }
     }
-    
-    func test_postRequest_hasPostData() {
+}
+
+// MARK: - Posting
+extension APIClientTests {
+    func test_post_hasPostData() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
@@ -260,7 +309,7 @@ class APIClientTests: DDHTestCase {
         }
     }
     
-    func test_postRequest_url() {
+    func test_post_url() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
@@ -273,7 +322,7 @@ class APIClientTests: DDHTestCase {
         }
     }
     
-    func test_postRequest_propagatesPostId() {
+    func test_post_propagatesPostId() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
@@ -291,7 +340,7 @@ class APIClientTests: DDHTestCase {
         }
     }
     
-    func test_postRequest_authentication() {
+    func test_post_authentication() {
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }

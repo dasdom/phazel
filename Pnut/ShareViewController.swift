@@ -10,33 +10,36 @@ import Roaster
 class ShareViewController: SLComposeServiceViewController {
 
     var urlToShare: URL?
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var spinnerHost: UIView!
     
     override func presentationAnimationDidFinish() {
+        
         guard let items = extensionContext?.inputItems else {
-            print("No inputItems")
+//            print("No inputItems")
             return
         }
         
-        print("items: \(items)")
+//        print("items: \(items)")
         
         guard !items.isEmpty, let item = items[0] as? NSExtensionItem else {
-            print("No NSExtensionItem")
+//            print("No NSExtensionItem")
             return
         }
         
         guard let attachments = item.attachments else {
-            print("No attachments")
+//            print("No attachments")
             return
         }
         
         for attachment in attachments {
             guard let itemProvider = attachment as? NSItemProvider else {
-                print("No NSItemProvider")
+//                print("No NSItemProvider")
                 return
             }
             
-            print("itemProvier: \(itemProvider)")
-            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
+//            print("itemProvier: \(itemProvider)")
+//            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
                 if let textToShare = text {
@@ -59,9 +62,6 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func didSelectPost() {
-        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-    
-        // Inform the host that we're done, so it un-blocks its UI. Note: Alternatively you could call super's -didSelectPost, which will similarly complete the extension context.
         
         let textToShare: String
         guard let url = urlToShare, let text = contentText else {
@@ -71,16 +71,21 @@ class ShareViewController: SLComposeServiceViewController {
         
         textToShare = "[\(text)](\(url))"
         
-        
         let apiClient = APIClient()
+        spinner.startAnimating()
+        spinnerHost.isHidden = false
         apiClient.post(text: textToShare) { result in
-            switch result {
-            case .success(let postId):
-                print("postId: \(postId)")
+            
+            DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+                switch result {
+                case .success(let postId):
+                    print("postId: \(postId)")
+                case .failure(let error):
+                    print("error: \(error)")
+                    break
+                }
                 self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-            case .failure(let error):
-                print("error: \(error)")
-                break
             }
         }
         
@@ -101,19 +106,11 @@ extension ShareViewController {
         if itemProvider.hasItemConformingToTypeIdentifier(urlType) {
             itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
                 
-//                if let url = item as? URL {
-//                    completion(nil, url)
-//                }
-                
                 guard let item = item as? NSDictionary else { return }
                 guard let elements = item[NSExtensionJavaScriptPreprocessingResultsKey] as? [String:String] else {
-                    print("No elmenents")
+//                    print("No elmenents")
                     return
                 }
-                
-//                print(elements["URL"])
-//                print(elements["selection"])
-//                print(elements["title"])
                 
                 var textToShare: String? = nil
                 if let selectedText = elements["selection"], selectedText.characters.count > 0 {

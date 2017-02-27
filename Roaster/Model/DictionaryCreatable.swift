@@ -5,5 +5,5 @@
 import Foundation
 
 protocol DictionaryCreatable {
-    init(with: [String:Any])
+    init?(with: [String:Any])
 }

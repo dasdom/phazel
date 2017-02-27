@@ -184,7 +184,9 @@ extension APIClient {
         
         var posts: [Post] = []
         for rawPost in allRawPosts {
-            posts.append(Post(with: rawPost))
+            if let post = Post(with: rawPost) {
+                posts.append(post)
+            }
         }
         return posts
     }
