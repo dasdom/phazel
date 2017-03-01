@@ -9,6 +9,7 @@ struct Post: DictionaryCreatable {
     let text: String
     let id: String
     let source: Source
+    let user: User
     
     init?(with dict: [String : Any]) {
         
@@ -30,5 +31,10 @@ struct Post: DictionaryCreatable {
             source = Source(with: [:])!
         }
         
+        if let userDict = dict["user"] as? [String:Any], let unwrappedUser = User(with: userDict) {
+            user = unwrappedUser
+        } else {
+            user = User(with: [:])!
+        }
     }
 }

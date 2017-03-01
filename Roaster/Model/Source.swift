@@ -7,6 +7,7 @@ import Foundation
 struct Source: DictionaryCreatable {
     
     let name: String
+    let url: URL
     
     init?(with dict:[String : Any]) {
         
@@ -14,6 +15,12 @@ struct Source: DictionaryCreatable {
             name = unwrappedName
         } else {
             name = ""
+        }
+        
+        if let urlString = dict["link"] as? String, let unwrappedURL = URL(string: urlString) {
+            url = unwrappedURL
+        } else {
+            url = URL(string: "NoLink")!
         }
     }
 }

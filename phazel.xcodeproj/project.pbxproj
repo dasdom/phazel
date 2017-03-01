@@ -32,6 +32,7 @@
 		F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
 		F25549E01E61F22600CE5D14 /* Extract.js in Resources */ = {isa = PBXBuildFile; fileRef = F25549DF1E61F22600CE5D14 /* Extract.js */; };
 		F25549E21E63027100CE5D14 /* DDHTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25549E11E63027100CE5D14 /* DDHTestCase.swift */; };
+		F25549E41E676BCD00CE5D14 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25549E31E676BCD00CE5D14 /* User.swift */; };
 		F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEB1E5738220005B688 /* PostCoordinator.swift */; };
 		F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */; };
 		F25C6FF01E5893BC0005B688 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */; };
@@ -153,6 +154,7 @@
 		F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinatorTests.swift; sourceTree = "<group>"; };
 		F25549DF1E61F22600CE5D14 /* Extract.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Extract.js; sourceTree = "<group>"; };
 		F25549E11E63027100CE5D14 /* DDHTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTestCase.swift; sourceTree = "<group>"; };
+		F25549E31E676BCD00CE5D14 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F25C6FEB1E5738220005B688 /* PostCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinatorTests.swift; sourceTree = "<group>"; };
 		F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				F2CE76C11E50911F00140C78 /* LoginUser.swift */,
 				F2CE76C21E50911F00140C78 /* Post.swift */,
 				554DC7061E672A92009AE752 /* Source.swift */,
+				F25549E31E676BCD00CE5D14 /* User.swift */,
 				F2F33C861E5CE20A007E53E1 /* Meta.swift */,
 			);
 			path = Model;
@@ -724,6 +727,7 @@
 				554DC7071E672A92009AE752 /* Source.swift in Sources */,
 				F2CE76E41E54F3A900140C78 /* Result.swift in Sources */,
 				F23BE42B1E508EA90068E82F /* APIClient.swift in Sources */,
+				F25549E41E676BCD00CE5D14 /* User.swift in Sources */,
 				F2CE76C91E50911F00140C78 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
