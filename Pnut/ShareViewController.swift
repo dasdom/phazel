@@ -42,9 +42,11 @@ class ShareViewController: SLComposeServiceViewController {
 //            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
-                if let textToShare = text {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if let textToShare = text {
                         self.textView.text = textToShare
+                    } else if (self.textView.text?.characters.count ?? 0) < 1 {
+                        self.textView.text = url.absoluteString
                     }
                 }
                 self.urlToShare = url
