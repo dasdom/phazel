@@ -64,9 +64,16 @@ class ShareViewController: SLComposeServiceViewController {
     override func didSelectPost() {
         
         let textToShare: String
-        guard let url = urlToShare, let text = contentText else {
+        guard let url = urlToShare else {
             self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
             return
+        }
+        
+        var text: String
+        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
+            text = unwrappedText
+        } else {
+            text = url.absoluteString
         }
         
         textToShare = "[\(text)](\(url))"
