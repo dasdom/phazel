@@ -11,6 +11,7 @@
 		55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55160CDC1E4B04840043A3CC /* MainInterface.storyboard */; };
 		55160CE21E4B04840043A3CC /* Pnut.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 55160CD81E4B04830043A3CC /* Pnut.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		554DC7051E66F30B009AE752 /* PostsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 554DC7041E66F30B009AE752 /* PostsResponse.json */; };
+		554DC7071E672A92009AE752 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DC7061E672A92009AE752 /* Source.swift */; };
 		557AA78A1E5DEABE0089E2DB /* secrets.json in Resources */ = {isa = PBXBuildFile; fileRef = 557AA7891E5DEABE0089E2DB /* secrets.json */; };
 		55BB81101E41CD64008C58CD /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
@@ -131,6 +132,7 @@
 		55160CDD1E4B04840043A3CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		55160CDF1E4B04840043A3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		554DC7041E66F30B009AE752 /* PostsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PostsResponse.json; sourceTree = "<group>"; };
+		554DC7061E672A92009AE752 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		557AA7891E5DEABE0089E2DB /* secrets.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = secrets.json; sourceTree = "<group>"; };
 		55BB810F1E41CD64008C58CD /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				F2CE76C01E50911F00140C78 /* DictionaryCreatable.swift */,
 				F2CE76C11E50911F00140C78 /* LoginUser.swift */,
 				F2CE76C21E50911F00140C78 /* Post.swift */,
+				554DC7061E672A92009AE752 /* Source.swift */,
 				F2F33C861E5CE20A007E53E1 /* Meta.swift */,
 			);
 			path = Model;
@@ -718,6 +721,7 @@
 				F2CE76C81E50911F00140C78 /* LoginUser.swift in Sources */,
 				F2CE76C71E50911F00140C78 /* DictionaryCreatable.swift in Sources */,
 				F2F33C871E5CE20A007E53E1 /* Meta.swift in Sources */,
+				554DC7071E672A92009AE752 /* Source.swift in Sources */,
 				F2CE76E41E54F3A900140C78 /* Result.swift in Sources */,
 				F23BE42B1E508EA90068E82F /* APIClient.swift in Sources */,
 				F2CE76C91E50911F00140C78 /* Post.swift in Sources */,

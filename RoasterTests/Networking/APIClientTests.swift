@@ -227,8 +227,6 @@ extension APIClientTests {
         let returnJson = ["{",
                           "\"data\": [",
                           "{",
-                          "\"content\": {", "\"text\": \"\"", "},",
-                          "\"id\": \"\"",
                           "}",
                           "]",
                           "}"].joined(separator: "\n")
@@ -266,7 +264,6 @@ extension APIClientTests {
                           "\"data\": [",
                           "{",
                           "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "},",
-                          "\"id\": \"123\"",
                           "}",
                           "]",
                           "}"].joined(separator: "\n")
@@ -291,7 +288,6 @@ extension APIClientTests {
         let returnJson = ["{",
                           "\"data\": [",
                           "{",
-                          "\"content\": {", "\"text\": \"\"", "},",
                           "\"id\": \"20804\"",
                           "}",
                           "]",
@@ -309,6 +305,33 @@ extension APIClientTests {
         
         waitForExpectations(timeout: 0.2) { error in
             self.Equal(catchedPosts?.first?.id, "20804")
+        }
+    }
+    
+    func test_posts_returnsSource() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let returnJson = ["{",
+                          "\"data\": [",
+                          "{",
+                          "\"source\": {", "\"link\": \"http://xyz.s3rv.com\",", "\"name\": \"Broadsword\"",
+                          "}",
+                          "}",
+                          "]",
+                          "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedPosts: [Post]? = nil
+        localSUT.posts(before: nil, since: nil) { result in
+            if case .success(let posts) = result {
+                catchedPosts = posts
+            }
+        }
+        
+        waitForExpectations(timeout: 0.2) { error in
+            guard let source = catchedPosts?.first?.source else { return XCTFail() }
+            self.Equal(source.name, "Broadsword")
         }
     }
 }

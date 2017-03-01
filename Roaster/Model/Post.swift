@@ -8,20 +8,27 @@ struct Post: DictionaryCreatable {
     
     let text: String
     let id: String
+    let source: Source
     
     init?(with dict: [String : Any]) {
         
-        guard let content = dict["content"] as? [String:Any] else {
-            return nil
+        if let content = dict["content"] as? [String:Any], let unwrappedText = content["text"] as? String {
+            text = unwrappedText
+        } else {
+            text = ""
         }
-        guard let unwrappedText = content["text"] as? String else {
-            return nil
-        }
-        guard let unwrappedId = dict["id"] as? String else {
-            return nil
+    
+        if let unwrappedId = dict["id"] as? String {
+            id = unwrappedId
+        } else {
+            id = ""
         }
         
-        text = unwrappedText
-        id = unwrappedId
+        if let sourceDict = dict["source"] as? [String:String], let unwrappedSource = Source(with: sourceDict) {
+            source = unwrappedSource
+        } else {
+            source = Source(with: [:])!
+        }
+        
     }
 }
