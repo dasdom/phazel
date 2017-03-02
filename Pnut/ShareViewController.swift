@@ -38,7 +38,7 @@ class ShareViewController: SLComposeServiceViewController {
                 return
             }
             
-//            print("itemProvier: \(itemProvider)")
+            print("itemProvier: \(itemProvider)")
 //            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
@@ -110,10 +110,12 @@ class ShareViewController: SLComposeServiceViewController {
 extension ShareViewController {
     func extractTextAndURL(from itemProvider: NSItemProvider, completion: @escaping (String?, URL) -> ()) {
         
-        let urlType = kUTTypePropertyList as String
+        let plistType = kUTTypePropertyList as String
+        let urlType = kUTTypeURL as String
         
-        if itemProvider.hasItemConformingToTypeIdentifier(urlType) {
-            itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
+        if itemProvider.hasItemConformingToTypeIdentifier(plistType) {
+           
+            itemProvider.loadItem(forTypeIdentifier: plistType, options: nil, completionHandler: { item, error in
                 
                 guard let item = item as? NSDictionary else { return }
                 guard let elements = item[NSExtensionJavaScriptPreprocessingResultsKey] as? [String:String] else {
@@ -135,6 +137,15 @@ extension ShareViewController {
                     
                 }
             })
+        } else if itemProvider.hasItemConformingToTypeIdentifier(urlType) {
+            
+            itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
+                
+                if let url = item as? URL {
+                    completion(nil, url)
+                }
+            })
+            
         }
         
     }

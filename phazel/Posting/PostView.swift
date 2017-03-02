@@ -19,6 +19,7 @@ class PostView: DDHView {
         textView.backgroundColor = UIColor.background
         textView.textColor = UIColor.white
         textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.keyboardAppearance = .dark
         
         countLabel = DDHLabel()
         countLabel.backgroundColor = UIColor.background
