@@ -141,6 +141,7 @@ extension ShareViewController {
             
             itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
                 
+//                print("item: \(item)")
                 if let url = item as? URL {
                     completion(nil, url)
                 }
