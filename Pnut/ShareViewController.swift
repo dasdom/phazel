@@ -10,6 +10,7 @@ import Roaster
 class ShareViewController: SLComposeServiceViewController {
 
     var url: URL?
+    var initialText: String?
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerHost: UIView!
     
@@ -49,6 +50,7 @@ class ShareViewController: SLComposeServiceViewController {
                     } else if (self.textView.text?.characters.count ?? 0) < 1 {
                         self.textView.text = url.absoluteString
                     }
+                    self.initialText = self.textView.text
                 }
                 self.url = url
             })
@@ -67,10 +69,23 @@ class ShareViewController: SLComposeServiceViewController {
     override func didSelectPost() {
         
         let textToShare: String
+        var prefix = ""
+        var postfix = ""
+        var subString = ""
         
         var text: String
         if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
             text = unwrappedText
+            
+            if let initialText = initialText {
+                if text.characters.count > initialText.characters.count {
+                    if let range = text.range(of: initialText) {
+                        subString = text.substring(with: range)
+                        prefix = text.substring(to: range.lowerBound)
+                        postfix = text.substring(from: range.upperBound)
+                    }
+                }
+            }
         } else {
             if let url = url {
                 text = url.absoluteString
@@ -85,11 +100,15 @@ class ShareViewController: SLComposeServiceViewController {
         }
         
         if let url = url {
-            textToShare = "[\(text)](\(url))"
+            if subString.characters.count > 0 {
+                textToShare = "\(prefix)[\(subString)](\(url))\(postfix)"
+            } else {
+                textToShare = "[\(text)](\(url))"
+            }
         } else {
             textToShare = text
         }
-        
+        print("text: \(textToShare)")
         
         let apiClient = APIClient()
         spinner.startAnimating()
