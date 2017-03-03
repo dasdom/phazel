@@ -9,7 +9,7 @@ import Roaster
 
 class ShareViewController: SLComposeServiceViewController {
 
-    var urlToShare: URL?
+    var url: URL?
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerHost: UIView!
     
@@ -39,9 +39,10 @@ class ShareViewController: SLComposeServiceViewController {
             }
             
             print("itemProvier: \(itemProvider)")
-//            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
+            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
+                print(text, url)
                 DispatchQueue.main.async {
                     if let textToShare = text {
                         self.textView.text = textToShare
@@ -49,7 +50,7 @@ class ShareViewController: SLComposeServiceViewController {
                         self.textView.text = url.absoluteString
                     }
                 }
-                self.urlToShare = url
+                self.url = url
             })
             
         }
@@ -66,19 +67,29 @@ class ShareViewController: SLComposeServiceViewController {
     override func didSelectPost() {
         
         let textToShare: String
-        guard let url = urlToShare else {
-            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-            return
-        }
         
         var text: String
         if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
             text = unwrappedText
         } else {
-            text = url.absoluteString
+            if let url = url {
+                text = url.absoluteString
+            } else {
+                text = ""
+            }
         }
         
-        textToShare = "[\(text)](\(url))"
+        guard text.characters.count > 0 else {
+            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+            return
+        }
+        
+        if let url = url {
+            textToShare = "[\(text)](\(url))"
+        } else {
+            textToShare = text
+        }
+        
         
         let apiClient = APIClient()
         spinner.startAnimating()

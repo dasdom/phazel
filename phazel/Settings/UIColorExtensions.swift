@@ -19,6 +19,10 @@ extension UIColor {
         return colorFrom(hex: "80d0ff")
     }
     
+    static var text: UIColor {
+        return UIColor.white
+    }
+    
     static func colorFrom(hex: String) -> UIColor {
         let scanner = Scanner(string: hex)
         scanner.charactersToBeSkipped = CharacterSet.alphanumerics.inverted

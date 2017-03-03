@@ -12,12 +12,14 @@ class PostView: DDHView {
     fileprivate let stackView: UIStackView
     fileprivate let spinner: UIActivityIndicatorView
     fileprivate let sendButtonTitle = "Post"
+    fileprivate let statusStackView: UIStackView
+    fileprivate let statusHostView: UIView
 
     override init(frame: CGRect) {
         
         textView = DDHTextView()
         textView.backgroundColor = UIColor.background
-        textView.textColor = UIColor.white
+        textView.textColor = UIColor.text
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.keyboardAppearance = .dark
         
@@ -56,18 +58,35 @@ class PostView: DDHView {
         stackView.axis = .vertical
         stackView.spacing = 10
         
+        statusStackView = UIStackView(arrangedSubviews: [])
+        statusStackView.translatesAutoresizingMaskIntoConstraints = false
+        statusStackView.axis = .vertical
+        
+        statusHostView = UIView()
+        statusHostView.translatesAutoresizingMaskIntoConstraints = false
+        statusHostView.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        statusHostView.alpha = 0.0
+        statusHostView.layer.cornerRadius = 10
+        statusHostView.addSubview(statusStackView)
+        
         super.init(frame: frame)
         
         backgroundColor = UIColor.background
         textView.delegate = self
         
         addSubview(stackView)
+        stackView.addSubview(statusHostView)
         
-        let views = ["stackView": stackView]
+        let views = ["stackView": stackView, "statusStackView": statusStackView, "statusHostView": statusHostView]
         var layoutConstraints: [NSLayoutConstraint] = []
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-[stackView]-|", options: [], metrics: nil, views: views)
         layoutConstraints += [spinner.centerXAnchor.constraint(equalTo: sendButton.centerXAnchor)]
         layoutConstraints += [spinner.centerYAnchor.constraint(equalTo: sendButton.centerYAnchor)]
+        layoutConstraints += [statusHostView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)]
+        layoutConstraints += [statusHostView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)]
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-(>=40)-[statusHostView]-(>=40)-|", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-10-[statusStackView]-10-|", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[statusStackView]-10-|", options: [], metrics: nil, views: views)
         NSLayoutConstraint.activate(layoutConstraints)
     }
     
@@ -86,10 +105,55 @@ extension PostView: PostViewProtocol {
         return textView.text
     }
     
-    func reset() {
-        textView.text = ""
-        sendButton.isEnabled = false
-        updateCountLabel(for: textView.text)
+    func update(with error: Error?) {
+        
+        if let error = error {
+            addImageAndLabelForState(state: .failure, text: error.localizedDescription)
+        } else {
+            textView.text = ""
+            sendButton.isEnabled = false
+            updateCountLabel(for: textView.text)
+            
+            addImageAndLabelForState(state: .success, text: nil)
+        }
+    }
+    
+    enum PostingState {
+        case success, failure
+    }
+    
+    fileprivate func addImageAndLabelForState(state: PostingState, text: String?) {
+        let image: UIImage?
+        switch state {
+        case .success:
+            image = UIImage(named: "success")?.withRenderingMode(.alwaysTemplate)
+        case .failure:
+            image = UIImage(named: "failure")?.withRenderingMode(.alwaysTemplate)
+        }
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = UIColor.text
+        statusStackView.addArrangedSubview(imageView)
+        
+        if let text = text, text.characters.count > 0 {
+            let label = UILabel()
+            label.text = text
+            label.numberOfLines = 0
+            label.textColor = UIColor.text
+            label.textAlignment = .center
+            label.font = UIFont.preferredFont(forTextStyle: .body)
+            statusStackView.addArrangedSubview(label)
+        }
+        UIView.animate(withDuration: 0.3, animations: { 
+            self.statusHostView.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, delay: 0.5, options: [], animations: { 
+                self.statusHostView.alpha = 0.0
+            }, completion: { _ in
+                for view in self.statusStackView.arrangedSubviews {
+                    self.statusStackView.removeArrangedSubview(view)
+                }
+            })
+        }
     }
     
     func setFirstResponder() {
@@ -145,7 +209,7 @@ extension PostView {
 protocol PostViewProtocol {
     var topView: UIView { get }
     var text: String? { get }
-    func reset()
+    func update(with error: Error?)
     func setFirstResponder()
     func set(animating: Bool)
 }

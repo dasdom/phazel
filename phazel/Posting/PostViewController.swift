@@ -83,9 +83,10 @@ extension PostViewController: PostProtocol {
             
             switch result {
             case .success(let postId):
-                self.contentView.reset()
+                self.contentView.update(with: nil)
                 self.delegate?.postDidSucceed(viewController: self, with: postId)
             case .failure(let error):
+                self.contentView.update(with: error)
                 self.delegate?.postDidFail(viewController: self, with: error)
             }
         }

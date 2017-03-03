@@ -293,8 +293,8 @@
 			isa = PBXGroup;
 			children = (
 				F23BE42F1E508EB50068E82F /* APIClientTests.swift */,
-				554DC7041E66F30B009AE752 /* PostsResponse.json */,
 				F23BE4301E508EB50068E82F /* URLCreatorTests.swift */,
+				554DC7041E66F30B009AE752 /* PostsResponse.json */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
