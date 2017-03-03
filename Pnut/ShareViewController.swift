@@ -99,7 +99,7 @@ class ShareViewController: SLComposeServiceViewController {
             return
         }
         
-        if let url = url {
+        if let url = url, text != url.absoluteString {
             if subString.characters.count > 0 {
                 textToShare = "\(prefix)[\(subString)](\(url))\(postfix)"
             } else {
