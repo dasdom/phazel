@@ -150,7 +150,7 @@ extension PostView: PostViewProtocol {
                 self.statusHostView.alpha = 0.0
             }, completion: { _ in
                 for view in self.statusStackView.arrangedSubviews {
-                    self.statusStackView.removeArrangedSubview(view)
+                    view.removeFromSuperview()
                 }
             })
         }
