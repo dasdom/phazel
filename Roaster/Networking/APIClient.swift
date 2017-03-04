@@ -115,11 +115,22 @@ final public class APIClient: APIClientProtocol {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = "text=\(text)".data(using: .utf8)
+        let postDict = ["text": text]
+        guard let data = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
+            fatalError()
+        }
+        request.httpBody = data
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let dataString = String(data: data, encoding: .utf8)
+        print("dataString: \(dataString)")
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
+            
+            let dataString = String(data: data!, encoding: .utf8)
+            print("dataString: \(dataString)")
             
             DispatchQueue.main.async {
                 let postId = self.extractPostId(from: data)
