@@ -97,8 +97,18 @@ class PostCoordinatorTests: XCTestCase {
         
         XCTAssertEqual(sut.childCoordinators.count, 0)
     }
+    
+    func test_showInfo_presentsNavigationControllerWithSettingsViewController() {
+        sut.start()
+        let mockViewController = MockPostViewController(contentView: PostView())
+
+        sut.showInfo(viewController: mockViewController)
+        
+        XCTAssertTrue(window.visibleViewController is SettingsViewController)
+    }
 }
 
+// MARK: - Mocks
 extension PostCoordinatorTests {
     
     class MockPostViewController: PostViewController {

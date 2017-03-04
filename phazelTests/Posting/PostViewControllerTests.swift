@@ -89,8 +89,10 @@ extension PostViewControllerTests {
             return "Foo"
         }
         
-        func reset() {
-            resetted = true
+        func update(with error: Error?) {
+            if error == nil {
+                resetted = true
+            }
         }
         
         func setFirstResponder() {
@@ -145,6 +147,10 @@ extension PostViewControllerTests {
         
         func postDidFail(viewController: PostViewController, with error: Error) {
             self.error = error
+        }
+        
+        func showInfo(viewController: PostViewController) {
+            
         }
     }
 }

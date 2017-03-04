@@ -6,7 +6,7 @@ import Foundation
 import UIKit
 import Roaster
 
-protocol LoginCoordinatorDelegate {
+protocol LoginCoordinatorDelegate: class {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)
 }
 
@@ -14,7 +14,7 @@ final class LoginCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
     var childViewControllers = [UIViewController]()
-    var delegate: LoginCoordinatorDelegate?
+    weak var delegate: LoginCoordinatorDelegate?
     
     init(window: UIWindow) {
         self.window = window

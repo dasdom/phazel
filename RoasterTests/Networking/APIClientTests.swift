@@ -87,7 +87,7 @@ extension APIClientTests {
         
         localSUT.login(username: "foo", password: "bar") { _ in }
         
-        waitForExpectations(timeout: 0.2) { _ in
+        waitForExpectations(timeout: 1.0) { _ in
             self.body(of: URLRequestStub.lastRequest, contains: "client_id=")
         }
     }

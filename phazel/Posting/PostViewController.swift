@@ -9,6 +9,7 @@ protocol PostViewControllerDelegate: class {
     func viewDidAppear(viewController: PostViewController)
     func postDidSucceed(viewController: PostViewController, with postId: String)
     func postDidFail(viewController: PostViewController, with error: Error)
+    func showInfo(viewController: PostViewController)
 }
 
 class PostViewController: UIViewController {

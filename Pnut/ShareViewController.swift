@@ -14,6 +14,12 @@ class ShareViewController: SLComposeServiceViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerHost: UIView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "phazel"
+    }
+    
     override func presentationAnimationDidFinish() {
         
         guard let items = extensionContext?.inputItems else {
@@ -43,6 +49,7 @@ class ShareViewController: SLComposeServiceViewController {
             print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
+                print("*****************************************************")
                 print(text, url)
                 DispatchQueue.main.async {
                     if let textToShare = text {
@@ -101,9 +108,9 @@ class ShareViewController: SLComposeServiceViewController {
         
         if let url = url, text != url.absoluteString {
             if subString.characters.count > 0 {
-                textToShare = "\(prefix)[\(subString)](\(url))\(postfix)"
+                textToShare = "\(prefix)[\(subString)](\(url.absoluteString))\(postfix)"
             } else {
-                textToShare = "[\(text)](\(url))"
+                textToShare = "[\(text)](\(url.absoluteString))"
             }
         } else {
             textToShare = text
@@ -142,6 +149,7 @@ extension ShareViewController {
         
         let plistType = kUTTypePropertyList as String
         let urlType = kUTTypeURL as String
+        let textType = kUTTypeText as String
         
         if itemProvider.hasItemConformingToTypeIdentifier(plistType) {
            
@@ -171,12 +179,11 @@ extension ShareViewController {
             
             itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
                 
-//                print("item: \(item)")
+                print("item: \(item)")
                 if let url = item as? URL {
                     completion(nil, url)
                 }
             })
-            
         }
         
     }

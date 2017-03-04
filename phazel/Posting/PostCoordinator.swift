@@ -51,6 +51,12 @@ extension PostCoordinator: PostViewControllerDelegate {
         
         viewController.present(alertController, animated: true, completion: nil)
     }
+    
+    func showInfo(viewController: PostViewController) {
+        let settingsCoordinator = SettingsCoordinator(window: window)
+        
+        settingsCoordinator.start()
+    }
 }
 
 extension PostCoordinator: LoginCoordinatorDelegate {

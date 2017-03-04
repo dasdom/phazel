@@ -59,7 +59,7 @@ class PostViewTests: XCTestCase {
         guard let textView = sut.value(forKey: "textView") as? UITextView else { return XCTFail() }
         textView.text = "Foo bar"
         
-        sut.reset()
+        sut.update(with: nil)
         
         XCTAssertEqual(textView.text.characters.count, 0)
     }
