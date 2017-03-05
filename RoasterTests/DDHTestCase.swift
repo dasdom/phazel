@@ -13,25 +13,25 @@ class DDHTestCase: XCTestCase {
         XCTAssertTrue(foo, message, file: file, line: line)
     }
     
-    public func Equal<T : Equatable>(_ expression1: T, _ expression2: T, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
-    }
-    
-    public func Equal<T : Equatable>(_ expression1: T?, _ expression2: T?, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
-    }
-
-    public func Equal<T : Equatable>(_ expression1: ArraySlice<T>, _ expression2: ArraySlice<T>, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
-    }
-    
-    public func Equal<T : Equatable>(_ expression1: ContiguousArray<T>, _ expression2: ContiguousArray<T>, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
-    }
-    
-    public func Equal<T : Equatable>(_ expression1: [T], _ expression2: [T], _ message: String = "", file: StaticString = #file, line: UInt = #line) {
-        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
-    }
+//    public func Equal<T : Equatable>(_ expression1: T, _ expression2: T, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
+//        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
+//    }
+//    
+//    public func Equal<T : Equatable>(_ expression1: T?, _ expression2: T?, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
+//        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
+//    }
+//
+//    public func Equal<T : Equatable>(_ expression1: ArraySlice<T>, _ expression2: ArraySlice<T>, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
+//        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
+//    }
+//    
+//    public func Equal<T : Equatable>(_ expression1: ContiguousArray<T>, _ expression2: ContiguousArray<T>, _ message: String = "", file: StaticString = #file, line: UInt = #line) {
+//        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
+//    }
+//    
+//    public func Equal<T : Equatable>(_ expression1: [T], _ expression2: [T], _ message: String = "", file: StaticString = #file, line: UInt = #line) {
+//        XCTAssertEqual(expression1, expression2, message, file: file, line: line)
+//    }
     
 }
 

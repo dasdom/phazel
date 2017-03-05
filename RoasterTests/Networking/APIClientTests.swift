@@ -33,7 +33,7 @@ extension APIClientTests {
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { error in
-            self.Equal(mockKeychainManager.token, "42")
+            XCTAssertEqual(mockKeychainManager.token, "42")
         }
     }
     
@@ -46,7 +46,7 @@ extension APIClientTests {
         localSUT.login(username: "Foo", password: "Bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { error in
-            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/oauth/access_token")
         }
     }
     
@@ -146,7 +146,7 @@ extension APIClientTests {
         
         waitForExpectations(timeout: 0.2) { error in
             let expectedUser = LoginUser(id: "23", username: "foo")
-            self.Equal(catchesUser, expectedUser)
+            XCTAssertEqual(catchesUser, expectedUser)
         }
     }
     
@@ -159,7 +159,7 @@ extension APIClientTests {
         localSUT.login(username: "foo", password: "bar") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
-            self.Equal(mockUserDefaults.string, "foo")
+            XCTAssertEqual(mockUserDefaults.string, "foo")
         }
     }
 
@@ -182,7 +182,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.2) { _ in
-            self.Equal(catchedError as? NSError, error)
+            XCTAssertEqual(catchedError as? NSError, error)
             XCTAssertNil(mockKeychainManager.token)
         }
     }
@@ -201,7 +201,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.2) { _ in
-            self.Equal(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
+            XCTAssertEqual(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
             XCTAssertNil(mockKeychainManager.token)
         }
     }
@@ -218,7 +218,7 @@ extension APIClientTests {
         localSUT.posts(before: nil, since: nil) { _ in }
         
         waitForExpectations(timeout: 0.1) { error in
-            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
         }
     }
     
@@ -238,7 +238,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.2) { error in
-            self.Equal(catchedPosts?.count, 1)
+            XCTAssertEqual(catchedPosts?.count, 1)
         }
     }
     
@@ -271,7 +271,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.2) { error in
-            self.Equal(catchedPosts?.first?.text, "@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier")
+            XCTAssertEqual(catchedPosts?.first?.text, "@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier")
         }
     }
     
@@ -292,7 +292,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.2) { error in
-            self.Equal(catchedPosts?.first?.id, "20804")
+            XCTAssertEqual(catchedPosts?.first?.id, "20804")
         }
     }
     
@@ -314,8 +314,8 @@ extension APIClientTests {
         
         waitForExpectations(timeout: 0.2) { error in
             guard let source = catchedPosts?.first?.source else { return XCTFail() }
-            self.Equal(source.name, "Broadsword")
-            self.Equal(source.url, URL(string: "http://xyz.s3rv.com"))
+            XCTAssertEqual(source.name, "Broadsword")
+            XCTAssertEqual(source.url, URL(string: "http://xyz.s3rv.com"))
         }
     }
     
@@ -337,7 +337,7 @@ extension APIClientTests {
         
         waitForExpectations(timeout: 0.2) { error in
             guard let user = catchedPosts?.first?.user else { return XCTFail() }
-            self.Equal(user.name, "foo")
+            XCTAssertEqual(user.name, "foo")
         }
     }
     
@@ -398,8 +398,11 @@ extension APIClientTests {
         
         waitForExpectations(timeout: 0.1) { _ in
             guard let bodyData = URLRequestStub.lastRequest?.httpBody else { return XCTFail() }
-            let stringData = String(data: bodyData, encoding: .utf8)
-            self.Equal(stringData, "text=Foo bar", "Found: \(stringData)")
+            guard let json = try? JSONSerialization.jsonObject(with: bodyData, options: []),
+                  let bodyDict = json as? [String:String] else {
+                    return XCTFail()
+            }
+            XCTAssertEqual(bodyDict, ["text":"Foo bar"], "Found: \(bodyDict)")
         }
     }
     
@@ -412,7 +415,7 @@ extension APIClientTests {
         localSUT.post(text: "Foo bar") { _ in }
         
         waitForExpectations(timeout: 0.1) { _ in
-            self.Equal(URLRequestStub.lastURLComponents()?.path, "/v0/posts")
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts")
         }
     }
     
@@ -430,7 +433,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 0.1) { _ in
-            self.Equal(catchedPostId, "2392")
+            XCTAssertEqual(catchedPostId, "2392")
         }
     }
     

@@ -15,21 +15,21 @@ extension URLCreatorTests {
         let url = try unwrap(URLCreator.auth.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.scheme, "https")
+        XCTAssertEqual(urlComponents?.scheme, "https")
     }
     
     func test_authURL_host() throws {
         let url = try unwrap(URLCreator.auth.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.host, "api.pnut.io")
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
     }
     
     func test_authURL_path() throws {
         let url = try unwrap(URLCreator.auth.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.path, "/v0/oauth/access_token")
+        XCTAssertEqual(urlComponents?.path, "/v0/oauth/access_token")
     }
 }
 
@@ -39,21 +39,21 @@ extension URLCreatorTests {
         let url = try unwrap(URLCreator.posts(before: 42, since: nil).url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.scheme, "https")
+        XCTAssertEqual(urlComponents?.scheme, "https")
     }
     
     func test_postsURL_host() throws {
         let url = try unwrap(URLCreator.posts(before: 42, since: nil).url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.host, "api.pnut.io")
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
     }
 
     func test_postsURL_path() throws {
         let url = try unwrap(URLCreator.posts(before: 42, since: nil).url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.path, "/v0/posts/streams/unified")
+        XCTAssertEqual(urlComponents?.path, "/v0/posts/streams/unified")
     }
     
     func test_postsURL_beforeId() throws {
@@ -84,20 +84,20 @@ extension URLCreatorTests {
         let url = try unwrap(URLCreator.post.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.scheme, "https")
+        XCTAssertEqual(urlComponents?.scheme, "https")
     }
     
     func test_postURL_host() throws {
         let url = try unwrap(URLCreator.post.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.host, "api.pnut.io")
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
     }
     
     func test_postURL_path() throws {
         let url = try unwrap(URLCreator.post.url())
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        Equal(urlComponents?.path, "/v0/posts")
+        XCTAssertEqual(urlComponents?.path, "/v0/posts")
     }
 }

@@ -29,7 +29,10 @@ class PostCoordinatorTests: XCTestCase {
         
         super.tearDown()
     }
-    
+}
+
+// MARK: - Posting
+extension PostCoordinatorTests {
     func test_start_setsPostViewController_asRoot() {
         sut.start()
         
@@ -51,7 +54,10 @@ class PostCoordinatorTests: XCTestCase {
 
         XCTAssertTrue(mockViewController.inTestPresentedViewController is UIAlertController)
     }
-    
+}
+
+// MARK: - Login
+extension PostCoordinatorTests {
     func test_viewDidLoad_showsLogin_ifNotLoggedIn() {
         sut.start()
         apiClient._isLoggedIn = false
@@ -97,8 +103,11 @@ class PostCoordinatorTests: XCTestCase {
         
         XCTAssertEqual(sut.childCoordinators.count, 0)
     }
-    
-    func test_showInfo_presentsNavigationControllerWithSettingsViewController() {
+}
+
+// MARK: - Settings
+extension PostCoordinatorTests {
+    func test_showInfo_presentsSettingsViewController() {
         sut.start()
         let mockViewController = MockPostViewController(contentView: PostView())
 
@@ -106,8 +115,19 @@ class PostCoordinatorTests: XCTestCase {
         
         XCTAssertTrue(window.visibleViewController is SettingsViewController)
     }
+    
+    func test_showInfo_setsDelegate_ofSettingsCoordinator() {
+        sut.start()
+        let mockViewController = MockPostViewController(contentView: PostView())
+        
+        sut.showInfo(viewController: mockViewController)
+        
+        guard let coordinator = sut.childCoordinators.last as? SettingsCoordinator else { return XCTFail() }
+        XCTAssertTrue(coordinator.delegate is PostCoordinator)
+    }
 }
 
+//---------------------------------------------------------------------
 // MARK: - Mocks
 extension PostCoordinatorTests {
     

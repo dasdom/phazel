@@ -30,6 +30,7 @@ final class PostCoordinator: CoodinatorProtocol {
     }
 }
 
+// MARK: - PostViewControllerDelegate
 extension PostCoordinator: PostViewControllerDelegate {
     
     func viewDidAppear(viewController: PostViewController) {
@@ -54,16 +55,26 @@ extension PostCoordinator: PostViewControllerDelegate {
     
     func showInfo(viewController: PostViewController) {
         let settingsCoordinator = SettingsCoordinator(window: window)
+        settingsCoordinator.delegate = self
+        childCoordinators.append(settingsCoordinator)
         
         settingsCoordinator.start()
     }
 }
 
+// MARK: - LoginCoordinatorDelegate
 extension PostCoordinator: LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
         guard let index = childCoordinators.index(where: { $0 as AnyObject === coordinator as AnyObject }) else {
             return
         }
         childCoordinators.remove(at: index)
+    }
+}
+
+// MARK: - SettingsCoordinatorDelegate
+extension PostCoordinator: SettingsCoordinatorDelegate {
+    func settingsDidFinish(coordinator: SettingsCoordinator) {
+        
     }
 }
