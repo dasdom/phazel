@@ -11,6 +11,7 @@ class PostCoordinatorTests: XCTestCase {
     var sut: PostCoordinator!
     var window: UIWindow!
     var apiClient: MockAPIClient!
+    let userDefaults = UserDefaults()
 
     override func setUp() {
         super.setUp()
@@ -19,7 +20,7 @@ class PostCoordinatorTests: XCTestCase {
         window.rootViewController = UIViewController()
         window.makeKeyAndVisible()
         apiClient = MockAPIClient()
-        sut = PostCoordinator(window: window, apiClient: apiClient)
+        sut = PostCoordinator(window: window, apiClient: apiClient, userDefaults: userDefaults)
     }
     
     override func tearDown() {
@@ -48,7 +49,7 @@ extension PostCoordinatorTests {
     }
     
     func test_postDidFail_showsAlert() {
-        let mockViewController = MockPostViewController(contentView: PostView())
+        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
         
         sut.postDidFail(viewController: mockViewController, with: NSError(domain: "Foo", code: 42, userInfo: nil))
 
@@ -95,7 +96,7 @@ extension PostCoordinatorTests {
     }
     
     func test_coordinatorDidLogin_removesCoordinator() {
-        let loginCoordinator = LoginCoordinator(window: window)
+        let loginCoordinator = LoginCoordinator(window: window, apiClient: MockAPIClient())
         sut.childCoordinators.append(loginCoordinator)
         
         let loginUser = LoginUser(id: "42", username: "foo")
@@ -109,7 +110,7 @@ extension PostCoordinatorTests {
 extension PostCoordinatorTests {
     func test_showInfo_presentsSettingsViewController() {
         sut.start()
-        let mockViewController = MockPostViewController(contentView: PostView())
+        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
 
         sut.showInfo(viewController: mockViewController)
         
@@ -118,12 +119,21 @@ extension PostCoordinatorTests {
     
     func test_showInfo_setsDelegate_ofSettingsCoordinator() {
         sut.start()
-        let mockViewController = MockPostViewController(contentView: PostView())
+        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
         
         sut.showInfo(viewController: mockViewController)
         
         guard let coordinator = sut.childCoordinators.last as? SettingsCoordinator else { return XCTFail() }
         XCTAssertTrue(coordinator.delegate is PostCoordinator)
+    }
+    
+    func test_settingsDidFinish_removesCoordinator() {
+        let settingsCoordinator = SettingsCoordinator(window: window, userDefaults: UserDefaults())
+        sut.childCoordinators.append(settingsCoordinator)
+        
+        sut.settingsDidFinish(coordinator: settingsCoordinator)
+        
+        XCTAssertEqual(sut.childCoordinators.count, 0)
     }
 }
 

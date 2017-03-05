@@ -8,11 +8,12 @@ import XCTest
 class APIClientTests: DDHTestCase {
     
     var sut: APIClient!
+    let userDefaults = UserDefaults()
     
     override func setUp() {
         super.setUp()
         
-        sut = APIClient()
+        sut = APIClient(userDefaults: userDefaults)
     }
     
     override func tearDown() {
@@ -26,7 +27,7 @@ class APIClientTests: DDHTestCase {
 extension APIClientTests {
     func test_login_whenSuccessful_setsToken() {
         let mockKeychainManager = MockKeychainManager()
-        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager, userDefaults: userDefaults)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
@@ -39,7 +40,7 @@ extension APIClientTests {
     
     func test_login_url() {
         let mockKeychainManager = MockKeychainManager()
-        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager, userDefaults: userDefaults)
         guard let data = "{\"access_token\":\"42\", \"user_id\":23, \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
@@ -130,7 +131,7 @@ extension APIClientTests {
     
     func test_login_whenSuccessful_returnsUser() {
         let mockKeychainManager = MockKeychainManager()
-        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager, userDefaults: userDefaults)
         guard let data = "{\"access_token\":\"42\", \"user_id\":\"23\", \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
@@ -170,7 +171,7 @@ extension APIClientTests {
     
     func test_login_WhenFailed_ReturnsError() {
         let mockKeychainManager = MockKeychainManager()
-        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager, userDefaults: userDefaults)
         let error = NSError(domain: "FooDomain", code: 42, userInfo: nil)
         URLRequestStub.stub(error: error, expect: expectation(description: "Failed request"))
         
@@ -189,7 +190,7 @@ extension APIClientTests {
     
     func test_login_returnsError_whenAPIReturnsErrorInMeta() {
         let mockKeychainManager = MockKeychainManager()
-        let localSUT = APIClient(keychainManager: mockKeychainManager)
+        let localSUT = APIClient(keychainManager: mockKeychainManager, userDefaults: userDefaults)
         guard let data = "{\"meta\":{\"code\":404,\"error_message\":\"Not Found\"}}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         

@@ -13,6 +13,7 @@ class ShareViewController: SLComposeServiceViewController {
     var initialText: String?
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var spinnerHost: UIView!
+    let apiClient = APIClient(userDefaults: UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +118,6 @@ class ShareViewController: SLComposeServiceViewController {
         }
         print("text: \(textToShare)")
         
-        let apiClient = APIClient()
         spinner.startAnimating()
         spinnerHost.isHidden = false
         apiClient.post(text: textToShare) { result in
@@ -149,7 +149,7 @@ extension ShareViewController {
         
         let plistType = kUTTypePropertyList as String
         let urlType = kUTTypeURL as String
-        let textType = kUTTypeText as String
+//        let textType = kUTTypeText as String
         
         if itemProvider.hasItemConformingToTypeIdentifier(plistType) {
            

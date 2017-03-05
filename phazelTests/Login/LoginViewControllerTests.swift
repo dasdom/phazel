@@ -14,7 +14,7 @@ class LoginViewControllerTests: XCTestCase {
         super.setUp()
 
         let mockView = MockView()
-        sut = LoginViewController(contentView: mockView)
+        sut = LoginViewController(contentView: mockView, apiClient: APIClient(userDefaults: UserDefaults()))
         
         _ = sut.view
     }

@@ -14,7 +14,7 @@ final public class APIClient: APIClientProtocol {
     let keychainManager: KeychainManagerProtocol
     let userDefaults: UserDefaults
     
-    public init(keychainManager: KeychainManagerProtocol = KeychainManager(), userDefaults: UserDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!) {
+    public init(keychainManager: KeychainManagerProtocol = KeychainManager(), userDefaults: UserDefaults) {
         self.keychainManager = keychainManager
         self.userDefaults = userDefaults
     }

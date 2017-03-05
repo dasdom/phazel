@@ -14,7 +14,7 @@ class PostViewControllerTests: XCTestCase {
         super.setUp()
 
         let mockView = MockView()
-        sut = PostViewController(contentView: mockView)
+        sut = PostViewController(contentView: mockView, apiClient: APIClient(userDefaults: UserDefaults()))
     }
     
     override func tearDown() {

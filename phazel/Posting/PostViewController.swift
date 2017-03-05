@@ -19,7 +19,7 @@ class PostViewController: UIViewController {
     weak var delegate: PostViewControllerDelegate?
     fileprivate var bottomConstraint: NSLayoutConstraint?
     
-    init(contentView: PostViewProtocol, apiClient: APIClientProtocol = APIClient()) {
+    init(contentView: PostViewProtocol, apiClient: APIClientProtocol) {
         
         self.contentView = contentView
         self.apiClient = apiClient

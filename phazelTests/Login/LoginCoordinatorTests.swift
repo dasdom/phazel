@@ -10,6 +10,7 @@ class LoginCoordinatorTests: XCTestCase {
     
     var sut: LoginCoordinator!
     var window: UIWindow!
+    let apiClient = APIClient(userDefaults: UserDefaults())
     
     override func setUp() {
         super.setUp()
@@ -17,7 +18,7 @@ class LoginCoordinatorTests: XCTestCase {
         window = UIWindow()
         window.rootViewController = UIViewController()
         window.makeKeyAndVisible()
-        sut = LoginCoordinator(window: window)
+        sut = LoginCoordinator(window: window, apiClient: apiClient)
     }
     
     override func tearDown() {
@@ -42,7 +43,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
 
     func test_failure_PresentsAlertViewController() {
-        let mockLoginViewController = MockLoginViewController(contentView: LoginView())
+        let mockLoginViewController = MockLoginViewController(contentView: LoginView(), apiClient: apiClient)
         
         sut.loginDidFail(viewController: mockLoginViewController, with: NSError(domain: "Foo", code: 42, userInfo: nil))
         
@@ -50,7 +51,7 @@ class LoginCoordinatorTests: XCTestCase {
     }
     
     func test_success_dismissesController() {
-        let mockLoginViewController = MockLoginViewController(contentView: LoginView())
+        let mockLoginViewController = MockLoginViewController(contentView: LoginView(), apiClient: apiClient)
         let coordinatorDelegate = MockLoginCoordinatorDelegate()
         sut.delegate = coordinatorDelegate
         

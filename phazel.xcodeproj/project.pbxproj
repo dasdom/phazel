@@ -38,6 +38,9 @@
 		F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEB1E5738220005B688 /* PostCoordinator.swift */; };
 		F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */; };
 		F25C6FF01E5893BC0005B688 /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */; };
+		F26136F31E6C785800DC0E3B /* SettingsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F21E6C785800DC0E3B /* SettingsCoordinatorTests.swift */; };
+		F26136F61E6CA45300DC0E3B /* DDHTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F51E6CA45300DC0E3B /* DDHTextViewTests.swift */; };
+		F26136F81E6CA6DE00DC0E3B /* DDHLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
@@ -162,6 +165,9 @@
 		F25C6FEB1E5738220005B688 /* PostCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinator.swift; sourceTree = "<group>"; };
 		F25C6FED1E5738800005B688 /* PostCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCoordinatorTests.swift; sourceTree = "<group>"; };
 		F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		F26136F21E6C785800DC0E3B /* SettingsCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorTests.swift; sourceTree = "<group>"; };
+		F26136F51E6CA45300DC0E3B /* DDHTextViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextViewTests.swift; sourceTree = "<group>"; };
+		F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabelTests.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
@@ -311,6 +317,23 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		F26136F11E6C783200DC0E3B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F26136F21E6C785800DC0E3B /* SettingsCoordinatorTests.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		F26136F41E6CA42300DC0E3B /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				F26136F51E6CA45300DC0E3B /* DDHTextViewTests.swift */,
+				F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 		F2C12AA31E3BED240056155C /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,8 +472,8 @@
 				557AA7891E5DEABE0089E2DB /* secrets.json */,
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
 				F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */,
-				F2F25A4B1E5A35FC0028C9D2 /* Settings */,
 				F2CE76E51E54F3BD00140C78 /* Foundation */,
+				F2F25A4B1E5A35FC0028C9D2 /* Settings */,
 				F2425A4E1E43D8D2001B7E46 /* Extensions */,
 				F2C12AA41E3BED580056155C /* Login */,
 				F2CE76D81E548DE000140C78 /* Posting */,
@@ -466,6 +489,8 @@
 			children = (
 				F25C6FEF1E5893BC0005B688 /* AppDelegateTests.swift */,
 				F2425A531E452ACB001B7E46 /* MainCoordinatorTests.swift */,
+				F26136F41E6CA42300DC0E3B /* Foundation */,
+				F26136F11E6C783200DC0E3B /* Settings */,
 				F2C12AA31E3BED240056155C /* Login */,
 				F23BE3A21E4683910068E82F /* Timeline */,
 				F2CE76D91E548E0800140C78 /* Posting */,
@@ -782,10 +807,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F23BE3A41E47050C0068E82F /* PostsCollectionViewControllerTests.swift in Sources */,
+				F26136F61E6CA45300DC0E3B /* DDHTextViewTests.swift in Sources */,
 				F25C6FF01E5893BC0005B688 /* AppDelegateTests.swift in Sources */,
 				F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */,
 				F25C6FEE1E5738800005B688 /* PostCoordinatorTests.swift in Sources */,
+				F26136F81E6CA6DE00DC0E3B /* DDHLabelTests.swift in Sources */,
 				F2CE76DD1E54917000140C78 /* PostViewControllerTests.swift in Sources */,
+				F26136F31E6C785800DC0E3B /* SettingsCoordinatorTests.swift in Sources */,
 				F2425A541E452ACB001B7E46 /* MainCoordinatorTests.swift in Sources */,
 				F2425A4B1E3FD263001B7E46 /* LoginViewControllerTests.swift in Sources */,
 				F2CE76E11E54F15100140C78 /* PostViewTests.swift in Sources */,

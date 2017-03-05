@@ -15,13 +15,15 @@ final class LoginCoordinator: CoodinatorProtocol {
     private let window: UIWindow
     var childViewControllers = [UIViewController]()
     weak var delegate: LoginCoordinatorDelegate?
+    let apiClient: APIClientProtocol
     
-    init(window: UIWindow) {
+    init(window: UIWindow, apiClient: APIClientProtocol) {
         self.window = window
+        self.apiClient = apiClient
     }
     
     func start() {
-        let loginViewController = LoginViewController(contentView: LoginView())
+        let loginViewController = LoginViewController(contentView: LoginView(), apiClient: apiClient)
         loginViewController.delegate = self
         childViewControllers.append(loginViewController)
         

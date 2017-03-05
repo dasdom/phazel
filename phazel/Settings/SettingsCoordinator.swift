@@ -11,19 +11,30 @@ protocol SettingsCoordinatorDelegate: class {
 final class SettingsCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
+    fileprivate let userDefaults: UserDefaults
     var childViewControllers = [UIViewController]()
     weak var delegate: SettingsCoordinatorDelegate?
     let navigationController: UINavigationController
 
-    init(window: UIWindow) {
+    init(window: UIWindow, userDefaults: UserDefaults) {
         self.window = window
+        self.userDefaults = userDefaults
         navigationController = UINavigationController()
     }
     
     func start() {
         let settingsViewController = SettingsViewController()
+        settingsViewController.delegate = self
+        childViewControllers.append(settingsViewController)
         navigationController.viewControllers = [settingsViewController]
         
         window.visibleViewController?.present(navigationController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - SettingsViewControllerDelegate
+extension SettingsCoordinator: SettingsViewControllerDelegate {
+    func didSetSettingsFor<T>(key: String, withValue: T?) {
+        
     }
 }

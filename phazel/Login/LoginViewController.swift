@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     let apiClient: APIClientProtocol
     weak var delegate: LoginViewControllerDelegate?
 
-    init(contentView: LoginViewProtocol, apiClient: APIClientProtocol = APIClient()) {
+    init(contentView: LoginViewProtocol, apiClient: APIClientProtocol) {
         
         self.contentView = contentView
         self.apiClient = apiClient

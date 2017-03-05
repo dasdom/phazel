@@ -5,6 +5,10 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    weak var delegate: SettingsViewControllerDelegate?
+}
 
-
+protocol SettingsViewControllerDelegate: class {
+    func didSetSettingsFor<T>(key: String, withValue: T?)
 }

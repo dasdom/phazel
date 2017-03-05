@@ -8,11 +8,11 @@ class PostView: DDHView {
     
     let textView: DDHTextView
     let sendButton: DDHButton
+    let statusStackView: UIStackView
     fileprivate let countLabel: UILabel
     fileprivate let stackView: UIStackView
     fileprivate let spinner: UIActivityIndicatorView
     fileprivate let sendButtonTitle = "Post"
-    fileprivate let statusStackView: UIStackView
     fileprivate let statusHostView: UIView
 
     override init(frame: CGRect) {
@@ -91,7 +91,7 @@ class PostView: DDHView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
 }
 

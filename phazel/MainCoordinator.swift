@@ -8,16 +8,17 @@ import Roaster
 final class MainCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
-//    private let apiClient: APIClientProtocol
+    private let apiClient: APIClientProtocol
     var childCoordinators: [CoodinatorProtocol] = []
+    var userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     
     init(window: UIWindow) {
         self.window = window
-//        self.apiClient = apiClient
+        self.apiClient = APIClient(userDefaults: userDefaults)
     }
     
     func start() {
-        let postCoordinator = PostCoordinator(window: window)
+        let postCoordinator = PostCoordinator(window: window, apiClient: apiClient, userDefaults: userDefaults)
         childCoordinators.append(postCoordinator)
         postCoordinator.start()
         
