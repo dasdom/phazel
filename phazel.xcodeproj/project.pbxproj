@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		55160CDB1E4B04840043A3CC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55160CDA1E4B04840043A3CC /* ShareViewController.swift */; };
-		55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55160CDC1E4B04840043A3CC /* MainInterface.storyboard */; };
 		55160CE21E4B04840043A3CC /* Pnut.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 55160CD81E4B04830043A3CC /* Pnut.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		554DC7051E66F30B009AE752 /* PostsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 554DC7041E66F30B009AE752 /* PostsResponse.json */; };
 		554DC7071E672A92009AE752 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554DC7061E672A92009AE752 /* Source.swift */; };
@@ -135,7 +134,6 @@
 /* Begin PBXFileReference section */
 		55160CD81E4B04830043A3CC /* Pnut.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Pnut.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55160CDA1E4B04840043A3CC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		55160CDD1E4B04840043A3CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		55160CDF1E4B04840043A3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		554DC7041E66F30B009AE752 /* PostsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PostsResponse.json; sourceTree = "<group>"; };
 		554DC7061E672A92009AE752 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				F25549DF1E61F22600CE5D14 /* Extract.js */,
 				F2F33C8B1E609818007E53E1 /* Pnut.entitlements */,
 				55160CDA1E4B04840043A3CC /* ShareViewController.swift */,
-				55160CDC1E4B04840043A3CC /* MainInterface.storyboard */,
 				55160CDF1E4B04840043A3CC /* Info.plist */,
 			);
 			path = Pnut;
@@ -699,7 +696,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F25549E01E61F22600CE5D14 /* Extract.js in Resources */,
-				55160CDE1E4B04840043A3CC /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,14 +848,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		55160CDC1E4B04840043A3CC /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				55160CDD1E4B04840043A3CC /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 		F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

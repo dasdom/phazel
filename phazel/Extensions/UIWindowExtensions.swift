@@ -25,11 +25,3 @@ extension UIWindow {
         }
     }
 }
-
-//func getTopViewController() -> UIViewController? {
-//    let appDelegate = UIApplication.sharedApplication().delegate
-//    if let window = appDelegate!.window {
-//        return window?.visibleViewController
-//    }
-//    return nil
-//}

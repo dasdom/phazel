@@ -7,18 +7,64 @@ import Social
 import MobileCoreServices
 import Roaster
 
+@objc(ShareViewController)
+
 class ShareViewController: SLComposeServiceViewController {
 
     var url: URL?
     var initialText: String?
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var spinnerHost: UIView!
-    let apiClient = APIClient(userDefaults: UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!)
+    private let spinner: UIActivityIndicatorView
+    private let spinnerHost: UIView
+    private let stackView: UIStackView
+    let userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
+    let apiClient: APIClient
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        
+        apiClient = APIClient(userDefaults: userDefaults)
+        
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        spinner.startAnimating()
+        
+        let label = UILabel()
+        label.text = NSLocalizedString("Posting", comment: "")
+        label.textColor = UIColor.white
+        
+        stackView = UIStackView(arrangedSubviews: [spinner, label])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 10
+        
+        spinnerHost = UIView()
+        spinnerHost.translatesAutoresizingMaskIntoConstraints = false
+        spinnerHost.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        spinnerHost.layer.cornerRadius = 10
+        spinnerHost.addSubview(stackView)
+        spinnerHost.isHidden = true
+        
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "phazel"
+        
+        view.addSubview(spinnerHost)
+        
+        var layoutConstraints = [NSLayoutConstraint]()
+        layoutConstraints += [spinnerHost.centerXAnchor.constraint(equalTo: view.centerXAnchor)]
+        layoutConstraints += [spinnerHost.centerYAnchor.constraint(equalTo: view.centerYAnchor)]
+        layoutConstraints += [spinnerHost.widthAnchor.constraint(equalToConstant: 100)]
+        layoutConstraints += [spinnerHost.heightAnchor.constraint(equalToConstant: 100)]
+        layoutConstraints += [stackView.centerXAnchor.constraint(equalTo: spinnerHost.centerXAnchor)]
+        layoutConstraints += [stackView.centerYAnchor.constraint(equalTo: spinnerHost.centerYAnchor)]
+        NSLayoutConstraint.activate(layoutConstraints)
     }
     
     override func presentationAnimationDidFinish() {
@@ -46,12 +92,10 @@ class ShareViewController: SLComposeServiceViewController {
                 return
             }
             
-            print("itemProvier: \(itemProvider)")
-            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
+//            print("itemProvier: \(itemProvider)")
+//            print("registeredTypeIdentifiers: \(itemProvider.registeredTypeIdentifiers)")
             
             extractTextAndURL(from: itemProvider, completion: { text, url in
-                print("*****************************************************")
-                print(text, url)
                 DispatchQueue.main.async {
                     if let textToShare = text {
                         self.textView.text = textToShare
@@ -107,11 +151,13 @@ class ShareViewController: SLComposeServiceViewController {
             return
         }
         
+        var postedURL: URL?
         if let url = url, text != url.absoluteString {
+            postedURL = url
             if subString.characters.count > 0 {
-                textToShare = "\(prefix)[\(subString)](\(url.absoluteString))\(postfix)"
+                textToShare = "\(prefix)[\(subString)](\(url))\(postfix)"
             } else {
-                textToShare = "[\(text)](\(url.absoluteString))"
+                textToShare = "[\(text)](\(url))"
             }
         } else {
             textToShare = text
@@ -120,13 +166,26 @@ class ShareViewController: SLComposeServiceViewController {
         
         spinner.startAnimating()
         spinnerHost.isHidden = false
-        apiClient.post(text: textToShare) { result in
+        
+        let lastPostedURLKey = "lastPostedURL"
+        let lastPostIdKey = "lastPostId"
+        let lastPostedURL = userDefaults.url(forKey: lastPostedURLKey)
+        let lastPostId: String?
+        if lastPostedURL == postedURL {
+            lastPostId = userDefaults.string(forKey: lastPostIdKey)
+        } else {
+            lastPostId = nil
+        }
+        
+        apiClient.post(text: textToShare, replyTo: lastPostId) { result in
             
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
                 switch result {
                 case .success(let postId):
                     print("postId: \(postId)")
+                    self.userDefaults.set(postId, forKey: lastPostIdKey)
+                    self.userDefaults.set(postedURL, forKey: lastPostedURLKey)
                 case .failure(let error):
                     print("error: \(error)")
                     break
@@ -138,7 +197,6 @@ class ShareViewController: SLComposeServiceViewController {
     }
 
     override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
         return []
     }
 }

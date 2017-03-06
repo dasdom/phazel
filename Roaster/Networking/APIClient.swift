@@ -6,7 +6,7 @@ import Foundation
 
 public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
-    func post(text: String, completion: @escaping (Result<String>) -> ())
+    func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ())
     func isLoggedIn() -> Bool
 }
 
@@ -103,7 +103,7 @@ final public class APIClient: APIClientProtocol {
         dataTask.resume()
     }
     
-    public func post(text: String, completion: @escaping (Result<String>) -> ()) {
+    public func post(text: String, replyTo: String? = nil, completion: @escaping (Result<String>) -> ()) {
         
         guard let url = URLCreator.post.url() else { fatalError() }
         guard let username = currentUsername else {
@@ -115,7 +115,10 @@ final public class APIClient: APIClientProtocol {
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        let postDict = ["text": text]
+        var postDict = ["text": text]
+        if let replyTo = replyTo {
+            postDict["reply_to"] = replyTo
+        }
         guard let data = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
             fatalError()
         }
