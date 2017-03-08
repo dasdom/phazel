@@ -120,31 +120,9 @@ class ShareViewController: SLComposeServiceViewController {
 
     override func didSelectPost() {
         
-        let textToShare: String
-        var prefix = ""
-        var postfix = ""
-        var subString = ""
+        var (prefix, subString, postfix) = extractPrefixSubstringPostfix(from: contentText, initialText: initialText)
         
-        var text: String
-        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
-            text = unwrappedText
-            
-            if let initialText = initialText {
-                if text.characters.count > initialText.characters.count {
-                    if let range = text.range(of: initialText) {
-                        subString = text.substring(with: range)
-                        prefix = text.substring(to: range.lowerBound)
-                        postfix = text.substring(from: range.upperBound)
-                    }
-                }
-            }
-        } else {
-            if let url = url {
-                text = url.absoluteString
-            } else {
-                text = ""
-            }
-        }
+        let text = extractText(from: contentText, and: url)
         
         guard text.characters.count > 0 else {
             self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
@@ -152,6 +130,7 @@ class ShareViewController: SLComposeServiceViewController {
         }
         
         var postedURL: URL?
+        let textToShare: String
         if let url = url, text != url.absoluteString {
             postedURL = url
             if subString.characters.count > 0 {
@@ -243,6 +222,49 @@ extension ShareViewController {
                 }
             })
         }
+    }
+    
+    func extractPrefixSubstringPostfix(from contentText: String?, initialText: String?) -> (String, String, String) {
+        var prefix = ""
+        var subString = ""
+        var postfix = ""
         
+        var text: String = ""
+        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
+            text = unwrappedText
+            
+            if let initialText = initialText {
+                if text.characters.count > initialText.characters.count {
+                    if let range = text.range(of: initialText) {
+                        subString = text.substring(with: range)
+                        prefix = text.substring(to: range.lowerBound)
+                        postfix = text.substring(from: range.upperBound)
+                    }
+                }
+            }
+            
+            if subString.characters.count < 1 {
+                if let startIndex = text.range(of: "["), let stopIndex = text.range(of: "]"),
+                    startIndex.lowerBound < stopIndex.lowerBound {
+                    
+                    subString = text.substring(with: Range(uncheckedBounds: (lower: startIndex.upperBound, upper: stopIndex.lowerBound)))
+                    prefix = text.substring(to: startIndex.lowerBound)
+                    postfix = text.substring(from: stopIndex.upperBound)
+                }
+                
+            }
+        }
+        
+        return (prefix, subString, postfix)
+    }
+    
+    func extractText(from contentText: String?, and url: URL?) -> String {
+        var text: String = ""
+        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
+            text = unwrappedText
+        } else if let url = url {
+            text = url.absoluteString
+        }
+        return text
     }
 }
