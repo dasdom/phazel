@@ -157,7 +157,7 @@ extension PostCoordinatorTests {
         func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
         }
         
-        func post(text: String, completion: @escaping (Result<String>) -> ()) {
+        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
         }
         
         func isLoggedIn() -> Bool {

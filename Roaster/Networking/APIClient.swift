@@ -216,7 +216,6 @@ extension APIClient {
         guard let data = data else { return nil }
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
             fatalError("Invalid json")
-//            return nil 
         }
         return json as? [String:Any]
     }
@@ -224,7 +223,6 @@ extension APIClient {
     private func jsonArray(from data: Data?) -> [Any]? {
         guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: []) else {
             fatalError("Invalid json")
-//            return nil
         }
         return json as? [Any]
     }

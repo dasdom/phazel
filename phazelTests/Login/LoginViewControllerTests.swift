@@ -100,7 +100,7 @@ extension LoginViewControllerTests {
             completion(result)
         }
         
-        func post(text: String, completion: @escaping (Result<String>) -> ()) {
+        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
             
         }
         

@@ -122,7 +122,7 @@ extension PostViewControllerTests {
             
         }
         
-        func post(text: String, completion: @escaping (Result<String>) -> ()) {
+        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
             self.text = text
             completion(result)
         }

@@ -7,8 +7,11 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
+    
+    var settingsItems: [SettingsItem] = [SettingsItem(title: "Active Account")]
 }
 
 protocol SettingsViewControllerDelegate: class {
     func didSetSettingsFor<T>(key: String, withValue: T?)
 }
+
