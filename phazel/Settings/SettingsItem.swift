@@ -4,6 +4,7 @@
 
 import Foundation
 
-struct SettingsItem {
-    let title: String
+enum SettingsItem {
+    case boolean(String, Bool)
+    case string(String, String)
 }

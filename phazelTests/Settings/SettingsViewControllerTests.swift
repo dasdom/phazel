@@ -11,22 +11,42 @@ class SettingsViewControllerTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-
-        sut = SettingsViewController()
+        
+        sut = SettingsViewController(settingsItems: [])
         _ = sut.view
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        
         super.tearDown()
     }
     
-    func test_hasUserSettingsItem() {
+    func test_itemForIndexPath_returnsAccountSetting() {
         
-        let settingsContainsUser = sut.settingsItems.contains(where: { settingsItem -> Bool in
-            return settingsItem.title == "Active Account"
-        })
+        let settingsItem = sut.item(for: NSIndexPath(row: 0, section: 0))
+    
+        let expectedSettingsItem = SettingsItem.string("Account", "foobar")
+        XCTAssertEqual(settingsItem, expectedSettingsItem)
+    }
+    
+    func test_cellForItemAtIndexPath_returnsAccountCell() {
         
-        XCTAssertTrue(settingsContainsUser)
+        let cell = sut.cell(forItemAt: NSIndexPath(row: 0, section: 0))
+        
+        XCTAssertTrue(cell is TextSettingsCell)
+    }
+}
+
+extension SettingsItem: Equatable {
+    public static func ==(lhs: SettingsItem, rhs: SettingsItem) -> Bool {
+        switch (lhs, rhs) {
+        case let (.string(ltitle, lvalue), .string(rtitle, rvalue)):
+            return ltitle == rtitle && lvalue == rvalue
+        case let (.boolean(ltitle, lvalue), .boolean(rtitle, rvalue)):
+            return ltitle == rtitle && lvalue == rvalue
+        default:
+            return false
+        }
     }
 }

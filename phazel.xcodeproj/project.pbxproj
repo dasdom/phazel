@@ -62,6 +62,7 @@
 		F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76EC1E54F41300140C78 /* DDHTextView.swift */; };
 		F2D3D6341E70AE3F00AAAC1C /* SettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6331E70AE3F00AAAC1C /* SettingsViewControllerTests.swift */; };
 		F2D3D6361E70B5D700AAAC1C /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */; };
+		F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */; };
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
@@ -190,6 +191,7 @@
 		F2CE76EC1E54F41300140C78 /* DDHTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextView.swift; sourceTree = "<group>"; };
 		F2D3D6331E70AE3F00AAAC1C /* SettingsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
+		F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSettingsCell.swift; sourceTree = "<group>"; };
 		F2E492621E37FF45000C7187 /* phazel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phazel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E492651E37FF45000C7187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E4926C1E37FF45000C7187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 				F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */,
 				F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */,
 				F25549E91E6AF96C00CE5D14 /* SettingsCoordinator.swift */,
+				F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -786,6 +789,7 @@
 			files = (
 				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
 				F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */,
+				F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */,
 				F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
 				F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */,

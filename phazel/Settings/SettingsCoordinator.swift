@@ -23,7 +23,7 @@ final class SettingsCoordinator: CoodinatorProtocol {
     }
     
     func start() {
-        let settingsViewController = SettingsViewController()
+        let settingsViewController = SettingsViewController(settingsItems: [])
         settingsViewController.delegate = self
         childViewControllers.append(settingsViewController)
         navigationController.viewControllers = [settingsViewController]
