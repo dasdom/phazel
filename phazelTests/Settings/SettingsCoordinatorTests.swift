@@ -34,4 +34,12 @@ class SettingsCoordinatorTests: XCTestCase {
         XCTAssertTrue(viewController.delegate is SettingsCoordinator)
     }
     
+    func test_start_setsSettingsItemsOfViewController() {
+        sut.start()
+        
+        guard let viewController = sut.childViewControllers.last as? SettingsViewController else { return XCTFail() }
+        guard let settingsItem = viewController.settingsItems.first else { return XCTFail() }
+        guard case .string(let title, _) = settingsItem else { return XCTFail() }
+        XCTAssertEqual(title, "Account")
+    }
 }
