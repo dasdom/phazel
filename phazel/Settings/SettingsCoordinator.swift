@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import Roaster
 
 protocol SettingsCoordinatorDelegate: class {
     func settingsDidFinish(coordinator: SettingsCoordinator)
@@ -23,8 +24,12 @@ final class SettingsCoordinator: CoodinatorProtocol {
     }
     
     func start() {
-        let settingsItem = SettingsItem.string("Foo", "Bar")
-        let settingsViewController = SettingsViewController(settingsItems: [settingsItem])
+        var settingsItems: [SettingsItem] = []
+        if let username = userDefaults.value(forKey: UserDefaultsKey.username.rawValue) as? String {
+            let settingsItem = SettingsItem.string("Account", username)
+            settingsItems.append(settingsItem)
+        }
+        let settingsViewController = SettingsViewController(settingsItems: settingsItems)
         settingsViewController.delegate = self
         childViewControllers.append(settingsViewController)
         navigationController.viewControllers = [settingsViewController]

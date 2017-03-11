@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import Roaster
 @testable import phazel
 
 class SettingsCoordinatorTests: XCTestCase {
@@ -35,11 +36,13 @@ class SettingsCoordinatorTests: XCTestCase {
     }
     
     func test_start_setsSettingsItemsOfViewController() {
+        userDefaults.set("dasdom", forKey: UserDefaultsKey.username.rawValue)
         sut.start()
         
         guard let viewController = sut.childViewControllers.last as? SettingsViewController else { return XCTFail() }
         guard let settingsItem = viewController.settingsItems.first else { return XCTFail() }
-        guard case .string(let title, _) = settingsItem else { return XCTFail() }
+        guard case .string(let title, let value) = settingsItem else { return XCTFail() }
         XCTAssertEqual(title, "Account")
+        XCTAssertEqual(value, "dasdom")
     }
 }

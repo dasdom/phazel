@@ -72,7 +72,7 @@ final public class APIClient: APIClientProtocol {
                 
                 self.keychainManager.set(token: token, for: username)
                 if let username = loginUser?.username {
-                    self.userDefaults.set(username, forKey: "username")
+                    self.userDefaults.set(username, forKey: UserDefaultsKey.username.rawValue)
                 }
             }
 
@@ -228,10 +228,14 @@ extension APIClient {
     }
     
     fileprivate var currentUsername: String? {
-        return userDefaults.string(forKey: "username")
+        return userDefaults.string(forKey: UserDefaultsKey.username.rawValue)
     }
 }
 
 enum JSONKey: String {
     case access_token, username, user_id, data, meta
+}
+
+public enum UserDefaultsKey: String {
+    case username
 }
