@@ -17,10 +17,10 @@ final class SettingsCoordinator: CoodinatorProtocol {
     weak var delegate: SettingsCoordinatorDelegate?
     let navigationController: UINavigationController
 
-    init(window: UIWindow, userDefaults: UserDefaults) {
+    init(window: UIWindow, userDefaults: UserDefaults, navigationController: UINavigationController = UINavigationController()) {
         self.window = window
         self.userDefaults = userDefaults
-        navigationController = UINavigationController()
+        self.navigationController = navigationController
     }
     
     func start() {
@@ -42,5 +42,9 @@ final class SettingsCoordinator: CoodinatorProtocol {
 extension SettingsCoordinator: SettingsViewControllerDelegate {
     func didSetSettingsFor<T>(key: String, withValue: T?) {
         
+    }
+    
+    func didSelect(rowAt: IndexPath) {
+        navigationController.pushViewController(AccountsViewController(), animated: true)
     }
 }

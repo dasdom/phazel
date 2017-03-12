@@ -45,4 +45,26 @@ class SettingsCoordinatorTests: XCTestCase {
         XCTAssertEqual(title, "Account")
         XCTAssertEqual(value, "dasdom")
     }
+    
+    func test_didSelect_pushesAccountList() {
+        let navigationController = NavigationControllerMock(rootViewController: UIViewController())
+        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: UserDefaults(), navigationController: navigationController)
+        
+        localSUT.didSelect(rowAt: IndexPath(row: 0, section: 0))
+        
+        XCTAssertTrue(navigationController.pushedViewController is AccountsViewController)
+    }
+}
+
+// MARK: - Mocks
+extension SettingsCoordinatorTests {
+    class NavigationControllerMock: UINavigationController {
+        
+        var pushedViewController: UIViewController?
+        
+        override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+            pushedViewController = viewController
+            super.pushViewController(viewController, animated: animated)
+        }
+    }
 }

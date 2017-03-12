@@ -41,6 +41,7 @@
 		F26136F61E6CA45300DC0E3B /* DDHTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F51E6CA45300DC0E3B /* DDHTextViewTests.swift */; };
 		F26136F81E6CA6DE00DC0E3B /* DDHLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
+		F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296236E1E75A9400089ADC7 /* AccountsViewController.swift */; };
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
 		F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B81E5090B000140C78 /* KeychainManager.swift */; };
@@ -170,6 +171,7 @@
 		F26136F51E6CA45300DC0E3B /* DDHTextViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextViewTests.swift; sourceTree = "<group>"; };
 		F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabelTests.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F296236E1E75A9400089ADC7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		F2CE76B81E5090B000140C78 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -507,10 +509,11 @@
 			isa = PBXGroup;
 			children = (
 				F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */,
-				F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */,
-				F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */,
 				F25549E91E6AF96C00CE5D14 /* SettingsCoordinator.swift */,
+				F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */,
 				F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */,
+				F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */,
+				F296236E1E75A9400089ADC7 /* AccountsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 			files = (
 				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
 				F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */,
+				F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */,
 				F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */,
 				F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,

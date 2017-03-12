@@ -68,6 +68,15 @@ class SettingsViewControllerTests: XCTestCase {
         
         XCTAssertEqual(localSUT.indexPathOfDemandedCell, IndexPath(row: 0, section: 0))
     }
+    
+    func test_selectingACell_callsDelegateMethod() {
+        let delegate = SettingsViewControllerDelegateMock()
+        sut.delegate = delegate
+        
+        sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 1, section: 0))
+        
+        XCTAssertEqual(delegate.selectedIndexPath, IndexPath(row: 1, section: 0))
+    }
 }
 
 // MARK: - Mocks
@@ -79,6 +88,19 @@ extension SettingsViewControllerTests {
         override func cell(forItemAt indexPath: IndexPath) -> UITableViewCell {
             indexPathOfDemandedCell = indexPath
             return super.cell(forItemAt: indexPath)
+        }
+    }
+    
+    class SettingsViewControllerDelegateMock: SettingsViewControllerDelegate {
+        
+        var selectedIndexPath: IndexPath?
+        
+        func didSetSettingsFor<T>(key: String, withValue: T?) {
+            
+        }
+        
+        func didSelect(rowAt indexPath: IndexPath) {
+            selectedIndexPath = indexPath
         }
     }
 }
