@@ -34,8 +34,9 @@ class SettingsViewController: UITableViewController {
     func cell(forItemAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath) as! TextSettingsCell
         if let item = item(for: indexPath) {
-            if case .string(let title, _) = item {
+            if case .string(let title, let value) = item {
                 cell.titleLabel.text = title
+                cell.valueLabel.text = value
             }
         }
         return cell

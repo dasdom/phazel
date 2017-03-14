@@ -58,6 +58,7 @@ class SettingsViewControllerTests: XCTestCase {
         
         guard let unwrappedCell = cell as? TextSettingsCell else { return XCTFail() }
         XCTAssertEqual(unwrappedCell.titleLabel.text, "Account")
+        XCTAssertEqual(unwrappedCell.valueLabel.text, "foobar")
     }
     
     func test_cellForRowAtIndexPath_callsCellForItem() {

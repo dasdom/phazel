@@ -5,11 +5,15 @@
 import UIKit
 
 class TextSettingsCell: UITableViewCell {
+   
     let titleLabel: UILabel
+    let valueLabel: UILabel
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
         titleLabel = UILabel()
+        
+        valueLabel = UILabel()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
