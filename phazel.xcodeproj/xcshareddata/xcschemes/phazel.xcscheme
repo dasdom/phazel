@@ -49,6 +49,16 @@
                ReferencedContainer = "container:phazel.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F296237C1E79E42F0089ADC7"
+               BuildableName = "DDHFoundationTests.xctest"
+               BlueprintName = "DDHFoundationTests"
+               ReferencedContainer = "container:phazel.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

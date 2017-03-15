@@ -4,14 +4,16 @@
 
 import UIKit
 
-class DDHTextView: UITextView {
+public class DDHTextView: UITextView {
 
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
+    override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         translatesAutoresizingMaskIntoConstraints = false
+        
+        textColor = UIColor.text
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         return nil
     }
 

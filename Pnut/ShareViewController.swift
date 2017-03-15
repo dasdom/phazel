@@ -13,77 +13,23 @@ class ShareViewController: UIViewController {
 
     var url: URL?
     var initialText: String?
-    private let spinner: UIActivityIndicatorView
-    private let spinnerHost: UIView
-    private let spinnerStackView: UIStackView
     let userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     let apiClient: APIClient
+    fileprivate var bottomConstraint: NSLayoutConstraint?
     
-    let textView: UITextView
-    let sendButton: UIButton
     var contentText: String {
-        return textView.text
+        return contentView.textView.text
+    }
+    
+    var contentView: ShareView {
+        return view as! ShareView
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
         apiClient = APIClient(userDefaults: userDefaults)
         
-        spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        spinner.startAnimating()
-        
-        let label = UILabel()
-        label.text = NSLocalizedString("Posting", comment: "")
-        label.textColor = UIColor.white
-        
-        spinnerStackView = UIStackView(arrangedSubviews: [spinner, label])
-        spinnerStackView.translatesAutoresizingMaskIntoConstraints = false
-        spinnerStackView.axis = .vertical
-        spinnerStackView.alignment = .center
-        spinnerStackView.spacing = 10
-        
-        spinnerHost = UIView()
-        spinnerHost.translatesAutoresizingMaskIntoConstraints = false
-        spinnerHost.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        spinnerHost.layer.cornerRadius = 10
-        spinnerHost.addSubview(spinnerStackView)
-        spinnerHost.isHidden = true
-        
-        textView = UITextView()
-        textView.backgroundColor = UIColor.yellow
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-
-        sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        sendButton.backgroundColor = UIColor.red
-        
-        let sendButtonStackView = UIStackView(arrangedSubviews: [sendButton])
-        sendButtonStackView.axis = .vertical
-        sendButtonStackView.alignment = .trailing
-        
-        let stackView = UIStackView(arrangedSubviews: [textView, sendButtonStackView])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        
-        let backgroundView = UIView()
-        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundView.backgroundColor = UIColor.white
-        stackView.insertSubview(backgroundView, at: 0)
-        
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
-        
-        view.addSubview(stackView)
-        
-        let views = ["stackView": stackView, "backgroundView": backgroundView]
-        var layoutConstraints = [NSLayoutConstraint]()
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-20-[stackView]-20-|", options: [], metrics: nil, views: views)
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[stackView]-40-|", options: [], metrics: nil, views: views)
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|[backgroundView]|", options: [], metrics: nil, views: views)
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", options: [], metrics: nil, views: views)
-        NSLayoutConstraint.activate(layoutConstraints)
         
     }
     
@@ -96,22 +42,24 @@ class ShareViewController: UIViewController {
         
         title = "phazel"
         
-        view.addSubview(spinnerHost)
-        
-        var layoutConstraints = [NSLayoutConstraint]()
-        layoutConstraints += [spinnerHost.centerXAnchor.constraint(equalTo: view.centerXAnchor)]
-        layoutConstraints += [spinnerHost.centerYAnchor.constraint(equalTo: view.centerYAnchor)]
-        layoutConstraints += [spinnerHost.widthAnchor.constraint(equalToConstant: 100)]
-        layoutConstraints += [spinnerHost.heightAnchor.constraint(equalToConstant: 100)]
-        layoutConstraints += [spinnerStackView.centerXAnchor.constraint(equalTo: spinnerHost.centerXAnchor)]
-        layoutConstraints += [spinnerStackView.centerYAnchor.constraint(equalTo: spinnerHost.centerYAnchor)]
-        NSLayoutConstraint.activate(layoutConstraints)
+        NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    }
+    
+    override func loadView() {
+        view = ShareView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         presentationAnimationDidFinish()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        bottomConstraint = contentView.bottomView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -40)
+        bottomConstraint?.isActive = true
     }
     
     func presentationAnimationDidFinish() {
@@ -145,11 +93,11 @@ class ShareViewController: UIViewController {
             extractTextAndURL(from: itemProvider, completion: { text, url in
                 DispatchQueue.main.async {
                     if let textToShare = text {
-                        self.textView.text = textToShare
-                    } else if (self.textView.text?.characters.count ?? 0) < 1 {
-                        self.textView.text = url.absoluteString
+                        self.contentView.textView.text = textToShare
+                    } else if (self.contentView.textView.text?.characters.count ?? 0) < 1 {
+                        self.contentView.textView.text = url.absoluteString
                     }
-                    self.initialText = self.textView.text
+                    self.initialText = self.contentView.textView.text
                 }
                 self.url = url
             })
@@ -190,8 +138,7 @@ class ShareViewController: UIViewController {
         }
         print("text: \(textToShare)")
         
-        spinner.startAnimating()
-        spinnerHost.isHidden = false
+        contentView.showSpinner()
         
         let lastPostedURLKey = "lastPostedURL"
         let lastPostIdKey = "lastPostId"
@@ -206,7 +153,7 @@ class ShareViewController: UIViewController {
         apiClient.post(text: textToShare, replyTo: lastPostId) { result in
             
             DispatchQueue.main.async {
-                self.spinner.stopAnimating()
+                self.contentView.hideSpinner()
                 switch result {
                 case .success(let postId):
                     print("postId: \(postId)")
@@ -314,4 +261,16 @@ extension ShareViewController {
         }
         return text
     }
+    
+    func keyboardWillShow(sender: NSNotification) {
+        guard let frame = sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let convertedFrame = view.convert(frame, from: nil)
+        
+        bottomConstraint?.constant = -convertedFrame.height - 40
+        self.view.layoutIfNeeded()
+    }
+}
+
+fileprivate extension Selector {
+    static let keyboardWillShow = #selector(ShareViewController.keyboardWillShow(sender:))
 }

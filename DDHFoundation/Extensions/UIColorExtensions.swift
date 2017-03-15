@@ -4,22 +4,22 @@
 
 import UIKit
 
-extension UIColor {
-    static var background: UIColor {
+public extension UIColor {
+    public static var background: UIColor {
 //        return colorFrom(hex: "306794")
         return colorFrom(hex: "806340")
     }
     
-    static var buttonBackground: UIColor {
+    public static var buttonBackground: UIColor {
         return colorFrom(hex: "406880")
     }
     
-    static var tint: UIColor {
+    public static var tint: UIColor {
 //        return colorFrom(hex: "e59f40")
         return colorFrom(hex: "80d0ff")
     }
     
-    static var text: UIColor {
+    public static var text: UIColor {
         return UIColor.white
     }
     

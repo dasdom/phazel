@@ -4,6 +4,6 @@
 
 import UIKit
 
-class DDHButton: UIButton {
+public class DDHButton: UIButton {
 
 }

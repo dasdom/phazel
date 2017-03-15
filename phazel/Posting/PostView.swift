@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import DDHFoundation
 
 class PostView: DDHView {
     
@@ -19,7 +20,6 @@ class PostView: DDHView {
         
         textView = DDHTextView()
         textView.backgroundColor = UIColor.background
-        textView.textColor = UIColor.text
         textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.keyboardAppearance = .dark
         
@@ -71,7 +71,6 @@ class PostView: DDHView {
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor.background
         textView.delegate = self
         
         addSubview(stackView)

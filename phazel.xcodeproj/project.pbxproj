@@ -42,6 +42,18 @@
 		F26136F81E6CA6DE00DC0E3B /* DDHLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296236E1E75A9400089ADC7 /* AccountsViewController.swift */; };
+		F296237E1E79E42F0089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
+		F29623851E79E42F0089ADC7 /* DDHFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623841E79E42F0089ADC7 /* DDHFoundationTests.swift */; };
+		F29623871E79E42F0089ADC7 /* DDHFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = F29623771E79E42F0089ADC7 /* DDHFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F296238A1E79E4300089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
+		F296238B1E79E4300089ADC7 /* DDHFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F296239A1E79E4C90089ADC7 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */; };
+		F296239B1E79E4C90089ADC7 /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623951E79E4C90089ADC7 /* DDHButton.swift */; };
+		F296239C1E79E4C90089ADC7 /* DDHLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623961E79E4C90089ADC7 /* DDHLabel.swift */; };
+		F296239D1E79E4C90089ADC7 /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623971E79E4C90089ADC7 /* DDHTextField.swift */; };
+		F296239E1E79E4C90089ADC7 /* DDHTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623981E79E4C90089ADC7 /* DDHTextView.swift */; };
+		F296239F1E79E4C90089ADC7 /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623991E79E4C90089ADC7 /* DDHView.swift */; };
+		F29623A11E79E5D30089ADC7 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623A01E79E5D30089ADC7 /* ShareView.swift */; };
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
 		F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B81E5090B000140C78 /* KeychainManager.swift */; };
@@ -57,19 +69,13 @@
 		F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DE1E54923A00140C78 /* PostView.swift */; };
 		F2CE76E11E54F15100140C78 /* PostViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E01E54F15100140C78 /* PostViewTests.swift */; };
 		F2CE76E41E54F3A900140C78 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E31E54F3A900140C78 /* Result.swift */; };
-		F2CE76E91E54F3BD00140C78 /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E61E54F3BD00140C78 /* DDHButton.swift */; };
-		F2CE76EA1E54F3BD00140C78 /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */; };
-		F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E81E54F3BD00140C78 /* DDHView.swift */; };
-		F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76EC1E54F41300140C78 /* DDHTextView.swift */; };
 		F2D3D6341E70AE3F00AAAC1C /* SettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6331E70AE3F00AAAC1C /* SettingsViewControllerTests.swift */; };
 		F2D3D6361E70B5D700AAAC1C /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */; };
 		F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */; };
 		F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E492651E37FF45000C7187 /* AppDelegate.swift */; };
 		F2E4926D1E37FF45000C7187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926C1E37FF45000C7187 /* Assets.xcassets */; };
 		F2E492701E37FF45000C7187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E4926E1E37FF45000C7187 /* LaunchScreen.storyboard */; };
-		F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */; };
 		F2F33C871E5CE20A007E53E1 /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F33C861E5CE20A007E53E1 /* Meta.swift */; };
-		F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +107,27 @@
 			remoteGlobalIDString = F23BE4081E508E300068E82F;
 			remoteInfo = Roaster;
 		};
+		F296237F1E79E42F0089ADC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F29623741E79E42F0089ADC7;
+			remoteInfo = DDHFoundation;
+		};
+		F29623811E79E42F0089ADC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2E492611E37FF45000C7187;
+			remoteInfo = phazel;
+		};
+		F29623881E79E4300089ADC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F29623741E79E42F0089ADC7;
+			remoteInfo = DDHFoundation;
+		};
 		F2E492771E37FF46000C7187 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F2E4925A1E37FF45000C7187 /* Project object */;
@@ -128,6 +155,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F296238B1E79E4300089ADC7 /* DDHFoundation.framework in Embed Frameworks */,
 				F23BE41F1E508E300068E82F /* Roaster.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -172,6 +200,19 @@
 		F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabelTests.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F296236E1E75A9400089ADC7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
+		F29623751E79E42F0089ADC7 /* DDHFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDHFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F29623771E79E42F0089ADC7 /* DDHFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDHFoundation.h; sourceTree = "<group>"; };
+		F29623781E79E42F0089ADC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F296237D1E79E42F0089ADC7 /* DDHFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDHFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F29623841E79E42F0089ADC7 /* DDHFoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDHFoundationTests.swift; sourceTree = "<group>"; };
+		F29623861E79E42F0089ADC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		F29623951E79E4C90089ADC7 /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
+		F29623961E79E4C90089ADC7 /* DDHLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabel.swift; sourceTree = "<group>"; };
+		F29623971E79E4C90089ADC7 /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
+		F29623981E79E4C90089ADC7 /* DDHTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextView.swift; sourceTree = "<group>"; };
+		F29623991E79E4C90089ADC7 /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
+		F29623A01E79E5D30089ADC7 /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		F2CE76B81E5090B000140C78 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -187,10 +228,6 @@
 		F2CE76DE1E54923A00140C78 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		F2CE76E01E54F15100140C78 /* PostViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewTests.swift; sourceTree = "<group>"; };
 		F2CE76E31E54F3A900140C78 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		F2CE76E61E54F3BD00140C78 /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
-		F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
-		F2CE76E81E54F3BD00140C78 /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
-		F2CE76EC1E54F41300140C78 /* DDHTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextView.swift; sourceTree = "<group>"; };
 		F2D3D6331E70AE3F00AAAC1C /* SettingsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSettingsCell.swift; sourceTree = "<group>"; };
@@ -201,9 +238,7 @@
 		F2E492711E37FF45000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2E492761E37FF46000C7187 /* phazelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phazelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E4927C1E37FF46000C7187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		F2F33C861E5CE20A007E53E1 /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
-		F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabel.swift; sourceTree = "<group>"; };
 		F2F33C8A1E609811007E53E1 /* phazel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = phazel.entitlements; sourceTree = "<group>"; };
 		F2F33C8B1E609818007E53E1 /* Pnut.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pnut.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,10 +267,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F29623711E79E42F0089ADC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F296237A1E79E42F0089ADC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F296237E1E79E42F0089ADC7 /* DDHFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E4925F1E37FF45000C7187 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F296238A1E79E4300089ADC7 /* DDHFoundation.framework in Frameworks */,
 				F23BE41E1E508E300068E82F /* Roaster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +307,7 @@
 				F25549DF1E61F22600CE5D14 /* Extract.js */,
 				F2F33C8B1E609818007E53E1 /* Pnut.entitlements */,
 				55160CDA1E4B04840043A3CC /* ShareViewController.swift */,
+				F29623A01E79E5D30089ADC7 /* ShareView.swift */,
 				55160CDF1E4B04840043A3CC /* Info.plist */,
 			);
 			path = Pnut;
@@ -338,6 +390,46 @@
 				F26136F71E6CA6DE00DC0E3B /* DDHLabelTests.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		F29623761E79E42F0089ADC7 /* DDHFoundation */ = {
+			isa = PBXGroup;
+			children = (
+				F29623771E79E42F0089ADC7 /* DDHFoundation.h */,
+				F29623921E79E4C90089ADC7 /* Extensions */,
+				F29623941E79E4C90089ADC7 /* Views */,
+				F29623781E79E42F0089ADC7 /* Info.plist */,
+			);
+			path = DDHFoundation;
+			sourceTree = "<group>";
+		};
+		F29623831E79E42F0089ADC7 /* DDHFoundationTests */ = {
+			isa = PBXGroup;
+			children = (
+				F29623841E79E42F0089ADC7 /* DDHFoundationTests.swift */,
+				F29623861E79E42F0089ADC7 /* Info.plist */,
+			);
+			path = DDHFoundationTests;
+			sourceTree = "<group>";
+		};
+		F29623921E79E4C90089ADC7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F29623941E79E4C90089ADC7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F29623951E79E4C90089ADC7 /* DDHButton.swift */,
+				F29623961E79E4C90089ADC7 /* DDHLabel.swift */,
+				F29623971E79E4C90089ADC7 /* DDHTextField.swift */,
+				F29623981E79E4C90089ADC7 /* DDHTextView.swift */,
+				F29623991E79E4C90089ADC7 /* DDHView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F2C12AA31E3BED240056155C /* Login */ = {
@@ -435,18 +527,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		F2CE76E51E54F3BD00140C78 /* Foundation */ = {
-			isa = PBXGroup;
-			children = (
-				F2CE76E61E54F3BD00140C78 /* DDHButton.swift */,
-				F2CE76E71E54F3BD00140C78 /* DDHTextField.swift */,
-				F2CE76E81E54F3BD00140C78 /* DDHView.swift */,
-				F2CE76EC1E54F41300140C78 /* DDHTextView.swift */,
-				F2F33C881E5F7D83007E53E1 /* DDHLabel.swift */,
-			);
-			path = Foundation;
-			sourceTree = "<group>";
-		};
 		F2E492591E37FF45000C7187 = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +535,8 @@
 				55160CD91E4B04840043A3CC /* Pnut */,
 				F23BE40A1E508E300068E82F /* Roaster */,
 				F23BE4171E508E300068E82F /* RoasterTests */,
+				F29623761E79E42F0089ADC7 /* DDHFoundation */,
+				F29623831E79E42F0089ADC7 /* DDHFoundationTests */,
 				F2E492631E37FF45000C7187 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -467,6 +549,8 @@
 				55160CD81E4B04830043A3CC /* Pnut.appex */,
 				F23BE4091E508E300068E82F /* Roaster.framework */,
 				F23BE4111E508E300068E82F /* RoasterTests.xctest */,
+				F29623751E79E42F0089ADC7 /* DDHFoundation.framework */,
+				F296237D1E79E42F0089ADC7 /* DDHFoundationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -478,7 +562,6 @@
 				557AA7891E5DEABE0089E2DB /* secrets.json */,
 				F2E492651E37FF45000C7187 /* AppDelegate.swift */,
 				F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */,
-				F2CE76E51E54F3BD00140C78 /* Foundation */,
 				F2F25A4B1E5A35FC0028C9D2 /* Settings */,
 				F2425A4E1E43D8D2001B7E46 /* Extensions */,
 				F2C12AA41E3BED580056155C /* Login */,
@@ -508,7 +591,6 @@
 		F2F25A4B1E5A35FC0028C9D2 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				F2F25A4C1E5A362A0028C9D2 /* UIColorExtensions.swift */,
 				F25549E91E6AF96C00CE5D14 /* SettingsCoordinator.swift */,
 				F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */,
 				F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */,
@@ -526,6 +608,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F23BE41B1E508E300068E82F /* Roaster.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F29623721E79E42F0089ADC7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F29623871E79E42F0089ADC7 /* DDHFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +676,43 @@
 			productReference = F23BE4111E508E300068E82F /* RoasterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F29623741E79E42F0089ADC7 /* DDHFoundation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F296238C1E79E4300089ADC7 /* Build configuration list for PBXNativeTarget "DDHFoundation" */;
+			buildPhases = (
+				F29623701E79E42F0089ADC7 /* Sources */,
+				F29623711E79E42F0089ADC7 /* Frameworks */,
+				F29623721E79E42F0089ADC7 /* Headers */,
+				F29623731E79E42F0089ADC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DDHFoundation;
+			productName = DDHFoundation;
+			productReference = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F296237C1E79E42F0089ADC7 /* DDHFoundationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F296238F1E79E4300089ADC7 /* Build configuration list for PBXNativeTarget "DDHFoundationTests" */;
+			buildPhases = (
+				F29623791E79E42F0089ADC7 /* Sources */,
+				F296237A1E79E42F0089ADC7 /* Frameworks */,
+				F296237B1E79E42F0089ADC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F29623801E79E42F0089ADC7 /* PBXTargetDependency */,
+				F29623821E79E42F0089ADC7 /* PBXTargetDependency */,
+			);
+			name = DDHFoundationTests;
+			productName = DDHFoundationTests;
+			productReference = F296237D1E79E42F0089ADC7 /* DDHFoundationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F2E492611E37FF45000C7187 /* phazel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F2E4927F1E37FF46000C7187 /* Build configuration list for PBXNativeTarget "phazel" */;
@@ -601,6 +728,7 @@
 			dependencies = (
 				55160CE11E4B04840043A3CC /* PBXTargetDependency */,
 				F23BE41D1E508E300068E82F /* PBXTargetDependency */,
+				F29623891E79E4300089ADC7 /* PBXTargetDependency */,
 			);
 			name = phazel;
 			productName = phazel;
@@ -659,6 +787,17 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = F2E492611E37FF45000C7187;
 					};
+					F29623741E79E42F0089ADC7 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q6PD97MRX4;
+						ProvisioningStyle = Automatic;
+					};
+					F296237C1E79E42F0089ADC7 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q6PD97MRX4;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F2E492611E37FF45000C7187;
+					};
 					F2E492611E37FF45000C7187 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Q6PD97MRX4;
@@ -698,6 +837,8 @@
 				55160CD71E4B04830043A3CC /* Pnut */,
 				F23BE4081E508E300068E82F /* Roaster */,
 				F23BE4101E508E300068E82F /* RoasterTests */,
+				F29623741E79E42F0089ADC7 /* DDHFoundation */,
+				F296237C1E79E42F0089ADC7 /* DDHFoundationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -726,6 +867,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F29623731E79E42F0089ADC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F296237B1E79E42F0089ADC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E492601E37FF45000C7187 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -750,6 +905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29623A11E79E5D30089ADC7 /* ShareView.swift in Sources */,
 				55160CDB1E4B04840043A3CC /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -786,24 +942,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F29623701E79E42F0089ADC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F296239E1E79E4C90089ADC7 /* DDHTextView.swift in Sources */,
+				F296239F1E79E4C90089ADC7 /* DDHView.swift in Sources */,
+				F296239B1E79E4C90089ADC7 /* DDHButton.swift in Sources */,
+				F296239A1E79E4C90089ADC7 /* UIColorExtensions.swift in Sources */,
+				F296239D1E79E4C90089ADC7 /* DDHTextField.swift in Sources */,
+				F296239C1E79E4C90089ADC7 /* DDHLabel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F29623791E79E42F0089ADC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F29623851E79E42F0089ADC7 /* DDHFoundationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F2E4925E1E37FF45000C7187 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2CE76EB1E54F3BD00140C78 /* DDHView.swift in Sources */,
-				F2F25A4D1E5A362A0028C9D2 /* UIColorExtensions.swift in Sources */,
 				F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */,
 				F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */,
-				F2F33C891E5F7D83007E53E1 /* DDHLabel.swift in Sources */,
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
 				F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */,
 				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,
 				F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */,
 				F25549E81E6AF63700CE5D14 /* SettingsViewController.swift in Sources */,
-				F2CE76ED1E54F41300140C78 /* DDHTextView.swift in Sources */,
 				F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */,
-				F2CE76EA1E54F3BD00140C78 /* DDHTextField.swift in Sources */,
-				F2CE76E91E54F3BD00140C78 /* DDHButton.swift in Sources */,
 				F25549EA1E6AF96C00CE5D14 /* SettingsCoordinator.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
 				55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */,
@@ -855,6 +1026,21 @@
 			isa = PBXTargetDependency;
 			target = F23BE4081E508E300068E82F /* Roaster */;
 			targetProxy = F23BE41C1E508E300068E82F /* PBXContainerItemProxy */;
+		};
+		F29623801E79E42F0089ADC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F29623741E79E42F0089ADC7 /* DDHFoundation */;
+			targetProxy = F296237F1E79E42F0089ADC7 /* PBXContainerItemProxy */;
+		};
+		F29623821E79E42F0089ADC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2E492611E37FF45000C7187 /* phazel */;
+			targetProxy = F29623811E79E42F0089ADC7 /* PBXContainerItemProxy */;
+		};
+		F29623891E79E4300089ADC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F29623741E79E42F0089ADC7 /* DDHFoundation */;
+			targetProxy = F29623881E79E4300089ADC7 /* PBXContainerItemProxy */;
 		};
 		F2E492781E37FF46000C7187 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -981,6 +1167,82 @@
 				INFOPLIST_FILE = RoasterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.RoasterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/phazel.app/phazel";
+			};
+			name = Release;
+		};
+		F296238D1E79E4300089ADC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = DDHFoundation/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.DDHFoundation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F296238E1E79E4300089ADC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = DDHFoundation/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.DDHFoundation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F29623901E79E4300089ADC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = DDHFoundationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.DDHFoundationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/phazel.app/phazel";
+			};
+			name = Debug;
+		};
+		F29623911E79E4300089ADC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = Q6PD97MRX4;
+				INFOPLIST_FILE = DDHFoundationTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swiftandpainless.DDHFoundationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/phazel.app/phazel";
@@ -1171,6 +1433,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		F296238C1E79E4300089ADC7 /* Build configuration list for PBXNativeTarget "DDHFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F296238D1E79E4300089ADC7 /* Debug */,
+				F296238E1E79E4300089ADC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F296238F1E79E4300089ADC7 /* Build configuration list for PBXNativeTarget "DDHFoundationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F29623901E79E4300089ADC7 /* Debug */,
+				F29623911E79E4300089ADC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		F2E4925D1E37FF45000C7187 /* Build configuration list for PBXProject "phazel" */ = {
 			isa = XCConfigurationList;

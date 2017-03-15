@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DDHFoundation.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>Pnut.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,16 @@
 			<true/>
 		</dict>
 		<key>F23BE4101E508E300068E82F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F29623741E79E42F0089ADC7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F296237C1E79E42F0089ADC7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import DDHFoundation
 
 final class LoginView: DDHView {
 
@@ -52,9 +53,7 @@ final class LoginView: DDHView {
         stackView.spacing = 10
         
         super.init(frame: frame)
-        
-        backgroundColor = UIColor.background
-        
+                
         usernameTextField.delegate = self
         passwordTextField.delegate = self
 
