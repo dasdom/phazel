@@ -9,15 +9,21 @@ import Roaster
 
 @objc(ShareViewController)
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
 
     var url: URL?
     var initialText: String?
     private let spinner: UIActivityIndicatorView
     private let spinnerHost: UIView
-    private let stackView: UIStackView
+    private let spinnerStackView: UIStackView
     let userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     let apiClient: APIClient
+    
+    let textView: UITextView
+    let sendButton: UIButton
+    var contentText: String {
+        return textView.text
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         
@@ -30,20 +36,55 @@ class ShareViewController: SLComposeServiceViewController {
         label.text = NSLocalizedString("Posting", comment: "")
         label.textColor = UIColor.white
         
-        stackView = UIStackView(arrangedSubviews: [spinner, label])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 10
+        spinnerStackView = UIStackView(arrangedSubviews: [spinner, label])
+        spinnerStackView.translatesAutoresizingMaskIntoConstraints = false
+        spinnerStackView.axis = .vertical
+        spinnerStackView.alignment = .center
+        spinnerStackView.spacing = 10
         
         spinnerHost = UIView()
         spinnerHost.translatesAutoresizingMaskIntoConstraints = false
-        spinnerHost.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        spinnerHost.backgroundColor = UIColor(white: 0, alpha: 0.5)
         spinnerHost.layer.cornerRadius = 10
-        spinnerHost.addSubview(stackView)
+        spinnerHost.addSubview(spinnerStackView)
         spinnerHost.isHidden = true
         
+        textView = UITextView()
+        textView.backgroundColor = UIColor.yellow
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+
+        sendButton = UIButton(type: .system)
+        sendButton.setTitle("Send", for: .normal)
+        sendButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+        sendButton.backgroundColor = UIColor.red
+        
+        let sendButtonStackView = UIStackView(arrangedSubviews: [sendButton])
+        sendButtonStackView.axis = .vertical
+        sendButtonStackView.alignment = .trailing
+        
+        let stackView = UIStackView(arrangedSubviews: [textView, sendButtonStackView])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        
+        let backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundView.backgroundColor = UIColor.white
+        stackView.insertSubview(backgroundView, at: 0)
+        
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        
+        view.addSubview(stackView)
+        
+        let views = ["stackView": stackView, "backgroundView": backgroundView]
+        var layoutConstraints = [NSLayoutConstraint]()
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-20-[stackView]-20-|", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[stackView]-40-|", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|[backgroundView]|", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", options: [], metrics: nil, views: views)
+        NSLayoutConstraint.activate(layoutConstraints)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,12 +103,18 @@ class ShareViewController: SLComposeServiceViewController {
         layoutConstraints += [spinnerHost.centerYAnchor.constraint(equalTo: view.centerYAnchor)]
         layoutConstraints += [spinnerHost.widthAnchor.constraint(equalToConstant: 100)]
         layoutConstraints += [spinnerHost.heightAnchor.constraint(equalToConstant: 100)]
-        layoutConstraints += [stackView.centerXAnchor.constraint(equalTo: spinnerHost.centerXAnchor)]
-        layoutConstraints += [stackView.centerYAnchor.constraint(equalTo: spinnerHost.centerYAnchor)]
+        layoutConstraints += [spinnerStackView.centerXAnchor.constraint(equalTo: spinnerHost.centerXAnchor)]
+        layoutConstraints += [spinnerStackView.centerYAnchor.constraint(equalTo: spinnerHost.centerYAnchor)]
         NSLayoutConstraint.activate(layoutConstraints)
     }
     
-    override func presentationAnimationDidFinish() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        presentationAnimationDidFinish()
+    }
+    
+    func presentationAnimationDidFinish() {
         
         guard let items = extensionContext?.inputItems else {
 //            print("No inputItems")
@@ -111,14 +158,14 @@ class ShareViewController: SLComposeServiceViewController {
         
     }
     
-    override func isContentValid() -> Bool {
+    func isContentValid() -> Bool {
         
-        charactersRemaining = Int(256 - contentText.characters.count) as NSNumber!
+//        charactersRemaining = Int(256 - contentText.characters.count) as NSNumber!
         
         return contentText.characters.count < 256
     }
 
-    override func didSelectPost() {
+    func didSelectPost() {
         
         var (prefix, subString, postfix) = extractPrefixSubstringPostfix(from: contentText, initialText: initialText)
         
@@ -175,9 +222,9 @@ class ShareViewController: SLComposeServiceViewController {
         
     }
 
-    override func configurationItems() -> [Any]! {
-        return []
-    }
+//    override func configurationItems() -> [Any]! {
+//        return []
+//    }
 }
 
 // MARK: - Data extractors
