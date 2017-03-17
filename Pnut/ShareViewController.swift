@@ -16,6 +16,12 @@ class ShareViewController: UIViewController {
     let userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     let apiClient: APIClient
     fileprivate var bottomConstraint: NSLayoutConstraint?
+    var charactersRemaining = 256 {
+        didSet {
+            contentView.remainingCharacterLabel.text = "\(charactersRemaining)"
+        }
+        
+    }
     
     var contentText: String {
         return contentView.textView.text
@@ -43,16 +49,25 @@ class ShareViewController: UIViewController {
         title = "phazel"
         
         NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        contentView.remainingCharacterLabel.text = "\(charactersRemaining)"
     }
     
     override func loadView() {
         view = ShareView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        contentView.showSpinner(text: "Loading...")
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         presentationAnimationDidFinish()
+        contentView.textView.becomeFirstResponder()
     }
     
     override func viewDidLayoutSubviews() {
@@ -94,10 +109,22 @@ class ShareViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let textToShare = text {
                         self.contentView.textView.text = textToShare
-                    } else if (self.contentView.textView.text?.characters.count ?? 0) < 1 {
-                        self.contentView.textView.text = url.absoluteString
+                    } else if (self.contentView.textView.text?.characters.count ?? 0) < 1,
+                        let unwrappedURL = url {
+                        self.contentView.textView.text = unwrappedURL.absoluteString
                     }
                     self.initialText = self.contentView.textView.text
+                   
+                    if let unwrappedURL = url {
+                        if unwrappedURL.absoluteString.characters.count > 0 {
+                            self.contentView.urlLabel.text = unwrappedURL.absoluteString
+                        }
+                    } else {
+                        self.contentView.urlLabel.text = "No link..."
+                    }
+                    
+                    self.contentView.sendButton.isEnabled = self.isContentValid()
+                    self.contentView.hideSpinner()
                 }
                 self.url = url
             })
@@ -108,12 +135,15 @@ class ShareViewController: UIViewController {
     
     func isContentValid() -> Bool {
         
-//        charactersRemaining = Int(256 - contentText.characters.count) as NSNumber!
+        charactersRemaining = 256 - contentText.characters.count
         
-        return contentText.characters.count < 256
+        return contentText.characters.count < 256 && contentText.characters.count > 0
     }
+}
 
-    func didSelectPost() {
+extension ShareViewController: PostProtocol {
+    
+    func send() {
         
         var (prefix, subString, postfix) = extractPrefixSubstringPostfix(from: contentText, initialText: initialText)
         
@@ -138,7 +168,7 @@ class ShareViewController: UIViewController {
         }
         print("text: \(textToShare)")
         
-        contentView.showSpinner()
+        contentView.showSpinner(text: "Sending...")
         
         let lastPostedURLKey = "lastPostedURL"
         let lastPostIdKey = "lastPostId"
@@ -163,10 +193,23 @@ class ShareViewController: UIViewController {
                     print("error: \(error)")
                     break
                 }
-                self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+                
+                UIView.animate(withDuration: 0.2, animations: {
+                    self.view.alpha = 0
+                }) { _ in
+                    self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+                }
             }
         }
         
+    }
+    
+    func cancel() {
+        UIView.animate(withDuration: 0.2, animations: { 
+            self.view.alpha = 0
+        }) { _ in
+            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+        }
     }
 
 //    override func configurationItems() -> [Any]! {
@@ -174,13 +217,19 @@ class ShareViewController: UIViewController {
 //    }
 }
 
+extension ShareViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        contentView.sendButton.isEnabled = isContentValid()
+    }
+}
+
 // MARK: - Data extractors
 extension ShareViewController {
-    func extractTextAndURL(from itemProvider: NSItemProvider, completion: @escaping (String?, URL) -> ()) {
+    func extractTextAndURL(from itemProvider: NSItemProvider, completion: @escaping (String?, URL?) -> ()) {
         
         let plistType = kUTTypePropertyList as String
         let urlType = kUTTypeURL as String
-//        let textType = kUTTypeText as String
+        let textType = kUTTypeText as String
         
         if itemProvider.hasItemConformingToTypeIdentifier(plistType) {
            
@@ -213,6 +262,13 @@ extension ShareViewController {
                 print("item: \(item)")
                 if let url = item as? URL {
                     completion(nil, url)
+                }
+            })
+        } else if itemProvider.hasItemConformingToTypeIdentifier(textType) {
+            
+            itemProvider.loadItem(forTypeIdentifier: textType, options: nil, completionHandler: { item, error in
+                if let text = item as? String {
+                    completion(text, nil)
                 }
             })
         }
