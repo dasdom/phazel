@@ -9,7 +9,7 @@ open class DDHView: UIView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = UIColor.background
+        backgroundColor = AppColors.background
     }
     
     required public init?(coder aDecoder: NSCoder) {

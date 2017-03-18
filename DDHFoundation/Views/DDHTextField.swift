@@ -11,7 +11,7 @@ public class DDHTextField: UITextField {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        backgroundColor = UIColor.white
+        backgroundColor = AppColors.textFieldBackground
 //        layer.borderColor = UIColor.textFieldsBorderColor.cgColor
 //        layer.borderWidth = 1
         layer.cornerRadius = 5

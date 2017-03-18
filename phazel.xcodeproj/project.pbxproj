@@ -47,13 +47,14 @@
 		F29623871E79E42F0089ADC7 /* DDHFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = F29623771E79E42F0089ADC7 /* DDHFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F296238A1E79E4300089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
 		F296238B1E79E4300089ADC7 /* DDHFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F296239A1E79E4C90089ADC7 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */; };
 		F296239B1E79E4C90089ADC7 /* DDHButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623951E79E4C90089ADC7 /* DDHButton.swift */; };
 		F296239C1E79E4C90089ADC7 /* DDHLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623961E79E4C90089ADC7 /* DDHLabel.swift */; };
 		F296239D1E79E4C90089ADC7 /* DDHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623971E79E4C90089ADC7 /* DDHTextField.swift */; };
 		F296239E1E79E4C90089ADC7 /* DDHTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623981E79E4C90089ADC7 /* DDHTextView.swift */; };
 		F296239F1E79E4C90089ADC7 /* DDHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623991E79E4C90089ADC7 /* DDHView.swift */; };
 		F29623A11E79E5D30089ADC7 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623A01E79E5D30089ADC7 /* ShareView.swift */; };
+		F29623A21E7C451E0089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
+		F29623A41E7D1CA60089ADC7 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29623A31E7D1CA60089ADC7 /* AppColors.swift */; };
 		F2C12AA61E3BEFE60056155C /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */; };
 		F2CE76B61E50909D00140C78 /* KeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */; };
 		F2CE76B91E5090B000140C78 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76B81E5090B000140C78 /* KeychainManager.swift */; };
@@ -206,13 +207,13 @@
 		F296237D1E79E42F0089ADC7 /* DDHFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DDHFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29623841E79E42F0089ADC7 /* DDHFoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DDHFoundationTests.swift; sourceTree = "<group>"; };
 		F29623861E79E42F0089ADC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		F29623951E79E4C90089ADC7 /* DDHButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHButton.swift; sourceTree = "<group>"; };
 		F29623961E79E4C90089ADC7 /* DDHLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabel.swift; sourceTree = "<group>"; };
 		F29623971E79E4C90089ADC7 /* DDHTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextField.swift; sourceTree = "<group>"; };
 		F29623981E79E4C90089ADC7 /* DDHTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextView.swift; sourceTree = "<group>"; };
 		F29623991E79E4C90089ADC7 /* DDHView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHView.swift; sourceTree = "<group>"; };
 		F29623A01E79E5D30089ADC7 /* ShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
+		F29623A31E7D1CA60089ADC7 /* AppColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		F2C12AA51E3BEFE60056155C /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
 		F2CE76B51E50909D00140C78 /* KeychainManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManagerTests.swift; sourceTree = "<group>"; };
 		F2CE76B81E5090B000140C78 /* KeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F29623A21E7C451E0089ADC7 /* DDHFoundation.framework in Frameworks */,
 				F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,8 +397,8 @@
 		F29623761E79E42F0089ADC7 /* DDHFoundation */ = {
 			isa = PBXGroup;
 			children = (
+				F29623A31E7D1CA60089ADC7 /* AppColors.swift */,
 				F29623771E79E42F0089ADC7 /* DDHFoundation.h */,
-				F29623921E79E4C90089ADC7 /* Extensions */,
 				F29623941E79E4C90089ADC7 /* Views */,
 				F29623781E79E42F0089ADC7 /* Info.plist */,
 			);
@@ -410,14 +412,6 @@
 				F29623861E79E42F0089ADC7 /* Info.plist */,
 			);
 			path = DDHFoundationTests;
-			sourceTree = "<group>";
-		};
-		F29623921E79E4C90089ADC7 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				F29623931E79E4C90089ADC7 /* UIColorExtensions.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F29623941E79E4C90089ADC7 /* Views */ = {
@@ -949,7 +943,7 @@
 				F296239E1E79E4C90089ADC7 /* DDHTextView.swift in Sources */,
 				F296239F1E79E4C90089ADC7 /* DDHView.swift in Sources */,
 				F296239B1E79E4C90089ADC7 /* DDHButton.swift in Sources */,
-				F296239A1E79E4C90089ADC7 /* UIColorExtensions.swift in Sources */,
+				F29623A41E7D1CA60089ADC7 /* AppColors.swift in Sources */,
 				F296239D1E79E4C90089ADC7 /* DDHTextField.swift in Sources */,
 				F296239C1E79E4C90089ADC7 /* DDHLabel.swift in Sources */,
 			);
@@ -1176,6 +1170,7 @@
 		F296238D1E79E4300089ADC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1200,6 +1195,7 @@
 		F296238E1E79E4300089ADC7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

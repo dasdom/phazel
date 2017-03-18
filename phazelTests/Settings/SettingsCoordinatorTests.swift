@@ -48,11 +48,13 @@ class SettingsCoordinatorTests: XCTestCase {
     
     func test_didSelect_pushesAccountList() {
         let navigationController = NavigationControllerMock(rootViewController: UIViewController())
-        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: UserDefaults(), navigationController: navigationController)
+        let userDefaults = UserDefaults()
+        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: userDefaults, navigationController: navigationController)
         
         localSUT.didSelect(rowAt: IndexPath(row: 0, section: 0))
         
-        XCTAssertTrue(navigationController.pushedViewController is AccountsViewController)
+        guard let viewController = navigationController.pushedViewController as? AccountsViewController else { return XCTFail() }
+        XCTAssertTrue(viewController.userDefaults === userDefaults)
     }
 }
 

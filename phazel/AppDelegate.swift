@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import DDHFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,11 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         guard let window = window else { fatalError() }
-        window.tintColor = UIColor.tint
+        window.tintColor = AppColors.tint
         mainCoordinator = MainCoordinator(window: window)
         mainCoordinator?.start()
         
-        application.statusBarStyle = .lightContent
+//        application.statusBarStyle = .lightContent
         
         return true
     }

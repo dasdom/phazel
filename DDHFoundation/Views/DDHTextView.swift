@@ -10,7 +10,7 @@ public class DDHTextView: UITextView {
         super.init(frame: frame, textContainer: textContainer)
         translatesAutoresizingMaskIntoConstraints = false
         
-        textColor = UIColor.text
+        textColor = AppColors.text
     }
     
     required public init?(coder aDecoder: NSCoder) {

@@ -45,6 +45,6 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
     
     func didSelect(rowAt: IndexPath) {
-        navigationController.pushViewController(AccountsViewController(), animated: true)
+        navigationController.pushViewController(AccountsViewController(userDefaults: userDefaults), animated: true)
     }
 }

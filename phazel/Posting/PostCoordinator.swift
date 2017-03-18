@@ -4,6 +4,7 @@
 
 import UIKit
 import Roaster
+import DDHFoundation
 
 final class PostCoordinator: CoodinatorProtocol {
     
@@ -26,8 +27,8 @@ final class PostCoordinator: CoodinatorProtocol {
         
         let navigationController = UINavigationController(rootViewController: postViewController)
         navigationController.navigationBar.isTranslucent = false
-        navigationController.navigationBar.barTintColor = UIColor.background
-        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navigationController.navigationBar.barTintColor = AppColors.bar
+        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: AppColors.barText]
         window.rootViewController = navigationController
     }
 }

@@ -19,13 +19,13 @@ class PostView: DDHView {
     override init(frame: CGRect) {
         
         textView = DDHTextView()
-        textView.backgroundColor = UIColor.background
+        textView.backgroundColor = AppColors.background
         textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.keyboardAppearance = .dark
+//        textView.keyboardAppearance = .dark
         
         countLabel = DDHLabel()
-        countLabel.backgroundColor = UIColor.background
-        countLabel.textColor = UIColor.lightGray
+        countLabel.backgroundColor = AppColors.background
+        countLabel.textColor = AppColors.text.withAlphaComponent(0.6)
         countLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         countLabel.textAlignment = .right
         countLabel.text = "256"
@@ -38,7 +38,7 @@ class PostView: DDHView {
         sendButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
         sendButton.isEnabled = false
         
-        spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+        spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.hidesWhenStopped = true
         
@@ -130,14 +130,14 @@ extension PostView: PostViewProtocol {
             image = UIImage(named: "failure")?.withRenderingMode(.alwaysTemplate)
         }
         let imageView = UIImageView(image: image)
-        imageView.tintColor = UIColor.text
+        imageView.tintColor = UIColor.white
         statusStackView.addArrangedSubview(imageView)
         
         if let text = text, text.characters.count > 0 {
             let label = UILabel()
             label.text = text
             label.numberOfLines = 0
-            label.textColor = UIColor.text
+            label.textColor = UIColor.white
             label.textAlignment = .center
             label.font = UIFont.preferredFont(forTextStyle: .body)
             statusStackView.addArrangedSubview(label)
@@ -200,7 +200,7 @@ extension PostView {
         if remainingCharacters < 0 {
             countLabel.textColor = UIColor.red
         } else {
-            countLabel.textColor = UIColor.lightGray
+            countLabel.textColor = AppColors.text.withAlphaComponent(0.6)
         }
     }
 }

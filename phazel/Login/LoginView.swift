@@ -16,7 +16,7 @@ final class LoginView: DDHView {
     override init(frame: CGRect) {
         
         let label = UILabel()
-        label.textColor = UIColor.white
+        label.textColor = AppColors.text
         label.text = "Please log in with\nyour pnut.io account"
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -38,7 +38,7 @@ final class LoginView: DDHView {
         loginButton.setTitle(loginButtonTitle, for: .normal)
         loginButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         loginButton.isEnabled = false
-        loginButton.backgroundColor = UIColor.buttonBackground
+        loginButton.backgroundColor = AppColors.buttonBackground
         
         spinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
         spinner.translatesAutoresizingMaskIntoConstraints = false

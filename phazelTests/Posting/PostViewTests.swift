@@ -4,6 +4,7 @@
 
 import XCTest
 @testable import phazel
+import DDHFoundation
 
 class PostViewTests: XCTestCase {
     

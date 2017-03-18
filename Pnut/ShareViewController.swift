@@ -18,7 +18,7 @@ class ShareViewController: UIViewController {
     fileprivate var bottomConstraint: NSLayoutConstraint?
     var charactersRemaining = 256 {
         didSet {
-            contentView.remainingCharacterLabel.text = "\(charactersRemaining)"
+            contentView.countLabel.text = "\(charactersRemaining)"
         }
         
     }
@@ -46,11 +46,12 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "phazel"
+        contentView.titleLabel.text = "Create a nut"
         
         NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        contentView.remainingCharacterLabel.text = "\(charactersRemaining)"
+        contentView.countLabel.text = "\(charactersRemaining)"
+        contentView.textView.delegate = self
     }
     
     override func loadView() {
@@ -141,6 +142,7 @@ class ShareViewController: UIViewController {
     }
 }
 
+// MARK: - PostProtocol
 extension ShareViewController: PostProtocol {
     
     func send() {
@@ -217,6 +219,7 @@ extension ShareViewController: PostProtocol {
 //    }
 }
 
+// MARK: - UITextViewDelegate
 extension ShareViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         contentView.sendButton.isEnabled = isContentValid()
