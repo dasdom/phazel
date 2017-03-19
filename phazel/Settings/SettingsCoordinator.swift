@@ -45,6 +45,14 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
     
     func didSelect(rowAt: IndexPath) {
-        navigationController.pushViewController(AccountsViewController(userDefaults: userDefaults), animated: true)
+        guard let accountsArray = userDefaults.value(forKey: UserDefaultsKey.accounts.rawValue) as? [[String:String]] else { return }
+        var accounts: [LoginUser] = []
+        for dictionary in accountsArray {
+            if let id = dictionary[DictionaryKey.id.rawValue], let username = dictionary[DictionaryKey.username.rawValue] {
+                accounts.append(LoginUser(id: id, username: username))
+            }
+        }
+        navigationController.pushViewController(AccountsViewController(accounts: accounts), animated: true)
+        
     }
 }

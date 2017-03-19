@@ -5,8 +5,8 @@
 import Foundation
 
 public struct LoginUser: Equatable {
-    let id: String
-    let username: String
+    public let id: String
+    public let username: String
     
     public init(id: String, username: String) {
         self.id = id

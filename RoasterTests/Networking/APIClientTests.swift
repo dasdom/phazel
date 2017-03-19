@@ -59,7 +59,7 @@ extension APIClientTests {
         guard let encodedUsername = encode("föö") else {
                 return XCTFail()
         }
-        localSUT.login(username: encodedUsername, password: "foo") { _ in }
+        localSUT.login(username: " föö ", password: "foo") { _ in }
         
         waitForExpectations(timeout: 0.2) { _ in
             self.body(of: URLRequestStub.lastRequest, contains: "username=\(encodedUsername)")
@@ -457,7 +457,7 @@ extension APIClientTests {
 
 extension APIClientTests {
     func encode(_ string: String) -> String? {
-        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
+        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;= ").inverted
         return string.addingPercentEncoding(withAllowedCharacters: characterSet)
     }
 }

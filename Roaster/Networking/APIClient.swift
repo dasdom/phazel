@@ -23,10 +23,9 @@ final public class APIClient: APIClientProtocol {
         
         guard let url = URLCreator.auth.url() else { fatalError() }
         
-        print("url: \(url)")
-        
-        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;=").inverted
-        guard let encodedUsername = username.addingPercentEncoding(withAllowedCharacters: characterSet),
+        let characterSet = CharacterSet(charactersIn: ":/?#[]@!$&'()*+,;= ").inverted
+        let trimmedUsername = username.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        guard let encodedUsername = trimmedUsername.addingPercentEncoding(withAllowedCharacters: characterSet),
             let encodedPassword = password.addingPercentEncoding(withAllowedCharacters: characterSet) else {
                 fatalError()
         }
@@ -48,10 +47,10 @@ final public class APIClient: APIClientProtocol {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, taskError in
             
-            if let data = data {
-                let dataString = String(data: data, encoding: .utf8)
-                print("dataString: \(dataString)")
-            }
+//            if let data = data {
+//                let dataString = String(data: data, encoding: .utf8)
+//                print("dataString: \(dataString)")
+//            }
             
             var error = taskError
             if let meta = self.extractMeta(from: data) {
@@ -126,14 +125,14 @@ final public class APIClient: APIClientProtocol {
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let dataString = String(data: data, encoding: .utf8)
-        print("dataString: \(dataString)")
+//        let dataString = String(data: data, encoding: .utf8)
+//        print("dataString: \(dataString)")
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
             
-            let dataString = String(data: data!, encoding: .utf8)
-            print("dataString: \(dataString)")
+//            let dataString = String(data: data!, encoding: .utf8)
+//            print("dataString: \(dataString)")
             
             DispatchQueue.main.async {
                 let postId = self.extractPostId(from: data)
@@ -230,12 +229,4 @@ extension APIClient {
     fileprivate var currentUsername: String? {
         return userDefaults.string(forKey: UserDefaultsKey.username.rawValue)
     }
-}
-
-enum JSONKey: String {
-    case access_token, username, user_id, data, meta
-}
-
-public enum UserDefaultsKey: String {
-    case username
 }

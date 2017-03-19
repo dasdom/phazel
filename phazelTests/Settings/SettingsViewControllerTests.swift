@@ -22,52 +22,26 @@ class SettingsViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_itemForIndexPath_returnsAccountSetting_1() {
-        let settingsItem = SettingsItem.string("Foo", "Bar")
-        let localSUT = SettingsViewController(settingsItems: [settingsItem])
-        
-        let returnedSettingsItem = localSUT.item(for: IndexPath(row: 0, section: 0))
-    
-        XCTAssertEqual(returnedSettingsItem, settingsItem)
-    }
-    
-    func test_itemForIndexPath_returnsAccountSetting_2() {
+    func test_cellForRowAtIndexPath_returnsCell_1() {
         let settingsItem = SettingsItem.string("Account", "foobar")
         let localSUT = SettingsViewController(settingsItems: [settingsItem])
         
-        let returnedSettingsItem = localSUT.item(for: IndexPath(row: 0, section: 0))
-        
-        XCTAssertEqual(returnedSettingsItem, settingsItem)
-    }
-    
-    func test_cellForItemAtIndexPath_returnsCellWithTitle_1() {
-        let settingsItem = SettingsItem.string("Foo", "Bar")
-        let localSUT = SettingsViewController(settingsItems: [settingsItem])
-        
-        let cell = localSUT.cell(forItemAt: IndexPath(row: 0, section: 0))
-        
-        guard let unwrappedCell = cell as? TextSettingsCell else { return XCTFail() }
-        XCTAssertEqual(unwrappedCell.titleLabel.text, "Foo")
-    }
-    
-    func test_cellForItemAtIndexPath_returnsCellWithTitle_2() {
-        let settingsItem = SettingsItem.string("Account", "foobar")
-        let localSUT = SettingsViewController(settingsItems: [settingsItem])
-        
-        let cell = localSUT.cell(forItemAt: IndexPath(row: 0, section: 0))
+        let cell = localSUT.tableView(localSUT.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         
         guard let unwrappedCell = cell as? TextSettingsCell else { return XCTFail() }
         XCTAssertEqual(unwrappedCell.titleLabel.text, "Account")
         XCTAssertEqual(unwrappedCell.valueLabel.text, "foobar")
     }
     
-    func test_cellForRowAtIndexPath_callsCellForItem() {
-        let settingsItem = SettingsItem.string("Account", "foobar")
-        let localSUT = SettingsViewControllerMock(settingsItems: [settingsItem])
+    func test_cellForRowAtIndexPath_returnsCell_2() {
+        let settingsItem = SettingsItem.string("Foo", "Bar")
+        let localSUT = SettingsViewController(settingsItems: [settingsItem])
         
-        _ = localSUT.tableView(localSUT.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
+        let cell = localSUT.tableView(localSUT.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         
-        XCTAssertEqual(localSUT.indexPathOfDemandedCell, IndexPath(row: 0, section: 0))
+        guard let unwrappedCell = cell as? TextSettingsCell else { return XCTFail() }
+        XCTAssertEqual(unwrappedCell.titleLabel.text, "Foo")
+        XCTAssertEqual(unwrappedCell.valueLabel.text, "Bar")
     }
     
     func test_selectingACell_callsDelegateMethod() {
@@ -82,15 +56,6 @@ class SettingsViewControllerTests: XCTestCase {
 
 // MARK: - Mocks
 extension SettingsViewControllerTests {
-    class SettingsViewControllerMock: SettingsViewController {
-        
-        var indexPathOfDemandedCell: IndexPath?
-        
-        override func cell(forItemAt indexPath: IndexPath) -> UITableViewCell {
-            indexPathOfDemandedCell = indexPath
-            return super.cell(forItemAt: indexPath)
-        }
-    }
     
     class SettingsViewControllerDelegateMock: SettingsViewControllerDelegate {
         

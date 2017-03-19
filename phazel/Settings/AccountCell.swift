@@ -1,27 +1,22 @@
-//  Created by dasdom on 09/03/2017.
+//  Created by dasdom on 19/03/2017.
 //  Copyright © 2017 dasdom. All rights reserved.
 //
 
 import UIKit
+import DDHFoundation
 
-class TextSettingsCell: UITableViewCell {
-   
+class AccountCell: UITableViewCell {
+
     let titleLabel: UILabel
-    let valueLabel: UILabel
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
-        titleLabel = UILabel()
-        
-        valueLabel = UILabel()
+        titleLabel = DDHLabel()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(valueLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        return nil
+        fatalError("init(coder:) has not been implemented")
     }
 }

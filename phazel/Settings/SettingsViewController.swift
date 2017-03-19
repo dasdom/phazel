@@ -8,7 +8,7 @@ class SettingsViewController: UITableViewController {
     
     weak var delegate: SettingsViewControllerDelegate?
     let settingsItems: [SettingsItem]
-    let textCellIdentifier = "textCellIdentifier"
+    let textCellIdentifier = String(describing: TextSettingsCell.self)
     
     init(settingsItems: [SettingsItem]) {
         
@@ -30,17 +30,6 @@ class SettingsViewController: UITableViewController {
     func item(for indexPath: IndexPath) -> SettingsItem? {
         return settingsItems[indexPath.row]
     }
-    
-    func cell(forItemAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath) as! TextSettingsCell
-        if let item = item(for: indexPath) {
-            if case .string(let title, let value) = item {
-                cell.titleLabel.text = title
-                cell.valueLabel.text = value
-            }
-        }
-        return cell
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -50,8 +39,15 @@ extension SettingsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellToReturn = cell(forItemAt: indexPath)
-        return cellToReturn
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath) as! TextSettingsCell
+        let item = settingsItems[indexPath.row]
+        if case .string(let title, let value) = item {
+            cell.titleLabel.text = title
+            cell.valueLabel.text = value
+        }
+        
+        return cell
     }
 }
 
