@@ -65,6 +65,7 @@ final class LoginView: DDHView {
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[stackView]", options: [], metrics: nil, views: views)
         layoutConstraints += [usernameTextField.heightAnchor.constraint(equalToConstant: 30)]
         layoutConstraints += [passwordTextField.heightAnchor.constraint(equalToConstant: 30)]
+        layoutConstraints += [loginButton.heightAnchor.constraint(equalToConstant: 40)]
         layoutConstraints += [spinner.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)]
         layoutConstraints += [spinner.centerYAnchor.constraint(equalTo: loginButton.centerYAnchor)]
         NSLayoutConstraint.activate(layoutConstraints)

@@ -4,6 +4,8 @@
 
 import Foundation
 
+public typealias Account = LoginUser
+
 public struct LoginUser: Equatable {
     public let id: String
     public let username: String

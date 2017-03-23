@@ -59,6 +59,19 @@ class SettingsCoordinatorTests: XCTestCase {
         let expectedAccounts = [LoginUser(id: "23", username: "foo"), LoginUser(id: "42", username: "bar")]
         XCTAssertEqual(viewController.accounts, expectedAccounts)
     }
+    
+    func test_didSelect_setsDelegateOfAccountsViewController() {
+        let navigationController = NavigationControllerMock(rootViewController: UIViewController())
+        let accounts = [["id": "23", "username": "foo"]]
+        let userDefaults = UserDefaults()
+        userDefaults.set(accounts, forKey: "accounts")
+        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: userDefaults, navigationController: navigationController)
+        
+        localSUT.didSelect(rowAt: IndexPath(row: 0, section: 0))
+        
+        guard let viewController = navigationController.pushedViewController as? AccountsViewController else { return XCTFail() }
+        XCTAssertTrue(viewController.delegate is SettingsCoordinator)
+    }
 }
 
 // MARK: - Mocks

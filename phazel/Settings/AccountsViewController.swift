@@ -7,6 +7,7 @@ import Roaster
 
 class AccountsViewController: UITableViewController {
 
+    var delegate: AccountsViewControllerDelegate?
     let accounts: [LoginUser]
     let accountCellIdentifier = String(describing: AccountCell.self)
 
@@ -42,4 +43,8 @@ extension AccountsViewController {
         cell.titleLabel.text = item.username
         return cell
     }
+}
+
+protocol AccountsViewControllerDelegate {
+    func didSelect(account: LoginUser)
 }

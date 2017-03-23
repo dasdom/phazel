@@ -24,17 +24,22 @@ final class SettingsCoordinator: CoodinatorProtocol {
     }
     
     func start() {
-        var settingsItems: [SettingsItem] = []
-        if let username = userDefaults.value(forKey: UserDefaultsKey.username.rawValue) as? String {
-            let settingsItem = SettingsItem.string("Account", username)
-            settingsItems.append(settingsItem)
-        }
+        
         let settingsViewController = SettingsViewController(settingsItems: settingsItems)
         settingsViewController.delegate = self
         childViewControllers.append(settingsViewController)
         navigationController.viewControllers = [settingsViewController]
         
         window.visibleViewController?.present(navigationController, animated: true, completion: nil)
+    }
+    
+    private var settingsItems: [SettingsItem] {
+        var settingsItems: [SettingsItem] = []
+        if let username = userDefaults.value(forKey: UserDefaultsKey.username.rawValue) as? String {
+            let settingsItem = SettingsItem.string("Account", username)
+            settingsItems.append(settingsItem)
+        }
+        return settingsItems
     }
 }
 
@@ -45,14 +50,29 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
     
     func didSelect(rowAt: IndexPath) {
-        guard let accountsArray = userDefaults.value(forKey: UserDefaultsKey.accounts.rawValue) as? [[String:String]] else { return }
-        var accounts: [LoginUser] = []
-        for dictionary in accountsArray {
+        
+        let accounstsKey = UserDefaultsKey.accounts.rawValue
+        guard let rawAccounts = userDefaults.value(forKey: accounstsKey) as? [[String:String]] else { return }
+        let accounts = accountsFrom(rawAccounts: rawAccounts)
+        
+        let accountsViewController = AccountsViewController(accounts: accounts)
+        accountsViewController.delegate = self
+        navigationController.pushViewController(accountsViewController, animated: true)
+    }
+    
+    private func accountsFrom(rawAccounts: [[String:String]]) -> [Account] {
+        var accounts: [Account] = []
+        for dictionary in rawAccounts {
             if let id = dictionary[DictionaryKey.id.rawValue], let username = dictionary[DictionaryKey.username.rawValue] {
                 accounts.append(LoginUser(id: id, username: username))
             }
         }
-        navigationController.pushViewController(AccountsViewController(accounts: accounts), animated: true)
+        return accounts
+    }
+}
+
+extension SettingsCoordinator: AccountsViewControllerDelegate {
+    func didSelect(account: LoginUser) {
         
     }
 }

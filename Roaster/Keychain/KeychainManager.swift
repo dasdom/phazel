@@ -5,16 +5,17 @@
 import Foundation
 
 public protocol KeychainManagerProtocol {
-    func set(token: String, for username: String)
+    func set(token: String, for username: String) throws
     func token(for username: String) -> String?
     func deleteToken(for username: String)
 }
 
 struct KeychainManager: KeychainManagerProtocol {
     
-    private let service = "DDHDefaultService"
+//    private let service = "DDHDefaultService"
+    private let service = "com.swiftandpainless.phazel"
     
-    func set(token: String, for username: String) {
+    func set(token: String, for username: String) throws {
         guard let tokenData: Data = token.data(using: .utf8, allowLossyConversion: false) else { fatalError() }
         let objects: [Any] = [kSecClassGenericPassword, service, username, tokenData]
         let keys: [NSString] = [kSecClass, kSecAttrService, kSecAttrAccount, kSecValueData]
@@ -23,7 +24,11 @@ struct KeychainManager: KeychainManagerProtocol {
         SecItemDelete(query)
         
         let status = SecItemAdd(query, nil)
-        print(status)
+        if status != errSecSuccess {
+            let errorCode = Int(status)
+            let errorMessage = "Keychain error. Please contact @dasdom and tell him you experienced error \(errorCode)"
+            throw NSError(domain: "DDHKeychainError", code: Int(status), userInfo: [NSLocalizedDescriptionKey: errorMessage])
+        }
     }
     
     func token(for username: String) -> String? {

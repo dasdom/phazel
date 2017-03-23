@@ -10,7 +10,7 @@ class KeychainManagerTests: XCTestCase {
     func test_TokenCanBeStored_AndRead() {
         let sut = KeychainManager()
         
-        sut.set(token: "foo", for: "bar")
+        try? sut.set(token: "foo", for: "bar")
         let secondSut = KeychainManager()
         let token = secondSut.token(for: "bar")
         
@@ -20,7 +20,7 @@ class KeychainManagerTests: XCTestCase {
     func test_CanDeleteToken() {
         let sut = KeychainManager()
         
-        sut.set(token: "foo", for: "bar")
+        try? sut.set(token: "foo", for: "bar")
         sut.deleteToken(for: "bar")
         let token = sut.token(for: "bar")
         

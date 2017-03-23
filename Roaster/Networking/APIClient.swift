@@ -61,7 +61,7 @@ final public class APIClient: APIClientProtocol {
             
             DispatchQueue.main.async {
                 let loginUser = self.extractLoginUser(from: data)
-                let result = Result(value: loginUser, error: error)
+                var result = Result(value: loginUser, error: error)
                 
                 defer {
                     completion(result)
@@ -69,7 +69,11 @@ final public class APIClient: APIClientProtocol {
                 
                 guard let token = self.extractToken(from: data) else { return }
                 
-                self.keychainManager.set(token: token, for: username)
+                do {
+                    try self.keychainManager.set(token: token, for: username)
+                } catch {
+                    result = Result(value: nil, error: error)
+                }
                 if let username = loginUser?.username {
                     self.userDefaults.set(username, forKey: UserDefaultsKey.username.rawValue)
                 }
