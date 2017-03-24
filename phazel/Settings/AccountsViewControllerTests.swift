@@ -13,10 +13,13 @@ class AccountsViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        sut = AccountsViewController(accounts: [Account(id: "23", username: "Foo"), Account(id: "42", username: "Bar")])
+        _ = sut.view
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
+        
         super.tearDown()
     }
     
@@ -29,7 +32,7 @@ class AccountsViewControllerTests: XCTestCase {
     }
     
     func test_cellForRowAt_returnsCell_1() {
-        let localSUT = AccountsViewController(accounts: [LoginUser(id: "23", username: "Foo")])
+        let localSUT = AccountsViewController(accounts: [Account(id: "23", username: "Foo")])
         
         let cell = localSUT.tableView(localSUT.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         
@@ -38,11 +41,41 @@ class AccountsViewControllerTests: XCTestCase {
     }
     
     func test_cellForRowAt_returnsCell_2() {
-        let localSUT = AccountsViewController(accounts: [LoginUser(id: "42", username: "Bar")])
+        let localSUT = AccountsViewController(accounts: [Account(id: "42", username: "Bar")])
         
         let cell = localSUT.tableView(localSUT.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
         
         guard let unwrappedCell = cell as? AccountCell else { return XCTFail() }
         XCTAssertEqual(unwrappedCell.titleLabel.text, "Bar")
+    }
+    
+    func test_didSelectRow_callsDelegateMethod_withAccount_1() {
+        let delegateMock = AccountsViewControllerDelegateMock()
+        sut.delegate = delegateMock
+        
+        sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
+        
+        XCTAssertEqual(delegateMock.account, Account(id: "23", username: "Foo"))
+    }
+    
+    func test_didSelectRow_callsDelegateMethod_withAccount_2() {
+        let delegateMock = AccountsViewControllerDelegateMock()
+        sut.delegate = delegateMock
+        
+        sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 1, section: 0))
+        
+        XCTAssertEqual(delegateMock.account, Account(id: "42", username: "Bar"))
+    }
+}
+
+// MARK: - Mocks
+extension AccountsViewControllerTests {
+    class AccountsViewControllerDelegateMock: AccountsViewControllerDelegate {
+        
+        var account: Account?
+        
+        func didSelect(_ viewController: AccountsViewController, account: Account) {
+            self.account = account
+        }
     }
 }

@@ -72,7 +72,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 }
 
 extension SettingsCoordinator: AccountsViewControllerDelegate {
-    func didSelect(account: LoginUser) {
-        
+    func didSelect(_ viewController: AccountsViewController, account: Account) {
+        userDefaults.set(account.username, forKey: UserDefaultsKey.username.rawValue)
+        navigationController.popViewController(animated: true)
     }
 }

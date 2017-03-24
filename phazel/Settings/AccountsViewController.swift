@@ -8,10 +8,10 @@ import Roaster
 class AccountsViewController: UITableViewController {
 
     var delegate: AccountsViewControllerDelegate?
-    let accounts: [LoginUser]
+    let accounts: [Account]
     let accountCellIdentifier = String(describing: AccountCell.self)
 
-    init(accounts: [LoginUser]) {
+    init(accounts: [Account]) {
         
         self.accounts = accounts
         
@@ -45,6 +45,14 @@ extension AccountsViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension AccountsViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelect(self, account: accounts[indexPath.row])
+    }
+}
+
 protocol AccountsViewControllerDelegate {
-    func didSelect(account: LoginUser)
+    func didSelect(_ viewController: AccountsViewController, account: Account)
 }

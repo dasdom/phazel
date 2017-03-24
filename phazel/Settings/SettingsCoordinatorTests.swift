@@ -72,6 +72,25 @@ class SettingsCoordinatorTests: XCTestCase {
         guard let viewController = navigationController.pushedViewController as? AccountsViewController else { return XCTFail() }
         XCTAssertTrue(viewController.delegate is SettingsCoordinator)
     }
+    
+    func test_didSelect_changesUsername() {
+        let userDefaults = UserDefaults()
+        userDefaults.set("Foo", forKey: "username")
+        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: userDefaults)
+        
+        localSUT.didSelect(AccountsViewController(accounts: []), account: Account(id: "42", username: "Bar"))
+        
+        XCTAssertEqual(userDefaults.value(forKey: "username") as? String, "Bar")
+    }
+    
+    func test_didSelect_popsViewController() {
+        let navigationController = NavigationControllerMock(rootViewController: UIViewController())
+        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: UserDefaults(), navigationController: navigationController)
+        
+        localSUT.didSelect(AccountsViewController(accounts: []), account: Account(id: "42", username: "Bar"))
+        
+        XCTAssertTrue(navigationController.didPop)
+    }
 }
 
 // MARK: - Mocks
@@ -79,10 +98,16 @@ extension SettingsCoordinatorTests {
     class NavigationControllerMock: UINavigationController {
         
         var pushedViewController: UIViewController?
+        var didPop = false
         
         override func pushViewController(_ viewController: UIViewController, animated: Bool) {
             pushedViewController = viewController
             super.pushViewController(viewController, animated: animated)
+        }
+        
+        override func popViewController(animated: Bool) -> UIViewController? {
+            didPop = true
+            return super.popViewController(animated: animated)
         }
     }
 }
