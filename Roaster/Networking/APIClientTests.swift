@@ -238,7 +238,7 @@ extension APIClientTests {
             }
         }
         
-        waitForExpectations(timeout: 0.2) { error in
+        waitForExpectations(timeout: 1) { error in
             XCTAssertEqual(catchedPosts?.count, 1)
         }
     }
