@@ -62,9 +62,9 @@ extension PostCoordinatorTests {
     func test_viewDidLoad_showsLogin_ifNotLoggedIn() {
         sut.start()
         apiClient._isLoggedIn = false
-        guard let viewController = sut.childViewControllers.last else { return XCTFail() }
         XCTAssertFalse(window.visibleViewController is LoginViewController)
 
+        guard let viewController = sut.childViewControllers.last else { return XCTFail() }
         viewController.beginAppearanceTransition(true, animated: false)
         viewController.endAppearanceTransition()
         

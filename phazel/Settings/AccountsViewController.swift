@@ -53,6 +53,14 @@ extension AccountsViewController {
     }
 }
 
+// MARK: - Actions
+extension AccountsViewController {
+    func addAccount() {
+        delegate?.addAccount(self)
+    }
+}
+
 protocol AccountsViewControllerDelegate {
     func didSelect(_ viewController: AccountsViewController, account: Account)
+    func addAccount(_ viewController: AccountsViewController)
 }

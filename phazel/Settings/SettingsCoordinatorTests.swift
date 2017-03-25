@@ -51,9 +51,10 @@ class SettingsCoordinatorTests: XCTestCase {
         let accounts = [["id": "23", "username": "foo"], ["id": "42", "username": "bar"]]
         let userDefaults = UserDefaults()
         userDefaults.set(accounts, forKey: "accounts")
+        let settingsItem = SettingsItem.string("Account", "foo")
         let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: userDefaults, navigationController: navigationController)
         
-        localSUT.didSelect(rowAt: IndexPath(row: 0, section: 0))
+        localSUT.didSelect(SettingsViewController(settingsItems: [settingsItem]), settingsItem: settingsItem)
         
         guard let viewController = navigationController.pushedViewController as? AccountsViewController else { return XCTFail() }
         let expectedAccounts = [LoginUser(id: "23", username: "foo"), LoginUser(id: "42", username: "bar")]
@@ -65,9 +66,10 @@ class SettingsCoordinatorTests: XCTestCase {
         let accounts = [["id": "23", "username": "foo"]]
         let userDefaults = UserDefaults()
         userDefaults.set(accounts, forKey: "accounts")
+        let settingsItem = SettingsItem.string("Account", "foo")
         let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: userDefaults, navigationController: navigationController)
         
-        localSUT.didSelect(rowAt: IndexPath(row: 0, section: 0))
+        localSUT.didSelect(SettingsViewController(settingsItems: [settingsItem]), settingsItem: settingsItem)
         
         guard let viewController = navigationController.pushedViewController as? AccountsViewController else { return XCTFail() }
         XCTAssertTrue(viewController.delegate is SettingsCoordinator)
@@ -90,6 +92,13 @@ class SettingsCoordinatorTests: XCTestCase {
         localSUT.didSelect(AccountsViewController(accounts: []), account: Account(id: "42", username: "Bar"))
         
         XCTAssertTrue(navigationController.didPop)
+    }
+    
+    func test_addAccount_showsLogin() {
+
+        sut.addAccount(AccountsViewController(accounts: []))
+        
+        XCTAssertTrue(window.visibleViewController is LoginViewController)
     }
 }
 

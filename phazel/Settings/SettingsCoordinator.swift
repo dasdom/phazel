@@ -11,11 +11,11 @@ protocol SettingsCoordinatorDelegate: class {
 
 final class SettingsCoordinator: CoodinatorProtocol {
     
-    private let window: UIWindow
+    fileprivate let window: UIWindow
     fileprivate let userDefaults: UserDefaults
+    let navigationController: UINavigationController
     var childViewControllers = [UIViewController]()
     weak var delegate: SettingsCoordinatorDelegate?
-    let navigationController: UINavigationController
 
     init(window: UIWindow, userDefaults: UserDefaults, navigationController: UINavigationController = UINavigationController()) {
         self.window = window
@@ -45,12 +45,8 @@ final class SettingsCoordinator: CoodinatorProtocol {
 
 // MARK: - SettingsViewControllerDelegate
 extension SettingsCoordinator: SettingsViewControllerDelegate {
-    func didSetSettingsFor<T>(key: String, withValue: T?) {
-        
-    }
+    func didSelect(_ viewController: SettingsViewController, settingsItem: SettingsItem) {
     
-    func didSelect(rowAt: IndexPath) {
-        
         let accounstsKey = UserDefaultsKey.accounts.rawValue
         guard let rawAccounts = userDefaults.value(forKey: accounstsKey) as? [[String:String]] else { return }
         let accounts = accountsFrom(rawAccounts: rawAccounts)
@@ -72,8 +68,14 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
 }
 
 extension SettingsCoordinator: AccountsViewControllerDelegate {
+
     func didSelect(_ viewController: AccountsViewController, account: Account) {
         userDefaults.set(account.username, forKey: UserDefaultsKey.username.rawValue)
         navigationController.popViewController(animated: true)
+    }
+
+    func addAccount(_ viewController: AccountsViewController) {
+        let loginCoordinator = LoginCoordinator(window: window, apiClient: APIClient(userDefaults: userDefaults))
+        loginCoordinator.start()
     }
 }

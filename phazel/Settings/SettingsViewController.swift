@@ -54,13 +54,13 @@ extension SettingsViewController {
 // MARK: - UITableViewDelegate
 extension SettingsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelect(rowAt: indexPath)
+        let item = settingsItems[indexPath.row]
+        delegate?.didSelect(self, settingsItem: item)
     }
 }
 
 // MARK: Delegate protocol
 protocol SettingsViewControllerDelegate: class {
-    func didSetSettingsFor<T>(key: String, withValue: T?)
-    func didSelect(rowAt: IndexPath)
+    func didSelect(_ viewController: SettingsViewController, settingsItem: SettingsItem)
 }
 

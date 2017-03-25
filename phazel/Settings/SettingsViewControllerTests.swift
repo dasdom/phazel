@@ -46,11 +46,13 @@ class SettingsViewControllerTests: XCTestCase {
     
     func test_selectingACell_callsDelegateMethod() {
         let delegate = SettingsViewControllerDelegateMock()
-        sut.delegate = delegate
+        let settingsItem = SettingsItem.string("Foo", "Bar")
+        let localSUT = SettingsViewController(settingsItems: [settingsItem])
+        localSUT.delegate = delegate
         
-        sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 1, section: 0))
+        localSUT.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
         
-        XCTAssertEqual(delegate.selectedIndexPath, IndexPath(row: 1, section: 0))
+        XCTAssertEqual(delegate.selectedSettingsItem, settingsItem)
     }
 }
 
@@ -59,14 +61,10 @@ extension SettingsViewControllerTests {
     
     class SettingsViewControllerDelegateMock: SettingsViewControllerDelegate {
         
-        var selectedIndexPath: IndexPath?
+        var selectedSettingsItem: SettingsItem?
         
-        func didSetSettingsFor<T>(key: String, withValue: T?) {
-            
-        }
-        
-        func didSelect(rowAt indexPath: IndexPath) {
-            selectedIndexPath = indexPath
+        func didSelect(_ viewController: SettingsViewController, settingsItem: SettingsItem) {
+            selectedSettingsItem = settingsItem
         }
     }
 }
