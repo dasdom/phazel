@@ -13,7 +13,7 @@ protocol LoginCoordinatorDelegate: class {
 final class LoginCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
-    var childViewControllers = [UIViewController]()
+    fileprivate var childViewControllers = [UIViewController]()
     weak var delegate: LoginCoordinatorDelegate?
     let apiClient: APIClientProtocol
     

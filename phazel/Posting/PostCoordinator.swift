@@ -11,8 +11,8 @@ final class PostCoordinator: CoodinatorProtocol {
     fileprivate let window: UIWindow
     fileprivate let apiClient: APIClientProtocol
     fileprivate let userDefaults: UserDefaults
+    fileprivate var childViewControllers: [UIViewController] = []
     var childCoordinators: [CoodinatorProtocol] = []
-    var childViewControllers: [UIViewController] = []
     
     init(window: UIWindow, apiClient: APIClientProtocol, userDefaults: UserDefaults) {
         self.window = window

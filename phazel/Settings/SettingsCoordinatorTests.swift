@@ -31,7 +31,7 @@ class SettingsCoordinatorTests: XCTestCase {
     func test_start_setsDelegateOfViewController() {
         sut.start()
         
-        guard let viewController = sut.childViewControllers.last as? SettingsViewController else { return XCTFail() }
+        guard let viewController = window.visibleViewController as? SettingsViewController else { return XCTFail() }
         XCTAssertTrue(viewController.delegate is SettingsCoordinator)
     }
     
@@ -39,13 +39,16 @@ class SettingsCoordinatorTests: XCTestCase {
         userDefaults.set("dasdom", forKey: UserDefaultsKey.username.rawValue)
         sut.start()
         
-        guard let viewController = sut.childViewControllers.last as? SettingsViewController else { return XCTFail() }
+        guard let viewController = window.visibleViewController as? SettingsViewController else { return XCTFail() }
         guard let settingsItem = viewController.settingsItems.first else { return XCTFail() }
         guard case .string(let title, let value) = settingsItem else { return XCTFail() }
         XCTAssertEqual(title, "Account")
         XCTAssertEqual(value, "dasdom")
     }
-    
+}
+
+// MARK: - Change Account
+extension SettingsCoordinatorTests {
     func test_didSelect_pushesAccountList() {
         let navigationController = NavigationControllerMock(rootViewController: UIViewController())
         let accounts = [["id": "23", "username": "foo"], ["id": "42", "username": "bar"]]
@@ -94,11 +97,54 @@ class SettingsCoordinatorTests: XCTestCase {
         XCTAssertTrue(navigationController.didPop)
     }
     
+//    func test_didSelect_removesAccountsViewController_fromChildViewControllers() {
+//        let navigationController = NavigationControllerMock(rootViewController: UIViewController())
+//        let localSUT = SettingsCoordinator(window: UIWindow(), userDefaults: UserDefaults(), navigationController: navigationController)
+//        let accountsViewController = AccountsViewController(accounts: [])
+//        localSUT.childViewControllers.append(accountsViewController)
+//        
+//        localSUT.didSelect(accountsViewController, account: Account(id: "42", username: "Bar"))
+//        
+//        XCTAssertFalse(localSUT.childViewControllers.last is AccountsViewController)
+//    }
+}
+
+// MARK: - Add New Account
+extension SettingsCoordinatorTests {
     func test_addAccount_showsLogin() {
 
         sut.addAccount(AccountsViewController(accounts: []))
         
         XCTAssertTrue(window.visibleViewController is LoginViewController)
+    }
+    
+    func test_addAccount_setsDelegate_ofLoginCoordinator() {
+        
+        sut.addAccount(AccountsViewController(accounts: []))
+        
+        guard let coordinator = sut.childCoordinators.last as? LoginCoordinator else { return XCTFail() }
+        XCTAssertTrue(coordinator.delegate is SettingsCoordinator)
+    }
+    
+    func test_coordinatorDidLogin_removesCoordinator() {
+        let loginCoordinator = LoginCoordinator(window: window, apiClient: APIClient(userDefaults: UserDefaults()))
+        sut.childCoordinators.append(loginCoordinator)
+        
+        let loginUser = LoginUser(id: "42", username: "foo")
+        sut.coordinatorDidLogin(coordinator: loginCoordinator, with: loginUser)
+        
+        XCTAssertEqual(sut.childCoordinators.count, 0)
+    }
+    
+    func test_accountsViewController_addsAccount_afterLogin() {
+        let loginCoordinator = LoginCoordinator(window: window, apiClient: APIClient(userDefaults: UserDefaults()))
+        let accountsViewController = AccountsViewController(accounts: [])
+        sut.childViewControllers.append(accountsViewController)
+        
+        let loginUser = LoginUser(id: "42", username: "foo")
+        sut.coordinatorDidLogin(coordinator: loginCoordinator, with: loginUser)
+
+        XCTAssertEqual(accountsViewController.accounts.first, loginUser)
     }
 }
 

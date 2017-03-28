@@ -32,13 +32,12 @@ class LoginCoordinatorTests: XCTestCase {
         sut.start()
         
         XCTAssertTrue(window.visibleViewController is LoginViewController)
-        XCTAssertEqual(sut.childViewControllers.count, 1)
     }
     
     func test_start_setsDelegateOfViewController() {
         sut.start()
         
-        guard let viewController = sut.childViewControllers.last as? LoginViewController else { return XCTFail() }
+        guard let viewController = window.visibleViewController as? LoginViewController else { return XCTFail() }
         XCTAssertTrue(viewController.delegate is LoginCoordinator)
     }
 
@@ -60,16 +59,6 @@ class LoginCoordinatorTests: XCTestCase {
         
         XCTAssertTrue(mockLoginViewController.didDismiss)
         XCTAssertEqual(coordinatorDelegate.loginUser, loginUser)
-    }
-    
-    func test_success_removesLoginViewController() {
-        sut.start()
-        guard let loginViewController = window.visibleViewController as? LoginViewController else { return XCTFail() }
-        
-        let loginUser = LoginUser(id: "42", username: "foo")
-        sut.loginDidSucceed(viewController: loginViewController, with: loginUser)
-        
-        XCTAssertEqual(sut.childViewControllers.count, 0)
     }
 }
 

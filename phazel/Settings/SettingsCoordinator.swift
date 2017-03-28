@@ -13,8 +13,9 @@ final class SettingsCoordinator: CoodinatorProtocol {
     
     fileprivate let window: UIWindow
     fileprivate let userDefaults: UserDefaults
-    let navigationController: UINavigationController
+    fileprivate let navigationController: UINavigationController
     var childViewControllers = [UIViewController]()
+    var childCoordinators: [CoodinatorProtocol] = []
     weak var delegate: SettingsCoordinatorDelegate?
 
     init(window: UIWindow, userDefaults: UserDefaults, navigationController: UINavigationController = UINavigationController()) {
@@ -53,6 +54,7 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         
         let accountsViewController = AccountsViewController(accounts: accounts)
         accountsViewController.delegate = self
+        childViewControllers.append(accountsViewController)
         navigationController.pushViewController(accountsViewController, animated: true)
     }
     
@@ -67,15 +69,35 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 }
 
+// MARK: - AccountsViewControllerDelegate
 extension SettingsCoordinator: AccountsViewControllerDelegate {
 
     func didSelect(_ viewController: AccountsViewController, account: Account) {
         userDefaults.set(account.username, forKey: UserDefaultsKey.username.rawValue)
         navigationController.popViewController(animated: true)
+        
+        if let index = childViewControllers.index(where: { $0 as AnyObject === viewController as AnyObject }) {
+            childViewControllers.remove(at: index)
+        }
     }
 
     func addAccount(_ viewController: AccountsViewController) {
         let loginCoordinator = LoginCoordinator(window: window, apiClient: APIClient(userDefaults: userDefaults))
+        loginCoordinator.delegate = self
+        childCoordinators.append(loginCoordinator)
         loginCoordinator.start()
+    }
+}
+
+// MARK: - LoginCoordinatorDelegate
+extension SettingsCoordinator: LoginCoordinatorDelegate {
+    func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
+        if let index = childCoordinators.index(where: { $0 as AnyObject === coordinator as AnyObject }) {
+            childCoordinators.remove(at: index)
+        }
+        
+        if let accountsViewController = childViewControllers.last as? AccountsViewController {
+            accountsViewController.append(account: loginUser)
+        }
     }
 }

@@ -6,21 +6,25 @@ import UIKit
 
 class MockUserDefaults: UserDefaults {
     
-    var string: String?
-    
-    init(string: String? = nil) {
-        self.string = string
+    private var values: [String:Any] = [:]
+
+    init(values: [String:Any] = [:]) {
+        self.values = values
         
         super.init(suiteName: nil)!
     }
     
     override func string(forKey defaultName: String) -> String? {
-        return string
+        return values[defaultName] as? String
     }
     
     override func set(_ value: Any?, forKey defaultName: String) {
-        if let stringValue = value as? String {
-            string = stringValue
+        if let value = value {
+            values[defaultName] = value
         }
+    }
+    
+    override func value(forKey key: String) -> Any? {
+        return values[key]
     }
 }

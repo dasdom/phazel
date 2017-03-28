@@ -38,12 +38,11 @@ extension PostCoordinatorTests {
         sut.start()
         
         XCTAssertTrue(window.rootViewController is UINavigationController)
-        XCTAssertEqual(sut.childViewControllers.count, 1)
     }
     
     func test_start_setsDelegate() {
         sut.start()
-        guard let viewController = sut.childViewControllers.last as? PostViewController else { return XCTFail() }
+        guard let viewController = window.visibleViewController as? PostViewController else { return XCTFail() }
 
         XCTAssertTrue(viewController.delegate is PostCoordinator)
     }
@@ -64,7 +63,7 @@ extension PostCoordinatorTests {
         apiClient._isLoggedIn = false
         XCTAssertFalse(window.visibleViewController is LoginViewController)
 
-        guard let viewController = sut.childViewControllers.last else { return XCTFail() }
+        guard let viewController = window.visibleViewController else { return XCTFail() }
         viewController.beginAppearanceTransition(true, animated: false)
         viewController.endAppearanceTransition()
         
@@ -74,7 +73,7 @@ extension PostCoordinatorTests {
     func test_viewDidLoad_doesNotShowsLogin_ifLoggedIn() {
         sut.start()
         apiClient._isLoggedIn = true
-        guard let viewController = sut.childViewControllers.last else { return XCTFail() }
+        guard let viewController = window.rootViewController else { return XCTFail() }
         
         viewController.beginAppearanceTransition(true, animated: false)
         viewController.endAppearanceTransition()
@@ -85,7 +84,7 @@ extension PostCoordinatorTests {
     func test_viewDidLoad_setsDeleate_ofLoginCoordinator() {
         sut.start()
         apiClient._isLoggedIn = false
-        guard let viewController = sut.childViewControllers.last else { return XCTFail() }
+        guard let viewController = window.visibleViewController else { return XCTFail() }
         XCTAssertFalse(window.visibleViewController is LoginViewController)
         
         viewController.beginAppearanceTransition(true, animated: false)
@@ -93,16 +92,6 @@ extension PostCoordinatorTests {
         
         guard let coordinator = sut.childCoordinators.last as? LoginCoordinator else { return XCTFail() }
         XCTAssertTrue(coordinator.delegate is PostCoordinator)
-    }
-    
-    func test_coordinatorDidLogin_removesCoordinator() {
-        let loginCoordinator = LoginCoordinator(window: window, apiClient: MockAPIClient())
-        sut.childCoordinators.append(loginCoordinator)
-        
-        let loginUser = LoginUser(id: "42", username: "foo")
-        sut.coordinatorDidLogin(coordinator: loginCoordinator, with: loginUser)
-        
-        XCTAssertEqual(sut.childCoordinators.count, 0)
     }
 }
 

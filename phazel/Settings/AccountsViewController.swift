@@ -8,7 +8,7 @@ import Roaster
 class AccountsViewController: UITableViewController {
 
     var delegate: AccountsViewControllerDelegate?
-    let accounts: [Account]
+    var accounts: [Account]
     let accountCellIdentifier = String(describing: AccountCell.self)
 
     init(accounts: [Account]) {
@@ -26,6 +26,10 @@ class AccountsViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(AccountCell.self, forCellReuseIdentifier: accountCellIdentifier)
+    }
+    
+    func append(account: Account) {
+        accounts.append(account)
     }
 }
 

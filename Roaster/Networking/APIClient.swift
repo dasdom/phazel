@@ -76,6 +76,11 @@ final public class APIClient: APIClientProtocol {
                 }
                 if let username = loginUser?.username {
                     self.userDefaults.set(username, forKey: UserDefaultsKey.username.rawValue)
+                    if let id = loginUser?.id {
+                        var accounts: [Any] = self.userDefaults.array(forKey: UserDefaultsKey.accounts.rawValue) ?? []
+                        accounts.append([DictionaryKey.id.rawValue: id, DictionaryKey.username.rawValue: username])
+                        self.userDefaults.set(accounts, forKey: UserDefaultsKey.accounts.rawValue)
+                    }
                 }
             }
 

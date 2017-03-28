@@ -52,7 +52,7 @@ extension APIClientTests {
     }
     
     func test_login_hasUsername_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -67,7 +67,7 @@ extension APIClientTests {
     }
     
     func test_login_hasPassword_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -82,7 +82,7 @@ extension APIClientTests {
     }
     
     func test_login_hasClientId_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -94,7 +94,7 @@ extension APIClientTests {
     }
     
     func test_login_hasPasswordGrantSecret_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -106,7 +106,7 @@ extension APIClientTests {
     }
     
     func test_login_hasGrantType_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -118,7 +118,7 @@ extension APIClientTests {
     }
     
     func test_login_hasScope_inPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -151,19 +151,33 @@ extension APIClientTests {
         }
     }
     
-    func test_login_setsUsername_inKeychain() {
-        let mockUserDefaults = MockUserDefaults(string: "horst")
+    func test_login_setsUsername_inUserDefaults() {
+        let mockUserDefaults = MockUserDefaults(values:["username":"horst"])
         let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: mockUserDefaults)
         guard let data = "{\"access_token\":\"42\", \"user_id\":\"23\", \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
         localSUT.login(username: "foo", password: "bar") { _ in }
         
-        waitForExpectations(timeout: 0.2) { _ in
-            XCTAssertEqual(mockUserDefaults.string, "foo")
+        waitForExpectations(timeout: 1) { _ in
+            XCTAssertEqual(mockUserDefaults.string(forKey: "username"), "foo")
         }
     }
 
+    func test_login_setsAccounts_inUserDefaults() {
+        let mockUserDefaults = MockUserDefaults()
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: mockUserDefaults)
+        guard let data = "{\"access_token\":\"42\", \"user_id\":\"23\", \"username\":\"foo\"}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
+        
+        localSUT.login(username: "foo", password: "bar") { _ in }
+        
+        waitForExpectations(timeout: 1) { _ in
+            guard let accounts = mockUserDefaults.value(forKey: "accounts") as? [Any],
+                let account = accounts.first as? [String:String] else { return XCTFail() }
+            XCTAssertEqual(account, ["username": "foo", "id": "23"])
+        }
+    }
     
     func test_HasKeychainManagerSet() {
         XCTAssertNotNil(sut.keychainManager)
@@ -211,7 +225,7 @@ extension APIClientTests {
 // MARK: - Posts
 extension APIClientTests {
     func test_posts_hasCorrectPath() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
@@ -224,7 +238,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsPosts() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "}", "]", "}"].joined(separator: "\n")
         
@@ -244,7 +258,7 @@ extension APIClientTests {
     }
     
     func test_posts_authentication() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
         
@@ -256,7 +270,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsPostWithText() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "},",
                           "}", "]", "}"].joined(separator: "\n")
@@ -277,7 +291,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsPostWithId() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"id\": \"20804\"",
                           "}", "]", "}"].joined(separator: "\n")
@@ -298,7 +312,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsSource() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"source\": {", "\"link\": \"http://xyz.s3rv.com\",", "\"name\": \"Broadsword\"", "}",
                           "}", "]", "}"].joined(separator: "\n")
@@ -321,7 +335,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsUserName() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"user\": {", "\"name\": \"foo\"", "}",
                           "}", "]", "}"].joined(separator: "\n")
@@ -343,7 +357,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsUserFollowsYou() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"user\": {", "\"follows_you\": true", "}",
                           "}", "]", "}"].joined(separator: "\n")
@@ -365,7 +379,7 @@ extension APIClientTests {
     }
     
     func test_posts_returnsUserYouFollow() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"data\": [", "{",
                           "\"user\": {", "\"you_follow\": true", "}",
                           "}", "]", "}"].joined(separator: "\n")
@@ -390,7 +404,7 @@ extension APIClientTests {
 // MARK: - Posting
 extension APIClientTests {
     func test_post_hasPostData() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
@@ -408,7 +422,7 @@ extension APIClientTests {
     }
     
     func test_post_url() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
@@ -421,7 +435,7 @@ extension APIClientTests {
     }
     
     func test_post_propagatesPostId() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
@@ -439,7 +453,7 @@ extension APIClientTests {
     }
     
     func test_post_authentication() {
-        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(string: "horst"))
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
         let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
         guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
         URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
