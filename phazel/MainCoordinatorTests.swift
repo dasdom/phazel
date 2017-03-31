@@ -10,14 +10,12 @@ class MainCoordinatorTests: XCTestCase {
     
     var sut: MainCoordinator!
     var window: UIWindow!
-//    var apiClient: MockAPIClient!
     
     override func setUp() {
         super.setUp()
 
         window = UIWindow()
         window.makeKeyAndVisible()
-//        apiClient = MockAPIClient()
         sut = MainCoordinator(window: window)
     }
     

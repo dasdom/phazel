@@ -45,6 +45,7 @@ class PostViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
+        
         title = "Create a nut"
     }
     

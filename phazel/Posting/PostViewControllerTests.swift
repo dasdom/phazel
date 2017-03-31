@@ -78,6 +78,10 @@ class PostViewControllerTests: XCTestCase {
         
         XCTAssertFalse(mockView.resetted)
     }
+    
+//    func test_hasLeftNavigationItem() {
+//        XCTAssertNotNil(sut.navigationItem.leftBarButtonItem)
+//    }
 }
 
 extension PostViewControllerTests {

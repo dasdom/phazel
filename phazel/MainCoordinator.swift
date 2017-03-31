@@ -23,12 +23,6 @@ final class MainCoordinator: CoodinatorProtocol {
         postCoordinator.start()
         
         window.makeKeyAndVisible()
-        
-//        if !apiClient.isLoggedIn() {
-//            let loginCoordinator = LoginCoordinator(window: window)
-//            childCoordinators.append(loginCoordinator)
-//            loginCoordinator.start()
-//        }
     }
 }
 

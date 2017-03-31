@@ -30,6 +30,7 @@ class AccountsViewController: UITableViewController {
     
     func append(account: Account) {
         accounts.append(account)
+        tableView.reloadData()
     }
 }
 
