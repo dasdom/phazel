@@ -4,6 +4,6 @@
 
 import Foundation
 
-protocol DictionaryCreatable {
+public protocol DictionaryCreatable {
     init?(with: [String:Any])
 }

@@ -88,28 +88,28 @@ final public class APIClient: APIClientProtocol {
         dataTask.resume()
     }
     
-    func posts(before: Int?, since: Int?, completion: @escaping (Result<[Post]>) -> ()) {
-        
-        guard let url = URLCreator.posts(before: before, since: since).url() else { fatalError() }
-        guard let username = currentUsername else {
-            return completion(Result(value: nil, error: NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)))
-        }
-        guard let token = keychainManager.token(for: username) else {
-            return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
-        }
-        
-        var request = URLRequest(url: url)
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request) { data, _, error in
-            
-            let posts = self.extractPosts(from: data)
-            let result = Result(value: posts, error: error)
-            completion(result)
-        }
-        dataTask.resume()
-    }
+//    func posts(before: Int?, since: Int?, completion: @escaping (Result<[Post]>) -> ()) {
+//        
+//        guard let url = URLCreator.posts(before: before, since: since).url() else { fatalError() }
+//        guard let username = currentUsername else {
+//            return completion(Result(value: nil, error: NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)))
+//        }
+//        guard let token = keychainManager.token(for: username) else {
+//            return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
+//        }
+//        
+//        var request = URLRequest(url: url)
+//        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+//        
+//        let session = URLSession.shared
+//        let dataTask = session.dataTask(with: request) { data, _, error in
+//            
+//            let posts = self.extractPosts(from: data)
+//            let result = Result(value: posts, error: error)
+//            completion(result)
+//        }
+//        dataTask.resume()
+//    }
     
     public func post(text: String, replyTo: String? = nil, completion: @escaping (Result<String>) -> ()) {
         
@@ -168,11 +168,12 @@ extension APIClient {
     }
     
     fileprivate var secretsDict: [String:String]? {
-        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
-        guard let secretURL = url else { fatalError("No file at \(url)") }
-        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
-        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
-        return secretsDict as? [String:String]
+//        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
+//        guard let secretURL = url else { fatalError("No file at \(url)") }
+//        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
+//        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
+//        return secretsDict as? [String:String]
+        return Secrets.secrets
     }
 }
 
@@ -200,18 +201,18 @@ extension APIClient {
         return LoginUser(id: userId, username: username)
     }
     
-    fileprivate func extractPosts(from data: Data?) -> [Post]? {
-        guard let jsonDict = jsonDict(from: data) else { return nil }
-        guard let allRawPosts = jsonDict[JSONKey.data.rawValue] as? [[String:Any]] else { return nil }
-        
-        var posts: [Post] = []
-        for rawPost in allRawPosts {
-            if let post = Post(with: rawPost) {
-                posts.append(post)
-            }
-        }
-        return posts
-    }
+//    fileprivate func extractPosts(from data: Data?) -> [Post]? {
+//        guard let jsonDict = jsonDict(from: data) else { return nil }
+//        guard let allRawPosts = jsonDict[JSONKey.data.rawValue] as? [[String:Any]] else { return nil }
+//        
+//        var posts: [Post] = []
+//        for rawPost in allRawPosts {
+//            if let post = Post(with: rawPost) {
+//                posts.append(post)
+//            }
+//        }
+//        return posts
+//    }
     
     fileprivate func extractPostId(from data: Data?) -> String? {
         guard let jsonDict = jsonDict(from: data) else { return nil }
