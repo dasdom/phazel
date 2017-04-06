@@ -16,7 +16,10 @@ extension Content {
     @NSManaged fileprivate(set) var user: User?
     @NSManaged fileprivate(set) var links: Set<Link>?
     @NSManaged fileprivate(set) var mentions: Set<Mention>?
-
+    @NSManaged fileprivate(set) var tags: Set<Tag>?
+    @NSManaged fileprivate(set) var post: Post?
+    @NSManaged fileprivate(set) var avatarImage: Image?
+    @NSManaged fileprivate(set) var coverImage: Image?
 }
 
 extension Content {
@@ -35,6 +38,18 @@ extension Content {
             if let rawMentions = entities[PnutKey.mentions.rawValue] as? [[String:Any]] {
                 mentions = Set(rawMentions.map { Mention(dict: $0, context: moc) })
             }
+            
+            if let rawTags = entities[PnutKey.tags.rawValue] as? [[String:Any]] {
+                tags = Set(rawTags.map { Tag(dict: $0, context: moc) })
+            }
+        }
+        
+        if let avatar = dict[PnutKey.avatar_image.rawValue] as? [String:Any] {
+            avatarImage = Image(dict: avatar, context: moc)
+        }
+        
+        if let cover = dict[PnutKey.cover_image.rawValue] as? [String:Any] {
+            coverImage = Image(dict: cover, context: moc)
         }
     }
     
@@ -43,5 +58,8 @@ extension Content {
         case entities
         case links
         case mentions
+        case tags
+        case avatar_image
+        case cover_image
     }
 }

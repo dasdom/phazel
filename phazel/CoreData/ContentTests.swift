@@ -31,7 +31,7 @@ class ContentTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_contentInit_setsId() {
+    func test_contentInit_setsText() {
         let dict = ["text": "foo"]
         let content = Content(dict: dict, context: container.viewContext)
         
@@ -53,4 +53,27 @@ class ContentTests: XCTestCase {
         guard let mention = content.mentions?.first else { return XCTFail() }
         XCTAssertEqual(mention.len, 23)
     }
+    
+    func test_contentInit_setsTagsLen() {
+        let dict = ["entities": ["tags": [["len": 23, "pos": 180]]]]
+        let content = Content(dict: dict, context: container.viewContext)
+        
+        guard let tag = content.tags?.first else { return XCTFail() }
+        XCTAssertEqual(tag.len, 23)
+    }
+    
+    func test_contentInit_setsAvatarImageLink() {
+        let dict = ["avatar_image": ["link": "foo"]]
+        let content = Content(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(content.avatarImage?.link, "foo")
+    }
+
+    func test_contentInit_setsCoverImageLink() {
+        let dict = ["cover_image": ["link": "bar"]]
+        let content = Content(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(content.coverImage?.link, "bar")
+    }
+
 }

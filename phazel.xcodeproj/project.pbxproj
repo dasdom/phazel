@@ -34,6 +34,15 @@
 		F246C24E1E9117E70027E159 /* Mention+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C24C1E9117E70027E159 /* Mention+CoreDataClass.swift */; };
 		F246C24F1E9117E70027E159 /* Mention+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C24D1E9117E70027E159 /* Mention+CoreDataProperties.swift */; };
 		F246C2511E9120BD0027E159 /* MentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2501E9120BD0027E159 /* MentionTests.swift */; };
+		F246C2541E92DD0F0027E159 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2521E92DD0F0027E159 /* Tag+CoreDataClass.swift */; };
+		F246C2551E92DD0F0027E159 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2531E92DD0F0027E159 /* Tag+CoreDataProperties.swift */; };
+		F246C2571E92DEA60027E159 /* TagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2561E92DEA60027E159 /* TagTests.swift */; };
+		F246C2821E94E3CB0027E159 /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2811E94E3CB0027E159 /* PostTests.swift */; };
+		F246C2851E94E4700027E159 /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2831E94E4700027E159 /* Post+CoreDataClass.swift */; };
+		F246C2861E94E4700027E159 /* Post+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2841E94E4700027E159 /* Post+CoreDataProperties.swift */; };
+		F246C2891E9633F80027E159 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2871E9633F80027E159 /* Image+CoreDataClass.swift */; };
+		F246C28A1E9633F80027E159 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2881E9633F80027E159 /* Image+CoreDataProperties.swift */; };
+		F246C28C1E9635D30027E159 /* ImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C28B1E9635D30027E159 /* ImageTests.swift */; };
 		F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
 		F25549E01E61F22600CE5D14 /* Extract.js in Resources */ = {isa = PBXBuildFile; fileRef = F25549DF1E61F22600CE5D14 /* Extract.js */; };
 		F25549E21E63027100CE5D14 /* DDHTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25549E11E63027100CE5D14 /* DDHTestCase.swift */; };
@@ -209,6 +218,15 @@
 		F246C24C1E9117E70027E159 /* Mention+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mention+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F246C24D1E9117E70027E159 /* Mention+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mention+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F246C2501E9120BD0027E159 /* MentionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionTests.swift; sourceTree = "<group>"; };
+		F246C2521E92DD0F0027E159 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F246C2531E92DD0F0027E159 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F246C2561E92DEA60027E159 /* TagTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagTests.swift; sourceTree = "<group>"; };
+		F246C2811E94E3CB0027E159 /* PostTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
+		F246C2831E94E4700027E159 /* Post+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F246C2841E94E4700027E159 /* Post+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F246C2871E9633F80027E159 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F246C2881E9633F80027E159 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F246C28B1E9635D30027E159 /* ImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTests.swift; sourceTree = "<group>"; };
 		F25549DF1E61F22600CE5D14 /* Extract.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Extract.js; sourceTree = "<group>"; };
 		F25549E11E63027100CE5D14 /* DDHTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTestCase.swift; sourceTree = "<group>"; };
 		F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -419,6 +437,15 @@
 				F246C24C1E9117E70027E159 /* Mention+CoreDataClass.swift */,
 				F246C24D1E9117E70027E159 /* Mention+CoreDataProperties.swift */,
 				F246C2501E9120BD0027E159 /* MentionTests.swift */,
+				F246C2521E92DD0F0027E159 /* Tag+CoreDataClass.swift */,
+				F246C2531E92DD0F0027E159 /* Tag+CoreDataProperties.swift */,
+				F246C2561E92DEA60027E159 /* TagTests.swift */,
+				F246C2831E94E4700027E159 /* Post+CoreDataClass.swift */,
+				F246C2841E94E4700027E159 /* Post+CoreDataProperties.swift */,
+				F246C2811E94E3CB0027E159 /* PostTests.swift */,
+				F246C2871E9633F80027E159 /* Image+CoreDataClass.swift */,
+				F246C2881E9633F80027E159 /* Image+CoreDataProperties.swift */,
+				F246C28B1E9635D30027E159 /* ImageTests.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -953,6 +980,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F246C2891E9633F80027E159 /* Image+CoreDataClass.swift in Sources */,
+				F246C2551E92DD0F0027E159 /* Tag+CoreDataProperties.swift in Sources */,
+				F246C2541E92DD0F0027E159 /* Tag+CoreDataClass.swift in Sources */,
 				F246C24F1E9117E70027E159 /* Mention+CoreDataProperties.swift in Sources */,
 				F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */,
 				F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */,
@@ -971,10 +1001,13 @@
 				F25549EA1E6AF96C00CE5D14 /* SettingsCoordinator.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
 				F246C21A1E902A700027E159 /* Content+CoreDataProperties.swift in Sources */,
+				F246C28A1E9633F80027E159 /* Image+CoreDataProperties.swift in Sources */,
 				55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */,
 				F246C2491E9036C30027E159 /* Link+CoreDataProperties.swift in Sources */,
+				F246C2851E94E4700027E159 /* Post+CoreDataClass.swift in Sources */,
 				F29623AC1E7EE2B20089ADC7 /* AccountCell.swift in Sources */,
 				F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */,
+				F246C2861E94E4700027E159 /* Post+CoreDataProperties.swift in Sources */,
 				F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */,
 				F2D3D6361E70B5D700AAAC1C /* SettingsItem.swift in Sources */,
 			);
@@ -987,13 +1020,16 @@
 				F266AAD21E857D6D0004D341 /* LoginViewControllerTests.swift in Sources */,
 				F266AAD71E857DF00004D341 /* PostsCollectionViewControllerTests.swift in Sources */,
 				F266AAB71E857A050004D341 /* SettingsCoordinatorTests.swift in Sources */,
+				F246C2821E94E3CB0027E159 /* PostTests.swift in Sources */,
 				F266AAB81E857A050004D341 /* SettingsViewControllerTests.swift in Sources */,
+				F246C28C1E9635D30027E159 /* ImageTests.swift in Sources */,
 				F266AADF1E857E5C0004D341 /* AppDelegateTests.swift in Sources */,
 				F266AAB61E857A050004D341 /* AccountsViewControllerTests.swift in Sources */,
 				F266AAD11E857D6D0004D341 /* LoginCoordinatorTests.swift in Sources */,
 				F266AAE01E857E5C0004D341 /* MainCoordinatorTests.swift in Sources */,
 				F266AAD31E857D6D0004D341 /* LoginViewTests.swift in Sources */,
 				F266AAC91E857D120004D341 /* PostViewControllerTests.swift in Sources */,
+				F246C2571E92DEA60027E159 /* TagTests.swift in Sources */,
 				F266AAC81E857D120004D341 /* PostCoordinatorTests.swift in Sources */,
 				F246C24B1E90C28E0027E159 /* LinkTests.swift in Sources */,
 				F246C2511E9120BD0027E159 /* MentionTests.swift in Sources */,

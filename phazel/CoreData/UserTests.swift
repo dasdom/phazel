@@ -87,6 +87,76 @@ class UserTests: XCTestCase {
         XCTAssertEqual(user.name, "Robert")
     }
     
+    func test_userInit_setsFollowsYou() {
+        let dict = ["follows_you": true]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.followsYou, true)
+    }
+    
+    func test_userInit_setsYouBlocked() {
+        let dict = ["you_blocked": true]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.youBlocked, true)
+    }
+    
+    func test_userInit_setsYouCanFollow() {
+        let dict = ["you_can_follow": true]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.youCanFollow, true)
+    }
+    
+    func test_userInit_setsYouMuted() {
+        let dict = ["you_muted": true]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.youMuted, true)
+    }
+    
+    func test_userInit_setsCountsBookmarks() {
+        let dict = ["counts": ["bookmarks": 23]]
+        let user = User(dict: dict, context: container.viewContext)
+
+        XCTAssertEqual(user.numberOfBookmarks, 23)
+    }
+    
+    func test_userInit_setsCountsClients() {
+        let dict = ["counts": ["clients": 3]]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.numberOfClients, 3)
+    }
+    
+    func test_userInit_setsCountsFollowers() {
+        let dict = ["counts": ["followers": 42]]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.numberOfFollowers, 42)
+    }
+    
+    func test_userInit_setsCountsFollowing() {
+        let dict = ["counts": ["following": 42]]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.numberOfFollowing, 42)
+    }
+    
+    func test_userInit_setsCountsPosts() {
+        let dict = ["counts": ["posts": 42]]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.numberOfPosts, 42)
+    }
+    
+    func test_userInit_setsCountsUsers() {
+        let dict = ["counts": ["users": 42]]
+        let user = User(dict: dict, context: container.viewContext)
+        
+        XCTAssertEqual(user.numberOfUsers, 42)
+    }
+    
     func test_userInit_setsContentText() {
         let dict = ["content": ["text": "foo"]]
         let user = User(dict: dict, context: container.viewContext)

@@ -18,8 +18,19 @@ extension User {
     @NSManaged fileprivate(set) var type: String?
     @NSManaged fileprivate(set) var username: String?
     @NSManaged fileprivate(set) var name: String?
+    @NSManaged fileprivate(set) var followsYou: Bool
+    @NSManaged fileprivate(set) var youBlocked: Bool
+    @NSManaged fileprivate(set) var youCanFollow: Bool
+    @NSManaged fileprivate(set) var youMuted: Bool
+    @NSManaged fileprivate(set) var numberOfBookmarks: Int32
+    @NSManaged fileprivate(set) var numberOfClients: Int32
+    @NSManaged fileprivate(set) var numberOfFollowers: Int32
+    @NSManaged fileprivate(set) var numberOfFollowing: Int32
+    @NSManaged fileprivate(set) var numberOfPosts: Int32
+    @NSManaged fileprivate(set) var numberOfUsers: Int32
     
     @NSManaged fileprivate(set) var content: Content?
+    @NSManaged fileprivate(set) var post: Post?
 }
 
 extension User {
@@ -33,6 +44,19 @@ extension User {
         type = dict[PnutKey.type.rawValue] as? String
         username = dict[PnutKey.username.rawValue] as? String
         name = dict[PnutKey.name.rawValue] as? String
+        followsYou = dict[PnutKey.follows_you.rawValue] as? Bool ?? false
+        youBlocked = dict[PnutKey.you_blocked.rawValue] as? Bool ?? false
+        youCanFollow = dict[PnutKey.you_can_follow.rawValue] as? Bool ?? false
+        youMuted = dict[PnutKey.you_muted.rawValue] as? Bool ?? false
+        
+        if let counts = dict[PnutKey.counts.rawValue] as? [String:Int] {
+            numberOfBookmarks = Int32(counts[PnutKey.bookmarks.rawValue] ?? 0)
+            numberOfClients = Int32(counts[PnutKey.clients.rawValue] ?? 0)
+            numberOfFollowers = Int32(counts[PnutKey.followers.rawValue] ?? 0)
+            numberOfFollowing = Int32(counts[PnutKey.following.rawValue] ?? 0)
+            numberOfPosts = Int32(counts[PnutKey.posts.rawValue] ?? 0)
+            numberOfUsers = Int32(counts[PnutKey.users.rawValue] ?? 0)
+        }
         
         if let dateString = dict[PnutKey.created_at.rawValue] as? String {
             let dateFormatter = ISO8601DateFormatter()
@@ -53,5 +77,16 @@ extension User {
         case username
         case name
         case content
+        case follows_you
+        case you_blocked
+        case you_can_follow
+        case you_muted
+        case counts
+        case bookmarks
+        case clients
+        case followers
+        case following
+        case posts
+        case users
     }
 }
