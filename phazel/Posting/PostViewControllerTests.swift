@@ -131,6 +131,10 @@ extension PostViewControllerTests {
             completion(result)
         }
         
+        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
+        
+        }
+        
         func isLoggedIn() -> Bool {
             return false
         }

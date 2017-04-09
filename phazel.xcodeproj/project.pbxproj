@@ -43,6 +43,9 @@
 		F246C2891E9633F80027E159 /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2871E9633F80027E159 /* Image+CoreDataClass.swift */; };
 		F246C28A1E9633F80027E159 /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C2881E9633F80027E159 /* Image+CoreDataProperties.swift */; };
 		F246C28C1E9635D30027E159 /* ImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C28B1E9635D30027E159 /* ImageTests.swift */; };
+		F246C28E1E96A24A0027E159 /* PostsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C28D1E96A24A0027E159 /* PostsCollectionViewController.swift */; };
+		F246C2901E96D4150027E159 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246C28F1E96D4150027E159 /* CollectionViewDataSource.swift */; };
+		F246C2911E982B390027E159 /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */; };
 		F25549DE1E61B0F400CE5D14 /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
 		F25549E01E61F22600CE5D14 /* Extract.js in Resources */ = {isa = PBXBuildFile; fileRef = F25549DF1E61F22600CE5D14 /* Extract.js */; };
 		F25549E21E63027100CE5D14 /* DDHTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25549E11E63027100CE5D14 /* DDHTestCase.swift */; };
@@ -227,6 +230,8 @@
 		F246C2871E9633F80027E159 /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F246C2881E9633F80027E159 /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F246C28B1E9635D30027E159 /* ImageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTests.swift; sourceTree = "<group>"; };
+		F246C28D1E96A24A0027E159 /* PostsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewController.swift; sourceTree = "<group>"; };
+		F246C28F1E96D4150027E159 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		F25549DF1E61F22600CE5D14 /* Extract.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Extract.js; sourceTree = "<group>"; };
 		F25549E11E63027100CE5D14 /* DDHTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTestCase.swift; sourceTree = "<group>"; };
 		F25549E71E6AF63700CE5D14 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -453,6 +458,7 @@
 		F266AAD41E857DE40004D341 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				F246C28D1E96A24A0027E159 /* PostsCollectionViewController.swift */,
 				F266AAD51E857DE40004D341 /* PostsCollectionViewControllerTests.swift */,
 			);
 			path = Timeline;
@@ -581,6 +587,7 @@
 				F266AADB1E857E550004D341 /* AppDelegateTests.swift */,
 				F2425A511E44E4FF001B7E46 /* MainCoordinator.swift */,
 				F266AADC1E857E550004D341 /* MainCoordinatorTests.swift */,
+				F246C28F1E96D4150027E159 /* CollectionViewDataSource.swift */,
 				F2F25A4B1E5A35FC0028C9D2 /* Settings */,
 				F2425A4E1E43D8D2001B7E46 /* Extensions */,
 				F2C12AA41E3BED580056155C /* Login */,
@@ -991,6 +998,7 @@
 				F2425A521E44E4FF001B7E46 /* MainCoordinator.swift in Sources */,
 				F246C2481E9036C30027E159 /* Link+CoreDataClass.swift in Sources */,
 				F25C6FEC1E5738220005B688 /* PostCoordinator.swift in Sources */,
+				F246C2901E96D4150027E159 /* CollectionViewDataSource.swift in Sources */,
 				F2425A501E43D8EB001B7E46 /* UIWindowExtensions.swift in Sources */,
 				F246C2191E902A700027E159 /* Content+CoreDataClass.swift in Sources */,
 				F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */,
@@ -1004,6 +1012,7 @@
 				F246C28A1E9633F80027E159 /* Image+CoreDataProperties.swift in Sources */,
 				55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */,
 				F246C2491E9036C30027E159 /* Link+CoreDataProperties.swift in Sources */,
+				F246C28E1E96A24A0027E159 /* PostsCollectionViewController.swift in Sources */,
 				F246C2851E94E4700027E159 /* Post+CoreDataClass.swift in Sources */,
 				F29623AC1E7EE2B20089ADC7 /* AccountCell.swift in Sources */,
 				F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */,
@@ -1034,6 +1043,7 @@
 				F246C24B1E90C28E0027E159 /* LinkTests.swift in Sources */,
 				F246C2511E9120BD0027E159 /* MentionTests.swift in Sources */,
 				F246C2451E9034110027E159 /* ContentTests.swift in Sources */,
+				F246C2911E982B390027E159 /* URLRequestStub.swift in Sources */,
 				F246C2161E9002560027E159 /* UserTests.swift in Sources */,
 				F266AACA1E857D120004D341 /* PostViewTests.swift in Sources */,
 				F266AAB91E857A050004D341 /* TextSettingsCellTests.swift in Sources */,

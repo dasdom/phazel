@@ -149,6 +149,10 @@ extension PostCoordinatorTests {
         func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
         }
         
+        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
+        
+        }
+        
         func isLoggedIn() -> Bool {
             return self._isLoggedIn
         }
