@@ -4,25 +4,34 @@
 
 import UIKit
 import Roaster
+import CoreData
 
 final class MainCoordinator: CoodinatorProtocol {
     
     private let window: UIWindow
+    private let navigationController: UINavigationController
     private let apiClient: APIClientProtocol
-    var childCoordinators: [CoodinatorProtocol] = []
+    private let persistentContainer: NSPersistentContainer
+    var timelineCoordinator: PostsCoordinator?
     var userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     
     init(window: UIWindow) {
         self.window = window
-        self.apiClient = APIClient(userDefaults: userDefaults)
+        navigationController = UINavigationController()
+        apiClient = APIClient(userDefaults: userDefaults)
+        
+        persistentContainer = NSPersistentContainer(name: "Roaster")
+        persistentContainer.loadPersistentStores { _, error in
+            print("Error: \(error)")
+        }
     }
     
     func start() {
-        let postCoordinator = PostCoordinator(window: window, apiClient: apiClient, userDefaults: userDefaults)
-        childCoordinators.append(postCoordinator)
-        postCoordinator.start()
-        
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
+
+        timelineCoordinator = PostsCoordinator(rootViewController: navigationController, apiClient: apiClient, userDefaults: userDefaults, persistentContainer: persistentContainer)
+        timelineCoordinator?.start()
     }
 }
 

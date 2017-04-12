@@ -15,10 +15,7 @@ class LoginCoordinatorTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        window = UIWindow()
-        window.rootViewController = UIViewController()
-        window.makeKeyAndVisible()
-        sut = LoginCoordinator(window: window, apiClient: apiClient)
+        sut = LoginCoordinator(rootViewController: UIViewController(), apiClient: apiClient)
     }
     
     override func tearDown() {
@@ -31,14 +28,13 @@ class LoginCoordinatorTests: XCTestCase {
     func test_start_setsLoginViewController_asVisibleController() {
         sut.start()
         
-        XCTAssertTrue(window.visibleViewController is LoginViewController)
+        XCTAssertNotNil(sut.viewController)
     }
     
     func test_start_setsDelegateOfViewController() {
         sut.start()
         
-        guard let viewController = window.visibleViewController as? LoginViewController else { return XCTFail() }
-        XCTAssertTrue(viewController.delegate is LoginCoordinator)
+        XCTAssertTrue(sut.viewController?.delegate is LoginCoordinator)
     }
 
     func test_failure_PresentsAlertViewController() {
@@ -49,7 +45,7 @@ class LoginCoordinatorTests: XCTestCase {
         XCTAssertTrue(mockLoginViewController.inTestPresentedViewController is UIAlertController)
     }
     
-    func test_success_dismissesController() {
+    func test_success_setsUser() {
         let mockLoginViewController = MockLoginViewController(contentView: LoginView(), apiClient: apiClient)
         let coordinatorDelegate = MockLoginCoordinatorDelegate()
         sut.delegate = coordinatorDelegate
@@ -57,7 +53,6 @@ class LoginCoordinatorTests: XCTestCase {
         let loginUser = LoginUser(id: "42", username: "foo")
         sut.loginDidSucceed(viewController: mockLoginViewController, with: loginUser)
         
-        XCTAssertTrue(mockLoginViewController.didDismiss)
         XCTAssertEqual(coordinatorDelegate.loginUser, loginUser)
     }
 }

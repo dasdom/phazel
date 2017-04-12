@@ -3,7 +3,24 @@
 //
 
 import UIKit
+import CoreData
 
-class CollectionViewDataSource: NSObject {
+protocol CollectionViewDataSourceDelegate {
+    associatedtype Object: NSFetchRequestResult
+    associatedtype Cell: UICollectionViewCell
+    func configure(_ cell: Cell, for object: Object)
+}
 
+class CollectionViewDataSource<Delegate: CollectionViewDataSourceDelegate>: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
+    
+    init(collectionView: UICollectionView, fetchedResultsController: NSFetchedResultsController<Post>, delegate: Delegate?) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
 }

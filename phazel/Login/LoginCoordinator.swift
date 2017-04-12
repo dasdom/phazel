@@ -10,36 +10,31 @@ protocol LoginCoordinatorDelegate: class {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser)
 }
 
-final class LoginCoordinator: CoodinatorProtocol {
+class LoginCoordinator: Coordinating {
     
-    private let window: UIWindow
-    fileprivate var childViewControllers = [UIViewController]()
+    let rootViewController: UIViewController
+    var viewController: LoginViewController?
     weak var delegate: LoginCoordinatorDelegate?
     let apiClient: APIClientProtocol
     
-    init(window: UIWindow, apiClient: APIClientProtocol) {
-        self.window = window
+    init(rootViewController: UIViewController, apiClient: APIClientProtocol) {
+        self.rootViewController = rootViewController
         self.apiClient = apiClient
     }
     
-    func start() {
-        let loginViewController = LoginViewController(contentView: LoginView(), apiClient: apiClient)
-        loginViewController.delegate = self
-        childViewControllers.append(loginViewController)
-        
-        window.visibleViewController?.present(loginViewController, animated: true, completion: nil)
+    func createViewController() -> LoginViewController {
+        return LoginViewController(contentView: LoginView(), apiClient: apiClient)
+    }
+    
+    func config(_ viewController: LoginViewController) {
+        viewController.delegate = self
     }
 }
 
 extension LoginCoordinator: LoginViewControllerDelegate {
     func loginDidSucceed(viewController: LoginViewController, with loginUser: LoginUser) {
         
-        viewController.dismiss(animated: true, completion: nil)
         delegate?.coordinatorDidLogin(coordinator: self, with: loginUser)
-        
-        if let index = childViewControllers.index(where: { $0 == viewController }) {
-            childViewControllers.remove(at: index)
-        }
     }
     
     func loginDidFail(viewController: LoginViewController, with error: Error) {

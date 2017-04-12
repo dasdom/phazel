@@ -6,7 +6,7 @@ import UIKit
 import Roaster
 
 protocol PostViewControllerDelegate: class {
-    func viewDidAppear(viewController: PostViewController)
+//    func viewDidAppear(viewController: PostViewController)
     func postDidSucceed(viewController: PostViewController, with postId: String)
     func postDidFail(viewController: PostViewController, with error: Error)
     func showInfo(viewController: PostViewController)
@@ -52,7 +52,7 @@ class PostViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.delegate?.viewDidAppear(viewController: self)
+//        self.delegate?.viewDidAppear(viewController: self)
         
         contentView.setFirstResponder()
     }

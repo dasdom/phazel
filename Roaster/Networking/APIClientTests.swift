@@ -145,7 +145,7 @@ extension APIClientTests {
             }
         }
         
-        waitForExpectations(timeout: 0.2) { error in
+        waitForExpectations(timeout: 1) { error in
             let expectedUser = LoginUser(id: "23", username: "foo")
             XCTAssertEqual(catchesUser, expectedUser)
         }
@@ -196,7 +196,7 @@ extension APIClientTests {
             }
         }
         
-        waitForExpectations(timeout: 0.2) { _ in
+        waitForExpectations(timeout: 1) { _ in
             XCTAssertEqual(catchedError as? NSError, error)
             XCTAssertNil(mockKeychainManager.token)
         }
@@ -447,7 +447,7 @@ extension APIClientTests {
             }
         }
         
-        waitForExpectations(timeout: 0.1) { _ in
+        waitForExpectations(timeout: 1) { _ in
             XCTAssertEqual(catchedPostId, "2392")
         }
     }

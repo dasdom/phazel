@@ -5,7 +5,6 @@
 import UIKit
 import DDHFoundation
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow? = UIWindow(frame: UIScreen.main.bounds)

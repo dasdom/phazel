@@ -9,29 +9,36 @@ protocol SettingsCoordinatorDelegate: class {
     func settingsDidFinish(coordinator: SettingsCoordinator)
 }
 
-final class SettingsCoordinator: CoodinatorProtocol {
+final class SettingsCoordinator: NavigationCoordinating {
     
-    fileprivate let window: UIWindow
+    let rootViewController: UINavigationController
+    var viewController: SettingsViewController?
     fileprivate let userDefaults: UserDefaults
-    fileprivate let navigationController: UINavigationController
-    var childViewControllers = [UIViewController]()
-    var childCoordinators: [CoodinatorProtocol] = []
+    var loginCoordinator: LoginCoordinator?
+    var accountsCoordinator: AccountsCoordinator?
     weak var delegate: SettingsCoordinatorDelegate?
 
-    init(window: UIWindow, userDefaults: UserDefaults, navigationController: UINavigationController = UINavigationController()) {
-        self.window = window
+    init(rootViewController: UINavigationController, userDefaults: UserDefaults) {
+        self.rootViewController = rootViewController
         self.userDefaults = userDefaults
-        self.navigationController = navigationController
     }
     
-    func start() {
-        
-        let settingsViewController = SettingsViewController(settingsItems: settingsItems)
-        settingsViewController.delegate = self
-        childViewControllers.append(settingsViewController)
-        navigationController.viewControllers = [settingsViewController]
-        
-        window.visibleViewController?.present(navigationController, animated: true, completion: nil)
+//    func start() {
+//        
+//        let settingsViewController = SettingsViewController(settingsItems: settingsItems)
+//        settingsViewController.delegate = self
+//        childViewControllers.append(settingsViewController)
+//        navigationController.viewControllers = [settingsViewController]
+//        
+//        window.visibleViewController?.present(navigationController, animated: true, completion: nil)
+//    }
+
+    func createViewController() -> SettingsViewController {
+        return SettingsViewController(settingsItems: settingsItems)
+    }
+    
+    func config(_ viewController: SettingsViewController) {
+        viewController.delegate = self
     }
     
     private var settingsItems: [SettingsItem] {
@@ -52,10 +59,8 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
         guard let rawAccounts = userDefaults.value(forKey: accounstsKey) as? [[String:String]] else { return }
         let accounts = accountsFrom(rawAccounts: rawAccounts)
         
-        let accountsViewController = AccountsViewController(accounts: accounts)
-        accountsViewController.delegate = self
-        childViewControllers.append(accountsViewController)
-        navigationController.pushViewController(accountsViewController, animated: true)
+        accountsCoordinator = AccountsCoordinator(rootViewController: rootViewController, accounts: accounts, userDefaults: userDefaults)
+        accountsCoordinator?.start()
     }
     
     private func accountsFrom(rawAccounts: [[String:String]]) -> [Account] {
@@ -69,35 +74,12 @@ extension SettingsCoordinator: SettingsViewControllerDelegate {
     }
 }
 
-// MARK: - AccountsViewControllerDelegate
-extension SettingsCoordinator: AccountsViewControllerDelegate {
-
-    func didSelect(_ viewController: AccountsViewController, account: Account) {
-        userDefaults.set(account.username, forKey: UserDefaultsKey.username.rawValue)
-        navigationController.popViewController(animated: true)
-        
-        if let index = childViewControllers.index(where: { $0 as AnyObject === viewController as AnyObject }) {
-            childViewControllers.remove(at: index)
-        }
-    }
-
-    func addAccount(_ viewController: AccountsViewController) {
-        let loginCoordinator = LoginCoordinator(window: window, apiClient: APIClient(userDefaults: userDefaults))
-        loginCoordinator.delegate = self
-        childCoordinators.append(loginCoordinator)
-        loginCoordinator.start()
-    }
-}
-
 // MARK: - LoginCoordinatorDelegate
-extension SettingsCoordinator: LoginCoordinatorDelegate {
-    func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
-        if let index = childCoordinators.index(where: { $0 as AnyObject === coordinator as AnyObject }) {
-            childCoordinators.remove(at: index)
-        }
-        
-        if let accountsViewController = childViewControllers.last as? AccountsViewController {
-            accountsViewController.append(account: loginUser)
-        }
-    }
-}
+//extension SettingsCoordinator: LoginCoordinatorDelegate {
+//    func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
+//        
+////        if let accountsViewController = childViewControllers.last as? AccountsViewController {
+////            accountsViewController.append(account: loginUser)
+////        }
+//    }
+//}

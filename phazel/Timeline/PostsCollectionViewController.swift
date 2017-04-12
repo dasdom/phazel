@@ -6,21 +6,22 @@ import UIKit
 import CoreData
 import Roaster
 
+protocol PostsCollectionViewControllerDelegate: class {
+    func viewDidAppear(viewController: UIViewController)
+}
+
 class PostsCollectionViewController: UICollectionViewController {
 
-    private let dataSource: UICollectionViewDataSource
-    private let persistentContainer: NSPersistentContainer
+    private let backgroundContext: NSManagedObjectContext
     let apiClient: APIClientProtocol
+    weak var delegate: PostsCollectionViewControllerDelegate?
 
-    init(collectionViewLayout layout: UICollectionViewLayout, dataSource: UICollectionViewDataSource, persistentContainer: NSPersistentContainer, apiClient: APIClientProtocol) {
+    init(collectionViewLayout layout: UICollectionViewLayout, backgroundContext: NSManagedObjectContext, apiClient: APIClientProtocol) {
         
-        self.dataSource = dataSource
-        self.persistentContainer = persistentContainer
+        self.backgroundContext = backgroundContext
         self.apiClient = apiClient
         
         super.init(collectionViewLayout: layout)
-        
-        self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,20 +31,21 @@ class PostsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.dataSource = self.dataSource
-        
         self.apiClient.posts(before: nil, since: nil) { result in
             
             if case .success(let dataArray) = result {
-                self.persistentContainer.performBackgroundTask({ context in
-                    for dict in dataArray {
-                        _ = Post(dict: dict, context: context)
-                    }
-                    try! context.save()
-                })
+                for dict in dataArray {
+                    _ = Post(dict: dict, context: self.backgroundContext)
+                }
+                try! self.backgroundContext.save()
             }
         }
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.delegate?.viewDidAppear(viewController: self)
     }
 
 }
