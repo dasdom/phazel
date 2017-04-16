@@ -5,5 +5,6 @@
 import UIKit
 
 class PostCell: UICollectionViewCell {
-    
+    func configure(with post: Post) {
+    }
 }

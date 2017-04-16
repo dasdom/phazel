@@ -197,7 +197,7 @@ extension APIClientTests {
         }
         
         waitForExpectations(timeout: 1) { _ in
-            XCTAssertEqual(catchedError as? NSError, error)
+            XCTAssertEqual(catchedError as NSError?, error)
             XCTAssertNil(mockKeychainManager.token)
         }
     }
@@ -215,8 +215,9 @@ extension APIClientTests {
             }
         }
         
-        waitForExpectations(timeout: 0.2) { _ in
-            XCTAssertEqual(catchedError as? NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
+        waitForExpectations(timeout: 1) { _ in
+            guard let unwrappedError = catchedError else { return XCTFail() }
+            XCTAssertEqual(unwrappedError as NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
             XCTAssertNil(mockKeychainManager.token)
         }
     }

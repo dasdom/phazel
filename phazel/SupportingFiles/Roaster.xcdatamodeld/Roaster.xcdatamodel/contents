@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AvatarImage" representedClassName="phazel.AvatarImage" parentEntity="Image" syncable="YES">
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="avatarImage" inverseEntity="Content" syncable="YES"/>
+    </entity>
     <entity name="Content" representedClassName="phazel.Content" syncable="YES">
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="avatarImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" syncable="YES"/>
-        <relationship name="coverImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="content" inverseEntity="Image" syncable="YES"/>
+        <relationship name="avatarImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AvatarImage" inverseName="content" inverseEntity="AvatarImage" syncable="YES"/>
+        <relationship name="coverImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoverImage" inverseName="content" inverseEntity="CoverImage" syncable="YES"/>
         <relationship name="links" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Link" inverseName="content" inverseEntity="Link" syncable="YES"/>
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="content" inverseEntity="Mention" syncable="YES"/>
         <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="content" inverseEntity="Post" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="content" inverseEntity="Tag" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="content" inverseEntity="User" syncable="YES"/>
     </entity>
-    <entity name="Image" representedClassName="phazel.Image" syncable="YES">
+    <entity name="CoverImage" representedClassName="phazel.CoverImage" parentEntity="Image" syncable="YES">
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="coverImage" inverseEntity="Content" syncable="YES"/>
+    </entity>
+    <entity name="Image" representedClassName="phazel.Image" isAbstract="YES" syncable="YES">
         <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="coverImage" inverseEntity="Content" syncable="YES"/>
     </entity>
     <entity name="Link" representedClassName="phazel.Link" syncable="YES">
         <attribute name="len" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -74,12 +79,14 @@
         <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="user" inverseEntity="Post" syncable="YES"/>
     </entity>
     <elements>
-        <element name="User" positionX="-54" positionY="-9" width="128" height="28"/>
-        <element name="Content" positionX="153" positionY="63" width="128" height="28"/>
+        <element name="Content" positionX="153" positionY="63" width="128" height="165"/>
+        <element name="Image" positionX="171" positionY="81" width="128" height="90"/>
         <element name="Link" positionX="358" positionY="78" width="128" height="28"/>
         <element name="Mention" positionX="207" positionY="135" width="128" height="30"/>
-        <element name="Tag" positionX="153" positionY="63" width="128" height="30"/>
         <element name="Post" positionX="162" positionY="72" width="128" height="30"/>
-        <element name="Image" positionX="171" positionY="81" width="128" height="30"/>
+        <element name="Tag" positionX="153" positionY="63" width="128" height="30"/>
+        <element name="User" positionX="-54" positionY="-9" width="128" height="28"/>
+        <element name="AvatarImage" positionX="144" positionY="135" width="128" height="60"/>
+        <element name="CoverImage" positionX="153" positionY="144" width="128" height="60"/>
     </elements>
 </model>

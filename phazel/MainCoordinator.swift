@@ -22,7 +22,7 @@ final class MainCoordinator: CoodinatorProtocol {
         
         persistentContainer = NSPersistentContainer(name: "Roaster")
         persistentContainer.loadPersistentStores { _, error in
-            print("Error: \(error)")
+            print("Error: \(String(describing: error))")
         }
     }
     

@@ -67,6 +67,7 @@ class ContentTests: XCTestCase {
         let content = Content(dict: dict, context: container.viewContext)
         
         XCTAssertEqual(content.avatarImage?.link, "foo")
+        XCTAssertEqual(content.avatarImage?.content, content)
     }
 
     func test_contentInit_setsCoverImageLink() {
@@ -74,6 +75,7 @@ class ContentTests: XCTestCase {
         let content = Content(dict: dict, context: container.viewContext)
         
         XCTAssertEqual(content.coverImage?.link, "bar")
+        XCTAssertEqual(content.coverImage?.content, content)
     }
 
 }

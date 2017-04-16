@@ -60,21 +60,21 @@ extension URLCreatorTests {
         let url = try unwrap(URLCreator.posts(before: 42, since: nil).url())
         
         let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        True((queryIems?.contains(URLQueryItem(name: "before_id", value: "42"))), "Found queryItems: \(queryIems)")
+        True((queryIems?.contains(URLQueryItem(name: "before_id", value: "42"))), "Found queryItems: \(String(describing: queryIems))")
     }
     
     func test_postsURL_sinceId() throws {
         let url = try unwrap(URLCreator.posts(before: nil, since: 23).url())
         
         let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        True((queryIems?.contains(URLQueryItem(name: "since_id", value: "23"))), "Found queryItems: \(queryIems)")
+        True((queryIems?.contains(URLQueryItem(name: "since_id", value: "23"))), "Found queryItems: \(String(describing: queryIems))")
     }
     
     func test_postsURL_count() throws {
         let url = try unwrap(URLCreator.posts(before: nil, since: 23).url())
         
         let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
-        True((queryIems?.contains(URLQueryItem(name: "count", value: "200"))), "Found queryItems: \(queryIems)")
+        True((queryIems?.contains(URLQueryItem(name: "count", value: "200"))), "Found queryItems: \(String(describing: queryIems))")
     }
 }
 

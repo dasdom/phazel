@@ -61,7 +61,8 @@ class LoginViewControllerTests: XCTestCase {
         localSUT.login()
         
         guard case .failure(let error) = result else { return XCTFail() }
-        XCTAssertEqual(mockDelegate.error as? NSError, error as NSError)
+        guard let catchedError = mockDelegate.error else { return XCTFail() }
+        XCTAssertEqual(catchedError as NSError, error as NSError)
     }
 }
 

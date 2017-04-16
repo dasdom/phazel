@@ -45,6 +45,7 @@ extension AccountsCoordinator: AccountsViewControllerDelegate {
 
 extension AccountsCoordinator: LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
+        
         coordinator.stop()
         viewController?.append(account: loginUser)
     }

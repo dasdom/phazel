@@ -72,6 +72,6 @@ protocol NavigationCoordinating: Coordinating {
 
 extension NavigationCoordinating {
     func show(_ viewController: Self.ViewController) {
-        rootViewController.pushViewController(viewController, animated: true)
+        (rootViewController as! UINavigationController).pushViewController(viewController, animated: true)
     }
 }

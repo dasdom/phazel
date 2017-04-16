@@ -11,6 +11,14 @@ extension Post {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Post> {
         return NSFetchRequest<Post>(entityName: "Post");
     }
+    
+    @nonobjc public class func sortedFetchRequest() -> NSFetchRequest<Post> {
+        let request = NSFetchRequest<Post>(entityName: "Post");
+        request.fetchBatchSize = 20
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        return request
+    }
 
     @NSManaged fileprivate(set) var id: String?
     @NSManaged fileprivate(set) var creationDate: Date?

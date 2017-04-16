@@ -49,11 +49,7 @@ final class PostsCoordinator: NavigationCoordinating {
         viewController.delegate = self
         
         guard let collectionView = viewController.collectionView else { fatalError() }
-        let request: NSFetchRequest<Post> = Post.fetchRequest()
-        request.fetchBatchSize = 20
-        request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let fetchRequestController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchRequestController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         dataSource = CollectionViewDataSource(collectionView: collectionView, fetchedResultsController: fetchRequestController, delegate: self)
     }
 }
@@ -98,10 +94,7 @@ extension PostsCoordinator: PostViewControllerDelegate {
 // MARK: - LoginCoordinatorDelegate
 extension PostsCoordinator: LoginCoordinatorDelegate {
     func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
-//        guard let index = childCoordinators.index(where: { $0 as AnyObject === coordinator as AnyObject }) else {
-//            return
-//        }
-//        childCoordinators.remove(at: index)
+        coordinator.stop()
     }
 }
 

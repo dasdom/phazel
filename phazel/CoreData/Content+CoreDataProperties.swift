@@ -18,8 +18,8 @@ extension Content {
     @NSManaged fileprivate(set) var mentions: Set<Mention>?
     @NSManaged fileprivate(set) var tags: Set<Tag>?
     @NSManaged fileprivate(set) var post: Post?
-    @NSManaged fileprivate(set) var avatarImage: Image?
-    @NSManaged fileprivate(set) var coverImage: Image?
+    @NSManaged fileprivate(set) var avatarImage: AvatarImage?
+    @NSManaged fileprivate(set) var coverImage: CoverImage?
 }
 
 extension Content {
@@ -45,11 +45,11 @@ extension Content {
         }
         
         if let avatar = dict[PnutKey.avatar_image.rawValue] as? [String:Any] {
-            avatarImage = Image(dict: avatar, context: moc)
+            avatarImage = AvatarImage(dict: avatar, context: moc)
         }
         
         if let cover = dict[PnutKey.cover_image.rawValue] as? [String:Any] {
-            coverImage = Image(dict: cover, context: moc)
+            coverImage = CoverImage(dict: cover, context: moc)
         }
     }
     

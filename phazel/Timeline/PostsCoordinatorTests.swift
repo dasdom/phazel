@@ -102,6 +102,19 @@ extension PostsCoordinatorTests {
         guard let coordinator = sut.loginCoordinator else { return XCTFail() }
         XCTAssertTrue(coordinator.delegate is PostsCoordinator)
     }
+    
+    func test_coordinatorDidLogin_removesCoordinator() {
+        let apiClient = APIClient(userDefaults: UserDefaults())
+        let loginCoordinator = LoginCoordinator(rootViewController: UIViewController(), apiClient: apiClient)
+        let mockLoginViewController = MockLoginViewController(contentView: LoginView(), apiClient: apiClient)
+        loginCoordinator.viewController = mockLoginViewController
+        sut.loginCoordinator = loginCoordinator
+        
+        let loginUser = LoginUser(id: "42", username: "foo")
+        sut.coordinatorDidLogin(coordinator: loginCoordinator, with: loginUser)
+        
+        XCTAssertTrue(mockLoginViewController.didDismiss)
+    }
 }
 
 // MARK: - Settings
