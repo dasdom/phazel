@@ -20,9 +20,7 @@ class PostTests: XCTestCase {
         description.configuration = "Default"
         container?.persistentStoreDescriptions = [description]
         
-        container?.loadPersistentStores { _, error in
-            
-        }
+        container?.loadPersistentStores { _, _ in }
     }
     
     override func tearDown() {

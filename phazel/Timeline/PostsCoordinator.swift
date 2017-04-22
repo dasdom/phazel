@@ -41,16 +41,22 @@ final class PostsCoordinator: NavigationCoordinating {
 //    }
     
     func createViewController() -> PostsCollectionViewController {
-        let postsViewController = PostsCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: persistentContainer.newBackgroundContext(), apiClient: apiClient)
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
+        layout.minimumLineSpacing = 1
+        let postsViewController = PostsCollectionViewController(collectionViewLayout: layout, backgroundContext: persistentContainer.newBackgroundContext(), apiClient: apiClient)
         return postsViewController
     }
     
     func config(_ viewController: PostsCollectionViewController) {
         viewController.delegate = self
         
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
+        
         guard let collectionView = viewController.collectionView else { fatalError() }
         let fetchRequestController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         dataSource = CollectionViewDataSource(collectionView: collectionView, fetchedResultsController: fetchRequestController, delegate: self)
+        viewController.dataSource = dataSource
     }
 }
 
@@ -110,6 +116,6 @@ extension PostsCoordinator: SettingsCoordinatorDelegate {
 
 extension PostsCoordinator: CollectionViewDataSourceDelegate {
     func configure(_ cell: PostCell, for object: Post) {
-        
+        cell.configure(with: object)
     }
 }

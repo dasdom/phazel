@@ -21,29 +21,22 @@ class PostsCollectionViewControllerTests: XCTestCase {
         description.configuration = "Default"
         container?.persistentStoreDescriptions = [description]
         
-        container?.loadPersistentStores { _, error in
-            
-        }
+        container?.loadPersistentStores { _, _ in }
     }
     
     override func tearDown() {
+        container = nil
         
         super.tearDown()
     }
-    
-//    func test_has_collectionViewDataSource() {
-//        let localSUT = PostsCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: MockAPIClient(result: Result(value: nil, error: nil)))
-//        _ = localSUT.view
-//        
-//        XCTAssertTrue(localSUT.collectionView?.dataSource is CollectionViewDataSource)
-//    }
     
     func test_loadView_loadsPosts() throws {
         let resultArray: [[String:Any]] = [["id": "42"]]
         let localSUT = PostsCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: MockAPIClient(result: Result(value: resultArray, error: nil)))
         expectation(forNotification: NSNotification.Name.NSManagedObjectContextDidSave.rawValue, object: nil, handler: nil)
         
-        _ = localSUT.view
+        localSUT.beginAppearanceTransition(true, animated: false)
+        localSUT.endAppearanceTransition()
         
         waitForExpectations(timeout: 1) { error in
             var posts: [Post] = []
@@ -54,21 +47,41 @@ class PostsCollectionViewControllerTests: XCTestCase {
             XCTAssertEqual(posts.count, 1)
         }
     }
+    
+    func test_loadingPosts_callsLoading_WithSinceId() {
+        let resultArray: [[String:Any]] = [["id": "42"]]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        let layout = UICollectionViewFlowLayout()
+        let dataSource = CollectionViewDataSourceMock(collectionView: UICollectionView(frame: CGRect.zero, collectionViewLayout: layout), fetchedResultsController: fetchedResultsController, delegate: nil)
+        dataSource.storedPost = Post(dict: ["id": "23"], context: container.viewContext)
+        let apiClient = MockAPIClient(result: Result(value: resultArray, error: nil))
+        let localSUT = PostsCollectionViewController(collectionViewLayout: layout, backgroundContext: container.newBackgroundContext(), apiClient: apiClient)
+        localSUT.dataSource = dataSource
+        
+        localSUT.beginAppearanceTransition(true, animated: false)
+        localSUT.endAppearanceTransition()
+        
+        XCTAssertEqual(apiClient.catchedSince, 23)
+    }
 }
 
 extension PostsCollectionViewControllerTests {
-    class CollectionViewDataSourceMock: NSObject, UICollectionViewDataSource {
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return 0
-        }
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            return UICollectionViewCell()
+    
+    class CollectionViewDataSourceMock: CollectionViewDataSource<PostsCoordinator> {
+        
+        var storedPost: Post?
+        
+        override func object(at indexPath: IndexPath) -> Post {
+            return storedPost!
         }
     }
+    
     
     class MockAPIClient: APIClientProtocol {
         
         let result: Result<[[String:Any]]>
+        var catchedBefore: Int?
+        var catchedSince: Int?
         
         init(result: Result<[[String:Any]]>) {
             self.result = result
@@ -83,6 +96,8 @@ extension PostsCollectionViewControllerTests {
         }
         
         func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
+            catchedBefore = before
+            catchedSince = since
             completion(result)
         }
         
@@ -92,8 +107,6 @@ extension PostsCollectionViewControllerTests {
     }
     
     class PersistentContainerMock: NSPersistentContainer {
-        
-        
         
         override func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
             

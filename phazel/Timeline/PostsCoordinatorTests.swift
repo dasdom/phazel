@@ -25,9 +25,7 @@ class PostsCoordinatorTests: XCTestCase {
         description.configuration = "Default"
         container?.persistentStoreDescriptions = [description]
         
-        container?.loadPersistentStores { _, error in
-            
-        }
+        container?.loadPersistentStores { _, _ in }
         
         apiClient = MockAPIClient()
         sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: apiClient, userDefaults: userDefaults, persistentContainer: container)
@@ -43,21 +41,50 @@ class PostsCoordinatorTests: XCTestCase {
     }
 }
 
-// MARK: - Posting
+// MARK: - General
 extension PostsCoordinatorTests {
-//    func test_start_setsPostViewController_asRoot() {
-//        sut.start()
-//        
-//        XCTAssertTrue(window.rootViewController is UINavigationController)
-//    }
-    
     func test_start_setsDelegate() {
         sut.start()
         guard let viewController = sut.viewController else { return XCTFail() }
-
+        
         XCTAssertTrue(viewController.delegate is PostsCoordinator)
     }
     
+    func test_start_setsDataSourceOfCollectionView() {
+        sut.start()
+        
+        guard let viewController = sut.viewController else { return XCTFail() }
+        guard let dataSource = viewController.collectionView?.dataSource else { return XCTFail() }
+        XCTAssertTrue(dataSource is CollectionViewDataSource<PostsCoordinator>)
+    }
+    
+    func test_start_setsDataSourceOfViewController() {
+        sut.start()
+        
+        guard let viewController = sut.viewController else { return XCTFail() }
+        XCTAssertNotNil(viewController.dataSource)
+    }
+    
+    func test_stat_setsNavigationItems_ofViewController() {
+        sut.start()
+        
+        guard let viewController = sut.viewController else { return XCTFail() }
+        XCTAssertNotNil(viewController.navigationItem.rightBarButtonItem)
+    }
+    
+    func test_configure_callsConfigure_onCell() {
+        let cell = PostCellMock()
+        let dict = ["id": "23"]
+        let post = Post(dict: dict, context: container.viewContext)
+        
+        sut.configure(cell, for: post)
+        
+        XCTAssertEqual(cell.post, post)
+    }
+}
+
+// MARK: - Posting
+extension PostsCoordinatorTests {
     func test_postDidFail_showsAlert() {
         let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
         
@@ -137,14 +164,6 @@ extension PostsCoordinatorTests {
         guard let coordinator = sut.settingsCoordinator else { return XCTFail() }
         XCTAssertTrue(coordinator.delegate is PostsCoordinator)
     }
-    
-//    func test_settingsDidFinish_removesCoordinator() {
-//        let settingsCoordinator = SettingsCoordinator(rootViewController: UINavigationController(), userDefaults: UserDefaults())
-//        
-//        sut.settingsDidFinish(coordinator: settingsCoordinator)
-//        
-//        XCTAssertEqual(sut.childCoordinators.count, 0)
-//    }
 }
 
 //---------------------------------------------------------------------
@@ -200,6 +219,15 @@ extension PostsCoordinatorTests {
         
         func coordinatorDidLogin(coordinator: LoginCoordinator, with loginUser: LoginUser) {
             self.loginUser = loginUser
+        }
+    }
+    
+    class PostCellMock: PostCell {
+        
+        var post: Post?
+        
+        override func configure(with post: Post) {
+            self.post = post
         }
     }
 }

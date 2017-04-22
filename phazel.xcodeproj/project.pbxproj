@@ -70,6 +70,8 @@
 		F266AAE61E857F4D0004D341 /* LoginUserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAE41E857F450004D341 /* LoginUserTests.swift */; };
 		F266AAEB1E857FA80004D341 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAE71E857FA20004D341 /* APIClientTests.swift */; };
 		F266AAEC1E857FA80004D341 /* URLCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAE81E857FA20004D341 /* URLCreatorTests.swift */; };
+		F27A05361EA8B58000D2178C /* PostCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A05351EA8B58000D2178C /* PostCellTests.swift */; };
+		F27A055B1EAB2AC200D2178C /* DDHImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A055A1EAB2AC100D2178C /* DDHImageView.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296236E1E75A9400089ADC7 /* AccountsViewController.swift */; };
 		F296237E1E79E42F0089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
@@ -273,6 +275,8 @@
 		F266AAE41E857F450004D341 /* LoginUserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginUserTests.swift; sourceTree = "<group>"; };
 		F266AAE71E857FA20004D341 /* APIClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		F266AAE81E857FA20004D341 /* URLCreatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCreatorTests.swift; sourceTree = "<group>"; };
+		F27A05351EA8B58000D2178C /* PostCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCellTests.swift; sourceTree = "<group>"; };
+		F27A055A1EAB2AC100D2178C /* DDHImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHImageView.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F296236E1E75A9400089ADC7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F29623751E79E42F0089ADC7 /* DDHFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDHFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -501,6 +505,7 @@
 				F2DA1FBE1E9BCB45004E43E7 /* PostsCoordinator.swift */,
 				F2DA1FBF1E9BCB45004E43E7 /* PostsCoordinatorTests.swift */,
 				F2E3D7031E9D06B700635A5C /* PostCell.swift */,
+				F27A05351EA8B58000D2178C /* PostCellTests.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -527,6 +532,7 @@
 				F29623981E79E4C90089ADC7 /* DDHTextView.swift */,
 				F266AABB1E857B000004D341 /* DDHTextViewTests.swift */,
 				F29623991E79E4C90089ADC7 /* DDHView.swift */,
+				F27A055A1EAB2AC100D2178C /* DDHImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1030,6 +1036,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F296239E1E79E4C90089ADC7 /* DDHTextView.swift in Sources */,
+				F27A055B1EAB2AC200D2178C /* DDHImageView.swift in Sources */,
 				F296239F1E79E4C90089ADC7 /* DDHView.swift in Sources */,
 				F296239B1E79E4C90089ADC7 /* DDHButton.swift in Sources */,
 				F29623A41E7D1CA60089ADC7 /* AppColors.swift in Sources */,
@@ -1107,6 +1114,7 @@
 				F246C2821E94E3CB0027E159 /* PostTests.swift in Sources */,
 				F266AAB81E857A050004D341 /* SettingsViewControllerTests.swift in Sources */,
 				F2FF18BD1E9D7B4900FAF806 /* TestingAppDelegate.swift in Sources */,
+				F27A05361EA8B58000D2178C /* PostCellTests.swift in Sources */,
 				F246C28C1E9635D30027E159 /* ImageTests.swift in Sources */,
 				F266AADF1E857E5C0004D341 /* AppDelegateTests.swift in Sources */,
 				F266AAB61E857A050004D341 /* AccountsViewControllerTests.swift in Sources */,

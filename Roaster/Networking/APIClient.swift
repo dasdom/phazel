@@ -98,7 +98,7 @@ final public class APIClient: APIClientProtocol {
         guard let token = keychainManager.token(for: username) else {
             return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
         }
-        
+        print(">>> url: \(url)")
         var request = URLRequest(url: url)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
@@ -168,6 +168,19 @@ final public class APIClient: APIClientProtocol {
         }
         dataTask.resume()
     }
+    
+    public func data(url: URL, completion: @escaping (Result<Data>) -> ()) {
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: url) { data, _, error in
+            
+            DispatchQueue.main.async {
+                let result = Result(value: data, error: error)
+                completion(result)
+            }
+        }
+        dataTask.resume()
+    }
+
 }
 
 //MARK: - Helper

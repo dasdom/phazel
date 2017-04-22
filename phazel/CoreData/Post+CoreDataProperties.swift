@@ -12,9 +12,9 @@ extension Post {
         return NSFetchRequest<Post>(entityName: "Post");
     }
     
-    @nonobjc public class func sortedFetchRequest() -> NSFetchRequest<Post> {
+    @nonobjc public class func sortedFetchRequest(batchSize: Int? = 20) -> NSFetchRequest<Post> {
         let request = NSFetchRequest<Post>(entityName: "Post");
-        request.fetchBatchSize = 20
+        request.fetchBatchSize = batchSize ?? 0
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         return request

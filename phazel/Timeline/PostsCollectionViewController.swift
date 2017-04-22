@@ -15,6 +15,7 @@ class PostsCollectionViewController: UICollectionViewController {
     private let backgroundContext: NSManagedObjectContext
     let apiClient: APIClientProtocol
     weak var delegate: PostsCollectionViewControllerDelegate?
+    var dataSource: CollectionViewDataSource<PostsCoordinator>?
 
     init(collectionViewLayout layout: UICollectionViewLayout, backgroundContext: NSManagedObjectContext, apiClient: APIClientProtocol) {
         
@@ -31,13 +32,46 @@ class PostsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.apiClient.posts(before: nil, since: nil) { result in
+        collectionView?.backgroundColor = UIColor.white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//    }
+//    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+        
+        let post = dataSource?.object(at: IndexPath(item: 0, section: 0))
+        var sinceId: Int? = nil
+        if let sinceIdString = post?.id {
+            sinceId = Int(sinceIdString)
+        }
+        print(">>> sinceId: \(String(describing: sinceId))")
+        
+        self.apiClient.posts(before: nil, since: sinceId) { [weak self] result in
+            
+            guard let strongSelf = self else { return }
             
             if case .success(let dataArray) = result {
                 for dict in dataArray {
-                    _ = Post(dict: dict, context: self.backgroundContext)
+                    _ = Post(dict: dict, context: strongSelf.backgroundContext)
                 }
-                try! self.backgroundContext.save()
+                
+                let fetchRequest = Post.sortedFetchRequest(batchSize: 0)
+                strongSelf.backgroundContext.perform {
+                    do {
+                        let posts = try fetchRequest.execute()
+                        for post in posts.dropFirst(1000) {
+                            self?.backgroundContext.delete(post)
+                        }
+                        try! self?.backgroundContext.save()
+                    } catch {
+                        print(error)
+                        try! self?.backgroundContext.save()
+                    }
+                }
             }
         }
     }

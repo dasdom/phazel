@@ -17,6 +17,10 @@ public enum AppColors {
     
     public static let text = colorFrom(hex: "000022")
     
+    public static let mention = UIColor.brown
+    public static let link = UIColor.brown
+    public static let tag = UIColor.brown
+    
     public static let buttonBackground = colorFrom(hex: "406880")
     
 //    public static let bar = colorFrom(hex: "806340")
@@ -29,6 +33,8 @@ public enum AppColors {
     public static let clear = UIColor.clear
     
     public static let lightGray = UIColor.lightGray
+    
+    public static let gray = UIColor.gray
     
     private static func colorFrom(hex: String) -> UIColor {
         let scanner = Scanner(string: hex)
