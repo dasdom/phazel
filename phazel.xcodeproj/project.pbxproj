@@ -57,8 +57,8 @@
 		F266AAB91E857A050004D341 /* TextSettingsCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAB11E8579F90004D341 /* TextSettingsCellTests.swift */; };
 		F266AABE1E857B210004D341 /* DDHLabelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AABA1E857B000004D341 /* DDHLabelTests.swift */; };
 		F266AABF1E857B210004D341 /* DDHTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AABB1E857B000004D341 /* DDHTextViewTests.swift */; };
-		F266AAC91E857D120004D341 /* PostViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAC31E857D080004D341 /* PostViewControllerTests.swift */; };
-		F266AACA1E857D120004D341 /* PostViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAC41E857D080004D341 /* PostViewTests.swift */; };
+		F266AAC91E857D120004D341 /* PostingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAC31E857D080004D341 /* PostingViewControllerTests.swift */; };
+		F266AACA1E857D120004D341 /* PostingViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAC41E857D080004D341 /* PostingViewTests.swift */; };
 		F266AAD11E857D6D0004D341 /* LoginCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AACB1E857D660004D341 /* LoginCoordinatorTests.swift */; };
 		F266AAD21E857D6D0004D341 /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AACC1E857D660004D341 /* LoginViewControllerTests.swift */; };
 		F266AAD31E857D6D0004D341 /* LoginViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AACD1E857D660004D341 /* LoginViewTests.swift */; };
@@ -94,8 +94,8 @@
 		F2CE76D21E5093BA00140C78 /* MockKeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D01E5093BA00140C78 /* MockKeychainManager.swift */; };
 		F2CE76D31E5093BA00140C78 /* URLRequestStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */; };
 		F2CE76D71E53388700140C78 /* MockUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76D61E53388700140C78 /* MockUserDefaults.swift */; };
-		F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DA1E548E3A00140C78 /* PostViewController.swift */; };
-		F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DE1E54923A00140C78 /* PostView.swift */; };
+		F2CE76DB1E548E3A00140C78 /* PostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DA1E548E3A00140C78 /* PostingViewController.swift */; };
+		F2CE76DF1E54923A00140C78 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76DE1E54923A00140C78 /* PostingView.swift */; };
 		F2CE76E41E54F3A900140C78 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CE76E31E54F3A900140C78 /* Result.swift */; };
 		F2D3D6361E70B5D700AAAC1C /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */; };
 		F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */; };
@@ -262,8 +262,8 @@
 		F266AABA1E857B000004D341 /* DDHLabelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHLabelTests.swift; sourceTree = "<group>"; };
 		F266AABB1E857B000004D341 /* DDHTextViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHTextViewTests.swift; sourceTree = "<group>"; };
 		F266AAC01E857BED0004D341 /* TestInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestInfo.plist; sourceTree = "<group>"; };
-		F266AAC31E857D080004D341 /* PostViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewControllerTests.swift; sourceTree = "<group>"; };
-		F266AAC41E857D080004D341 /* PostViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewTests.swift; sourceTree = "<group>"; };
+		F266AAC31E857D080004D341 /* PostingViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewControllerTests.swift; sourceTree = "<group>"; };
+		F266AAC41E857D080004D341 /* PostingViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewTests.swift; sourceTree = "<group>"; };
 		F266AACB1E857D660004D341 /* LoginCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinatorTests.swift; sourceTree = "<group>"; };
 		F266AACC1E857D660004D341 /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		F266AACD1E857D660004D341 /* LoginViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewTests.swift; sourceTree = "<group>"; };
@@ -298,8 +298,8 @@
 		F2CE76D01E5093BA00140C78 /* MockKeychainManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockKeychainManager.swift; sourceTree = "<group>"; };
 		F2CE76D11E5093BA00140C78 /* URLRequestStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestStub.swift; sourceTree = "<group>"; };
 		F2CE76D61E53388700140C78 /* MockUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockUserDefaults.swift; sourceTree = "<group>"; };
-		F2CE76DA1E548E3A00140C78 /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		F2CE76DE1E54923A00140C78 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		F2CE76DA1E548E3A00140C78 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
+		F2CE76DE1E54923A00140C78 /* PostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		F2CE76E31E54F3A900140C78 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSettingsCell.swift; sourceTree = "<group>"; };
@@ -583,10 +583,10 @@
 		F2CE76D81E548DE000140C78 /* Posting */ = {
 			isa = PBXGroup;
 			children = (
-				F2CE76DE1E54923A00140C78 /* PostView.swift */,
-				F266AAC41E857D080004D341 /* PostViewTests.swift */,
-				F2CE76DA1E548E3A00140C78 /* PostViewController.swift */,
-				F266AAC31E857D080004D341 /* PostViewControllerTests.swift */,
+				F2CE76DE1E54923A00140C78 /* PostingView.swift */,
+				F266AAC41E857D080004D341 /* PostingViewTests.swift */,
+				F2CE76DA1E548E3A00140C78 /* PostingViewController.swift */,
+				F266AAC31E857D080004D341 /* PostingViewControllerTests.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -1079,11 +1079,11 @@
 				F246C2191E902A700027E159 /* Content+CoreDataClass.swift in Sources */,
 				F2E3D70A1E9D2F7600635A5C /* AccountsCoordinator.swift in Sources */,
 				F2E3D7041E9D06B700635A5C /* PostCell.swift in Sources */,
-				F2CE76DF1E54923A00140C78 /* PostView.swift in Sources */,
+				F2CE76DF1E54923A00140C78 /* PostingView.swift in Sources */,
 				F25549E81E6AF63700CE5D14 /* SettingsViewController.swift in Sources */,
 				F246C2141E8FFF3C0027E159 /* User+CoreDataProperties.swift in Sources */,
 				F246C2131E8FFF3C0027E159 /* User+CoreDataClass.swift in Sources */,
-				F2CE76DB1E548E3A00140C78 /* PostViewController.swift in Sources */,
+				F2CE76DB1E548E3A00140C78 /* PostingViewController.swift in Sources */,
 				F2E3D7001E9CD82B00635A5C /* CoordinatingProtocols.swift in Sources */,
 				F25549EA1E6AF96C00CE5D14 /* SettingsCoordinator.swift in Sources */,
 				F2E492661E37FF45000C7187 /* AppDelegate.swift in Sources */,
@@ -1122,7 +1122,7 @@
 				F266AAD11E857D6D0004D341 /* LoginCoordinatorTests.swift in Sources */,
 				F266AAE01E857E5C0004D341 /* MainCoordinatorTests.swift in Sources */,
 				F266AAD31E857D6D0004D341 /* LoginViewTests.swift in Sources */,
-				F266AAC91E857D120004D341 /* PostViewControllerTests.swift in Sources */,
+				F266AAC91E857D120004D341 /* PostingViewControllerTests.swift in Sources */,
 				F2E3D7131E9D426200635A5C /* NavigationControllerMock.swift in Sources */,
 				F246C2571E92DEA60027E159 /* TagTests.swift in Sources */,
 				F246C24B1E90C28E0027E159 /* LinkTests.swift in Sources */,
@@ -1132,7 +1132,7 @@
 				F246C2451E9034110027E159 /* ContentTests.swift in Sources */,
 				F246C2911E982B390027E159 /* URLRequestStub.swift in Sources */,
 				F246C2161E9002560027E159 /* UserTests.swift in Sources */,
-				F266AACA1E857D120004D341 /* PostViewTests.swift in Sources */,
+				F266AACA1E857D120004D341 /* PostingViewTests.swift in Sources */,
 				F266AAB91E857A050004D341 /* TextSettingsCellTests.swift in Sources */,
 				F2DA1FC21E9BCB7A004E43E7 /* PostsCoordinatorTests.swift in Sources */,
 			);

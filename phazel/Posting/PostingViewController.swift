@@ -5,26 +5,29 @@
 import UIKit
 import Roaster
 
-protocol PostViewControllerDelegate: class {
-//    func viewDidAppear(viewController: PostViewController)
-    func postDidSucceed(viewController: PostViewController, with postId: String)
-    func postDidFail(viewController: PostViewController, with error: Error)
-    func showInfo(viewController: PostViewController)
+protocol PostingViewControllerDelegate: class {
+////    func viewDidAppear(viewController: PostingViewController)
+//    func postsDidSucceed(viewController: PostingViewController, with postId: String)
+//    func postsDidFail(viewController: PostingViewController, with error: Error)
+//    func showInfo(viewController: PostingViewController)
+    func send(text: String, replyTo: String?)
 }
 
-class PostViewController: UIViewController {
+class PostingViewController: UIViewController {
 
-    let contentView: PostViewProtocol
-    let apiClient: APIClientProtocol
-    weak var delegate: PostViewControllerDelegate?
+    let contentView: PostingViewProtocol
+//    let apiClient: APIClientProtocol
+    weak var delegate: PostingViewControllerDelegate?
     fileprivate var bottomConstraint: NSLayoutConstraint?
     
-    init(contentView: PostViewProtocol, apiClient: APIClientProtocol) {
+    init(contentView: PostingViewProtocol) {
         
         self.contentView = contentView
-        self.apiClient = apiClient
+//        self.apiClient = apiClient
         
         super.init(nibName: nil, bundle: nil)
+
+        edgesForExtendedLayout = []
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,7 +48,6 @@ class PostViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: .keyboardWillShow, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
-        
         title = "Create a nut"
     }
     
@@ -63,7 +65,6 @@ class PostViewController: UIViewController {
         contentView.topView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10).isActive = true
         bottomConstraint = contentView.topView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -10)
         bottomConstraint?.isActive = true
-        
     }
     
     func keyboardWillShow(sender: NSNotification) {
@@ -75,27 +76,28 @@ class PostViewController: UIViewController {
     }
 }
 
-extension PostViewController: PostProtocol {
+extension PostingViewController: PostProtocol {
     func send() {
         guard let text = contentView.text else { return }
         contentView.set(animating: true)
-        apiClient.post(text: text, replyTo: nil) { result in
-            
-            self.contentView.set(animating: false)
-            
-            switch result {
-            case .success(let postId):
-                self.contentView.update(with: nil)
-                self.delegate?.postDidSucceed(viewController: self, with: postId)
-            case .failure(let error):
-                self.contentView.update(with: error)
-                self.delegate?.postDidFail(viewController: self, with: error)
-            }
-        }
+//        apiClient.post(text: text, replyTo: nil) { result in
+//            
+//            self.contentView.set(animating: false)
+//            
+//            switch result {
+//            case .success(let postId):
+//                self.contentView.update(with: nil)
+//                self.delegate?.postDidSucceed(viewController: self, with: postId)
+//            case .failure(let error):
+//                self.contentView.update(with: error)
+//                self.delegate?.postDidFail(viewController: self, with: error)
+//            }
+//        }
+        delegate?.send(text: text, replyTo: nil)
     }
 }
 
 fileprivate extension Selector {
-    static let keyboardWillShow = #selector(PostViewController.keyboardWillShow(sender:))
+    static let keyboardWillShow = #selector(PostingViewController.keyboardWillShow(sender:))
 }
 

@@ -83,7 +83,7 @@ class PostCell: UICollectionViewCell {
             self.avatarImageView.image = nil
             if let userContent = user.content, let avatarImage = userContent.avatarImage, let link = avatarImage.link, let url = URL(string: link) {
                 let apiClient = APIClient(userDefaults: UserDefaults())
-                apiClient.data(url: url) { result in
+                apiClient.imageData(url: url) { result in
                     if case .success(let data) = result {
                         if let image = UIImage(data: data), self.usernameLabel.text == username {
                             self.avatarImageView.image = image

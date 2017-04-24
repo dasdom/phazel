@@ -5,7 +5,7 @@
 import UIKit
 import DDHFoundation
 
-class PostView: DDHView {
+class PostingView: DDHView {
     
     let textView: DDHTextView
     let sendButton: DDHButton
@@ -94,7 +94,7 @@ class PostView: DDHView {
     }
 }
 
-extension PostView: PostViewProtocol {
+extension PostingView: PostingViewProtocol {
     
     var topView: UIView {
         return stackView
@@ -171,7 +171,7 @@ extension PostView: PostViewProtocol {
 }
 
 // MARK: - UITextViewDelegate
-extension PostView: UITextViewDelegate {
+extension PostingView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         
         updateCountLabel(for: textView.text)
@@ -189,7 +189,7 @@ extension PostView: UITextViewDelegate {
 }
 
 // MARK: - Helper
-extension PostView {
+extension PostingView {
     fileprivate var remainingCharacters: Int {
         return 256 - textView.text.characters.count
     }
@@ -205,7 +205,7 @@ extension PostView {
     }
 }
 
-protocol PostViewProtocol {
+protocol PostingViewProtocol {
     var topView: UIView { get }
     var text: String? { get }
     func update(with error: Error?)

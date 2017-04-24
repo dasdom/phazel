@@ -7,7 +7,7 @@ import Roaster
 import DDHFoundation
 import CoreData
 
-final class PostsCoordinator: NavigationCoordinating {
+final class PostsCoordinator: NSObject, NavigationCoordinating {
     
     let rootViewController: UINavigationController
     var viewController: PostsCollectionViewController?
@@ -28,18 +28,6 @@ final class PostsCoordinator: NavigationCoordinating {
         self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-//    func start() {
-//        let postsViewController = PostsCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), dataSource: CollectionViewDataSource(), backgroundContext: persistentContainer.newBackgroundContext(), apiClient: apiClient)//PostViewController(contentView: PostView(), apiClient: apiClient)
-//        postsViewController.delegate = self
-//        childViewControllers.append(postsViewController)
-//        
-//        let navigationController = UINavigationController(rootViewController: postsViewController)
-//        navigationController.navigationBar.isTranslucent = false
-//        navigationController.navigationBar.barTintColor = AppColors.bar
-//        navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: AppColors.barText]
-//        window.rootViewController = navigationController
-//    }
-    
     func createViewController() -> PostsCollectionViewController {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
@@ -51,22 +39,59 @@ final class PostsCoordinator: NavigationCoordinating {
     func config(_ viewController: PostsCollectionViewController) {
         viewController.delegate = self
         
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: nil, action: nil)
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showPosting))
         
         guard let collectionView = viewController.collectionView else { fatalError() }
         let fetchRequestController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         dataSource = CollectionViewDataSource(collectionView: collectionView, fetchedResultsController: fetchRequestController, delegate: self)
         viewController.dataSource = dataSource
     }
+    
+    func showPosting() {
+        let postingViewController = PostingViewController(contentView: PostingView())
+        postingViewController.delegate = self
+        let navigationController = UINavigationController(rootViewController: postingViewController)
+        
+        viewController?.present(navigationController, animated: false, completion: nil)
+    }
+    
+    func showInfo() {
+        let navigationController = UINavigationController()
+        viewController?.present(navigationController, animated: true, completion: nil)
+        
+        settingsCoordinator = SettingsCoordinator(rootViewController: navigationController, userDefaults: UserDefaults())
+        settingsCoordinator?.delegate = self
+        settingsCoordinator?.start()
+    }
+}
+
+// MARK: - PostingViewControllerDelegate
+extension PostsCoordinator: PostingViewControllerDelegate {
+    func send(text: String, replyTo: String?) {
+        
+        dismiss()
+        
+        apiClient.post(text: text, replyTo: replyTo) { result in
+            switch result {
+            case .success(let postId):
+                print("success posting: \(postId)")
+            case .failure(let error):
+                let alertController = UIAlertController(title: "Posting error", message: error.localizedDescription, preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                alertController.addAction(UIAlertAction(title: "Try again", style: .default, handler: { action in
+                    self.send(text: text, replyTo: replyTo)
+                }))
+                    
+                self.viewController?.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 // MARK: - PostsCollectionViewControllerDelegate
 extension PostsCoordinator: PostsCollectionViewControllerDelegate {
-    
-}
-
-// MARK: - PostViewControllerDelegate
-extension PostsCoordinator: PostViewControllerDelegate {
     
     func viewDidAppear(viewController: UIViewController) {
         if !apiClient.isLoggedIn() {
@@ -76,24 +101,14 @@ extension PostsCoordinator: PostViewControllerDelegate {
         }
     }
     
-    func postDidSucceed(viewController: PostViewController, with postId: String) {
-        
+    func postDidSucceed(viewController: PostingViewController, with postId: String) {
     }
     
-    func postDidFail(viewController: PostViewController, with error: Error) {
+    func postDidFail(viewController: PostingViewController, with error: Error) {
         let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         viewController.present(alertController, animated: true, completion: nil)
-    }
-    
-    func showInfo(viewController: PostViewController) {
-        let navigationController = UINavigationController()
-        viewController.present(navigationController, animated: true, completion: nil)
-        
-        settingsCoordinator = SettingsCoordinator(rootViewController: navigationController, userDefaults: UserDefaults())
-        settingsCoordinator?.delegate = self
-        settingsCoordinator?.start()
     }
 }
 

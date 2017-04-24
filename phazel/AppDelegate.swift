@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         guard let window = window else { fatalError() }
         window.tintColor = AppColors.tint
+        window.backgroundColor = UIColor.white
         mainCoordinator = MainCoordinator(window: window)
         mainCoordinator?.start()
         

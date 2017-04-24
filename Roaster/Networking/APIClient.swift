@@ -101,7 +101,8 @@ final public class APIClient: APIClientProtocol {
         print(">>> url: \(url)")
         var request = URLRequest(url: url)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
+        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
 
@@ -150,6 +151,7 @@ final public class APIClient: APIClientProtocol {
         request.httpBody = data
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
 //        let dataString = String(data: data, encoding: .utf8)
 //        print("dataString: \(dataString)")
@@ -169,9 +171,45 @@ final public class APIClient: APIClientProtocol {
         dataTask.resume()
     }
     
-    public func data(url: URL, completion: @escaping (Result<Data>) -> ()) {
+    public func imageData(url: URL, completion: @escaping (Result<Data>) -> ()) {
+        guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+            fatalError()
+        }
+        let imagesPath = "\(documentsPath)/images"
+        if !FileManager.default.isWritableFile(atPath: imagesPath) {
+            try! FileManager.default.createDirectory(at: URL(fileURLWithPath: imagesPath), withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        let fileName = url.lastPathComponent
+        let pathURL = URL(fileURLWithPath: "\(imagesPath)/\(fileName)")
+        if let data = try? Data(contentsOf: pathURL) {
+            let result = Result(value: data, error: nil)
+            completion(result)
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+        
         let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) { data, _, error in
+        let dataTask = session.dataTask(with: request) { data, _, error in
+            
+            DispatchQueue.main.async {
+                let result = Result(value: data, error: error)
+                try! data?.write(to: pathURL, options: .atomic)
+                completion(result)
+            }
+        }
+        dataTask.resume()
+    }
+    
+    public func data(url: URL, completion: @escaping (Result<Data>) -> ()) {
+        
+        var request = URLRequest(url: url)
+        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request) { data, _, error in
             
             DispatchQueue.main.async {
                 let result = Result(value: data, error: error)

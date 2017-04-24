@@ -6,14 +6,14 @@ import XCTest
 @testable import phazel
 import DDHFoundation
 
-class PostViewTests: XCTestCase {
+class PostingViewTests: XCTestCase {
     
-    var sut: PostView!
+    var sut: PostingView!
     
     override func setUp() {
         super.setUp()
 
-        sut = PostView()
+        sut = PostingView()
     }
     
     override func tearDown() {
@@ -25,7 +25,7 @@ class PostViewTests: XCTestCase {
     func test_init_withCoder() {
         let archiver = NSKeyedArchiver(forWritingWith: NSMutableData())
         
-        let localSUT = PostView(coder: archiver)
+        let localSUT = PostingView(coder: archiver)
         
         XCTAssertNil(localSUT)
     }

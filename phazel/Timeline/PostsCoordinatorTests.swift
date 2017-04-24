@@ -65,11 +65,29 @@ extension PostsCoordinatorTests {
         XCTAssertNotNil(viewController.dataSource)
     }
     
-    func test_stat_setsNavigationItems_ofViewController() {
+    func test_start_setsNavigationItems_ofViewController() {
         sut.start()
         
         guard let viewController = sut.viewController else { return XCTFail() }
         XCTAssertNotNil(viewController.navigationItem.rightBarButtonItem)
+    }
+    
+    func test_start_setsComposeNavigationItem_withTargetAndAction() {
+        sut.start()
+        
+        guard let viewController = sut.viewController else { return XCTFail() }
+        guard let target = viewController.navigationItem.rightBarButtonItem?.target as? PostsCoordinator else { return XCTFail() }
+        guard let action = viewController.navigationItem.rightBarButtonItem?.action else { return XCTFail() }
+        // Inject mock view to record the presentation of the view controller
+        let postsViewControllerMock = PostsCollectionViewControllerMock(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: MockAPIClient())
+        sut.viewController = postsViewControllerMock
+        target.perform(action)
+        
+        guard let presentedViewController = postsViewControllerMock.inTestPresentedViewController as? UINavigationController else {
+            return XCTFail()
+        }
+        guard let postingViewController = presentedViewController.viewControllers.first as? PostingViewController else { return XCTFail() }
+        XCTAssertTrue(postingViewController.delegate is PostsCoordinator)
     }
     
     func test_configure_callsConfigure_onCell() {
@@ -85,12 +103,22 @@ extension PostsCoordinatorTests {
 
 // MARK: - Posting
 extension PostsCoordinatorTests {
-    func test_postDidFail_showsAlert() {
-        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
+    func test_send_callsAPIClientMethod() {
+        sut.send(text: "foo", replyTo: nil)
         
-        sut.postDidFail(viewController: mockViewController, with: NSError(domain: "Foo", code: 42, userInfo: nil))
-
-        XCTAssertTrue(mockViewController.inTestPresentedViewController is UIAlertController)
+        XCTAssertEqual(apiClient.postedText, "foo")
+    }
+    
+    func test_sendFailure_presentsAlert() {
+        let result = Result<String>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil))
+        let mockAPIClient = MockAPIClient(result: result)
+        let postsViewControllerMock = PostsCollectionViewControllerMock(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: mockAPIClient)
+        sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: mockAPIClient, userDefaults: userDefaults, persistentContainer: container)
+        sut.viewController = postsViewControllerMock
+        
+        sut.send(text: "Foo", replyTo: nil)
+        
+        XCTAssertTrue(postsViewControllerMock.inTestPresentedViewController is UIAlertController)
     }
 }
 
@@ -148,18 +176,16 @@ extension PostsCoordinatorTests {
 extension PostsCoordinatorTests {
     func test_showInfo_presentsSettingsViewController() {
         sut.start()
-        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
 
-        sut.showInfo(viewController: mockViewController)
+        sut.showInfo()
         
         XCTAssertNotNil(sut.settingsCoordinator?.viewController)
     }
     
     func test_showInfo_setsDelegate_ofSettingsCoordinator() {
         sut.start()
-        let mockViewController = MockPostViewController(contentView: PostView(), apiClient: MockAPIClient())
         
-        sut.showInfo(viewController: mockViewController)
+        sut.showInfo()
         
         guard let coordinator = sut.settingsCoordinator else { return XCTFail() }
         XCTAssertTrue(coordinator.delegate is PostsCoordinator)
@@ -170,7 +196,7 @@ extension PostsCoordinatorTests {
 // MARK: - Mocks
 extension PostsCoordinatorTests {
     
-    class MockPostViewController: PostViewController {
+    class PostsCollectionViewControllerMock: PostsCollectionViewController {
         
         var inTestPresentedViewController: UIViewController?
 
@@ -182,11 +208,21 @@ extension PostsCoordinatorTests {
     class MockAPIClient: APIClientProtocol {
         
         var _isLoggedIn = false
+        var postedText: String?
+        var stringResult: Result<String>?
+        
+        init(result: Result<String>? = nil) {
+            stringResult = result
+        }
         
         func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
         }
         
         func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
+            postedText = text
+            if let result = stringResult {
+                completion(result)
+            }
         }
         
         func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {

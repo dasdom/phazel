@@ -8,6 +8,9 @@ import Roaster
 
 protocol PostsCollectionViewControllerDelegate: class {
     func viewDidAppear(viewController: UIViewController)
+//    func postDidSucceed(viewController: PostViewController, with postId: String)
+//    func postDidFail(viewController: PostViewController, with error: Error)
+//    func showInfo(viewController: PostViewController)
 }
 
 class PostsCollectionViewController: UICollectionViewController {

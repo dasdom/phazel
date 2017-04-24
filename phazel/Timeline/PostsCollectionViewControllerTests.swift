@@ -10,6 +10,9 @@ import Roaster
 class PostsCollectionViewControllerTests: XCTestCase {
     
     var container: NSPersistentContainer!
+    var sut: PostsCollectionViewController!
+    var layout: UICollectionViewFlowLayout!
+    var apiClient: MockAPIClient!
     
     override func setUp() {
         super.setUp()
@@ -22,21 +25,27 @@ class PostsCollectionViewControllerTests: XCTestCase {
         container?.persistentStoreDescriptions = [description]
         
         container?.loadPersistentStores { _, _ in }
+        
+        let resultArray: [[String:Any]] = [["id": "42"]]
+        layout = UICollectionViewFlowLayout()
+        apiClient = MockAPIClient(result: Result(value: resultArray, error: nil))
+        sut = PostsCollectionViewController(collectionViewLayout: layout, backgroundContext: container.newBackgroundContext(), apiClient: apiClient)
     }
     
     override func tearDown() {
         container = nil
+        layout = nil
+        apiClient = nil
+        sut = nil
         
         super.tearDown()
     }
     
     func test_loadView_loadsPosts() throws {
-        let resultArray: [[String:Any]] = [["id": "42"]]
-        let localSUT = PostsCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: MockAPIClient(result: Result(value: resultArray, error: nil)))
         expectation(forNotification: NSNotification.Name.NSManagedObjectContextDidSave.rawValue, object: nil, handler: nil)
         
-        localSUT.beginAppearanceTransition(true, animated: false)
-        localSUT.endAppearanceTransition()
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
         
         waitForExpectations(timeout: 1) { error in
             var posts: [Post] = []
@@ -49,17 +58,13 @@ class PostsCollectionViewControllerTests: XCTestCase {
     }
     
     func test_loadingPosts_callsLoading_WithSinceId() {
-        let resultArray: [[String:Any]] = [["id": "42"]]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        let layout = UICollectionViewFlowLayout()
         let dataSource = CollectionViewDataSourceMock(collectionView: UICollectionView(frame: CGRect.zero, collectionViewLayout: layout), fetchedResultsController: fetchedResultsController, delegate: nil)
         dataSource.storedPost = Post(dict: ["id": "23"], context: container.viewContext)
-        let apiClient = MockAPIClient(result: Result(value: resultArray, error: nil))
-        let localSUT = PostsCollectionViewController(collectionViewLayout: layout, backgroundContext: container.newBackgroundContext(), apiClient: apiClient)
-        localSUT.dataSource = dataSource
+        sut.dataSource = dataSource
         
-        localSUT.beginAppearanceTransition(true, animated: false)
-        localSUT.endAppearanceTransition()
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
         
         XCTAssertEqual(apiClient.catchedSince, 23)
     }
@@ -75,7 +80,6 @@ extension PostsCollectionViewControllerTests {
             return storedPost!
         }
     }
-    
     
     class MockAPIClient: APIClientProtocol {
         
