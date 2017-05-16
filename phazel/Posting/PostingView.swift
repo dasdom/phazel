@@ -101,7 +101,12 @@ extension PostingView: PostingViewProtocol {
     }
     
     var text: String? {
-        return textView.text
+        get {
+            return textView.text
+        }
+        set {
+            textView.text = newValue
+        }
     }
     
     func update(with error: Error?) {
@@ -207,7 +212,7 @@ extension PostingView {
 
 protocol PostingViewProtocol {
     var topView: UIView { get }
-    var text: String? { get }
+    var text: String? { get set }
     func update(with error: Error?)
     func setFirstResponder()
     func set(animating: Bool)

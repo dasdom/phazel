@@ -18,4 +18,8 @@ public class DDHImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    public func makeScrollFastOn(backgroundColor color: UIColor) {
+        isOpaque = true
+        backgroundColor = color
+    }
 }

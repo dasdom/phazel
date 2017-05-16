@@ -305,6 +305,12 @@ extension APIClient {
     }
     
     fileprivate var currentUsername: String? {
-        return userDefaults.string(forKey: UserDefaultsKey.username.rawValue)
+        let username = userDefaults.string(forKey: UserDefaultsKey.username.rawValue)
+//        if username == nil {
+//            let userDefaultsDict = userDefaults.dictionaryRepresentation()
+//            
+//            print("userDefaultsDict: \(userDefaultsDict)")
+//        }
+        return username
     }
 }

@@ -4,7 +4,6 @@
 
 import XCTest
 import Roaster
-import CoreData
 @testable import phazel
 
 class PostsCoordinatorTests: XCTestCase {
@@ -13,29 +12,18 @@ class PostsCoordinatorTests: XCTestCase {
     var window: UIWindow!
     var apiClient: MockAPIClient!
     let userDefaults = UserDefaults()
-    var container: NSPersistentContainer!
 
     override func setUp() {
         super.setUp()
-
-        container = NSPersistentContainer(name: "Roaster")
-        
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        description.configuration = "Default"
-        container?.persistentStoreDescriptions = [description]
-        
-        container?.loadPersistentStores { _, _ in }
         
         apiClient = MockAPIClient()
-        sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: apiClient, userDefaults: userDefaults, persistentContainer: container)
+        sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: apiClient, userDefaults: userDefaults)
     }
     
     override func tearDown() {
         sut = nil
         window = nil
         apiClient = nil
-        container = nil
         
         super.tearDown()
     }
@@ -54,8 +42,8 @@ extension PostsCoordinatorTests {
         sut.start()
         
         guard let viewController = sut.viewController else { return XCTFail() }
-        guard let dataSource = viewController.collectionView?.dataSource else { return XCTFail() }
-        XCTAssertTrue(dataSource is CollectionViewDataSource<PostsCoordinator>)
+        guard let dataSource = viewController.tableView?.dataSource else { return XCTFail() }
+        XCTAssertTrue(dataSource is TableViewDataSource<PostsCoordinator>)
     }
     
     func test_start_setsDataSourceOfViewController() {
@@ -79,7 +67,7 @@ extension PostsCoordinatorTests {
         guard let target = viewController.navigationItem.rightBarButtonItem?.target as? PostsCoordinator else { return XCTFail() }
         guard let action = viewController.navigationItem.rightBarButtonItem?.action else { return XCTFail() }
         // Inject mock view to record the presentation of the view controller
-        let postsViewControllerMock = PostsCollectionViewControllerMock(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: MockAPIClient())
+        let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())
         sut.viewController = postsViewControllerMock
         target.perform(action)
         
@@ -93,11 +81,28 @@ extension PostsCoordinatorTests {
     func test_configure_callsConfigure_onCell() {
         let cell = PostCellMock()
         let dict = ["id": "23"]
-        let post = Post(dict: dict, context: container.viewContext)
+        let post = Post(dict: dict)
         
         sut.configure(cell, for: post)
         
         XCTAssertEqual(cell.post, post)
+    }
+    
+    func test_reply_presentsPostingViewController() {
+        sut.start()
+        let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())
+        sut.viewController = postsViewControllerMock
+        let dict = ["id": "23"]
+        let post = Post(dict: dict)
+
+        sut.reply(to: post)
+        
+        guard let presentedViewController = postsViewControllerMock.inTestPresentedViewController as? UINavigationController else {
+            return XCTFail()
+        }
+        guard let postingViewController = presentedViewController.viewControllers.first as? PostingViewController else { return XCTFail() }
+        XCTAssertTrue(postingViewController.delegate is PostsCoordinator)
+        XCTAssertEqual(postingViewController.postToReplyTo, post)
     }
 }
 
@@ -112,8 +117,8 @@ extension PostsCoordinatorTests {
     func test_sendFailure_presentsAlert() {
         let result = Result<String>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil))
         let mockAPIClient = MockAPIClient(result: result)
-        let postsViewControllerMock = PostsCollectionViewControllerMock(collectionViewLayout: UICollectionViewFlowLayout(), backgroundContext: container.newBackgroundContext(), apiClient: mockAPIClient)
-        sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: mockAPIClient, userDefaults: userDefaults, persistentContainer: container)
+        let postsViewControllerMock = PostsViewControllerMock(apiClient: mockAPIClient)
+        sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: mockAPIClient, userDefaults: userDefaults)
         sut.viewController = postsViewControllerMock
         
         sut.send(text: "Foo", replyTo: nil)
@@ -196,7 +201,7 @@ extension PostsCoordinatorTests {
 // MARK: - Mocks
 extension PostsCoordinatorTests {
     
-    class PostsCollectionViewControllerMock: PostsCollectionViewController {
+    class PostsViewControllerMock: PostsViewController {
         
         var inTestPresentedViewController: UIViewController?
 
@@ -262,7 +267,7 @@ extension PostsCoordinatorTests {
         
         var post: Post?
         
-        override func configure(with post: Post) {
+        override func configure(with post: Post, loadImage: Bool = true) {
             self.post = post
         }
     }

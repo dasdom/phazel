@@ -17,4 +17,9 @@ public class DDHTextView: UITextView {
         return nil
     }
 
+    public func makeScrollFastOn(backgroundColor color: UIColor) {
+        for subview in subviews {
+            subview.backgroundColor = color
+        }
+    }
 }

@@ -209,14 +209,23 @@ extension APIClientTests {
         URLRequestStub.stub(data: data, expect: expectation(description: "Login request"))
         
         var catchedError: Error? = nil
+        var catchesResult: Result<LoginUser>? = nil
         localSUT.login(username: "Foo", password: "Bar") { result in
+            catchesResult = result
             if case .failure(let requestError) = result {
                 catchedError = requestError
+            } else {
+                print(result)
             }
         }
         
         waitForExpectations(timeout: 1) { _ in
-            guard let unwrappedError = catchedError else { return XCTFail() }
+            guard let unwrappedError = catchedError else {
+                print("catchedResult: \(String(describing: catchesResult))")
+                print("catchedError: \(String(describing: catchedError))")
+                fatalError()
+//                return XCTFail()
+            }
             XCTAssertEqual(unwrappedError as NSError, NSError(domain: "DDHPnutAPIError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Not Found"]))
             XCTAssertNil(mockKeychainManager.token)
         }

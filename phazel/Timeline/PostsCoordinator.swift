@@ -5,54 +5,57 @@
 import UIKit
 import Roaster
 import DDHFoundation
-import CoreData
 
 final class PostsCoordinator: NSObject, NavigationCoordinating {
     
     let rootViewController: UINavigationController
-    var viewController: PostsCollectionViewController?
-    fileprivate var dataSource: CollectionViewDataSource<PostsCoordinator>?
+    var viewController: PostsViewController?
+    fileprivate var dataSource: TableViewDataSource<PostsCoordinator>?
     fileprivate let apiClient: APIClientProtocol
     fileprivate let userDefaults: UserDefaults
 //    fileprivate var childViewControllers: [UIViewController] = []
-    fileprivate let persistentContainer: NSPersistentContainer
     var settingsCoordinator: SettingsCoordinator?
     var loginCoordinator: LoginCoordinator?
     
-    init(rootViewController: UINavigationController, apiClient: APIClientProtocol, userDefaults: UserDefaults, persistentContainer: NSPersistentContainer) {
+    init(rootViewController: UINavigationController, apiClient: APIClientProtocol, userDefaults: UserDefaults) {
         self.rootViewController = rootViewController
         self.apiClient = apiClient
         self.userDefaults = userDefaults
-        self.persistentContainer = persistentContainer
-        
-        self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
     }
     
-    func createViewController() -> PostsCollectionViewController {
-        let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
-        layout.minimumLineSpacing = 1
-        let postsViewController = PostsCollectionViewController(collectionViewLayout: layout, backgroundContext: persistentContainer.newBackgroundContext(), apiClient: apiClient)
+    func createViewController() -> PostsViewController {
+//        let layout = UICollectionViewFlowLayout()
+//        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
+//        layout.minimumLineSpacing = 1
+        let postsViewController = PostsViewController(apiClient: apiClient)
         return postsViewController
     }
     
-    func config(_ viewController: PostsCollectionViewController) {
+    func config(_ viewController: PostsViewController) {
         viewController.delegate = self
         
-        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showPosting))
+        viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(compose))
         
-        guard let collectionView = viewController.collectionView else { fatalError() }
-        let fetchRequestController = NSFetchedResultsController(fetchRequest: Post.sortedFetchRequest(), managedObjectContext: persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-        dataSource = CollectionViewDataSource(collectionView: collectionView, fetchedResultsController: fetchRequestController, delegate: self)
+        guard let tableView = viewController.tableView else { fatalError() }
+//        tableView.rowHeight = 100
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 100
+        
+        dataSource = TableViewDataSource(tableView: tableView, delegate: self)
+//        dataSource = CollectionViewDataSource(collectionView: collectionView, fetchedResultsController: fetchRequestController, delegate: self)
         viewController.dataSource = dataSource
     }
     
-    func showPosting() {
-        let postingViewController = PostingViewController(contentView: PostingView())
+    func compose() {
+        showPosting()
+    }
+    
+    func showPosting(replyTo post: Post? = nil) {
+        let postingViewController = PostingViewController(contentView: PostingView(), replyTo: post)
         postingViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: postingViewController)
         
-        viewController?.present(navigationController, animated: false, completion: nil)
+        viewController?.present(navigationController, animated: true, completion: nil)
     }
     
     func showInfo() {
@@ -91,7 +94,7 @@ extension PostsCoordinator: PostingViewControllerDelegate {
 }
 
 // MARK: - PostsCollectionViewControllerDelegate
-extension PostsCoordinator: PostsCollectionViewControllerDelegate {
+extension PostsCoordinator: PostsViewControllerDelegate {
     
     func viewDidAppear(viewController: UIViewController) {
         if !apiClient.isLoggedIn() {
@@ -99,6 +102,10 @@ extension PostsCoordinator: PostsCollectionViewControllerDelegate {
             loginCoordinator?.delegate = self
             loginCoordinator?.start()
         }
+    }
+    
+    func reply(to post: Post) {
+        showPosting(replyTo: post)
     }
     
     func postDidSucceed(viewController: PostingViewController, with postId: String) {
@@ -129,7 +136,7 @@ extension PostsCoordinator: SettingsCoordinatorDelegate {
     }
 }
 
-extension PostsCoordinator: CollectionViewDataSourceDelegate {
+extension PostsCoordinator: TableViewDataSourceDelegate {
     func configure(_ cell: PostCell, for object: Post) {
         cell.configure(with: object)
     }

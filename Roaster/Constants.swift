@@ -9,7 +9,7 @@ enum JSONKey: String {
 }
 
 public enum UserDefaultsKey: String {
-    case username, accounts
+    case username, accounts, alreadyScrolledToLastAfterFirstStart
 }
 
 public enum DictionaryKey: String {

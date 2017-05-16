@@ -30,7 +30,7 @@ final class MainCoordinator: CoodinatorProtocol {
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
 
-        timelineCoordinator = PostsCoordinator(rootViewController: navigationController, apiClient: apiClient, userDefaults: userDefaults, persistentContainer: persistentContainer)
+        timelineCoordinator = PostsCoordinator(rootViewController: navigationController, apiClient: apiClient, userDefaults: userDefaults)
         timelineCoordinator?.start()
     }
 }

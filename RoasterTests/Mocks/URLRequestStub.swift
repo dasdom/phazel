@@ -47,7 +47,7 @@ class URLRequestStub: URLProtocol {
                 self.client?.urlProtocolDidFinishLoading(self)
                 URLProtocol.unregisterClass(URLRequestStub.self)
                 DispatchQueue.main.async {
-                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.005)
+                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.05)
                 }
             }
         } else if let error = URLRequestStub.error {
@@ -56,7 +56,7 @@ class URLRequestStub: URLProtocol {
                 URLRequestStub.error = nil
                 URLProtocol.unregisterClass(URLRequestStub.self)
                 DispatchQueue.main.async {
-                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.005)
+                    URLRequestStub.expectation?.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.05)
                 }
             }
         } else {

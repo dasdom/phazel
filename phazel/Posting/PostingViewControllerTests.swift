@@ -3,6 +3,7 @@
 //
 
 import XCTest
+import CoreData
 import Roaster
 @testable import phazel
 
@@ -10,9 +11,19 @@ class PostingViewControllerTests: XCTestCase {
     
     var sut: PostingViewController!
     var mockView: MockView!
-    
+    var container: NSPersistentContainer!
+
     override func setUp() {
         super.setUp()
+        
+        container = NSPersistentContainer(name: "Roaster")
+        
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        description.configuration = "Default"
+        container?.persistentStoreDescriptions = [description]
+        
+        container?.loadPersistentStores { _, _ in }
 
         mockView = MockView()
         sut = PostingViewController(contentView: mockView)
@@ -38,62 +49,18 @@ class PostingViewControllerTests: XCTestCase {
         XCTAssertEqual(delegateMock.text, "Foo")
     }
     
-//    func test_send_callsAPIClientMethod() {
-//        let mockAPIClient = MockAPIClient(result: Result(value: "42", error: nil))
-//        let localSUT = PostingViewController(contentView: MockView())
-//        
-//        localSUT.send()
-//        
-//        XCTAssertEqual(mockAPIClient.text, "Foo")
-//    }
-//    
-//    func test_send_callsDelegateMethod_whenSuccessful() {
-//        let mockAPIClient = MockAPIClient(result: Result(value: "42", error: nil))
-//        let localSUT = PostingViewController(contentView: MockView())
-//        let mockDelegate = MockPostingViewControllerDelegate()
-//        localSUT.delegate = mockDelegate
-//        
-//        localSUT.send()
-//        
-//        XCTAssertEqual(mockDelegate.postId, "42")
-//    }
-//    
-//    func test_send_callsDelegateMethod_whenFailed() {
-//        let result = Result<String>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil))
-//        let localSUT = PostingViewController(contentView: MockView())
-//        let mockDelegate = MockPostingViewControllerDelegate()
-//        localSUT.delegate = mockDelegate
-//        
-//        localSUT.send()
-//        
-//        guard case .failure(let error) = result else { return XCTFail() }
-//        guard let catchedError = mockDelegate.error else { return XCTFail() }
-//        XCTAssertEqual(catchedError as NSError, error as NSError)
-//    }
-//    
-//    func test_send_callsReset_whenSuccessful() {
-//        let mockAPIClient = MockAPIClient(result: Result(value: "42", error: nil))
-//        let mockView = MockView()
-//        let localSUT = PostingViewController(contentView: mockView, apiClient: mockAPIClient)
-//        
-//        localSUT.send()
-//        
-//        XCTAssertTrue(mockView.resetted)
-//    }
-//    
-//    func test_send_doesNotCallReset_whenFailed() {
-//        let mockAPIClient = MockAPIClient(result: Result<String>(value: nil, error: NSError(domain: "TestError", code: 1234, userInfo: nil)))
-//        let mockView = MockView()
-//        let localSUT = PostingViewController(contentView: mockView, apiClient: mockAPIClient)
-//        
-//        localSUT.send()
-//        
-//        XCTAssertFalse(mockView.resetted)
-//    }
-    
-//    func test_hasLeftNavigationItem() {
-//        XCTAssertNotNil(sut.navigationItem.leftBarButtonItem)
-//    }
+    func test_send_callsSendWithReply() {
+        let dict = ["id": "23"]
+        let post = Post(dict: dict)
+        let localSUT = PostingViewController(contentView: mockView, replyTo: post)
+        let delegateMock = MockPostingViewControllerDelegate()
+        mockView.textToReturn = "Foo"
+        localSUT.delegate = delegateMock
+        
+        localSUT.send()
+        
+        XCTAssertEqual(delegateMock.replyTo, "23")
+    }
 }
 
 extension PostingViewControllerTests {
@@ -103,7 +70,12 @@ extension PostingViewControllerTests {
         var textToReturn: String?
         
         var text: String? {
-            return "Foo"
+            get {
+                return textToReturn
+            }
+            set {
+                
+            }
         }
         
         func update(with error: Error?) {

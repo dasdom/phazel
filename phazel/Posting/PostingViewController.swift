@@ -15,15 +15,20 @@ protocol PostingViewControllerDelegate: class {
 
 class PostingViewController: UIViewController {
 
-    let contentView: PostingViewProtocol
+    var contentView: PostingViewProtocol
 //    let apiClient: APIClientProtocol
     weak var delegate: PostingViewControllerDelegate?
     fileprivate var bottomConstraint: NSLayoutConstraint?
+    var postToReplyTo: Post?
     
-    init(contentView: PostingViewProtocol) {
+    init(contentView: PostingViewProtocol, replyTo: Post? = nil) {
         
         self.contentView = contentView
+        if let username = replyTo?.user?.username {
+            self.contentView.text = "@\(username) "
+        }
 //        self.apiClient = apiClient
+        postToReplyTo = replyTo
         
         super.init(nibName: nil, bundle: nil)
 
@@ -93,7 +98,7 @@ extension PostingViewController: PostProtocol {
 //                self.delegate?.postDidFail(viewController: self, with: error)
 //            }
 //        }
-        delegate?.send(text: text, replyTo: nil)
+        delegate?.send(text: text, replyTo: postToReplyTo?.id)
     }
 }
 
