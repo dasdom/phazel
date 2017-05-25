@@ -33,6 +33,7 @@ class PostCell: UITableViewCell {
         timeLabel = DDHLabel()
         timeLabel.font = UIFont.preferredFont(forTextStyle: .caption2)
         timeLabel.makeScrollFastOn(backgroundColor: AppColors.background)
+        timeLabel.textAlignment = .right
         
         postTextView = DDHTextView()
         postTextView.font = UIFont.preferredFont(forTextStyle: .body)
@@ -51,6 +52,7 @@ class PostCell: UITableViewCell {
         replyButton = DDHButton(type: .system)
         replyButton.setTitle("Reply", for: .normal)
         replyButton.addTarget(nil, action: .reply, for: .touchUpInside)
+//        replyButton.backgroundColor = UIColor.brown
         
         buttonStackView = UIStackView(arrangedSubviews: [replyButton])
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,13 +71,21 @@ class PostCell: UITableViewCell {
         contentView.addSubview(sourceLabel)
         contentView.addSubview(buttonStackView)
         
-        let avatarLeading: CGFloat = 8
-        let avatarTop: CGFloat = 8
-        let avatarWidth: CGFloat = 60
-        let usernameLeading: CGFloat = avatarLeading
-        let textLabelTrailing: CGFloat = avatarLeading
-        let textLabelTop: CGFloat = 5
-        let textLabelBottom: CGFloat = textLabelTop
+//        let avatarX: CGFloat = 8
+//        let avatarTop: CGFloat = 8
+//        let avatarWidth: CGFloat = 60
+//        let usernameLeading: CGFloat = avatarX
+//        let textLabelTrailing: CGFloat = avatarX
+//        let textLabelTop: CGFloat = 5
+//        let textLabelBottom: CGFloat = textLabelTop
+        
+//        let screenBounds = UIScreen.main.bounds
+        
+//        avatarImageView.frame = CGRect(x: avatarX, y: avatarTop, width: avatarWidth, height: avatarWidth)
+//        usernameLabel.frame = CGRect(x: avatarImageView.frame.maxX, y: avatarTop, width: screenBounds.width * 0.6, height: 10)
+//        usernameLabel.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleBottomMargin]
+//        timeLabel.frame = CGRect(x: usernameLabel.frame.maxX + 5, y: usernameLabel.frame.minY, width: 10, height: 10)
+//        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
 //        bottomConstraint = sourceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -sourceLabelBottom)
 //        guard let bottomConstraint = bottomConstraint else { fatalError() }
@@ -86,20 +96,20 @@ class PostCell: UITableViewCell {
         stackViewBottomConstraint.constant = 30
         
         NSLayoutConstraint.activate([
-            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: avatarLeading),
-            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarTop),
-            avatarImageView.widthAnchor.constraint(equalToConstant: avatarWidth),
-            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: usernameLeading),
-            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
-            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
-            timeLabel.topAnchor.constraint(equalTo: usernameLabel.topAnchor),
-            postTextView.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
-            postTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
-            postTextView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: textLabelTop),
-            postTextView.bottomAnchor.constraint(equalTo: sourceLabel.topAnchor, constant: -textLabelBottom),
-            sourceLabel.leadingAnchor.constraint(equalTo: postTextView.leadingAnchor),
-//            bottomConstraint,
+//            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: avatarLeading),
+//            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarTop),
+//            avatarImageView.widthAnchor.constraint(equalToConstant: avatarWidth),
+//            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
+//            usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: usernameLeading),
+//            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
+//            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
+//            timeLabel.topAnchor.constraint(equalTo: usernameLabel.topAnchor),
+//            postTextView.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
+//            postTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
+//            postTextView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: textLabelTop),
+//            postTextView.bottomAnchor.constraint(equalTo: sourceLabel.topAnchor, constant: -textLabelBottom),
+//            sourceLabel.leadingAnchor.constraint(equalTo: postTextView.leadingAnchor),
+////            bottomConstraint,
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackViewBottomConstraint
@@ -108,13 +118,35 @@ class PostCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    func configure(with post: Post, loadImage: Bool = true) {
+    func configure(with post: Post, forPresentation: Bool = true) {
+        
+        guard post.isDeleted == false else { return }
+        
+        setUserInfo(for: post, forPresentation: forPresentation)
+        setText(for: post)
+        
+        if let sourceName = post.sourceName {
+            sourceLabel.text = "via \(sourceName)"
+        }
+        
+        if forPresentation {
+            setDateInfo(for: post)
+        }
+        
+        layout(forPresentation: forPresentation)
+    }
+    
+    func setUserInfo(for post: Post, forPresentation: Bool) {
+        
         if let user = post.user, let username = user.username {
             usernameLabel.text = username
             
             self.avatarImageView.image = nil
-            if let userContent = user.content, let avatarImage = userContent.avatarImage, let link = avatarImage.link, let url = URL(string: link), loadImage {
-               
+            
+            guard forPresentation else { return }
+            
+            if let userContent = user.content, let avatarImage = userContent.avatarImage, let link = avatarImage.link, let url = URL(string: link) {
+                
                 let apiClient = APIClient(userDefaults: UserDefaults())
                 apiClient.imageData(url: url) { result in
                     if case .success(let data) = result {
@@ -126,13 +158,15 @@ class PostCell: UITableViewCell {
                 }
             }
         }
-        
+    }
+    
+    func setText(for post: Post) {
         if let content = post.content, let text = content.text {
             let attributedText = NSMutableAttributedString(string: text)
             
             if let mentions = content.mentions {
                 for mention in mentions {
-                   attributedText.addAttribute(NSForegroundColorAttributeName, value: AppColors.mention, range: NSMakeRange(Int(mention.pos), Int(mention.len)))
+                    attributedText.addAttribute(NSForegroundColorAttributeName, value: AppColors.mention, range: NSMakeRange(Int(mention.pos), Int(mention.len)))
                 }
             }
             
@@ -151,11 +185,9 @@ class PostCell: UITableViewCell {
             attributedText.addAttribute(NSFontAttributeName, value: UIFont.preferredFont(forTextStyle: .body), range: NSMakeRange(0, attributedText.length))
             postTextView.attributedText = attributedText
         }
-        
-        if let sourceName = post.sourceName {
-            sourceLabel.text = "via \(sourceName)"
-        }
-        
+    }
+    
+    func setDateInfo(for post: Post) {
         if let creationDate = post.creationDate {
             var value = 0
             let timeInterval = -Int(creationDate.timeIntervalSinceNow)
@@ -176,19 +208,58 @@ class PostCell: UITableViewCell {
 }
 
 extension PostCell {
-    func toggleExpansion() {
-//        guard let constant = bottomConstraint?.constant else { fatalError() }
-//        let compress = constant < -sourceLabelBottom
-//        self.buttonStackView.isHidden = false
-//        bottomConstraint?.constant = compress ? -sourceLabelBottom : -expandedSourceLabelBottom
-//        stackViewBottomConstraint?.constant = compress ? buttonStackView.frame.size.height : 0
-//        self.buttonStackView.alpha = compress ? 1.0 : 0.0
-//        UIView.animate(withDuration: 0.2, animations: {
-//            self.layoutIfNeeded()
-//            self.buttonStackView.alpha = compress ? 0.0 : 1.0
-//        }) { (finished) in
-//            self.buttonStackView.isHidden = compress
-//        }
+    
+//    override func layoutSubviews() {
+//        layout()
+//    }
+    
+    func layout(forPresentation: Bool) {
+        let avatarX: CGFloat = 8
+        let avatarTop: CGFloat = 8
+        let avatarWidth: CGFloat = 60
+        
+        let screenBounds = UIScreen.main.bounds
+
+        usernameLabel.frame = CGRect(x: avatarX + avatarWidth + 8, y: avatarTop, width: screenBounds.width * 0.6, height: 0)
+        usernameLabel.sizeToFit()
+        
+        if forPresentation {            
+            avatarImageView.frame = CGRect(x: avatarX, y: avatarTop, width: avatarWidth, height: avatarWidth)
+            
+            timeLabel.autoresizingMask = [.flexibleLeftMargin]
+            timeLabel.sizeToFit()
+            timeLabel.frame.origin = CGPoint(x: screenBounds.width - timeLabel.frame.size.width - 8, y: usernameLabel.frame.minY)
+        }
+        
+        let postTextWidth = screenBounds.width - 3 * 8 - avatarWidth
+//        postTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let size = postTextView.sizeThatFits(CGSize(width: postTextWidth, height: CGFloat.greatestFiniteMagnitude))
+        postTextView.frame = CGRect(x: usernameLabel.frame.minX, y: usernameLabel.frame.maxY + 5, width: postTextWidth, height: size.height)
+        
+        sourceLabel.frame = CGRect(x: usernameLabel.frame.minX, y: postTextView.frame.maxY + 5, width: 0, height: 0)
+        sourceLabel.sizeToFit()
+    }
+}
+
+extension PostCell {
+    func showButtons() {
+        self.buttonStackView.isHidden = false
+        stackViewBottomConstraint?.constant = 0
+        UIView.animate(withDuration: 0.2, animations: {
+            self.buttonStackView.alpha = 1.0
+            self.layoutIfNeeded()
+        })
+    }
+    
+    func hideButtons() {
+        self.buttonStackView.isHidden = false
+        stackViewBottomConstraint?.constant = 30
+        UIView.animate(withDuration: 0.2, animations: {
+            self.buttonStackView.alpha = 0.0
+            self.layoutIfNeeded()
+        }) { finished in
+            self.buttonStackView.isHidden = true
+        }
     }
 }
 

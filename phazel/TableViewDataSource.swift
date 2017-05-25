@@ -33,10 +33,12 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     }
 
     func object(at indexPath: IndexPath) -> Object? {
+        guard dataArray.count > indexPath.row else { return nil }
         return dataArray[indexPath.row]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("Number of rows: \(dataArray.count)")
         return dataArray.count
     }
     
@@ -48,6 +50,32 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         delegate?.configure(cell, for: post)
         
         return cell
+    }
+    
+    func add(posts: [Object]) {
+        
+        contentSizeBefore = tableView.contentSize
+        
+        dataArray = posts + dataArray
+        
+        tableView.reloadData()
+        
+        let contentSizeAfter = tableView.contentSize
+        let currentContentOffset = tableView.contentOffset
+        
+        if let contentSizeBefore = contentSizeBefore {
+            let newOffsetY = currentContentOffset.y + contentSizeAfter.height - contentSizeBefore.height - 64
+            print("newOffsetY: \(newOffsetY)")
+            tableView.setContentOffset(CGPoint(x: 0, y: newOffsetY), animated: false)
+        }
+
+        let maxNumberOfShownPosts = 1000
+        if dataArray.count > maxNumberOfShownPosts {
+            dataArray.removeLast(dataArray.count - maxNumberOfShownPosts)
+        }
+        
+        tableView.reloadData()
+        
     }
     
 }

@@ -85,19 +85,6 @@ extension PostingViewController: PostProtocol {
     func send() {
         guard let text = contentView.text else { return }
         contentView.set(animating: true)
-//        apiClient.post(text: text, replyTo: nil) { result in
-//            
-//            self.contentView.set(animating: false)
-//            
-//            switch result {
-//            case .success(let postId):
-//                self.contentView.update(with: nil)
-//                self.delegate?.postDidSucceed(viewController: self, with: postId)
-//            case .failure(let error):
-//                self.contentView.update(with: error)
-//                self.delegate?.postDidFail(viewController: self, with: error)
-//            }
-//        }
         delegate?.send(text: text, replyTo: postToReplyTo?.id)
     }
 }

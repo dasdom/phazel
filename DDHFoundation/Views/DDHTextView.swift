@@ -8,7 +8,8 @@ public class DDHTextView: UITextView {
 
     override public init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
-        translatesAutoresizingMaskIntoConstraints = false
+//        translatesAutoresizingMaskIntoConstraints = false
+//        backgroundColor = UIColor.lightGray
         
         textColor = AppColors.text
     }

@@ -64,6 +64,30 @@ class TableViewDataSourceTests: XCTestCase {
         XCTAssertEqual(delegate.lastPost, post)
         XCTAssertNotNil(delegate.lastCell)
     }
+    
+    func test_addPosts_addsPosts() {
+        let post = Post(dict: ["id": "23"])
+        sut.dataArray = [post]
+        
+        sut.add(posts: [Post(dict: ["id": "42"])])
+        
+        XCTAssertEqual(sut.dataArray.count, 2)
+    }
+    
+    func test_addPosts_removesOldPosts_ifCountIsGreaterThan200() {
+        var posts = [Post]()
+        for i in 0..<1000 {
+            let post = Post(dict: ["id": "\(i)"])
+            posts.append(post)
+        }
+        sut.dataArray = posts
+        XCTAssertEqual(sut.dataArray.count, 1000)
+
+        sut.add(posts: [Post(dict: ["id": "42"])])
+        
+        XCTAssertEqual(sut.dataArray.first?.id, "42")
+        XCTAssertEqual(sut.dataArray.count, 1000)
+    }
 }
 
 // *********************************

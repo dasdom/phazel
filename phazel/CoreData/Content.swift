@@ -70,9 +70,24 @@ extension Content: NSCoding {
         dict[PnutKey.text.rawValue] = aDecoder.decodeObject(of: NSString.self, forKey: PnutKey.text.rawValue)
         
         self.init(dict: dict)
+        
+        links = aDecoder.decodeObject(forKey: PnutKey.links.rawValue) as? [Link]
+        mentions = aDecoder.decodeObject(forKey: PnutKey.mentions.rawValue) as? [Mention]
+        tags = aDecoder.decodeObject(forKey: PnutKey.tags.rawValue) as? [Tag]
+        
+        avatarImage = aDecoder.decodeObject(forKey: PnutKey.avatar_image.rawValue) as? Image
+        avatarImage?.content = self
+        
+        coverImage = aDecoder.decodeObject(forKey: PnutKey.cover_image.rawValue) as? Image
+        coverImage?.content = self
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(text, forKey: PnutKey.text.rawValue)
+        aCoder.encode(links, forKey: PnutKey.links.rawValue)
+        aCoder.encode(mentions, forKey: PnutKey.mentions.rawValue)
+        aCoder.encode(tags, forKey: PnutKey.tags.rawValue)
+        aCoder.encode(avatarImage, forKey: PnutKey.avatar_image.rawValue)
+        aCoder.encode(coverImage, forKey: PnutKey.cover_image.rawValue)
     }
 }

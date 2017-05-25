@@ -48,10 +48,10 @@ final public class APIClient: APIClientProtocol {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, taskError in
             
-//            if let data = data {
-//                let dataString = String(data: data, encoding: .utf8)
-//                print("dataString: \(dataString)")
-//            }
+            //            if let data = data {
+            //                let dataString = String(data: data, encoding: .utf8)
+            //                print("dataString: \(dataString)")
+            //            }
             
             var error = taskError
             if let meta = self.extractMeta(from: data) {
@@ -84,7 +84,7 @@ final public class APIClient: APIClientProtocol {
                     }
                 }
             }
-
+            
         }
         dataTask.resume()
     }
@@ -102,28 +102,31 @@ final public class APIClient: APIClientProtocol {
         var request = URLRequest(url: url)
         request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
-
+        
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
-
-            guard error == nil else {
-                return completion(Result(value: nil, error: error))
-            }
             
-            guard let unwrappedData = data else {
-                return completion(Result(value: nil, error: NSError(domain: "DDHDataNil", code: 1003, userInfo: nil)))
-            }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: unwrappedData, options: [])
-                guard let jsonDict = json as? [String:Any], let arrayOfDicts = jsonDict["data"] as? [[String:Any]] else {
-                    return completion(Result(value: nil, error: NSError(domain: "DDHJSONNotArrayOfDictionarys", code: 1004, userInfo: nil)))
+            DispatchQueue.main.async {
+                
+                guard error == nil else {
+                    return completion(Result(value: nil, error: error))
                 }
                 
-                let result = Result(value: arrayOfDicts, error: nil)
-                completion(result)
-            } catch {
-                completion(Result(value: nil, error: error))
+                guard let unwrappedData = data else {
+                    return completion(Result(value: nil, error: NSError(domain: "DDHDataNil", code: 1003, userInfo: nil)))
+                }
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: unwrappedData, options: [])
+                    guard let jsonDict = json as? [String:Any], let arrayOfDicts = jsonDict["data"] as? [[String:Any]] else {
+                        return completion(Result(value: nil, error: NSError(domain: "DDHJSONNotArrayOfDictionarys", code: 1004, userInfo: nil)))
+                    }
+                    
+                    let result = Result(value: arrayOfDicts, error: nil)
+                    completion(result)
+                } catch {
+                    completion(Result(value: nil, error: error))
+                }
             }
         }
         dataTask.resume()
@@ -138,7 +141,7 @@ final public class APIClient: APIClientProtocol {
         guard let token = keychainManager.token(for: username) else {
             return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         var postDict = ["text": text]
@@ -153,14 +156,14 @@ final public class APIClient: APIClientProtocol {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
-//        let dataString = String(data: data, encoding: .utf8)
-//        print("dataString: \(dataString)")
+        //        let dataString = String(data: data, encoding: .utf8)
+        //        print("dataString: \(dataString)")
         
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
             
-//            let dataString = String(data: data!, encoding: .utf8)
-//            print("dataString: \(dataString)")
+            //            let dataString = String(data: data!, encoding: .utf8)
+            //            print("dataString: \(dataString)")
             
             DispatchQueue.main.async {
                 let postId = self.extractPostId(from: data)
@@ -172,6 +175,7 @@ final public class APIClient: APIClientProtocol {
     }
     
     public func imageData(url: URL, completion: @escaping (Result<Data>) -> ()) {
+        
         guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             fatalError()
         }
@@ -182,10 +186,17 @@ final public class APIClient: APIClientProtocol {
         
         let fileName = url.lastPathComponent
         let pathURL = URL(fileURLWithPath: "\(imagesPath)/\(fileName)")
-        if let data = try? Data(contentsOf: pathURL) {
-            let result = Result(value: data, error: nil)
-            completion(result)
-            return
+
+        let backgroundQueue = DispatchQueue(label: "Image loading", qos: .background)
+        backgroundQueue.async {
+            if let data = try? Data(contentsOf: pathURL) {
+                //            print("image from disk")
+                let result = Result(value: data, error: nil)
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+                return
+            }
         }
         
         var request = URLRequest(url: url)
@@ -194,11 +205,17 @@ final public class APIClient: APIClientProtocol {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { data, _, error in
             
-            DispatchQueue.main.async {
-                let result = Result(value: data, error: error)
-                try! data?.write(to: pathURL, options: .atomic)
-                completion(result)
+            if let data = data {
+                let image = UIImage(data: data)?.imageScaled(to: CGSize(width: 200, height: 200))
+                let imageData = UIImageJPEGRepresentation(image!, 0.5)
+                
+                DispatchQueue.main.async {
+                    let result = Result(value: imageData, error: error)
+                    try! imageData?.write(to: pathURL, options: .atomic)
+                    completion(result)
+                }
             }
+            
         }
         dataTask.resume()
     }
@@ -218,7 +235,7 @@ final public class APIClient: APIClientProtocol {
         }
         dataTask.resume()
     }
-
+    
 }
 
 //MARK: - Helper
@@ -236,11 +253,11 @@ extension APIClient {
     }
     
     fileprivate var secretsDict: [String:String]? {
-//        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
-//        guard let secretURL = url else { fatalError("No file at \(url)") }
-//        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
-//        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
-//        return secretsDict as? [String:String]
+        //        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
+        //        guard let secretURL = url else { fatalError("No file at \(url)") }
+        //        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
+        //        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
+        //        return secretsDict as? [String:String]
         return Secrets.secrets
     }
 }
@@ -269,18 +286,18 @@ extension APIClient {
         return LoginUser(id: userId, username: username)
     }
     
-//    fileprivate func extractPosts(from data: Data?) -> [Post]? {
-//        guard let jsonDict = jsonDict(from: data) else { return nil }
-//        guard let allRawPosts = jsonDict[JSONKey.data.rawValue] as? [[String:Any]] else { return nil }
-//        
-//        var posts: [Post] = []
-//        for rawPost in allRawPosts {
-//            if let post = Post(with: rawPost) {
-//                posts.append(post)
-//            }
-//        }
-//        return posts
-//    }
+    //    fileprivate func extractPosts(from data: Data?) -> [Post]? {
+    //        guard let jsonDict = jsonDict(from: data) else { return nil }
+    //        guard let allRawPosts = jsonDict[JSONKey.data.rawValue] as? [[String:Any]] else { return nil }
+    //
+    //        var posts: [Post] = []
+    //        for rawPost in allRawPosts {
+    //            if let post = Post(with: rawPost) {
+    //                posts.append(post)
+    //            }
+    //        }
+    //        return posts
+    //    }
     
     fileprivate func extractPostId(from data: Data?) -> String? {
         guard let jsonDict = jsonDict(from: data) else { return nil }
@@ -306,11 +323,21 @@ extension APIClient {
     
     fileprivate var currentUsername: String? {
         let username = userDefaults.string(forKey: UserDefaultsKey.username.rawValue)
-//        if username == nil {
-//            let userDefaultsDict = userDefaults.dictionaryRepresentation()
-//            
-//            print("userDefaultsDict: \(userDefaultsDict)")
-//        }
+        //        if username == nil {
+        //            let userDefaultsDict = userDefaults.dictionaryRepresentation()
+        //            
+        //            print("userDefaultsDict: \(userDefaultsDict)")
+        //        }
         return username
+    }
+}
+
+extension UIImage {
+    func imageScaled(to size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
 }

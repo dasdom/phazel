@@ -63,6 +63,7 @@ class PostingViewControllerTests: XCTestCase {
     }
 }
 
+// MARK: - Mocks
 extension PostingViewControllerTests {
     class MockView: UIView, PostingViewProtocol {
         

@@ -9,7 +9,7 @@ public class DDHLabel: UILabel {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         
-        translatesAutoresizingMaskIntoConstraints = false
+//        translatesAutoresizingMaskIntoConstraints = false
 //        backgroundColor = UIColor.yellow
     }
     

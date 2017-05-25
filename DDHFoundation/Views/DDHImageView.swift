@@ -8,7 +8,7 @@ public class DDHImageView: UIImageView {
     
     public init() {
         super.init(frame: CGRect.zero)
-        translatesAutoresizingMaskIntoConstraints = false
+//        translatesAutoresizingMaskIntoConstraints = false
         
 //        layer.borderColor = UIColor.black.cgColor
 //        layer.borderWidth = 1

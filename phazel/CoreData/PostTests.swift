@@ -51,6 +51,13 @@ class PostTests: XCTestCase {
         XCTAssertEqual(post.youReposted, true)
     }
     
+    func test_init_setsIsDeleted() {
+        let dict = ["is_deleted": true]
+        let post = Post(dict: dict)
+        
+        XCTAssertEqual(post.isDeleted, true)
+    }
+    
     func test_init_setsCountsBookmarks() {
         let dict = ["counts": ["bookmarks": 23]]
         let post = Post(dict: dict)
@@ -175,6 +182,16 @@ extension PostTests {
         XCTAssertEqual(unarchivedPost.youReposted, true)
     }
     
+    func test_unarchive_setsIsDeleted() {
+        let dict = ["is_deleted": true]
+        let post = Post(dict: dict)
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: post)
+        guard let unarchivedPost = NSKeyedUnarchiver.unarchiveObject(with: data) as? Post else { return XCTFail() }
+        
+        XCTAssertEqual(unarchivedPost.isDeleted, true)
+    }
+    
     func test_unarchive_setsCountsBookmarks() {
         let dict = ["counts": ["bookmarks": 23]]
         let post = Post(dict: dict)
@@ -244,5 +261,16 @@ extension PostTests {
         
         XCTAssertEqual(unarchivedPost.content?.text, "foo")
         XCTAssertTrue(unarchivedPost.content?.post === unarchivedPost)
+    }
+    
+    func test_unarchive_setsUserId() {
+        let dict = ["user": ["id": "23"]]
+        let post = Post(dict: dict)
+        
+        let data = NSKeyedArchiver.archivedData(withRootObject: post)
+        guard let unarchivedPost = NSKeyedUnarchiver.unarchiveObject(with: data) as? Post else { return XCTFail() }
+        
+        XCTAssertEqual(unarchivedPost.user?.id, "23")
+        XCTAssertTrue(unarchivedPost.user?.post === unarchivedPost)
     }
 }

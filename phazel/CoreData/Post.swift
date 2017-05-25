@@ -13,6 +13,7 @@ final class Post: NSObject {
     fileprivate(set) var threadId: String?
     fileprivate(set) var youBookmarked: Bool
     fileprivate(set) var youReposted: Bool
+    fileprivate(set) var isDeleted: Bool
     fileprivate(set) var numberOfBookmarks: Int
     fileprivate(set) var numberOfReplies: Int
     fileprivate(set) var numberOfReposts: Int
@@ -30,6 +31,7 @@ final class Post: NSObject {
         threadId = dict[PnutKey.thread_id.rawValue] as? String
         youBookmarked = dict[PnutKey.you_bookmarked.rawValue] as? Bool ?? false
         youReposted = dict[PnutKey.you_reposted.rawValue] as? Bool ?? false
+        isDeleted = dict[PnutKey.is_deleted.rawValue] as? Bool ?? false
         
         if let counts = dict[PnutKey.counts.rawValue] as? [String:Int] {
             numberOfBookmarks = counts[PnutKey.bookmarks.rawValue] ?? 0
@@ -74,6 +76,7 @@ final class Post: NSObject {
         case thread_id
         case you_bookmarked
         case you_reposted
+        case is_deleted
         case content
         case counts
         case bookmarks
@@ -103,7 +106,7 @@ extension Post: NSCoding {
             dict[keyString] = createdAt
         }
         
-        let boolKeys: [PnutKey] = [.you_bookmarked, .you_reposted]
+        let boolKeys: [PnutKey] = [.you_bookmarked, .you_reposted, .is_deleted]
         for key in boolKeys {
             let keyString = key.rawValue
             dict[keyString] = aDecoder.decodeObject(of: NSNumber.self, forKey: keyString)
@@ -129,6 +132,9 @@ extension Post: NSCoding {
         
         content = aDecoder.decodeObject(of: Content.self, forKey: PnutKey.content.rawValue)
         content?.post = self
+        
+        user = aDecoder.decodeObject(of: User.self, forKey: PnutKey.user.rawValue)
+        user?.post = self
     }
     
     func encode(with aCoder: NSCoder) {
@@ -146,7 +152,8 @@ extension Post: NSCoding {
         }
         
         let bools: [PnutKey:Bool] = [.you_bookmarked: youBookmarked,
-                                     .you_reposted: youReposted]
+                                     .you_reposted: youReposted,
+                                     .is_deleted: isDeleted]
         for (key, value) in bools {
             let boolNumber = NSNumber(booleanLiteral: value)
             aCoder.encode(boolNumber, forKey: key.rawValue)
@@ -168,5 +175,6 @@ extension Post: NSCoding {
         }
         
         aCoder.encode(content, forKey: PnutKey.content.rawValue)
+        aCoder.encode(user, forKey: PnutKey.user.rawValue)
     }
 }

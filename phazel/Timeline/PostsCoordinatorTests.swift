@@ -104,6 +104,24 @@ extension PostsCoordinatorTests {
         XCTAssertTrue(postingViewController.delegate is PostsCoordinator)
         XCTAssertEqual(postingViewController.postToReplyTo, post)
     }
+    
+    func test_postingViewController_cancelButtonAction_dismisses() {
+        sut.start()
+        let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())
+        sut.viewController = postsViewControllerMock
+        let post = Post(dict: ["id": "23"])
+        sut.reply(to: post)
+        guard let presentedViewController = postsViewControllerMock.inTestPresentedViewController as? UINavigationController else {
+            return XCTFail()
+        }
+        guard let postingViewController = presentedViewController.viewControllers.first as? PostingViewController else { return XCTFail() }
+        guard let target = postingViewController.navigationItem.leftBarButtonItem?.target as? PostsCoordinator else { return XCTFail() }
+        guard let action = postingViewController.navigationItem.leftBarButtonItem?.action else { return XCTFail() }
+        
+        target.perform(action)
+
+        XCTAssertEqual(postsViewControllerMock.dismissCallCount, 1)
+    }
 }
 
 // MARK: - Posting
@@ -204,9 +222,14 @@ extension PostsCoordinatorTests {
     class PostsViewControllerMock: PostsViewController {
         
         var inTestPresentedViewController: UIViewController?
-
+        var dismissCallCount = 0
+        
         override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
             inTestPresentedViewController = viewControllerToPresent
+        }
+        
+        override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+            dismissCallCount += 1
         }
     }
     

@@ -55,7 +55,13 @@ final class PostsCoordinator: NSObject, NavigationCoordinating {
         postingViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: postingViewController)
         
+        postingViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
+        
         viewController?.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func dismiss() {
+        viewController?.dismiss(animated: true, completion: nil)
     }
     
     func showInfo() {

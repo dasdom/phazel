@@ -27,14 +27,42 @@ class PostsViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    func test_loadView_loadsPosts() throws {
+    func test_viewWillAppear_fetchesPosts_withSinceId() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23"])
+        sut.dataSource = dataSourceMock
         
         sut.beginAppearanceTransition(true, animated: false)
         sut.endAppearanceTransition()
         
-        
+        XCTAssertEqual(apiClient.catchedSince, 23)
     }
     
+    func test_fetchedPosts_areSentToDataSource() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23"])
+        sut.dataSource = dataSourceMock
+        
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
+        
+        XCTAssertEqual(dataSourceMock.addedPosts?.count, 1)
+    }
+    
+    func test_serializesPosts_inWillDisappear() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23"])
+        sut.dataSource = dataSourceMock
+        dataSourceMock.dataArray = []
+        sut.beginAppearanceTransition(true, animated: false)
+        sut.endAppearanceTransition()
+
+        let newSUT = PostsViewController(apiClient: apiClient)
+        let newDataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        newSUT.dataSource = newDataSourceMock
+        
+        XCTAssertEqual(newSUT.dataSource?.dataArray.count, 1)
+    }
 }
 
 extension PostsViewControllerTests {
@@ -43,12 +71,17 @@ extension PostsViewControllerTests {
         
         var storedPost: Post?
         var lastIndexPath: IndexPath?
+        var addedPosts: [Post]?
         
         override func object(at indexPath: IndexPath) -> Post {
             lastIndexPath = indexPath
             return storedPost!
         }
-
+        
+        override func add(posts: [Post]) {
+            addedPosts = posts
+            super.add(posts: posts)
+        }
     }
     
     class MockAPIClient: APIClientProtocol {
