@@ -17,7 +17,6 @@ class PostsViewControllerTests: XCTestCase {
         let resultArray: [[String:Any]] = [["id": "42"]]
         apiClient = MockAPIClient(result: Result(value: resultArray, error: nil))
         sut = PostsViewController(apiClient: apiClient)
-    
     }
     
     override func tearDown() {
@@ -63,55 +62,70 @@ class PostsViewControllerTests: XCTestCase {
         
         XCTAssertEqual(newSUT.dataSource?.dataArray.count, 1)
     }
+    
+    func test_link_atOffset_returnsLink() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23", "content": ["text": "foo", "entities": ["links": [["len": 23, "pos": 180, "link": "http://foo.com"]]]]])
+        sut.dataSource = dataSourceMock
+        
+        let returnedLink = sut.link(for: 180, at: IndexPath(row: 0, section: 0))
+        
+        XCTAssertEqual(returnedLink?.link, "http://foo.com")
+    }
 }
 
+// MARK: - Mocks
 extension PostsViewControllerTests {
     
-    class TableViewDataSourceMock: TableViewDataSource<PostsCoordinator> {
-        
-        var storedPost: Post?
-        var lastIndexPath: IndexPath?
-        var addedPosts: [Post]?
-        
-        override func object(at indexPath: IndexPath) -> Post {
-            lastIndexPath = indexPath
-            return storedPost!
-        }
-        
-        override func add(posts: [Post]) {
-            addedPosts = posts
-            super.add(posts: posts)
-        }
-    }
+//    class TableViewDataSourceMock: TableViewDataSource<PostsCoordinator> {
+//        
+//        var storedPost: Post?
+//        var lastIndexPath: IndexPath?
+//        var addedPosts: [Post]?
+//        
+//        override func object(at indexPath: IndexPath) -> Post {
+//            lastIndexPath = indexPath
+//            return storedPost!
+//        }
+//        
+//        override func add(posts: [Post]) {
+//            addedPosts = posts
+//            super.add(posts: posts)
+//        }
+//    }
     
-    class MockAPIClient: APIClientProtocol {
-        
-        let result: Result<[[String:Any]]>
-        var catchedBefore: Int?
-        var catchedSince: Int?
-        
-        init(result: Result<[[String:Any]]>) {
-            self.result = result
-        }
-        
-        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
-            
-        }
-        
-        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
-        
-        }
-        
-        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
-            catchedBefore = before
-            catchedSince = since
-            completion(result)
-        }
-        
-        func isLoggedIn() -> Bool {
-            return false
-        }
-    }
+//    class MockAPIClient: APIClientProtocol {
+//
+//        let result: Result<[[String:Any]]>
+//        var catchedBefore: Int?
+//        var catchedSince: Int?
+//
+//        init(result: Result<[[String:Any]]>) {
+//            self.result = result
+//        }
+//
+//        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
+//
+//        }
+//
+//        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
+//
+//        }
+//
+//        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
+//            catchedBefore = before
+//            catchedSince = since
+//            completion(result)
+//        }
+//
+//        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+//
+//        }
+//
+//        func isLoggedIn() -> Bool {
+//            return false
+//        }
+//    }
     
     class PostsViewControllerDelegateMock: PostsViewControllerDelegate {
         
@@ -121,8 +135,16 @@ extension PostsViewControllerTests {
             
         }
         
-        func reply(to post: Post) {
+        func reply(_ viewController: UIViewController, to post: Post) {
             lastRepliedPost = post
+        }
+        
+        func viewController(_: UIViewController, tappedLink: Link) {
+
+        }
+        
+        func viewController(_: UIViewController, tappedUser: User) {
+            
         }
     }
     

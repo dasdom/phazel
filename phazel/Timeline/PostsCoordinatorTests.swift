@@ -5,6 +5,7 @@
 import XCTest
 import Roaster
 @testable import phazel
+import SafariServices
 
 class PostsCoordinatorTests: XCTestCase {
     
@@ -95,7 +96,7 @@ extension PostsCoordinatorTests {
         let dict = ["id": "23"]
         let post = Post(dict: dict)
 
-        sut.reply(to: post)
+        sut.reply(postsViewControllerMock, to: post)
         
         guard let presentedViewController = postsViewControllerMock.inTestPresentedViewController as? UINavigationController else {
             return XCTFail()
@@ -110,7 +111,9 @@ extension PostsCoordinatorTests {
         let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())
         sut.viewController = postsViewControllerMock
         let post = Post(dict: ["id": "23"])
-        sut.reply(to: post)
+        
+        sut.reply(postsViewControllerMock, to: post)
+       
         guard let presentedViewController = postsViewControllerMock.inTestPresentedViewController as? UINavigationController else {
             return XCTFail()
         }
@@ -120,7 +123,27 @@ extension PostsCoordinatorTests {
         
         target.perform(action)
 
-        XCTAssertEqual(postsViewControllerMock.dismissCallCount, 1)
+        XCTAssertNil(sut.rootViewController.presentedViewController)
+    }
+    
+    func test_tappedLink_showsSafariViewController() {
+        sut.start()
+        let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())
+        sut.viewController = postsViewControllerMock
+    
+        sut.viewController(postsViewControllerMock, tappedLink: Link(dict: ["link": "http://foo.com"]))
+
+        XCTAssertTrue(postsViewControllerMock.inTestPresentedViewController is SFSafariViewController)
+    }
+    
+    func test_tappedUser_showsProfile() {
+        let navigationControllerMock = NavigationControllerMock(rootViewController: UIViewController())
+        let localSUT = PostsCoordinator(rootViewController: navigationControllerMock, apiClient: MockAPIClient(), userDefaults: userDefaults)
+        localSUT.start()
+        
+        localSUT.viewController(localSUT.viewController!, tappedUser: User(dict: ["id": "23"]))
+        
+        XCTAssertTrue(navigationControllerMock.lastPushedViewController is ProfileViewController)
     }
 }
 
@@ -256,6 +279,10 @@ extension PostsCoordinatorTests {
         func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
         
         }
+
+        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+            
+        }
         
         func isLoggedIn() -> Bool {
             return self._isLoggedIn
@@ -290,8 +317,17 @@ extension PostsCoordinatorTests {
         
         var post: Post?
         
-        override func configure(with post: Post, loadImage: Bool = true) {
+        override func configure(with post: Post, forPresentation: Bool = true) {
             self.post = post
+        }
+    }
+    
+    class NavigationControllerMock: UINavigationController {
+        
+        var lastPushedViewController: UIViewController?
+        
+        override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+            lastPushedViewController = viewController
         }
     }
 }

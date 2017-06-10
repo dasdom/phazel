@@ -20,6 +20,7 @@ final class Post: NSObject {
     fileprivate(set) var numberOfThreads: Int
     fileprivate(set) var sourceLink: String?
     fileprivate(set) var sourceName: String?
+    var isSelected = false
 
     fileprivate(set) var content: Content?
     fileprivate(set) var user: User?
@@ -87,6 +88,16 @@ final class Post: NSObject {
         case link
         case name
         case user
+    }
+    
+    func link(at offset: Int) -> Link? {
+        guard let links = content?.links else { return nil }
+        for link in links {
+            if link.pos <= offset, link.pos + link.len >= offset {
+                return link
+            }
+        }
+        return nil
     }
 }
 

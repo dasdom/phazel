@@ -5,12 +5,14 @@
 import UIKit
 import Roaster
 import DDHFoundation
+import SafariServices
 
 final class PostsCoordinator: NSObject, NavigationCoordinating {
     
     let rootViewController: UINavigationController
     var viewController: PostsViewController?
     fileprivate var dataSource: TableViewDataSource<PostsCoordinator>?
+    fileprivate var profileDataSource: TableViewDataSource<PostsCoordinator>?
     fileprivate let apiClient: APIClientProtocol
     fileprivate let userDefaults: UserDefaults
 //    fileprivate var childViewControllers: [UIViewController] = []
@@ -47,26 +49,27 @@ final class PostsCoordinator: NSObject, NavigationCoordinating {
     }
     
     func compose() {
-        showPosting()
+        guard let viewController = viewController else { fatalError() }
+        showPosting(from: viewController)
     }
     
-    func showPosting(replyTo post: Post? = nil) {
+    func showPosting(from viewController: UIViewController, replyTo post: Post? = nil) {
         let postingViewController = PostingViewController(contentView: PostingView(), replyTo: post)
         postingViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: postingViewController)
         
         postingViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
         
-        viewController?.present(navigationController, animated: true, completion: nil)
+        viewController.present(navigationController, animated: true, completion: nil)
     }
     
     func dismiss() {
-        viewController?.dismiss(animated: true, completion: nil)
+        rootViewController.dismiss(animated: true, completion: nil)
     }
     
     func showInfo() {
         let navigationController = UINavigationController()
-        viewController?.present(navigationController, animated: true, completion: nil)
+        rootViewController.present(navigationController, animated: true, completion: nil)
         
         settingsCoordinator = SettingsCoordinator(rootViewController: navigationController, userDefaults: UserDefaults())
         settingsCoordinator?.delegate = self
@@ -101,17 +104,20 @@ extension PostsCoordinator: PostingViewControllerDelegate {
 
 // MARK: - PostsCollectionViewControllerDelegate
 extension PostsCoordinator: PostsViewControllerDelegate {
-    
     func viewDidAppear(viewController: UIViewController) {
         if !apiClient.isLoggedIn() {
             loginCoordinator = LoginCoordinator(rootViewController: viewController, apiClient: apiClient)
             loginCoordinator?.delegate = self
             loginCoordinator?.start()
         }
+        
+        if viewController is PostsViewController {
+            profileDataSource = nil
+        }
     }
     
-    func reply(to post: Post) {
-        showPosting(replyTo: post)
+    func reply(_ viewController: UIViewController, to post: Post) {
+        showPosting(from: viewController, replyTo: post)
     }
     
     func postDidSucceed(viewController: PostingViewController, with postId: String) {
@@ -122,6 +128,33 @@ extension PostsCoordinator: PostsViewControllerDelegate {
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         
         viewController.present(alertController, animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: UIViewController, tappedLink: Link) {
+        guard let link = tappedLink.link, let url = URL(string: link) else { return }
+
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        let safariViewController = SFSafariViewController(url: url)
+        safariViewController.delegate = self        
+        viewController.present(safariViewController, animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: UIViewController, tappedUser: User) {
+      
+        let profileViewController = ProfileViewController(user: tappedUser, apiClient: apiClient)
+        
+        guard let tableView = profileViewController.tableView else { fatalError() }
+        profileDataSource = TableViewDataSource(tableView: tableView, delegate: self)
+        profileViewController.dataSource = profileDataSource
+        
+        rootViewController.pushViewController(profileViewController, animated: true)
+    }
+}
+
+extension PostsCoordinator: SFSafariViewControllerDelegate {
+    func safariViewController(_ controller: SFSafariViewController, didCompleteInitialLoad didLoadSuccessfully: Bool) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
 

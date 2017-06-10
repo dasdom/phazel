@@ -7,7 +7,9 @@ import Roaster
 
 protocol PostsViewControllerDelegate: class {
     func viewDidAppear(viewController: UIViewController)
-    func reply(to: Post)
+    func reply(_: UIViewController, to: Post)
+    func viewController(_: UIViewController, tappedLink: Link)
+    func viewController(_: UIViewController, tappedUser: User)
 }
 
 class PostsViewController: UITableViewController {
@@ -94,10 +96,6 @@ class PostsViewController: UITableViewController {
                 let tableViewWidth = tableView.bounds.size.width
                 dummyCell.frame.size = CGSize(width: tableViewWidth, height: 300)
                 dummyCell.configure(with: post, forPresentation: false)
-//                let usernameHeight = dummyCell.usernameLabel.sizeThatFits(CGSize(width: 0.6 * tableViewWidth, height: CGFloat(200))).height
-//                let postTextHeight = dummyCell.postTextView.sizeThatFits(CGSize(width: 0.7375 * tableViewWidth, height: CGFloat(10000))).height
-//                let sourceHeight = dummyCell.sourceLabel.sizeThatFits(CGSize(width: 0.7375 * tableViewWidth, height: CGFloat(200))).height
-//                height = 8 + usernameHeight + 8 + postTextHeight + 8 + sourceHeight + 8
                 height = dummyCell.sourceLabel.frame.maxY + 8
                 
                 if let postId = post.id {
@@ -111,21 +109,30 @@ class PostsViewController: UITableViewController {
         return height
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func selectCell(at indexPath: IndexPath) {
+
         tableView.beginUpdates()
         
         let cell = tableView.cellForRow(at: indexPath) as? PostCell
         if indexPathOfExpandedCell == indexPath {
             indexPathOfExpandedCell = nil
             cell?.hideButtons()
+            
+            let previousSelectedPost = dataSource?.object(at: indexPath)
+            previousSelectedPost?.isSelected = false
         } else {
             if let indexPathOfExpandedCell = indexPathOfExpandedCell {
                 let previousExpandedCell = tableView.cellForRow(at: indexPathOfExpandedCell) as? PostCell
                 previousExpandedCell?.hideButtons()
+                
+                let previousSelectedPost = dataSource?.object(at: indexPathOfExpandedCell)
+                previousSelectedPost?.isSelected = false
             }
             indexPathOfExpandedCell = indexPath
             cell?.showButtons()
+            
+            let selectedPost = dataSource?.object(at: indexPath)
+            selectedPost?.isSelected = true
         }
         
         tableView.endUpdates()
@@ -139,10 +146,52 @@ extension PostsViewController: CellActionsProtocol {
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
         guard let post = dataSource?.object(at: indexPath) else { return }
         
-        delegate?.reply(to: post)
+        delegate?.reply(self, to: post)
+    }
+    
+    func tap(sender: UITapGestureRecognizer) {
+        guard let cell = sender.view as? PostCell else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        let locationInCell = sender.location(in: cell)
+        
+        if cell.postTextView.frame.contains(locationInCell) {
+            if !tappedPostEntity(tapGesture: sender, cell: cell, indexPath: indexPath) {
+                selectCell(at: indexPath)
+            }
+        } else {
+            guard let post = dataSource?.object(at: indexPath) else { return }
+            if cell.avatarImageView.frame.contains(locationInCell) {
+                guard let user = post.user else { return }
+                user.content?.avatarImage?.image = cell.avatarImageView.image
+                delegate?.viewController(self, tappedUser: user)
+            } else {
+                selectCell(at: indexPath)
+            }
+        }
+    }
+    
+    func tappedPostEntity(tapGesture: UITapGestureRecognizer, cell: PostCell, indexPath: IndexPath) -> Bool {
+        let locationInTextView = tapGesture.location(in: cell.postTextView)
+        
+        guard let textPosition = cell.postTextView.closestPosition(to: locationInTextView) else { return false }
+        let offset = cell.postTextView.offset(from: cell.postTextView.beginningOfDocument, to: textPosition)
+        print("offset: \(offset)")
+        
+        if let tappedLink = link(for: offset, at: indexPath) {
+            delegate?.viewController(self, tappedLink: tappedLink)
+            return true
+        }
+        return false
+    }
+    
+    func link(for offset: Int, at indexPath: IndexPath) -> Link? {
+        guard let post = dataSource?.object(at: indexPath) else { return nil }
+        return post.link(at: offset)
     }
 }
 
+// MARK: - Archiving
 extension PostsViewController {
     func postsPath() -> String {
         guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
@@ -172,4 +221,9 @@ extension PostsViewController {
         print("Reading \(posts.count) from disk.")
         return posts
     }
+}
+
+// MARK: - Helper
+extension PostsViewController {
+    
 }

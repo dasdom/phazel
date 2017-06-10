@@ -2,13 +2,14 @@
 //  Copyright © 2017 dasdom. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class Image: NSObject {
 
     fileprivate(set) var link: String?
     fileprivate(set) var width: Int
     fileprivate(set) var height: Int
+    var image: UIImage?
     
     var content: Content?
 

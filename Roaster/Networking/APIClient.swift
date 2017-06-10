@@ -8,6 +8,7 @@ public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
     func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ())
     func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ())
+    func profilePosts(userId: String, completion: @escaping (Result<[[String:Any]]>) -> ())
     func isLoggedIn() -> Bool
 }
 
@@ -92,44 +93,61 @@ final public class APIClient: APIClientProtocol {
     public func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
         
         guard let url = URLCreator.posts(before: before, since: since).url() else { fatalError() }
-        guard let username = currentUsername else {
-            return completion(Result(value: nil, error: NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)))
-        }
-        guard let token = keychainManager.token(for: username) else {
-            return completion(Result(value: nil, error: NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)))
-        }
-        print(">>> url: \(url)")
-        var request = URLRequest(url: url)
-        request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
         
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request) { data, _, error in
+        do {
+            let request = try getRequest(with: url)
             
-            DispatchQueue.main.async {
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
                 
-                guard error == nil else {
-                    return completion(Result(value: nil, error: error))
-                }
-                
-                guard let unwrappedData = data else {
-                    return completion(Result(value: nil, error: NSError(domain: "DDHDataNil", code: 1003, userInfo: nil)))
-                }
-                
-                do {
-                    let json = try JSONSerialization.jsonObject(with: unwrappedData, options: [])
-                    guard let jsonDict = json as? [String:Any], let arrayOfDicts = jsonDict["data"] as? [[String:Any]] else {
-                        return completion(Result(value: nil, error: NSError(domain: "DDHJSONNotArrayOfDictionarys", code: 1004, userInfo: nil)))
+                DispatchQueue.main.async {
+                    
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
                     }
                     
-                    let result = Result(value: arrayOfDicts, error: nil)
-                    completion(result)
-                } catch {
-                    completion(Result(value: nil, error: error))
+                    do {
+                        let theArrayOfDicts = try self.arrayOfDicts(from: data)
+                        completion(Result(value: theArrayOfDicts, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
                 }
             }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
         }
-        dataTask.resume()
+    }
+    
+    public func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+        guard let url = URLCreator.profilePosts(userId: userId).url() else { fatalError() }
+        
+        do {
+            
+            let request = try getRequest(with: url)
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
+                
+                DispatchQueue.main.async {
+                    
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
+                    }
+                    
+                    do {
+                        let theArrayOfDicts = try self.arrayOfDicts(from: data)
+                        completion(Result(value: theArrayOfDicts, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
+                }
+            }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
+        }
     }
     
     public func post(text: String, replyTo: String? = nil, completion: @escaping (Result<String>) -> ()) {
@@ -253,12 +271,39 @@ extension APIClient {
     }
     
     fileprivate var secretsDict: [String:String]? {
-        //        let url = Bundle.main.url(forResource: "secrets", withExtension: "json")
-        //        guard let secretURL = url else { fatalError("No file at \(url)") }
-        //        guard let secretData = try? Data(contentsOf: secretURL) else { fatalError() }
-        //        let secretsDict = try? JSONSerialization.jsonObject(with: secretData, options: [])
-        //        return secretsDict as? [String:String]
         return Secrets.secrets
+    }
+    
+    fileprivate func token() throws -> String  {
+        guard let username = currentUsername else {
+            throw NSError(domain: "DDHNoUserInUserDefaults", code: 1001, userInfo: nil)
+        }
+        guard let token = keychainManager.token(for: username) else {
+            throw NSError(domain: "DDHNoTokenInKeychain", code: 1002, userInfo: nil)
+        }
+        return token
+    }
+    
+    fileprivate func getRequest(with url: URL) throws -> URLRequest {
+        let theToken = try token()
+        
+        var request = URLRequest(url: url)
+        request.addValue("Bearer \(theToken)", forHTTPHeaderField: "Authorization")
+        request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+        return request
+    }
+    
+    fileprivate func arrayOfDicts(from data: Data?) throws -> [[String: Any]] {
+        guard let unwrappedData = data else {
+            throw NSError(domain: "DDHDataNil", code: 1003, userInfo: nil)
+        }
+        
+        let json = try JSONSerialization.jsonObject(with: unwrappedData, options: [])
+        guard let jsonDict = json as? [String:Any], let arrayOfDicts = jsonDict["data"] as? [[String:Any]] else {
+            throw NSError(domain: "DDHJSONNotArrayOfDictionarys", code: 1004, userInfo: nil)
+        }
+        
+        return arrayOfDicts
     }
 }
 

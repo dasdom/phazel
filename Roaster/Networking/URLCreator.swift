@@ -7,6 +7,7 @@ import Foundation
 enum URLCreator {
     case auth
     case posts(before: Int?, since: Int?)
+    case profilePosts(userId: String)
     case post
     
     func url() -> URL? {
@@ -30,6 +31,10 @@ enum URLCreator {
         
         case .post:
             let urlComponents = URLComponents(path: "/\(version)/posts", queryItems: [])
+            return urlComponents.url
+        
+        case .profilePosts(let userId):
+            let urlComponents = URLComponents(path: "/\(version)/users/\(userId)/posts", queryItems: [])
             return urlComponents.url
         }
     }

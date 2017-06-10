@@ -4,6 +4,7 @@
 
 import XCTest
 @testable import Roaster
+import phazel
 
 class APIClientTests: DDHTestCase {
     
@@ -234,181 +235,50 @@ extension APIClientTests {
 
 // MARK: - Posts
 extension APIClientTests {
-//    func test_posts_hasCorrectPath() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        
-//        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        localSUT.post(before: nil, since: nil) { _ in }
-//        
-//        waitForExpectations(timeout: 0.1) { error in
-//            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
-//        }
-//    }
-//    
-//    func test_posts_returnsPosts() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 1) { error in
-//            XCTAssertEqual(catchedPosts?.count, 1)
-//        }
-//    }
-//    
-//    func test_posts_authentication() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        localSUT.posts(before: nil, since: nil) { _ in }
-//        
-//        waitForExpectations(timeout: 0.1) { error in
-//            self.header(of: URLRequestStub.lastRequest, containsValue: "Bearer 42", forKey: "Authorization")
-//        }
-//    }
-//    
-//    func test_posts_returnsPostWithText() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"content\": {", "\"text\": \"@Nasendackel Danke! I'm glad folks are enjoying it!\\n/@teebeuteltier\"", "},",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            XCTAssertEqual(catchedPosts?.first?.text, "@Nasendackel Danke! I'm glad folks are enjoying it!\n/@teebeuteltier")
-//        }
-//    }
-//    
-//    func test_posts_returnsPostWithId() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"id\": \"20804\"",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            XCTAssertEqual(catchedPosts?.first?.id, "20804")
-//        }
-//    }
-//    
-//    func test_posts_returnsSource() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"source\": {", "\"link\": \"http://xyz.s3rv.com\",", "\"name\": \"Broadsword\"", "}",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            guard let source = catchedPosts?.first?.source else { return XCTFail() }
-//            XCTAssertEqual(source.name, "Broadsword")
-//            XCTAssertEqual(source.url, URL(string: "http://xyz.s3rv.com"))
-//        }
-//    }
-//    
-//    func test_posts_returnsUserName() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"user\": {", "\"name\": \"foo\"", "}",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            guard let user = catchedPosts?.first?.user else { return XCTFail() }
-//            XCTAssertEqual(user.name, "foo")
-//        }
-//    }
-//    
-//    func test_posts_returnsUserFollowsYou() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"user\": {", "\"follows_you\": true", "}",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            guard let user = catchedPosts?.first?.user else { return XCTFail() }
-//            self.True(user.followsYou)
-//        }
-//    }
-//    
-//    func test_posts_returnsUserYouFollow() {
-//        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
-//        let returnJson = ["{", "\"data\": [", "{",
-//                          "\"user\": {", "\"you_follow\": true", "}",
-//                          "}", "]", "}"].joined(separator: "\n")
-//        
-//        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
-//        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
-//        
-//        var catchedPosts: [Post]? = nil
-//        localSUT.posts(before: nil, since: nil) { result in
-//            if case .success(let posts) = result {
-//                catchedPosts = posts
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 0.2) { error in
-//            guard let user = catchedPosts?.first?.user else { return XCTFail() }
-//            self.True(user.youFollow)
-//        }
-//    }
+    func test_posts_hasCorrectPath() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.posts(before: nil, since: nil) {_ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/streams/unified")
+        }
+    }
+    
+    func test_posts_returnsDict() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"data\": [", "{",
+                          "}", "]", "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedDict: [[String: Any]]?
+        localSUT.posts(before: nil, since: nil) { result in
+            if case .success(let dict) = result {
+                catchedDict = dict
+            }
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertEqual(catchedDict?.count, 1)
+        }
+    }
+    
+    func test_posts_authentication() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.posts(before: nil, since: nil) { _ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            self.header(of: URLRequestStub.lastRequest, containsValue: "Bearer 42", forKey: "Authorization")
+        }
+    }
 }
 
 // MARK: - Posting
@@ -475,6 +345,42 @@ extension APIClientTests {
             XCTAssertTrue(header.contains(where: { (key, value) -> Bool in
                 return key == "Authorization" && value == "Bearer 42"
             }), "Found header: \(header)")
+        }
+    }
+}
+
+// MARK: - Profile
+extension APIClientTests {
+    func test_profilePost_path() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.profilePosts(userId: "23") { _ in }
+        
+        waitForExpectations(timeout: 0.1) { _ in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/users/23/posts")
+        }
+    }
+    
+    func test_profilePosts_returnsDict() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"data\": [", "{",
+                          "}", "]", "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedDict: [[String: Any]]?
+        localSUT.profilePosts(userId: "42") { result in
+            if case .success(let dict) = result {
+                catchedDict = dict
+            }
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertEqual(catchedDict?.count, 1)
         }
     }
 }

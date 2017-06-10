@@ -64,7 +64,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         let currentContentOffset = tableView.contentOffset
         
         if let contentSizeBefore = contentSizeBefore {
-            let newOffsetY = currentContentOffset.y + contentSizeAfter.height - contentSizeBefore.height - 64
+            let newOffsetY = currentContentOffset.y + contentSizeAfter.height - contentSizeBefore.height
             print("newOffsetY: \(newOffsetY)")
             tableView.setContentOffset(CGPoint(x: 0, y: newOffsetY), animated: false)
         }

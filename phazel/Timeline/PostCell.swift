@@ -14,6 +14,8 @@ class PostCell: UITableViewCell {
     let sourceLabel: DDHLabel
     let timeLabel: DDHLabel
     let replyButton: DDHButton
+    let followsYouIndicatorView: UIView
+    let youFollowIndicatorView: UIView
     fileprivate let buttonStackView: UIStackView
 //    var bottomConstraint: NSLayoutConstraint?
     var stackViewBottomConstraint: NSLayoutConstraint?
@@ -58,18 +60,25 @@ class PostCell: UITableViewCell {
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.isHidden = true
         
+        followsYouIndicatorView = UIView()
+        youFollowIndicatorView = UIView()
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = UIColor.white
         selectionStyle = .none
         clipsToBounds = true
-        
+
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: .tap))
+
         contentView.addSubview(avatarImageView)
         contentView.addSubview(usernameLabel)
         contentView.addSubview(timeLabel)
         contentView.addSubview(postTextView)
         contentView.addSubview(sourceLabel)
         contentView.addSubview(buttonStackView)
+        contentView.addSubview(followsYouIndicatorView)
+        contentView.addSubview(youFollowIndicatorView)
         
 //        let avatarX: CGFloat = 8
 //        let avatarTop: CGFloat = 8
@@ -134,6 +143,11 @@ class PostCell: UITableViewCell {
         }
         
         layout(forPresentation: forPresentation)
+        
+        buttonStackView.isHidden = !post.isSelected
+        
+        youFollowIndicatorView.backgroundColor = post.user?.youFollow ?? false ? AppColors.youFollow : AppColors.background
+        followsYouIndicatorView.backgroundColor = post.user?.followsYou ?? false ? AppColors.followsYou : AppColors.background
     }
     
     func setUserInfo(for post: Post, forPresentation: Bool) {
@@ -205,6 +219,11 @@ class PostCell: UITableViewCell {
             }
         }
     }
+    
+    func tap(sender: UITapGestureRecognizer) {
+        guard let target = target(forAction: .tap, withSender: sender) as AnyObject? else { return }
+        _ = target.perform(.tap, with: sender)
+    }
 }
 
 extension PostCell {
@@ -223,12 +242,18 @@ extension PostCell {
         usernameLabel.frame = CGRect(x: avatarX + avatarWidth + 8, y: avatarTop, width: screenBounds.width * 0.6, height: 0)
         usernameLabel.sizeToFit()
         
-        if forPresentation {            
-            avatarImageView.frame = CGRect(x: avatarX, y: avatarTop, width: avatarWidth, height: avatarWidth)
+        if forPresentation {
+            let avatarFrame = CGRect(x: avatarX, y: avatarTop, width: avatarWidth, height: avatarWidth)
+            avatarImageView.frame = avatarFrame
             
             timeLabel.autoresizingMask = [.flexibleLeftMargin]
             timeLabel.sizeToFit()
             timeLabel.frame.origin = CGPoint(x: screenBounds.width - timeLabel.frame.size.width - 8, y: usernameLabel.frame.minY)
+
+            followsYouIndicatorView.frame = CGRect(x: avatarFrame.midX - 2 - 4, y: avatarFrame.maxY + 2, width: 4, height: 4)
+            followsYouIndicatorView.layer.cornerRadius = 2
+            youFollowIndicatorView.frame = CGRect(x: avatarFrame.midX + 2, y: followsYouIndicatorView.frame.minY, width: followsYouIndicatorView.frame.width, height: followsYouIndicatorView.frame.height)
+            youFollowIndicatorView.layer.cornerRadius = 2
         }
         
         let postTextWidth = screenBounds.width - 3 * 8 - avatarWidth
@@ -238,6 +263,7 @@ extension PostCell {
         
         sourceLabel.frame = CGRect(x: usernameLabel.frame.minX, y: postTextView.frame.maxY + 5, width: 0, height: 0)
         sourceLabel.sizeToFit()
+        
     }
 }
 
@@ -265,8 +291,10 @@ extension PostCell {
 
 @objc protocol CellActionsProtocol {
     @objc func reply(sender: UIButton)
+    @objc func tap(sender: UITapGestureRecognizer)
 }
 
 fileprivate extension Selector {
     static let reply = #selector(CellActionsProtocol.reply(sender:))
+    static let tap = #selector(CellActionsProtocol.tap(sender:))
 }

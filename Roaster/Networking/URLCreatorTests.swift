@@ -101,3 +101,26 @@ extension URLCreatorTests {
         XCTAssertEqual(urlComponents?.path, "/v0/posts")
     }
 }
+
+extension URLCreatorTests {
+    func test_profilePostsURL_scheme() throws {
+        let url = try unwrap(URLCreator.profilePosts(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_profilePostsURL_host() throws {
+        let url = try unwrap(URLCreator.profilePosts(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_profilePostsURL_path() throws {
+        let url = try unwrap(URLCreator.profilePosts(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/42/posts")
+    }
+}

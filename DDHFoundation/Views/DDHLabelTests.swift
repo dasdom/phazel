@@ -8,12 +8,6 @@ import DDHFoundation
 
 class DDHLabelTests: XCTestCase {
     
-    func test_init_setsTranslatesAutoresizingMaskToConstraints_toFalse() {
-        let sut = DDHLabel(frame: .zero)
-        
-        XCTAssertFalse(sut.translatesAutoresizingMaskIntoConstraints)
-    }
-    
     func test_init_withCoder() {
         let archiver = NSKeyedArchiver(forWritingWith: NSMutableData())
         

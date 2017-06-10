@@ -36,6 +36,10 @@ public enum AppColors {
     
     public static let gray = UIColor.gray
     
+    public static let youFollow = UIColor.red
+    
+    public static let followsYou = UIColor.green
+    
     private static func colorFrom(hex: String) -> UIColor {
         let scanner = Scanner(string: hex)
         scanner.charactersToBeSkipped = CharacterSet.alphanumerics.inverted

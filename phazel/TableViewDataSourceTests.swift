@@ -108,7 +108,7 @@ extension TableViewDataSourceTests {
         
         var postToConfigureFor: Post?
         
-        override func configure(with post: Post, loadImage: Bool = true) {
+        override func configure(with post: Post, forPresentation: Bool = true) {
             postToConfigureFor = post
         }
     }

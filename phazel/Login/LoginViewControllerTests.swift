@@ -109,6 +109,10 @@ extension LoginViewControllerTests {
         
         }
         
+        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+            
+        }
+        
         func isLoggedIn() -> Bool {
             return false
         }
