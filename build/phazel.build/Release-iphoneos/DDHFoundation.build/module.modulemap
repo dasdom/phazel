@@ -1,0 +1,11 @@
+framework module DDHFoundation {
+  umbrella header "DDHFoundation.h"
+
+  export *
+  module * { export * }
+}
+
+module DDHFoundation.Swift {
+    header "DDHFoundation-Swift.h"
+    requires objc
+}

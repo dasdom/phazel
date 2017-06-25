@@ -1,0 +1,55 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/dom/development/phazel/build/Release-iphoneos/DDHFoundation.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "DDHFoundation-Swift.h",
+          'external-contents': "/Users/dom/development/phazel/build/Release-iphoneos/DDHFoundation.framework/Headers/DDHFoundation-Swift.h"
+        },
+        {
+          'type': 'file',
+          'name': "DDHFoundation.h",
+          'external-contents': "/Users/dom/development/phazel/DDHFoundation/DDHFoundation.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/dom/development/phazel/build/Release-iphoneos/DDHFoundation.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/dom/development/phazel/build/phazel.build/Release-iphoneos/DDHFoundation.build/module.modulemap"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/dom/development/phazel/build/Release-iphoneos/Roaster.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Roaster.h",
+          'external-contents': "/Users/dom/development/phazel/Roaster/Roaster.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/dom/development/phazel/build/Release-iphoneos/Roaster.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/dom/development/phazel/build/phazel.build/Release-iphoneos/Roaster.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}

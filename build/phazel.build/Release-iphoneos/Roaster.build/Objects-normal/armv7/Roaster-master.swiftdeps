@@ -1,0 +1,13 @@
+version: "Apple Swift version 4.0 (swiftlang-900.0.43 clang-900.0.22.8)"
+options: "802d30c9212d2480ba5cebf5a7cbb802"
+build_time: [1497090980, 845576000]
+inputs:
+  "/Users/dom/development/phazel/Roaster/Networking/URLCreator.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Networking/Secrets.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Constants.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Keychain/KeychainManager.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Model/LoginUser.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Model/DictionaryCreatable.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Model/Meta.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Helper/Result.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Roaster/Networking/APIClient.swift": [9223372036, 854775807]

@@ -9,10 +9,14 @@ public protocol APIClientProtocol {
     func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ())
     func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ())
     func profilePosts(userId: String, completion: @escaping (Result<[[String:Any]]>) -> ())
+    func user(id: String, completion: @escaping (Result<[String:Any]>) -> ())
+    func follow(_ : Bool, userId: String, completion: @escaping (Result<[String:Any]>) -> ())
+    func globalPosts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ())
     func isLoggedIn() -> Bool
 }
 
 final public class APIClient: APIClientProtocol {
+    
     let keychainManager: KeychainManagerProtocol
     let userDefaults: UserDefaults
     
@@ -120,6 +124,36 @@ final public class APIClient: APIClientProtocol {
         }
     }
     
+    public func globalPosts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
+        
+        guard let url = URLCreator.globalPosts(before: before, since: since).url() else { fatalError() }
+        print("url: \(url)")
+        do {
+            let request = try getRequest(with: url)
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
+                
+                DispatchQueue.main.async {
+                    
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
+                    }
+                    
+                    do {
+                        let theArrayOfDicts = try self.arrayOfDicts(from: data)
+                        completion(Result(value: theArrayOfDicts, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
+                }
+            }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
+        }
+    }
+    
     public func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
         guard let url = URLCreator.profilePosts(userId: userId).url() else { fatalError() }
         
@@ -139,6 +173,69 @@ final public class APIClient: APIClientProtocol {
                     do {
                         let theArrayOfDicts = try self.arrayOfDicts(from: data)
                         completion(Result(value: theArrayOfDicts, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
+                }
+            }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
+        }
+    }
+    
+    public func user(id: String, completion: @escaping (Result<[String:Any]>) -> ()) {
+        guard let url = URLCreator.user(id: id).url() else { fatalError() }
+        
+        do {
+            
+            let request = try getRequest(with: url)
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
+                
+                DispatchQueue.main.async {
+                    
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
+                    }
+                    
+                    do {
+                        let theDict = try self.dict(from: data)
+                        completion(Result(value: theDict, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
+                }
+            }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
+        }
+    }
+    
+    public func follow(_ follow: Bool, userId: String, completion: @escaping (Result<[String : Any]>) -> ()) {
+        guard let url = URLCreator.follow(id: userId).url() else { fatalError() }
+        
+        do {
+            var request = URLRequest(url: url)
+            request.httpMethod = follow ? "PUT" : "DELETE"
+            let theToken = try token()
+            request.addValue("Bearer \(theToken)", forHTTPHeaderField: "Authorization")
+            request.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
+                
+                DispatchQueue.main.async {
+                    
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
+                    }
+                    
+                    do {
+                        let theDict = try self.dict(from: data)
+                        completion(Result(value: theDict, error: nil))
                     } catch {
                         completion(Result(value: nil, error: error))
                     }
@@ -304,6 +401,20 @@ extension APIClient {
         }
         
         return arrayOfDicts
+    }
+    
+    fileprivate func dict(from data: Data?) throws -> [String: Any] {
+        guard let unwrappedData = data else {
+            throw NSError(domain: "DDHDataNil", code: 1003, userInfo: nil)
+        }
+        
+        let json = try JSONSerialization.jsonObject(with: unwrappedData, options: [])
+        guard let jsonDict = json as? [String:Any], let dict = jsonDict["data"] as? [String:Any] else {
+            throw NSError(domain: "DDHJSONNotDictionarys", code: 1005, userInfo: nil)
+        }
+        
+        return dict
+        
     }
 }
 

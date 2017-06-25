@@ -69,6 +69,7 @@ class PostingViewController: UIViewController {
         
         contentView.topView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10).isActive = true
         bottomConstraint = contentView.topView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -10)
+//        bottomConstraint?.priority = 999
         bottomConstraint?.isActive = true
     }
     

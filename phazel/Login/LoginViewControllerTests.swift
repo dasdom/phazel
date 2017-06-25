@@ -85,39 +85,6 @@ extension LoginViewControllerTests {
         }
     }
     
-    class MockAPIClient: APIClientProtocol {
-        
-        let result: Result<LoginUser>
-        var username: String?
-        var password: String?
-        
-        init(result: Result<LoginUser>) {
-            self.result = result
-        }
-        
-        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
-            self.username = username
-            self.password = password
-            completion(result)
-        }
-        
-        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
-            
-        }
-        
-        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
-        
-        }
-        
-        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
-            
-        }
-        
-        func isLoggedIn() -> Bool {
-            return false
-        }
-    }
-    
     class MockLoginViewControllerDelegate: LoginViewControllerDelegate {
         
         var loginUser: LoginUser? = nil

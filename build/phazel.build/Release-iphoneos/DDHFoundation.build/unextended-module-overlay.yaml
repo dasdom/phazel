@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/dom/development/phazel/build/Release-iphoneos/DDHFoundation.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/dom/development/phazel/build/phazel.build/Release-iphoneos/DDHFoundation.build/unextended-module.modulemap",
+    }]
+  }]
+}

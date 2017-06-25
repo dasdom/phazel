@@ -11,9 +11,10 @@ public enum AppColors {
 //    public static let background = colorFrom(hex: "806340")
 //    public static let background = colorFrom(hex: "807350")
     
-    public static let tint = colorFrom(hex: "50a0ff")
+//    public static let tint = colorFrom(hex: "50a0ff")
 //    public static let tint = colorFrom(hex: "e59f40")
 //    public static let tint = colorFrom(hex: "80d0ff")
+    public static let tint = UIColor.brown
     
     public static let text = colorFrom(hex: "000022")
     
@@ -35,6 +36,10 @@ public enum AppColors {
     public static let lightGray = UIColor.lightGray
     
     public static let gray = UIColor.gray
+    
+    public static let red = UIColor.red
+    
+    public static let white = UIColor.white
     
     public static let youFollow = UIColor.red
     

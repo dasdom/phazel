@@ -17,7 +17,7 @@ class PostsCoordinatorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        apiClient = MockAPIClient()
+        apiClient = MockAPIClient(result: Result(value: [["foo": 23]], error: nil))
         sut = PostsCoordinator(rootViewController: UINavigationController(), apiClient: apiClient, userDefaults: userDefaults)
     }
     
@@ -150,6 +150,7 @@ extension PostsCoordinatorTests {
 // MARK: - Posting
 extension PostsCoordinatorTests {
     func test_send_callsAPIClientMethod() {
+        apiClient.postResult = Result(value: "foo", error: nil)
         sut.send(text: "foo", replyTo: nil)
         
         XCTAssertEqual(apiClient.postedText, "foo")
@@ -253,39 +254,6 @@ extension PostsCoordinatorTests {
         
         override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
             dismissCallCount += 1
-        }
-    }
-    
-    class MockAPIClient: APIClientProtocol {
-        
-        var _isLoggedIn = false
-        var postedText: String?
-        var stringResult: Result<String>?
-        
-        init(result: Result<String>? = nil) {
-            stringResult = result
-        }
-        
-        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
-        }
-        
-        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
-            postedText = text
-            if let result = stringResult {
-                completion(result)
-            }
-        }
-        
-        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
-        
-        }
-
-        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
-            
-        }
-        
-        func isLoggedIn() -> Bool {
-            return self._isLoggedIn
         }
     }
     

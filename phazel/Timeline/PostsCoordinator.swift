@@ -7,13 +7,13 @@ import Roaster
 import DDHFoundation
 import SafariServices
 
-final class PostsCoordinator: NSObject, NavigationCoordinating {
+class PostsCoordinator: NSObject, NavigationCoordinating {
     
     let rootViewController: UINavigationController
     var viewController: PostsViewController?
-    fileprivate var dataSource: TableViewDataSource<PostsCoordinator>?
+    var dataSource: TableViewDataSource<PostsCoordinator>?
     fileprivate var profileDataSource: TableViewDataSource<PostsCoordinator>?
-    fileprivate let apiClient: APIClientProtocol
+    let apiClient: APIClientProtocol
     fileprivate let userDefaults: UserDefaults
 //    fileprivate var childViewControllers: [UIViewController] = []
     var settingsCoordinator: SettingsCoordinator?
@@ -30,6 +30,7 @@ final class PostsCoordinator: NSObject, NavigationCoordinating {
 //        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize
 //        layout.minimumLineSpacing = 1
         let postsViewController = PostsViewController(apiClient: apiClient)
+        postsViewController.title = "Timeline"
         return postsViewController
     }
     

@@ -1,0 +1,6 @@
+framework module Roaster {
+  umbrella header "Roaster.h"
+
+  export *
+  module * { export * }
+}

@@ -47,4 +47,14 @@ class ProfileHeaderViewTests: XCTestCase {
         
         XCTAssertEqual(sut.nameLabel.text, "Foo")
     }
+    
+    func test_updateWithUser_setsBio() {
+        let user = User(dict: ["id": "42", "content": ["text": "foo bar"]])
+        let image = UIImage(named: "success")
+        user.content?.avatarImage?.image = image
+        
+        sut.update(with: user)
+        
+        XCTAssertEqual(sut.bioLabel.text, "foo bar")
+    }
 }

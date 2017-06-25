@@ -1,0 +1,6 @@
+version: "Apple Swift version 4.0 (swiftlang-900.0.43 clang-900.0.22.8)"
+options: "f833411fadee37cfa74e702e718d7ff8"
+build_time: [1497090985, 143200000]
+inputs:
+  "/Users/dom/development/phazel/Pnut/ShareView.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/Pnut/ShareViewController.swift": [9223372036, 854775807]

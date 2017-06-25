@@ -8,7 +8,10 @@ enum URLCreator {
     case auth
     case posts(before: Int?, since: Int?)
     case profilePosts(userId: String)
+    case globalPosts(before: Int?, since: Int?)
     case post
+    case follow(id: String)
+    case user(id: String)
     
     func url() -> URL? {
         switch self {
@@ -36,6 +39,28 @@ enum URLCreator {
         case .profilePosts(let userId):
             let urlComponents = URLComponents(path: "/\(version)/users/\(userId)/posts", queryItems: [])
             return urlComponents.url
+            
+        case .globalPosts(let before, let since):
+            var queryItems: [URLQueryItem] = []
+            
+            if let before = before {
+                queryItems.append(URLQueryItem(name: "before_id", value: "\(before)"))
+            } else if let since = since {
+                queryItems.append(URLQueryItem(name: "since_id", value: "\(since)"))
+                queryItems.append(URLQueryItem(name: "count", value: "200"))
+            }
+            
+            let urlComponents = URLComponents(path: "/\(version)/posts/streams/global", queryItems: queryItems)
+            return urlComponents.url
+            
+        case .follow(let id):
+            let urlComponents = URLComponents(path: "/\(version)/users/\(id)/follow", queryItems: [])
+            return urlComponents.url
+            
+        case .user(let id):
+            let urlComponents = URLComponents(path: "/\(version)/users/\(id)", queryItems: [])
+            return urlComponents.url
+            
         }
     }
 }

@@ -28,6 +28,10 @@ class PostingView: DDHView {
         countLabel.textColor = AppColors.text.withAlphaComponent(0.6)
         countLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         countLabel.textAlignment = .right
+        countLabel.text = "444"
+        
+        let countLabelSize = countLabel.sizeThatFits(CGSize(width: 1000, height: 1000))
+        
         countLabel.text = "256"
         
         sendButton = DDHButton(type: .system)
@@ -83,6 +87,7 @@ class PostingView: DDHView {
         layoutConstraints += [spinner.centerYAnchor.constraint(equalTo: sendButton.centerYAnchor)]
         layoutConstraints += [statusHostView.centerXAnchor.constraint(equalTo: stackView.centerXAnchor)]
         layoutConstraints += [statusHostView.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)]
+        layoutConstraints += [countLabel.widthAnchor.constraint(equalToConstant: countLabelSize.width)]
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-(>=40)-[statusHostView]-(>=40)-|", options: [], metrics: nil, views: views)
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-10-[statusStackView]-10-|", options: [], metrics: nil, views: views)
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[statusStackView]-10-|", options: [], metrics: nil, views: views)

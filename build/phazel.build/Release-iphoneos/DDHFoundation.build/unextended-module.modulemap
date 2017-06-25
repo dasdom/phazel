@@ -1,0 +1,10 @@
+framework module DDHFoundation {
+  umbrella header "DDHFoundation.h"
+
+  export *
+  module * { export * }
+}
+
+module DDHFoundation.__Swift {
+    exclude header "DDHFoundation-Swift.h"
+}

@@ -52,30 +52,45 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         return cell
     }
     
-    func add(posts: [Object]) {
+    func add(posts: [Object], adjustContentOffset: Bool = true) {
         
-        contentSizeBefore = tableView.contentSize
+        UIView.setAnimationsEnabled(false)
         
+        var contentOffset = tableView.contentOffset.y
+        print("contentOffset: \(contentOffset)")
+        
+        tableView.beginUpdates()
+        
+        print("posts.count: \(posts.count)")
         dataArray = posts + dataArray
         
-        tableView.reloadData()
-        
-        let contentSizeAfter = tableView.contentSize
-        let currentContentOffset = tableView.contentOffset
-        
-        if let contentSizeBefore = contentSizeBefore {
-            let newOffsetY = currentContentOffset.y + contentSizeAfter.height - contentSizeBefore.height
-            print("newOffsetY: \(newOffsetY)")
-            tableView.setContentOffset(CGPoint(x: 0, y: newOffsetY), animated: false)
+        var indexPathsToInsert = [IndexPath]()
+        for i in 0..<posts.count {
+            let indexPath = IndexPath(item: i, section: 0);
+            indexPathsToInsert.append(IndexPath(item: i, section: 0))
+            if let cellHeight = tableView.delegate?.tableView?(tableView, heightForRowAt: indexPath) {
+//                print("cellHeight (\(indexPath)): \(cellHeight)")
+                contentOffset += cellHeight
+            }
         }
-
+        if indexPathsToInsert.count > 0 {
+            tableView.insertRows(at: indexPathsToInsert, with: .none)
+        }
+        
         let maxNumberOfShownPosts = 1000
         if dataArray.count > maxNumberOfShownPosts {
             dataArray.removeLast(dataArray.count - maxNumberOfShownPosts)
         }
         
-        tableView.reloadData()
+        tableView.endUpdates()
         
+        print("contentOffset: \(contentOffset)")
+        if adjustContentOffset, tableView.contentOffset.y < -63 {
+            tableView.contentOffset.y = contentOffset
+            print("contentOffset: \(contentOffset)")
+        }
+        
+        UIView.setAnimationsEnabled(true)
     }
     
 }

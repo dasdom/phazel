@@ -16,8 +16,11 @@ class PostsViewController: UITableViewController {
 
     let apiClient: APIClientProtocol
     weak var delegate: PostsViewControllerDelegate?
+    var _dataSource: TableViewDataSource<PostsCoordinator>?
     var dataSource: TableViewDataSource<PostsCoordinator>? {
-        didSet {
+        get { return _dataSource }
+        set {
+            _dataSource = newValue
             if let dataSource = dataSource {
                 let posts = unarchivePosts()
                 dataSource.dataArray = posts
@@ -33,7 +36,10 @@ class PostsViewController: UITableViewController {
         self.apiClient = apiClient
         
         super.init(style: .plain)
-    } 
+        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(fetchPosts), for: .valueChanged)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -42,37 +48,39 @@ class PostsViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(fetchPosts), for: .valueChanged)
-        
         fetchPosts()
     }
     
-    func fetchPosts() {
+    func process(_ result: (Result<[[String : Any]]>)) {
+        self.refreshControl?.endRefreshing()
+        if case .success(let dataArray) = result {
+            var posts: [Post] = []
+            for dict in dataArray {
+                posts.append(Post(dict: dict))
+            }
+            self.dataSource?.add(posts: posts)
+            self.archivePosts()
+            
+            if let indexPath = self.indexPathOfExpandedCell {
+                self.indexPathOfExpandedCell = IndexPath(row: indexPath.row + posts.count, section: indexPath.section)
+            }
+        }
+    }
+    
+    func sinceId() -> Int? {
         let post = dataSource?.object(at: IndexPath(row: 0, section: 0))
         var sinceId: Int? = nil
         if let sinceIdString = post?.id {
             sinceId = Int(sinceIdString)
         }
         print(">>> sinceId: \(String(describing: sinceId))")
-
-        refreshControl?.beginRefreshing()
-        self.apiClient.posts(before: nil, since: sinceId) { [weak self] result in
+        return sinceId
+    }
+    
+    func fetchPosts() {
+        self.apiClient.posts(before: nil, since: self.sinceId()) { [weak self] result in
             
-            if case .success(let dataArray) = result {
-                var posts: [Post] = []
-                for dict in dataArray {
-                    posts.append(Post(dict: dict))
-                }
-                self?.dataSource?.add(posts: posts)
-                self?.archivePosts()
-                
-                self?.refreshControl?.endRefreshing()
-                
-                if let indexPath = self?.indexPathOfExpandedCell {
-                    self?.indexPathOfExpandedCell = IndexPath(row: indexPath.row + posts.count, section: indexPath.section)
-                }
-            }
+            self?.process(result)
         }
         
     }
@@ -136,8 +144,11 @@ class PostsViewController: UITableViewController {
         }
         
         tableView.endUpdates()
-        
     }
+    
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("scrollView.contentOffset: \(scrollView.contentOffset)")
+//    }
 }
 
 extension PostsViewController: CellActionsProtocol {
@@ -150,6 +161,9 @@ extension PostsViewController: CellActionsProtocol {
     }
     
     func tap(sender: UITapGestureRecognizer) {
+        
+        print("tableView.contentOffset: \(tableView.contentOffset)")
+        
         guard let cell = sender.view as? PostCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
@@ -197,7 +211,8 @@ extension PostsViewController {
         guard let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
             fatalError()
         }
-        let postsPath = "\(documentsPath)/posts"
+        let className = String(describing: type(of: self))
+        let postsPath = "\(documentsPath)/\(className)posts"
         if !FileManager.default.isWritableFile(atPath: postsPath) {
             try! FileManager.default.createDirectory(at: URL(fileURLWithPath: postsPath), withIntermediateDirectories: true, attributes: nil)
         }

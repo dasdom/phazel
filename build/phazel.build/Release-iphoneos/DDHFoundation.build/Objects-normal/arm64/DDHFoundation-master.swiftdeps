@@ -1,0 +1,11 @@
+version: "Apple Swift version 4.0 (swiftlang-900.0.43 clang-900.0.22.8)"
+options: "5ece14181602edc6ee394b8a3835466c"
+build_time: [1497090972, 522012000]
+inputs:
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHTextView.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHImageView.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHView.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHButton.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/AppColors.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHTextField.swift": [9223372036, 854775807]
+  "/Users/dom/development/phazel/DDHFoundation/Views/DDHLabel.swift": [9223372036, 854775807]

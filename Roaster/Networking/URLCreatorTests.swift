@@ -102,6 +102,7 @@ extension URLCreatorTests {
     }
 }
 
+// MARK: - Profile posts
 extension URLCreatorTests {
     func test_profilePostsURL_scheme() throws {
         let url = try unwrap(URLCreator.profilePosts(userId: "42").url())
@@ -122,5 +123,91 @@ extension URLCreatorTests {
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         XCTAssertEqual(urlComponents?.path, "/v0/users/42/posts")
+    }
+}
+
+// MARK: - Global posts
+extension URLCreatorTests {
+    func test_globalPostsURL_scheme() throws {
+        let url = try unwrap(URLCreator.globalPosts(before: nil, since: nil).url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_globalPostsURL_host() throws {
+        let url = try unwrap(URLCreator.globalPosts(before: nil, since: nil).url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_globalPostsURL_path() throws {
+        let url = try unwrap(URLCreator.globalPosts(before: nil, since: nil).url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/posts/streams/global")
+    }
+}
+
+// MARK: - Follow/unfollow
+extension URLCreatorTests {
+    func test_followURL_scheme() throws {
+        let url = try unwrap(URLCreator.follow(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_followURL_host() throws {
+        let url = try unwrap(URLCreator.follow(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_followURL_path42() throws {
+        let url = try unwrap(URLCreator.follow(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/42/follow")
+    }
+    
+    func test_followURL_path23() throws {
+        let url = try unwrap(URLCreator.follow(id: "23").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/23/follow")
+    }
+}
+
+// MARK: - User
+extension URLCreatorTests {
+    func test_userURL_scheme() throws {
+        let url = try unwrap(URLCreator.user(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_userURL_host() throws {
+        let url = try unwrap(URLCreator.user(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_userURL_path42() throws {
+        let url = try unwrap(URLCreator.user(id: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/42")
+    }
+    
+    func test_userURL_path23() throws {
+        let url = try unwrap(URLCreator.user(id: "23").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/23")
     }
 }

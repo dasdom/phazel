@@ -52,7 +52,8 @@ class PostCell: UITableViewCell {
         sourceLabel.makeScrollFastOn(backgroundColor: AppColors.background)
         
         replyButton = DDHButton(type: .system)
-        replyButton.setTitle("Reply", for: .normal)
+//        replyButton.setTitle("Reply", for: .normal)
+        replyButton.setImage(#imageLiteral(resourceName: "reply"), for: .normal)
         replyButton.addTarget(nil, action: .reply, for: .touchUpInside)
 //        replyButton.backgroundColor = UIColor.brown
         

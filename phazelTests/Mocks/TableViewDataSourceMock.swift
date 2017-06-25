@@ -16,7 +16,7 @@ class TableViewDataSourceMock: TableViewDataSource<PostsCoordinator> {
         return storedPost!
     }
     
-    override func add(posts: [Post]) {
+    override func add(posts: [Post], adjustContentOffset: Bool) {
         addedPosts = posts
         super.add(posts: posts)
     }
