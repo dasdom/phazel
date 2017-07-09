@@ -8,6 +8,7 @@ import Roaster
 protocol PostsViewControllerDelegate: class {
     func viewDidAppear(viewController: UIViewController)
     func reply(_: UIViewController, to: Post)
+    func showProfile(_: UIViewController, for: Post)
     func viewController(_: UIViewController, tappedLink: Link)
     func viewController(_: UIViewController, tappedUser: User)
 }
@@ -152,12 +153,23 @@ class PostsViewController: UITableViewController {
 }
 
 extension PostsViewController: CellActionsProtocol {
+    
     func reply(sender: UIButton) {
-        let point = sender.convert(sender.center, to: tableView)
-        guard let indexPath = tableView.indexPathForRow(at: point) else { return }
-        guard let post = dataSource?.object(at: indexPath) else { return }
+        guard let post = post(for: sender) else { return }
         
         delegate?.reply(self, to: post)
+    }
+    
+    @objc func showProfile(sender: UIButton) {
+        guard let post = post(for: sender) else { return }
+        
+        delegate?.showProfile(self, for: post)
+    }
+    
+    func post(for button: UIButton) -> Post? {
+        guard let point = button.superview?.convert(button.center, to: tableView) else { return nil }
+        guard let indexPath = tableView.indexPathForRow(at: point) else { return nil }
+        return dataSource?.object(at: indexPath)
     }
     
     func tap(sender: UITapGestureRecognizer) {

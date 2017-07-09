@@ -77,9 +77,20 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
             tableView.insertRows(at: indexPathsToInsert, with: .none)
         }
         
+        tableView.endUpdates()
+        tableView.beginUpdates()
+        
         let maxNumberOfShownPosts = 1000
         if dataArray.count > maxNumberOfShownPosts {
-            dataArray.removeLast(dataArray.count - maxNumberOfShownPosts)
+            var indexPathsToRemove = [IndexPath]()
+            for i in maxNumberOfShownPosts..<dataArray.count {
+                indexPathsToRemove.append(IndexPath(row: i, section: 0))
+            }
+            
+            tableView.deleteRows(at: indexPathsToRemove, with: .none)
+            
+            let numberOfPostsToRemove = dataArray.count - maxNumberOfShownPosts
+            dataArray.removeLast(numberOfPostsToRemove)
         }
         
         tableView.endUpdates()

@@ -126,6 +126,16 @@ extension PostsCoordinatorTests {
         XCTAssertNil(sut.rootViewController.presentedViewController)
     }
     
+    func test_showProfile_showsProfile() {
+        let navigationControllerMock = NavigationControllerMock(rootViewController: UIViewController())
+        let localSUT = PostsCoordinator(rootViewController: navigationControllerMock, apiClient: MockAPIClient(), userDefaults: userDefaults)
+        localSUT.start()
+        
+        localSUT.showProfile(localSUT.viewController!, for: Post(dict: ["user": ["id": "23"]]))
+        
+        XCTAssertTrue(navigationControllerMock.lastPushedViewController is ProfileViewController)
+    }
+    
     func test_tappedLink_showsSafariViewController() {
         sut.start()
         let postsViewControllerMock = PostsViewControllerMock(apiClient: MockAPIClient())

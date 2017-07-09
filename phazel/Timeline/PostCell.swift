@@ -9,18 +9,18 @@ import Roaster
 class PostCell: UITableViewCell {
     
     let avatarImageView: DDHImageView
-    let usernameLabel: DDHLabel
-    let postTextView: DDHTextView
-    let sourceLabel: DDHLabel
-    let timeLabel: DDHLabel
-    let replyButton: DDHButton
-    let followsYouIndicatorView: UIView
-    let youFollowIndicatorView: UIView
     fileprivate let buttonStackView: UIStackView
-//    var bottomConstraint: NSLayoutConstraint?
-    var stackViewBottomConstraint: NSLayoutConstraint?
-    fileprivate let sourceLabelBottom: CGFloat = 7
     fileprivate let expandedSourceLabelBottom: CGFloat = 30
+    let followsYouIndicatorView: UIView
+    let postTextView: DDHTextView
+    let profileButton: DDHButton
+    let replyButton: DDHButton
+    let sourceLabel: DDHLabel
+    fileprivate let sourceLabelBottom: CGFloat = 7
+    var stackViewBottomConstraint: NSLayoutConstraint?
+    let timeLabel: DDHLabel
+    let usernameLabel: DDHLabel
+    let youFollowIndicatorView: UIView
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 
@@ -52,14 +52,17 @@ class PostCell: UITableViewCell {
         sourceLabel.makeScrollFastOn(backgroundColor: AppColors.background)
         
         replyButton = DDHButton(type: .system)
-//        replyButton.setTitle("Reply", for: .normal)
         replyButton.setImage(#imageLiteral(resourceName: "reply"), for: .normal)
         replyButton.addTarget(nil, action: .reply, for: .touchUpInside)
-//        replyButton.backgroundColor = UIColor.brown
         
-        buttonStackView = UIStackView(arrangedSubviews: [replyButton])
+        profileButton = DDHButton(type: .system)
+        profileButton.setImage(#imageLiteral(resourceName: "showProfile"), for: .normal)
+        profileButton.addTarget(nil, action: .showProfile, for: .touchUpInside)
+        
+        buttonStackView = UIStackView(arrangedSubviews: [replyButton, profileButton])
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.isHidden = true
+        buttonStackView.distribution = .fillEqually
         
         followsYouIndicatorView = UIView()
         youFollowIndicatorView = UIView()
@@ -81,45 +84,11 @@ class PostCell: UITableViewCell {
         contentView.addSubview(followsYouIndicatorView)
         contentView.addSubview(youFollowIndicatorView)
         
-//        let avatarX: CGFloat = 8
-//        let avatarTop: CGFloat = 8
-//        let avatarWidth: CGFloat = 60
-//        let usernameLeading: CGFloat = avatarX
-//        let textLabelTrailing: CGFloat = avatarX
-//        let textLabelTop: CGFloat = 5
-//        let textLabelBottom: CGFloat = textLabelTop
-        
-//        let screenBounds = UIScreen.main.bounds
-        
-//        avatarImageView.frame = CGRect(x: avatarX, y: avatarTop, width: avatarWidth, height: avatarWidth)
-//        usernameLabel.frame = CGRect(x: avatarImageView.frame.maxX, y: avatarTop, width: screenBounds.width * 0.6, height: 10)
-//        usernameLabel.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleBottomMargin]
-//        timeLabel.frame = CGRect(x: usernameLabel.frame.maxX + 5, y: usernameLabel.frame.minY, width: 10, height: 10)
-//        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-//        bottomConstraint = sourceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -sourceLabelBottom)
-//        guard let bottomConstraint = bottomConstraint else { fatalError() }
-//        bottomConstraint.priority = 999
-        
         stackViewBottomConstraint = buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         guard let stackViewBottomConstraint = stackViewBottomConstraint else { fatalError() }
         stackViewBottomConstraint.constant = 30
         
         NSLayoutConstraint.activate([
-//            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: avatarLeading),
-//            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avatarTop),
-//            avatarImageView.widthAnchor.constraint(equalToConstant: avatarWidth),
-//            avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-//            usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: usernameLeading),
-//            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
-//            timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
-//            timeLabel.topAnchor.constraint(equalTo: usernameLabel.topAnchor),
-//            postTextView.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
-//            postTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -textLabelTrailing),
-//            postTextView.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: textLabelTop),
-//            postTextView.bottomAnchor.constraint(equalTo: sourceLabel.topAnchor, constant: -textLabelBottom),
-//            sourceLabel.leadingAnchor.constraint(equalTo: postTextView.leadingAnchor),
-////            bottomConstraint,
             buttonStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             buttonStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             stackViewBottomConstraint
@@ -229,10 +198,6 @@ class PostCell: UITableViewCell {
 
 extension PostCell {
     
-//    override func layoutSubviews() {
-//        layout()
-//    }
-    
     func layout(forPresentation: Bool) {
         let avatarX: CGFloat = 8
         let avatarTop: CGFloat = 8
@@ -292,10 +257,12 @@ extension PostCell {
 
 @objc protocol CellActionsProtocol {
     @objc func reply(sender: UIButton)
+    @objc func showProfile(sender: UIButton)
     @objc func tap(sender: UITapGestureRecognizer)
 }
 
 fileprivate extension Selector {
     static let reply = #selector(CellActionsProtocol.reply(sender:))
+    static let showProfile = #selector(CellActionsProtocol.showProfile(sender:))
     static let tap = #selector(CellActionsProtocol.tap(sender:))
 }

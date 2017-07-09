@@ -4,6 +4,7 @@
 
 import UIKit
 import DDHFoundation
+import Roaster
 
 final class ProfileHeaderView: UIView {
     
@@ -105,6 +106,19 @@ extension ProfileHeaderView {
     func update(with user: User) {
         if let avatarImage = user.content?.avatarImage?.image {
             avatarImageView.image = avatarImage
+        } else {
+            if let userContent = user.content, let avatarImage = userContent.avatarImage, let link = avatarImage.link, let url = URL(string: link) {
+                
+                let apiClient = APIClient(userDefaults: UserDefaults())
+                apiClient.imageData(url: url) { result in
+                    if case .success(let data) = result {
+                        if let image = UIImage(data: data) {
+                            self.avatarImageView.image = image
+                            self.setNeedsDisplay(self.avatarImageView.frame)
+                        }
+                    }
+                }
+            }
         }
 
         if let username = user.username {

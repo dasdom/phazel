@@ -14,6 +14,7 @@ final class MainCoordinator: CoodinatorProtocol {
 //    private let persistentContainer: NSPersistentContainer
     var postsCoordinator: PostsCoordinator?
     var globalCoordinator: GlobalCoordinator?
+    var profileCoordinator: ProfileCoordinator?
     var tabBarController: UITabBarController
     var userDefaults = UserDefaults(suiteName: "group.com.swiftandpainless.phazel")!
     
@@ -26,18 +27,21 @@ final class MainCoordinator: CoodinatorProtocol {
     
     func start() {
         let postsNavigationController = UINavigationController()
-        postsNavigationController.hidesBarsOnSwipe = true
         postsNavigationController.tabBarItem.image = UIImage(named: "timeline")
         postsCoordinator = PostsCoordinator(rootViewController: postsNavigationController, apiClient: apiClient, userDefaults: userDefaults)
         postsCoordinator?.start()
         
         let globalNavigationController = UINavigationController()
-        globalNavigationController.hidesBarsOnSwipe = true
         globalNavigationController.tabBarItem.image = UIImage(named: "global")
         globalCoordinator = GlobalCoordinator(rootViewController: globalNavigationController, apiClient: apiClient, userDefaults: userDefaults)
         globalCoordinator?.start()
         
-        tabBarController.viewControllers = [postsNavigationController, globalNavigationController]
+        let profileNavigationController = UINavigationController()
+        profileNavigationController.tabBarItem.image = #imageLiteral(resourceName: "showProfile")
+        profileCoordinator = ProfileCoordinator(rootViewController: profileNavigationController, apiClient: apiClient, userDefaults: userDefaults)
+        profileCoordinator?.start()
+        
+        tabBarController.viewControllers = [postsNavigationController, globalNavigationController, profileNavigationController]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

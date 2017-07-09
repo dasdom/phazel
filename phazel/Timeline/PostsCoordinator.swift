@@ -105,6 +105,7 @@ extension PostsCoordinator: PostingViewControllerDelegate {
 
 // MARK: - PostsCollectionViewControllerDelegate
 extension PostsCoordinator: PostsViewControllerDelegate {
+    
     func viewDidAppear(viewController: UIViewController) {
         if !apiClient.isLoggedIn() {
             loginCoordinator = LoginCoordinator(rootViewController: viewController, apiClient: apiClient)
@@ -119,6 +120,11 @@ extension PostsCoordinator: PostsViewControllerDelegate {
     
     func reply(_ viewController: UIViewController, to post: Post) {
         showPosting(from: viewController, replyTo: post)
+    }
+    
+    func showProfile(_: UIViewController, for post: Post) {
+        guard let user = post.user else { fatalError() }
+        rootViewController.pushViewController(profileViewController(for: user), animated: true)
     }
     
     func postDidSucceed(viewController: PostingViewController, with postId: String) {
@@ -142,14 +148,17 @@ extension PostsCoordinator: PostsViewControllerDelegate {
     }
     
     func viewController(_ viewController: UIViewController, tappedUser: User) {
-      
-        let profileViewController = ProfileViewController(user: tappedUser, apiClient: apiClient)
+        rootViewController.pushViewController(profileViewController(for: tappedUser), animated: true)
+    }
+    
+    func profileViewController(for user: User) -> ProfileViewController {
+        let profileViewController = ProfileViewController(user: user, apiClient: apiClient)
         
         guard let tableView = profileViewController.tableView else { fatalError() }
         profileDataSource = TableViewDataSource(tableView: tableView, delegate: self)
         profileViewController.dataSource = profileDataSource
         
-        rootViewController.pushViewController(profileViewController, animated: true)
+        return profileViewController
     }
 }
 

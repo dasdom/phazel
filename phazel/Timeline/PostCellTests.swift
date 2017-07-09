@@ -118,4 +118,13 @@ class PostCellTests: XCTestCase {
     func test_replyButton_hasReplyActionForNilTarget() {
         XCTAssertEqual(sut.replyButton.actions(forTarget: nil, forControlEvent: .touchUpInside)?.first, "replyWithSender:")
     }
+    
+    func test_has_profileButton() {
+        let profileButtonIsSubview = sut.profileButton.isDescendant(of: sut.contentView)
+        XCTAssertTrue(profileButtonIsSubview)
+    }
+    
+    func test_profileButton_hasReplyActionForNilTarget() {
+        XCTAssertEqual(sut.profileButton.actions(forTarget: nil, forControlEvent: .touchUpInside)?.first, "showProfileWithSender:")
+    }
 }

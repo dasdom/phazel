@@ -2,7 +2,7 @@
 //  Copyright © 2017 dasdom. All rights reserved.
 //
 
-import Foundation
+import UIKit
 @testable import phazel
 
 class TableViewDataSourceMock: TableViewDataSource<PostsCoordinator> {

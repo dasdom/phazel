@@ -10,6 +10,7 @@ class PostsViewControllerTests: XCTestCase {
     
     var sut: PostsViewController!
     var apiClient: MockAPIClient!
+    var delegate: PostsViewControllerDelegateMock!
     
     override func setUp() {
         super.setUp()
@@ -17,6 +18,8 @@ class PostsViewControllerTests: XCTestCase {
         let resultArray: [[String:Any]] = [["id": "42"]]
         apiClient = MockAPIClient(result: Result(value: resultArray, error: nil))
         sut = PostsViewController(apiClient: apiClient)
+        delegate = PostsViewControllerDelegateMock()
+        sut.delegate = delegate
     }
     
     override func tearDown() {
@@ -71,6 +74,28 @@ class PostsViewControllerTests: XCTestCase {
         let returnedLink = sut.link(for: 180, at: IndexPath(row: 0, section: 0))
         
         XCTAssertEqual(returnedLink?.link, "http://foo.com")
+    }
+    
+    func test_reply_callsReply_inDelegate() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23"])
+        sut.dataSource = dataSourceMock
+        
+        let cell = sut.dataSource?.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! PostCell
+        cell.replyButton.sendActions(for: .touchUpInside)
+        
+        XCTAssertEqual(delegate.lastRepliedPost?.id, "23")
+    }
+    
+    func test_showProfile_callsShowProfile_inDelegate() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["id": "23"])
+        sut.dataSource = dataSourceMock
+        
+        let cell = sut.dataSource?.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! PostCell
+        cell.profileButton.sendActions(for: .touchUpInside)
+        
+        XCTAssertEqual(delegate.lastShowProfilePost?.id, "23")
     }
 }
 
@@ -130,6 +155,7 @@ extension PostsViewControllerTests {
     class PostsViewControllerDelegateMock: PostsViewControllerDelegate {
         
         var lastRepliedPost: Post?
+        var lastShowProfilePost: Post?
         
         func viewDidAppear(viewController: UIViewController) {
             
@@ -137,6 +163,10 @@ extension PostsViewControllerTests {
         
         func reply(_ viewController: UIViewController, to post: Post) {
             lastRepliedPost = post
+        }
+        
+        func showProfile(_: UIViewController, for post: Post) {
+            lastShowProfilePost = post
         }
         
         func viewController(_: UIViewController, tappedLink: Link) {

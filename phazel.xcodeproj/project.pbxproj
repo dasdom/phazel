@@ -71,6 +71,8 @@
 		F266AAEC1E857FA80004D341 /* URLCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F266AAE81E857FA20004D341 /* URLCreatorTests.swift */; };
 		F27A05361EA8B58000D2178C /* PostCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A05351EA8B58000D2178C /* PostCellTests.swift */; };
 		F27A055B1EAB2AC200D2178C /* DDHImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A055A1EAB2AC100D2178C /* DDHImageView.swift */; };
+		F286CD441F12697900F677A0 /* ProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286CD431F12697900F677A0 /* ProfileCoordinatorTests.swift */; };
+		F286CD461F1269C500F677A0 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286CD451F1269C500F677A0 /* ProfileCoordinator.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296236E1E75A9400089ADC7 /* AccountsViewController.swift */; };
 		F296237E1E79E42F0089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
@@ -274,6 +276,8 @@
 		F266AAE81E857FA20004D341 /* URLCreatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLCreatorTests.swift; sourceTree = "<group>"; };
 		F27A05351EA8B58000D2178C /* PostCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCellTests.swift; sourceTree = "<group>"; };
 		F27A055A1EAB2AC100D2178C /* DDHImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHImageView.swift; sourceTree = "<group>"; };
+		F286CD431F12697900F677A0 /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
+		F286CD451F1269C500F677A0 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F296236E1E75A9400089ADC7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F29623751E79E42F0089ADC7 /* DDHFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDHFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -552,6 +556,8 @@
 				F2CE47631EE468E700EA69E2 /* ProfileHeaderViewTests.swift */,
 				F2CE475D1EE4567C00EA69E2 /* ProfileViewController.swift */,
 				F2CE475F1EE45C3C00EA69E2 /* ProfileViewControllerTests.swift */,
+				F286CD451F1269C500F677A0 /* ProfileCoordinator.swift */,
+				F286CD431F12697900F677A0 /* ProfileCoordinatorTests.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1085,6 +1091,7 @@
 				F2CE76DF1E54923A00140C78 /* PostingView.swift in Sources */,
 				F25549E81E6AF63700CE5D14 /* SettingsViewController.swift in Sources */,
 				F246C2141E8FFF3C0027E159 /* User.swift in Sources */,
+				F286CD461F1269C500F677A0 /* ProfileCoordinator.swift in Sources */,
 				F2CE76DB1E548E3A00140C78 /* PostingViewController.swift in Sources */,
 				F2E3D7001E9CD82B00635A5C /* CoordinatingProtocols.swift in Sources */,
 				F25549EA1E6AF96C00CE5D14 /* SettingsCoordinator.swift in Sources */,
@@ -1113,6 +1120,7 @@
 			files = (
 				F266AAD21E857D6D0004D341 /* LoginViewControllerTests.swift in Sources */,
 				F266AAD71E857DF00004D341 /* PostsViewControllerTests.swift in Sources */,
+				F286CD441F12697900F677A0 /* ProfileCoordinatorTests.swift in Sources */,
 				F266AAB71E857A050004D341 /* SettingsCoordinatorTests.swift in Sources */,
 				F246C2821E94E3CB0027E159 /* PostTests.swift in Sources */,
 				F215AB9C1EAFE14D004847EF /* TableViewDataSourceTests.swift in Sources */,
