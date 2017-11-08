@@ -86,12 +86,12 @@ class ShareView: UIView {
 //        cancelButton.backgroundColor = UIColor.red
         cancelButton.addTarget(nil, action: .cancel, for: .touchUpInside)
        
-        let sendButtonStackView = UIStackView(arrangedSubviews: [cancelButton, sendButton])
+        let sendButtonStackView = UIStackView(arrangedSubviews: [cancelButton, titleLabel, sendButton])
         sendButtonStackView.axis = .horizontal
         sendButtonStackView.distribution = .equalSpacing
 //        sendButtonStackView.alignment = .trailing
 
-        stackView = UIStackView(arrangedSubviews: [titleLabel, separatorView, textStackView, urlLabel, sendButtonStackView])
+        stackView = UIStackView(arrangedSubviews: [sendButtonStackView, separatorView, textStackView, urlLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
 //        stackView.layer.cornerRadius = 10
@@ -116,8 +116,8 @@ class ShareView: UIView {
         let views: [String: UIView] = ["stackView": stackView, "backgroundView": backgroundView]
         var layoutConstraints = [NSLayoutConstraint]()
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|-(>=20)-[stackView]-(>=20)-|", options: [], metrics: nil, views: views)
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "[stackView(300@750)]", options: [], metrics: nil, views: views)
-        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-40-[stackView]", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "[stackView(500@750)]", options: [], metrics: nil, views: views)
+        layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[stackView]", options: [], metrics: nil, views: views)
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "|[backgroundView]|", options: [], metrics: nil, views: views)
         layoutConstraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[backgroundView]|", options: [], metrics: nil, views: views)
         layoutConstraints += [stackView.centerXAnchor.constraint(equalTo: centerXAnchor)]

@@ -281,6 +281,42 @@ extension APIClientTests {
     }
 }
 
+// MARK: - Thread
+extension APIClientTests {
+    func test_thread_hasCorrectPath() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        
+        guard let returnData = "{}".data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.threadFor(postId: 23) { _ in }
+        
+        waitForExpectations(timeout: 0.1) { error in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/posts/23/thread")
+        }
+    }
+    
+    func test_thread_returnsDict() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"data\": [", "{",
+                          "}", "]", "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Thread request"))
+        
+        var catchedDict: [[String: Any]]?
+        localSUT.threadFor(postId: 23) { result in
+            if case .success(let dict) = result {
+                catchedDict = dict
+            }
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertEqual(catchedDict?.count, 1)
+        }
+    }
+}
+
 // MARK: - Posting
 extension APIClientTests {
     func test_post_hasPostData() {

@@ -8,6 +8,7 @@ public protocol APIClientProtocol {
     func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ())
     func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ())
     func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ())
+    func threadFor(postId: Int, completion: @escaping (Result<[[String:Any]]>) -> ())
     func profilePosts(userId: String, completion: @escaping (Result<[[String:Any]]>) -> ())
     func user(id: String, completion: @escaping (Result<[String:Any]>) -> ())
     func follow(_ : Bool, userId: String, completion: @escaping (Result<[String:Any]>) -> ())
@@ -110,6 +111,36 @@ final public class APIClient: APIClientProtocol {
                         return completion(Result(value: nil, error: error))
                     }
                     
+                    do {
+                        let theArrayOfDicts = try self.arrayOfDicts(from: data)
+                        completion(Result(value: theArrayOfDicts, error: nil))
+                    } catch {
+                        completion(Result(value: nil, error: error))
+                    }
+                }
+            }
+            dataTask.resume()
+        } catch {
+            completion(Result(value: nil, error: error))
+        }
+    }
+    
+    public func threadFor(postId: Int, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+        
+        guard let url = URLCreator.thread(postId: postId).url() else { fatalError() }
+
+        do {
+            let request = try getRequest(with: url)
+            
+            let session = URLSession.shared
+            let dataTask = session.dataTask(with: request) { data, _, error in
+                
+                DispatchQueue.main.async {
+
+                    guard error == nil else {
+                        return completion(Result(value: nil, error: error))
+                    }
+
                     do {
                         let theArrayOfDicts = try self.arrayOfDicts(from: data)
                         completion(Result(value: theArrayOfDicts, error: nil))

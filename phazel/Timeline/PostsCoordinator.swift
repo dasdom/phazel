@@ -13,6 +13,7 @@ class PostsCoordinator: NSObject, NavigationCoordinating {
     var viewController: PostsViewController?
     var dataSource: TableViewDataSource<PostsCoordinator>?
     fileprivate var profileDataSource: TableViewDataSource<PostsCoordinator>?
+    fileprivate var threadDataSource: TableViewDataSource<PostsCoordinator>?
     let apiClient: APIClientProtocol
     fileprivate let userDefaults: UserDefaults
 //    fileprivate var childViewControllers: [UIViewController] = []
@@ -126,6 +127,10 @@ extension PostsCoordinator: PostsViewControllerDelegate {
         guard let user = post.user else { fatalError() }
         rootViewController.pushViewController(profileViewController(for: user), animated: true)
     }
+
+    func showThread(_: UIViewController, for post: Post) {
+        rootViewController.pushViewController(threadViewController(for: post), animated: true)
+    }
     
     func postDidSucceed(viewController: PostingViewController, with postId: String) {
     }
@@ -159,6 +164,17 @@ extension PostsCoordinator: PostsViewControllerDelegate {
         profileViewController.dataSource = profileDataSource
         
         return profileViewController
+    }
+    
+    func threadViewController(for post: Post) -> ThreadViewController {
+        let threadViewController = ThreadViewController(post: post, apiClient: apiClient)
+        threadViewController.delegate = self
+        
+        guard let tableView = threadViewController.tableView else { fatalError() }
+        threadDataSource = TableViewDataSource(tableView: tableView, delegate: self)
+        threadViewController.dataSource = threadDataSource
+        
+        return threadViewController
     }
 }
 

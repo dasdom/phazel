@@ -11,6 +11,7 @@ protocol PostsViewControllerDelegate: class {
     func showProfile(_: UIViewController, for: Post)
     func viewController(_: UIViewController, tappedLink: Link)
     func viewController(_: UIViewController, tappedUser: User)
+    func showThread(_ : UIViewController, for: Post)
 }
 
 class PostsViewController: UITableViewController {
@@ -79,17 +80,16 @@ class PostsViewController: UITableViewController {
     }
     
     func fetchPosts() {
-        self.apiClient.posts(before: nil, since: self.sinceId()) { [weak self] result in
+        apiClient.posts(before: nil, since: self.sinceId()) { [weak self] result in
             
             self?.process(result)
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.delegate?.viewDidAppear(viewController: self)
+        delegate?.viewDidAppear(viewController: self)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -154,18 +154,24 @@ class PostsViewController: UITableViewController {
 
 extension PostsViewController: CellActionsProtocol {
     
-    func reply(sender: UIButton) {
-        guard let post = post(for: sender) else { return }
-        
-        delegate?.reply(self, to: post)
-    }
-    
     @objc func showProfile(sender: UIButton) {
         guard let post = post(for: sender) else { return }
         
         delegate?.showProfile(self, for: post)
     }
     
+    func reply(sender: UIButton) {
+        guard let post = post(for: sender) else { return }
+        
+        delegate?.reply(self, to: post)
+    }
+
+    @objc func showThread(sender: UIButton) {
+        guard let post = post(for: sender) else { return }
+
+        delegate?.showThread(self, for: post)
+    }
+
     func post(for button: UIButton) -> Post? {
         guard let point = button.superview?.convert(button.center, to: tableView) else { return nil }
         guard let indexPath = tableView.indexPathForRow(at: point) else { return nil }

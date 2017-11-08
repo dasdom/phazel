@@ -1,5 +1,5 @@
 //  Created by dasdom on 11/04/2017.
-//  Copyright © 2017 dasdom. All rights reserved.
+//  Copyright © 2017 dasdom. All rights reserved.cd
 //
 
 import UIKit
@@ -12,9 +12,11 @@ class PostCell: UITableViewCell {
     fileprivate let buttonStackView: UIStackView
     fileprivate let expandedSourceLabelBottom: CGFloat = 30
     let followsYouIndicatorView: UIView
+//    let followsYouLabel: UILabel
     let postTextView: DDHTextView
     let profileButton: DDHButton
     let replyButton: DDHButton
+    let threadButton: DDHButton
     let sourceLabel: DDHLabel
     fileprivate let sourceLabelBottom: CGFloat = 7
     var stackViewBottomConstraint: NSLayoutConstraint?
@@ -59,13 +61,21 @@ class PostCell: UITableViewCell {
         profileButton.setImage(#imageLiteral(resourceName: "showProfile"), for: .normal)
         profileButton.addTarget(nil, action: .showProfile, for: .touchUpInside)
         
-        buttonStackView = UIStackView(arrangedSubviews: [replyButton, profileButton])
+        threadButton = DDHButton(type: .system)
+        threadButton.setImage(#imageLiteral(resourceName: "showThread"), for: .normal)
+        threadButton.addTarget(nil, action: .showThread, for: .touchUpInside)
+        
+        buttonStackView = UIStackView(arrangedSubviews: [replyButton, threadButton, profileButton])
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.isHidden = true
         buttonStackView.distribution = .fillEqually
         
         followsYouIndicatorView = UIView()
         youFollowIndicatorView = UIView()
+//        followsYouLabel = UILabel()
+//        followsYouLabel.text = "follows you"
+//        followsYouLabel.font = UIFont.systemFont(ofSize: 10)
+//        followsYouLabel.textColor = AppColors.lightGray
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -83,6 +93,7 @@ class PostCell: UITableViewCell {
         contentView.addSubview(buttonStackView)
         contentView.addSubview(followsYouIndicatorView)
         contentView.addSubview(youFollowIndicatorView)
+//        contentView.addSubview(followsYouLabel)
         
         stackViewBottomConstraint = buttonStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         guard let stackViewBottomConstraint = stackViewBottomConstraint else { fatalError() }
@@ -118,6 +129,7 @@ class PostCell: UITableViewCell {
         
         youFollowIndicatorView.backgroundColor = post.user?.youFollow ?? false ? AppColors.youFollow : AppColors.background
         followsYouIndicatorView.backgroundColor = post.user?.followsYou ?? false ? AppColors.followsYou : AppColors.background
+//        followsYouLabel.isHidden = !(post.user?.followsYou ?? false)
     }
     
     func setUserInfo(for post: Post, forPresentation: Bool) {
@@ -220,6 +232,7 @@ extension PostCell {
             followsYouIndicatorView.layer.cornerRadius = 2
             youFollowIndicatorView.frame = CGRect(x: avatarFrame.midX + 2, y: followsYouIndicatorView.frame.minY, width: followsYouIndicatorView.frame.width, height: followsYouIndicatorView.frame.height)
             youFollowIndicatorView.layer.cornerRadius = 2
+//            followsYouLabel.frame = CGRect(x: avatarFrame.minX, y: avatarFrame.maxY + 2, width: avatarFrame.width, height: 10)
         }
         
         let postTextWidth = screenBounds.width - 3 * 8 - avatarWidth
@@ -259,10 +272,12 @@ extension PostCell {
     @objc func reply(sender: UIButton)
     @objc func showProfile(sender: UIButton)
     @objc func tap(sender: UITapGestureRecognizer)
+    @objc func showThread(sender: UIButton)
 }
 
 fileprivate extension Selector {
     static let reply = #selector(CellActionsProtocol.reply(sender:))
     static let showProfile = #selector(CellActionsProtocol.showProfile(sender:))
     static let tap = #selector(CellActionsProtocol.tap(sender:))
+    static let showThread = #selector(CellActionsProtocol.showThread(sender:))
 }

@@ -74,7 +74,7 @@ class ShareViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        bottomConstraint = contentView.bottomView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -40)
+        bottomConstraint = contentView.bottomView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -20)
         bottomConstraint?.isActive = true
     }
     
@@ -325,7 +325,7 @@ extension ShareViewController {
         guard let frame = sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         let convertedFrame = view.convert(frame, from: nil)
         
-        bottomConstraint?.constant = -convertedFrame.height - 40
+        bottomConstraint?.constant = -convertedFrame.height
         self.view.layoutIfNeeded()
     }
 }

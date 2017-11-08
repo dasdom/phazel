@@ -96,7 +96,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         tableView.endUpdates()
         
         print("contentOffset: \(contentOffset)")
-        if adjustContentOffset, tableView.contentOffset.y < -63 {
+        if adjustContentOffset, tableView.contentOffset.y < -63, contentOffset < tableView.contentSize.height - tableView.bounds.size.height {
             tableView.contentOffset.y = contentOffset
             print("contentOffset: \(contentOffset)")
         }

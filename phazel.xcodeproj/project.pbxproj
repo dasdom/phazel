@@ -73,6 +73,9 @@
 		F27A055B1EAB2AC200D2178C /* DDHImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27A055A1EAB2AC100D2178C /* DDHImageView.swift */; };
 		F286CD441F12697900F677A0 /* ProfileCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286CD431F12697900F677A0 /* ProfileCoordinatorTests.swift */; };
 		F286CD461F1269C500F677A0 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F286CD451F1269C500F677A0 /* ProfileCoordinator.swift */; };
+		F28AB4F21F9BD3FD0019A018 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28AB4F11F9BD3FD0019A018 /* ThreadViewController.swift */; };
+		F28AB4F41F9C941C0019A018 /* ThreadViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28AB4F31F9C941C0019A018 /* ThreadViewControllerTests.swift */; };
+		F28AB4F61F9C955F0019A018 /* PostsViewControllerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28AB4F51F9C955F0019A018 /* PostsViewControllerDelegateMock.swift */; };
 		F28D2E431E3C80C000DB692B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28D2E421E3C80C000DB692B /* LoginView.swift */; };
 		F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F296236E1E75A9400089ADC7 /* AccountsViewController.swift */; };
 		F296237E1E79E42F0089ADC7 /* DDHFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29623751E79E42F0089ADC7 /* DDHFoundation.framework */; };
@@ -215,6 +218,12 @@
 		55160CDF1E4B04840043A3CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		554DC7041E66F30B009AE752 /* PostsResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PostsResponse.json; sourceTree = "<group>"; };
 		55BB81381E423F6D008C58CD /* LoginCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
+		F20D8DD71F93C5620040E4CF /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		F20D8DD81F93C5620040E4CF /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
+		F20D8DD91F93C5620040E4CF /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		F20D8DDA1F93C5620040E4CF /* ProfileHeaderViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewTests.swift; sourceTree = "<group>"; };
+		F20D8DDB1F93C5620040E4CF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F20D8DDC1F93C5620040E4CF /* ProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerTests.swift; sourceTree = "<group>"; };
 		F215AB9B1EAFE14D004847EF /* TableViewDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceTests.swift; sourceTree = "<group>"; };
 		F23583671EEC174400FBB29C /* TableViewDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceMock.swift; sourceTree = "<group>"; };
 		F23583691EEC17F700FBB29C /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
@@ -278,6 +287,9 @@
 		F27A055A1EAB2AC100D2178C /* DDHImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DDHImageView.swift; sourceTree = "<group>"; };
 		F286CD431F12697900F677A0 /* ProfileCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorTests.swift; sourceTree = "<group>"; };
 		F286CD451F1269C500F677A0 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		F28AB4F11F9BD3FD0019A018 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
+		F28AB4F31F9C941C0019A018 /* ThreadViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewControllerTests.swift; sourceTree = "<group>"; };
+		F28AB4F51F9C955F0019A018 /* PostsViewControllerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewControllerDelegateMock.swift; sourceTree = "<group>"; };
 		F28D2E421E3C80C000DB692B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F296236E1E75A9400089ADC7 /* AccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		F29623751E79E42F0089ADC7 /* DDHFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DDHFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -401,6 +413,20 @@
 			path = Pnut;
 			sourceTree = "<group>";
 		};
+		F20D8DD61F93C5620040E4CF /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F20D8DD71F93C5620040E4CF /* ProfileCoordinator.swift */,
+				F20D8DD81F93C5620040E4CF /* ProfileCoordinatorTests.swift */,
+				F20D8DD91F93C5620040E4CF /* ProfileHeaderView.swift */,
+				F20D8DDA1F93C5620040E4CF /* ProfileHeaderViewTests.swift */,
+				F20D8DDB1F93C5620040E4CF /* ProfileViewController.swift */,
+				F20D8DDC1F93C5620040E4CF /* ProfileViewControllerTests.swift */,
+			);
+			name = Profile;
+			path = phazel/Profile;
+			sourceTree = SOURCE_ROOT;
+		};
 		F23BE40A1E508E300068E82F /* Roaster */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +497,7 @@
 				F246C2151E9002560027E159 /* UserTests.swift */,
 				F246C2181E902A700027E159 /* Content.swift */,
 				F246C2441E9034110027E159 /* ContentTests.swift */,
+				F20D8DD61F93C5620040E4CF /* Profile */,
 				F246C2471E9036C30027E159 /* Link.swift */,
 				F246C24A1E90C28E0027E159 /* LinkTests.swift */,
 				F246C24D1E9117E70027E159 /* Mention.swift */,
@@ -505,6 +532,8 @@
 				F2DA1FBF1E9BCB45004E43E7 /* PostsCoordinatorTests.swift */,
 				F2E3D7031E9D06B700635A5C /* PostCell.swift */,
 				F27A05351EA8B58000D2178C /* PostCellTests.swift */,
+				F28AB4F11F9BD3FD0019A018 /* ThreadViewController.swift */,
+				F28AB4F31F9C941C0019A018 /* ThreadViewControllerTests.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -625,6 +654,7 @@
 				F2E3D7111E9D425400635A5C /* NavigationControllerMock.swift */,
 				F23583671EEC174400FBB29C /* TableViewDataSourceMock.swift */,
 				F23583691EEC17F700FBB29C /* MockAPIClient.swift */,
+				F28AB4F51F9C955F0019A018 /* PostsViewControllerDelegateMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1102,6 +1132,7 @@
 				F246C2491E9036C30027E159 /* Link.swift in Sources */,
 				F2F3DE1E1EE5B4B0009F4CF9 /* UITableViewExtensions.swift in Sources */,
 				F2CE47621EE45D3400EA69E2 /* ProfileHeaderView.swift in Sources */,
+				F28AB4F21F9BD3FD0019A018 /* ThreadViewController.swift in Sources */,
 				F246C28E1E96A24A0027E159 /* PostsViewController.swift in Sources */,
 				F2DA1FC01E9BCB45004E43E7 /* PostsCoordinator.swift in Sources */,
 				F24B7FEE1EFB1110009EC091 /* GlobalCoordinator.swift in Sources */,
@@ -1138,7 +1169,9 @@
 				F266AAC91E857D120004D341 /* PostingViewControllerTests.swift in Sources */,
 				F2E3D7131E9D426200635A5C /* NavigationControllerMock.swift in Sources */,
 				F24B7FE91EF9BA00009EC091 /* GlobalViewControllerTests.swift in Sources */,
+				F28AB4F41F9C941C0019A018 /* ThreadViewControllerTests.swift in Sources */,
 				F246C2571E92DEA60027E159 /* TagTests.swift in Sources */,
+				F28AB4F61F9C955F0019A018 /* PostsViewControllerDelegateMock.swift in Sources */,
 				F246C24B1E90C28E0027E159 /* LinkTests.swift in Sources */,
 				F246C2511E9120BD0027E159 /* MentionTests.swift in Sources */,
 				F2CE47641EE468E700EA69E2 /* ProfileHeaderViewTests.swift in Sources */,
@@ -1443,7 +1476,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1486,7 +1519,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

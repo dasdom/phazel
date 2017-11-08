@@ -22,6 +22,7 @@ class MockAPIClient: APIClientProtocol {
     var _isLoggedIn = false
     var lastFollowValue: Bool?
     var lastUserId: String?
+    var catchedPostId: Int?
     
     init() {
         
@@ -57,6 +58,11 @@ class MockAPIClient: APIClientProtocol {
     func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
         catchedBefore = before
         catchedSince = since
+        completion(result!)
+    }
+    
+    func threadFor(postId: Int, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+        catchedPostId = postId
         completion(result!)
     }
     

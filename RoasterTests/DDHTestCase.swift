@@ -47,7 +47,7 @@ extension DDHTestCase {
     func body(of request: URLRequest?, contains string: String, file: StaticString = #file, line: UInt = #line) {
         guard let bodyData = request?.httpBody else { return XCTFail("No request or body", file: file, line: line) }
         let stringData = String(data: bodyData, encoding: .utf8)
-        self.True(stringData?.contains(string))
+        self.True(stringData?.contains(string), stringData ?? "")
     }
     
     func header(of request: URLRequest?, containsValue value: String, forKey key: String, file: StaticString = #file, line: UInt = #line) {

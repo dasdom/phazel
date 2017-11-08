@@ -97,86 +97,21 @@ class PostsViewControllerTests: XCTestCase {
         
         XCTAssertEqual(delegate.lastShowProfilePost?.id, "23")
     }
+    
+    func test_showThread_callsShowThread_inDelegate() {
+        let dataSourceMock = TableViewDataSourceMock(tableView: sut.tableView, delegate: nil)
+        dataSourceMock.storedPost = Post(dict: ["thread_id": "23"])
+        sut.dataSource = dataSourceMock
+        
+        let cell = sut.dataSource?.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as! PostCell
+        cell.threadButton.sendActions(for: .touchUpInside)
+        
+        XCTAssertEqual(delegate.lastShowThreadPost?.threadId, "23")
+    }
 }
 
 // MARK: - Mocks
 extension PostsViewControllerTests {
-    
-//    class TableViewDataSourceMock: TableViewDataSource<PostsCoordinator> {
-//        
-//        var storedPost: Post?
-//        var lastIndexPath: IndexPath?
-//        var addedPosts: [Post]?
-//        
-//        override func object(at indexPath: IndexPath) -> Post {
-//            lastIndexPath = indexPath
-//            return storedPost!
-//        }
-//        
-//        override func add(posts: [Post]) {
-//            addedPosts = posts
-//            super.add(posts: posts)
-//        }
-//    }
-    
-//    class MockAPIClient: APIClientProtocol {
-//
-//        let result: Result<[[String:Any]]>
-//        var catchedBefore: Int?
-//        var catchedSince: Int?
-//
-//        init(result: Result<[[String:Any]]>) {
-//            self.result = result
-//        }
-//
-//        func login(username: String, password: String, completion: @escaping (Result<LoginUser>) -> ()) {
-//
-//        }
-//
-//        func post(text: String, replyTo: String?, completion: @escaping (Result<String>) -> ()) {
-//
-//        }
-//
-//        func posts(before: Int?, since: Int?, completion: @escaping (Result<[[String:Any]]>) -> ()) {
-//            catchedBefore = before
-//            catchedSince = since
-//            completion(result)
-//        }
-//
-//        func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
-//
-//        }
-//
-//        func isLoggedIn() -> Bool {
-//            return false
-//        }
-//    }
-    
-    class PostsViewControllerDelegateMock: PostsViewControllerDelegate {
-        
-        var lastRepliedPost: Post?
-        var lastShowProfilePost: Post?
-        
-        func viewDidAppear(viewController: UIViewController) {
-            
-        }
-        
-        func reply(_ viewController: UIViewController, to post: Post) {
-            lastRepliedPost = post
-        }
-        
-        func showProfile(_: UIViewController, for post: Post) {
-            lastShowProfilePost = post
-        }
-        
-        func viewController(_: UIViewController, tappedLink: Link) {
-
-        }
-        
-        func viewController(_: UIViewController, tappedUser: User) {
-            
-        }
-    }
     
     class TableViewMock: UITableView {
         override func indexPathForRow(at point: CGPoint) -> IndexPath? {

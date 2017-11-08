@@ -7,6 +7,7 @@ import Foundation
 enum URLCreator {
     case auth
     case posts(before: Int?, since: Int?)
+    case thread(postId: Int)
     case profilePosts(userId: String)
     case globalPosts(before: Int?, since: Int?)
     case post
@@ -32,10 +33,14 @@ enum URLCreator {
             let urlComponents = URLComponents(path: "/\(version)/posts/streams/unified", queryItems: queryItems)
             return urlComponents.url
         
+        case .thread(let postId):
+            let urlComponents = URLComponents(path: "/\(version)/posts/\(postId)/thread", queryItems: [])
+            return urlComponents.url
+
         case .post:
             let urlComponents = URLComponents(path: "/\(version)/posts", queryItems: [])
             return urlComponents.url
-        
+            
         case .profilePosts(let userId):
             let urlComponents = URLComponents(path: "/\(version)/users/\(userId)/posts", queryItems: [])
             return urlComponents.url
