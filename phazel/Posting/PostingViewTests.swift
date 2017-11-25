@@ -70,7 +70,7 @@ class PostingViewTests: XCTestCase {
         
         sut.update(with: nil)
         
-        XCTAssertEqual(textView.text.characters.count, 0)
+        XCTAssertEqual(textView.text.count, 0)
     }
     
     func test_update_setsStatus() {

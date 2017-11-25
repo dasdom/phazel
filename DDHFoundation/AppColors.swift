@@ -52,12 +52,12 @@ public enum AppColors {
         var value: UInt32 = 0
         scanner.scanHexInt32(&value)
         
-        let r = Float((value & 0xff0000) >> 16) / Float(255)
-        let g = Float((value & 0xff00) >> 8) / Float(255)
-        let b = Float(value & 0xff) / Float(255)
+        let r = CGFloat((value & 0xff0000) >> 16) / CGFloat(255)
+        let g = CGFloat((value & 0xff00) >> 8) / CGFloat(255)
+        let b = CGFloat(value & 0xff) / CGFloat(255)
         
 //        print(r, g, b)
         
-        return UIColor(colorLiteralRed: r, green: g, blue: b, alpha: 1.0)
+        return UIColor(red: r, green: g, blue: b, alpha: 1.0)
     }
 }

@@ -12,6 +12,10 @@
 		554DC7051E66F30B009AE752 /* PostsResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 554DC7041E66F30B009AE752 /* PostsResponse.json */; };
 		55BB81391E423F6D008C58CD /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BB81381E423F6D008C58CD /* LoginCoordinator.swift */; };
 		F215AB9C1EAFE14D004847EF /* TableViewDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F215AB9B1EAFE14D004847EF /* TableViewDataSourceTests.swift */; };
+		F22856B41FC73A940034FE41 /* MentionsCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF7DB31FC7392C00E88E68 /* MentionsCoordinatorTests.swift */; };
+		F22856B61FC73AED0034FE41 /* MentionsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22856B51FC73AED0034FE41 /* MentionsCoordinator.swift */; };
+		F22856B81FC8B5200034FE41 /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22856B71FC8B5200034FE41 /* MentionsViewController.swift */; };
+		F22856BA1FC8B53B0034FE41 /* MentionsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22856B91FC8B53B0034FE41 /* MentionsViewControllerTests.swift */; };
 		F23583681EEC174400FBB29C /* TableViewDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23583671EEC174400FBB29C /* TableViewDataSourceMock.swift */; };
 		F235836A1EEC17F700FBB29C /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23583691EEC17F700FBB29C /* MockAPIClient.swift */; };
 		F23BE4121E508E300068E82F /* Roaster.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23BE4091E508E300068E82F /* Roaster.framework */; };
@@ -225,6 +229,9 @@
 		F20D8DDB1F93C5620040E4CF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F20D8DDC1F93C5620040E4CF /* ProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerTests.swift; sourceTree = "<group>"; };
 		F215AB9B1EAFE14D004847EF /* TableViewDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceTests.swift; sourceTree = "<group>"; };
+		F22856B51FC73AED0034FE41 /* MentionsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsCoordinator.swift; sourceTree = "<group>"; };
+		F22856B71FC8B5200034FE41 /* MentionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
+		F22856B91FC8B53B0034FE41 /* MentionsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsViewControllerTests.swift; sourceTree = "<group>"; };
 		F23583671EEC174400FBB29C /* TableViewDataSourceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceMock.swift; sourceTree = "<group>"; };
 		F23583691EEC17F700FBB29C /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		F23BE4091E508E300068E82F /* Roaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Roaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,6 +325,7 @@
 		F2CE76DA1E548E3A00140C78 /* PostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingViewController.swift; sourceTree = "<group>"; };
 		F2CE76DE1E54923A00140C78 /* PostingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
 		F2CE76E31E54F3A900140C78 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		F2CF7DB31FC7392C00E88E68 /* MentionsCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsCoordinatorTests.swift; sourceTree = "<group>"; };
 		F2CFA9E81EAFE38400E0F77E /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		F2D3D6351E70B5D700AAAC1C /* SettingsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
 		F2D3D6371E72025000AAAC1C /* TextSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSettingsCell.swift; sourceTree = "<group>"; };
@@ -640,6 +648,17 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		F2CF7DB61FC7396100E88E68 /* Mentions */ = {
+			isa = PBXGroup;
+			children = (
+				F22856B71FC8B5200034FE41 /* MentionsViewController.swift */,
+				F22856B91FC8B53B0034FE41 /* MentionsViewControllerTests.swift */,
+				F22856B51FC73AED0034FE41 /* MentionsCoordinator.swift */,
+				F2CF7DB31FC7392C00E88E68 /* MentionsCoordinatorTests.swift */,
+			);
+			path = Mentions;
+			sourceTree = "<group>";
+		};
 		F2E3D70F1E9D425400635A5C /* phazelTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +725,7 @@
 				F266AAD41E857DE40004D341 /* Timeline */,
 				F24B7FEA1EF9BA0B009EC091 /* Global */,
 				F2CE475C1EE4565200EA69E2 /* Profile */,
+				F2CF7DB61FC7396100E88E68 /* Mentions */,
 				F246C2051E8EE9650027E159 /* CoreData */,
 				F246C1FB1E8EE8A20027E159 /* SupportingFiles */,
 				F2E4926C1E37FF45000C7187 /* Assets.xcassets */,
@@ -895,7 +915,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = dasdom;
 				TargetAttributes = {
 					55160CD71E4B04830043A3CC = {
@@ -1110,6 +1130,7 @@
 				F2E3D7021E9D03EE00635A5C /* Configurable.swift in Sources */,
 				F246C24F1E9117E70027E159 /* Mention.swift in Sources */,
 				F296236F1E75A9400089ADC7 /* AccountsViewController.swift in Sources */,
+				F22856B81FC8B5200034FE41 /* MentionsViewController.swift in Sources */,
 				F2D3D6381E72025000AAAC1C /* TextSettingsCell.swift in Sources */,
 				F246C2001E8EE8A20027E159 /* Roaster.xcdatamodeld in Sources */,
 				F2CFA9E91EAFE38400E0F77E /* TableViewDataSource.swift in Sources */,
@@ -1142,6 +1163,7 @@
 				F2425A4D1E3FD31E001B7E46 /* LoginViewController.swift in Sources */,
 				F2D3D6361E70B5D700AAAC1C /* SettingsItem.swift in Sources */,
 				F24B7FEC1EF9BAF5009EC091 /* GlobalViewController.swift in Sources */,
+				F22856B61FC73AED0034FE41 /* MentionsCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,6 +1192,7 @@
 				F2E3D7131E9D426200635A5C /* NavigationControllerMock.swift in Sources */,
 				F24B7FE91EF9BA00009EC091 /* GlobalViewControllerTests.swift in Sources */,
 				F28AB4F41F9C941C0019A018 /* ThreadViewControllerTests.swift in Sources */,
+				F22856B41FC73A940034FE41 /* MentionsCoordinatorTests.swift in Sources */,
 				F246C2571E92DEA60027E159 /* TagTests.swift in Sources */,
 				F28AB4F61F9C955F0019A018 /* PostsViewControllerDelegateMock.swift in Sources */,
 				F246C24B1E90C28E0027E159 /* LinkTests.swift in Sources */,
@@ -1179,6 +1202,7 @@
 				F246C2451E9034110027E159 /* ContentTests.swift in Sources */,
 				F246C2911E982B390027E159 /* URLRequestStub.swift in Sources */,
 				F246C2161E9002560027E159 /* UserTests.swift in Sources */,
+				F22856BA1FC8B53B0034FE41 /* MentionsViewControllerTests.swift in Sources */,
 				F266AACA1E857D120004D341 /* PostingViewTests.swift in Sources */,
 				F266AAB91E857A050004D341 /* TextSettingsCellTests.swift in Sources */,
 				F2DA1FC21E9BCB7A004E43E7 /* PostsCoordinatorTests.swift in Sources */,
@@ -1445,7 +1469,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1453,7 +1479,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1494,7 +1524,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1502,7 +1534,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

@@ -76,6 +76,10 @@ extension URLCreatorTests {
         let queryIems = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems
         True((queryIems?.contains(URLQueryItem(name: "count", value: "200"))), "Found queryItems: \(String(describing: queryIems))")
     }
+    
+    func test_threadURL_count() throws {
+        
+    }
 }
 
 // MARK: - Posting
@@ -147,6 +151,30 @@ extension URLCreatorTests {
         
         let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         XCTAssertEqual(urlComponents?.path, "/v0/posts/streams/global")
+    }
+}
+
+// MARK: - Mentions
+extension URLCreatorTests {
+    func test_mentionsURL_scheme() throws {
+        let url = try unwrap(URLCreator.mentions(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.scheme, "https")
+    }
+    
+    func test_mentionsPostsURL_host() throws {
+        let url = try unwrap(URLCreator.mentions(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.host, "api.pnut.io")
+    }
+    
+    func test_mentionsURL_path() throws {
+        let url = try unwrap(URLCreator.mentions(userId: "42").url())
+        
+        let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        XCTAssertEqual(urlComponents?.path, "/v0/users/42/mentions")
     }
 }
 

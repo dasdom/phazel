@@ -16,6 +16,7 @@ class MockAPIClient: APIClientProtocol {
     var catchedBefore: Int?
     var catchedSince: Int?
     var lastProfilePostsUserId: String?
+    var lastMentionsUserId: String?
     var catchedGlobalSince: Int?
     var catchedGlobalBefore: Int?
     var postedText: String?
@@ -75,6 +76,11 @@ class MockAPIClient: APIClientProtocol {
     
     func profilePosts(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
         lastProfilePostsUserId = userId
+        completion(result!)
+    }
+    
+    func mentions(userId: String, completion: @escaping (Result<[[String : Any]]>) -> ()) {
+        lastMentionsUserId = userId
         completion(result!)
     }
     

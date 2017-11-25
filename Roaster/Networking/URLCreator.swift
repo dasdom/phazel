@@ -9,6 +9,7 @@ enum URLCreator {
     case posts(before: Int?, since: Int?)
     case thread(postId: Int)
     case profilePosts(userId: String)
+    case mentions(userId: String)
     case globalPosts(before: Int?, since: Int?)
     case post
     case follow(id: String)
@@ -43,6 +44,10 @@ enum URLCreator {
             
         case .profilePosts(let userId):
             let urlComponents = URLComponents(path: "/\(version)/users/\(userId)/posts", queryItems: [])
+            return urlComponents.url
+            
+        case .mentions(let userId):
+            let urlComponents = URLComponents(path: "/\(version)/users/\(userId)/mentions", queryItems: [])
             return urlComponents.url
             
         case .globalPosts(let before, let since):

@@ -75,7 +75,7 @@ class PostsViewController: UITableViewController {
         if let sinceIdString = post?.id {
             sinceId = Int(sinceIdString)
         }
-        print(">>> sinceId: \(String(describing: sinceId))")
+        // print(">>> sinceId: \(String(describing: sinceId))")
         return sinceId
     }
     
@@ -106,6 +106,8 @@ class PostsViewController: UITableViewController {
                 dummyCell.frame.size = CGSize(width: tableViewWidth, height: 300)
                 dummyCell.configure(with: post, forPresentation: false)
                 height = dummyCell.sourceLabel.frame.maxY + 8
+                
+                // print(":) row: \(indexPath.row), height: \(height)")
                 
                 if let postId = post.id {
                     cellHeights[postId] = height
@@ -148,7 +150,7 @@ class PostsViewController: UITableViewController {
     }
     
 //    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrollView.contentOffset: \(scrollView.contentOffset)")
+//        // print("scrollView.contentOffset: \(scrollView.contentOffset)")
 //    }
 }
 
@@ -180,7 +182,7 @@ extension PostsViewController: CellActionsProtocol {
     
     func tap(sender: UITapGestureRecognizer) {
         
-        print("tableView.contentOffset: \(tableView.contentOffset)")
+        // print("tableView.contentOffset: \(tableView.contentOffset)")
         
         guard let cell = sender.view as? PostCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
@@ -208,7 +210,7 @@ extension PostsViewController: CellActionsProtocol {
         
         guard let textPosition = cell.postTextView.closestPosition(to: locationInTextView) else { return false }
         let offset = cell.postTextView.offset(from: cell.postTextView.beginningOfDocument, to: textPosition)
-        print("offset: \(offset)")
+        // print("offset: \(offset)")
         
         if let tappedLink = link(for: offset, at: indexPath) {
             delegate?.viewController(self, tappedLink: tappedLink)
@@ -234,24 +236,26 @@ extension PostsViewController {
         if !FileManager.default.isWritableFile(atPath: postsPath) {
             try! FileManager.default.createDirectory(at: URL(fileURLWithPath: postsPath), withIntermediateDirectories: true, attributes: nil)
         }
-        print("Path for posts: \(postsPath)")
+        // print("Path for posts: \(postsPath)")
         return "\(postsPath)/posts"
     }
     
     func archivePosts() {
         if let posts = dataSource?.dataArray {
-            print("Writing \(posts.count) to disk.")
-            let success = NSKeyedArchiver.archiveRootObject(posts, toFile: postsPath())
-            print(success)
+            // print("Writing \(posts.count) to disk.")
+            DispatchQueue.global(qos: .background).async {
+                let success = NSKeyedArchiver.archiveRootObject(posts, toFile: self.postsPath())
+                print(success)
+            }
         }
     }
     
     func unarchivePosts() -> [Post] {
         guard let posts = NSKeyedUnarchiver.unarchiveObject(withFile: postsPath()) as? [Post] else {
-            print("No posts found on disk.")
+            // print("No posts found on disk.")
             return []
         }
-        print("Reading \(posts.count) from disk.")
+        // print("Reading \(posts.count) from disk.")
         return posts
     }
 }

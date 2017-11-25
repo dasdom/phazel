@@ -13,6 +13,7 @@ final class MainCoordinator: CoodinatorProtocol {
     private let apiClient: APIClientProtocol
 //    private let persistentContainer: NSPersistentContainer
     var postsCoordinator: PostsCoordinator?
+    var mentionsCoordinator: MentionsCoordinator?
     var globalCoordinator: GlobalCoordinator?
     var profileCoordinator: ProfileCoordinator?
     var tabBarController: UITabBarController
@@ -31,6 +32,11 @@ final class MainCoordinator: CoodinatorProtocol {
         postsCoordinator = PostsCoordinator(rootViewController: postsNavigationController, apiClient: apiClient, userDefaults: userDefaults)
         postsCoordinator?.start()
         
+        let mentionsNavigationController = UINavigationController()
+        mentionsNavigationController.tabBarItem.image = #imageLiteral(resourceName: "mentions")
+        mentionsCoordinator = MentionsCoordinator(rootViewController: mentionsNavigationController, apiClient: apiClient, userDefaults: userDefaults)
+        mentionsCoordinator?.start()
+
         let globalNavigationController = UINavigationController()
         globalNavigationController.tabBarItem.image = UIImage(named: "global")
         globalCoordinator = GlobalCoordinator(rootViewController: globalNavigationController, apiClient: apiClient, userDefaults: userDefaults)
@@ -41,7 +47,7 @@ final class MainCoordinator: CoodinatorProtocol {
         profileCoordinator = ProfileCoordinator(rootViewController: profileNavigationController, apiClient: apiClient, userDefaults: userDefaults)
         profileCoordinator?.start()
         
-        tabBarController.viewControllers = [postsNavigationController, globalNavigationController, profileNavigationController]
+        tabBarController.viewControllers = [postsNavigationController, mentionsNavigationController, globalNavigationController, profileNavigationController]
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

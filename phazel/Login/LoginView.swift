@@ -47,7 +47,12 @@ final class LoginView: DDHView {
         
         loginButton.addSubview(spinner)
         
-        let stackView = UIStackView(arrangedSubviews: [label, usernameTextField, passwordTextField, loginButton])
+        let scopeLabel = UILabel()
+        scopeLabel.text = "When you log in, phazel will be able to read your timeline, write posts, follow users, update your profile, inform about your presence and write messages. phazel will never send anything to any server except pnuts API. If you don't like that, please don't log in."
+        scopeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scopeLabel.numberOfLines = 0
+        
+        let stackView = UIStackView(arrangedSubviews: [label, usernameTextField, passwordTextField, loginButton, scopeLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -84,9 +89,9 @@ extension LoginView: UITextFieldDelegate {
         
         if textField == usernameTextField {
             if let username = finalString,
-                username.characters.count > 0,
+                username.count > 0,
                 let password = passwordTextField.text,
-                password.characters.count > 0 {
+                password.count > 0 {
                 
                 loginButton.isEnabled = true
             } else {
@@ -94,9 +99,9 @@ extension LoginView: UITextFieldDelegate {
             }
         } else if textField == passwordTextField {
             if let username = usernameTextField.text,
-                username.characters.count > 0,
+                username.count > 0,
                 let password = finalString,
-                password.characters.count > 0 {
+                password.count > 0 {
                 
                 loginButton.isEnabled = true
             } else {

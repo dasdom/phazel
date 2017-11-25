@@ -142,7 +142,7 @@ extension APIClientTests {
                 catchesUser = user
             }
             if case .failure(let error) = result {
-                print(error)
+                // print(error)
             }
         }
         
@@ -216,14 +216,14 @@ extension APIClientTests {
             if case .failure(let requestError) = result {
                 catchedError = requestError
             } else {
-                print(result)
+                // print(result)
             }
         }
         
         waitForExpectations(timeout: 1) { _ in
             guard let unwrappedError = catchedError else {
-                print("catchedResult: \(String(describing: catchesResult))")
-                print("catchedError: \(String(describing: catchedError))")
+                // print("catchedResult: \(String(describing: catchesResult))")
+                // print("catchedError: \(String(describing: catchedError))")
                 fatalError()
 //                return XCTFail()
             }
@@ -420,6 +420,43 @@ extension APIClientTests {
         }
     }
 }
+
+// MARK: - Mentions
+extension APIClientTests {
+    func test_mentions_path() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"meta\": {", "\"code\": 201", "},", "\"data\": {", "\"id\": \"2392\",", "}", "}"].joined(separator: "\n")
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        localSUT.mentions(userId: "23") { _ in }
+        
+        waitForExpectations(timeout: 0.1) { _ in
+            XCTAssertEqual(URLRequestStub.lastURLComponents()?.path, "/v0/users/23/mentions")
+        }
+    }
+    
+    func test_mentions_returnsDict() {
+        let localSUT = APIClient(keychainManager: MockKeychainManager(token: "42"), userDefaults: MockUserDefaults(values:["username":"horst"]))
+        let returnJson = ["{", "\"data\": [", "{",
+                          "}", "]", "}"].joined(separator: "\n")
+        
+        guard let returnData = returnJson.data(using: .utf8) else { return XCTFail() }
+        URLRequestStub.stub(data: returnData, expect: expectation(description: "Post request"))
+        
+        var catchedArray: [[String: Any]]?
+        localSUT.mentions(userId: "42") { result in
+            if case .success(let dict) = result {
+                catchedArray = dict
+            }
+        }
+        
+        waitForExpectations(timeout: 1) { error in
+            XCTAssertEqual(catchedArray?.count, 1)
+        }
+    }
+}
+
 
 // MARK: - User
 extension APIClientTests {

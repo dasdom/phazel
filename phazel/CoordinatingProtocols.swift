@@ -66,12 +66,12 @@ extension Coordinating {
     }
 }
 
-protocol NavigationCoordinating: Coordinating {
-    typealias RootViewController = UINavigationController
+protocol NavigationCoordinating: Coordinating where RootViewController == UINavigationController {
+    
 }
 
 extension NavigationCoordinating {
     func show(_ viewController: Self.ViewController) {
-        (rootViewController as! UINavigationController).pushViewController(viewController, animated: true)
+        rootViewController.pushViewController(viewController, animated: true)
     }
 }

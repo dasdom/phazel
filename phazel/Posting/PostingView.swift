@@ -143,7 +143,7 @@ extension PostingView: PostingViewProtocol {
         imageView.tintColor = UIColor.white
         statusStackView.addArrangedSubview(imageView)
         
-        if let text = text, text.characters.count > 0 {
+        if let text = text, text.count > 0 {
             let label = UILabel()
             label.text = text
             label.numberOfLines = 0
@@ -189,7 +189,7 @@ extension PostingView: UITextViewDelegate {
         if remainingCharacters < 0 {
             sendButton.isEnabled = false
         } else {
-            if textView.text.characters.count == 0 {
+            if textView.text.count == 0 {
                 sendButton.isEnabled = false
             } else {
                 sendButton.isEnabled = true
@@ -201,7 +201,7 @@ extension PostingView: UITextViewDelegate {
 // MARK: - Helper
 extension PostingView {
     fileprivate var remainingCharacters: Int {
-        return 256 - textView.text.characters.count
+        return 256 - textView.text.count
     }
     
     fileprivate func updateCountLabel(for text: String) {

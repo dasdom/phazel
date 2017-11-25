@@ -110,14 +110,14 @@ class ShareViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let textToShare = text {
                         self.contentView.textView.text = textToShare
-                    } else if (self.contentView.textView.text?.characters.count ?? 0) < 1,
+                    } else if (self.contentView.textView.text?.count ?? 0) < 1,
                         let unwrappedURL = url {
                         self.contentView.textView.text = unwrappedURL.absoluteString
                     }
                     self.initialText = self.contentView.textView.text
                    
                     if let unwrappedURL = url {
-                        if unwrappedURL.absoluteString.characters.count > 0 {
+                        if unwrappedURL.absoluteString.count > 0 {
                             self.contentView.urlLabel.text = unwrappedURL.absoluteString
                         }
                     } else {
@@ -136,9 +136,9 @@ class ShareViewController: UIViewController {
     
     func isContentValid() -> Bool {
         
-        charactersRemaining = 256 - contentText.characters.count
+        charactersRemaining = 256 - contentText.count
         
-        return contentText.characters.count < 256 && contentText.characters.count > 0
+        return contentText.count < 256 && contentText.count > 0
     }
 }
 
@@ -147,11 +147,11 @@ extension ShareViewController: PostProtocol {
     
     func send() {
         
-        var (prefix, subString, postfix) = extractPrefixSubstringPostfix(from: contentText, initialText: initialText)
+        let (prefix, subString, postfix) = extractPrefixSubstringPostfix(from: contentText, initialText: initialText)
         
         let text = extractText(from: contentText, and: url)
         
-        guard text.characters.count > 0 else {
+        guard text.count > 0 else {
             self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
             return
         }
@@ -160,7 +160,7 @@ extension ShareViewController: PostProtocol {
         let textToShare: String
         if let url = url, text != url.absoluteString {
             postedURL = url
-            if subString.characters.count > 0 {
+            if subString.count > 0 {
                 textToShare = "\(prefix)[\(subString)](\(url))\(postfix)"
             } else {
                 textToShare = "[\(text)](\(url))"
@@ -168,7 +168,7 @@ extension ShareViewController: PostProtocol {
         } else {
             textToShare = text
         }
-        print("text: \(textToShare)")
+        // print("text: \(textToShare)")
         
         contentView.showSpinner(text: "Sending...")
         
@@ -188,7 +188,7 @@ extension ShareViewController: PostProtocol {
                 self.contentView.hideSpinner()
                 switch result {
                 case .success(let postId):
-                    print("postId: \(postId)")
+                    // print("postId: \(postId)")
                     self.userDefaults.set(postId, forKey: lastPostIdKey)
                     self.userDefaults.set(postedURL, forKey: lastPostedURLKey)
                 case .failure(let error):
@@ -245,9 +245,9 @@ extension ShareViewController {
                 }
                 
                 var textToShare: String? = nil
-                if let selectedText = elements["selection"], selectedText.characters.count > 0 {
+                if let selectedText = elements["selection"], selectedText.count > 0 {
                     textToShare = selectedText
-                } else if let title = elements["title"], title.characters.count > 0 {
+                } else if let title = elements["title"], title.count > 0 {
                     textToShare = title
                 } else if let urlString = elements["URL"] {
                     textToShare = urlString
@@ -262,7 +262,7 @@ extension ShareViewController {
             
             itemProvider.loadItem(forTypeIdentifier: urlType, options: nil, completionHandler: { item, error in
                 
-                print("item: \(String(describing: item))")
+                // print("item: \(String(describing: item))")
                 if let url = item as? URL {
                     completion(nil, url)
                 }
@@ -283,11 +283,11 @@ extension ShareViewController {
         var postfix = ""
         
         var text: String = ""
-        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
+        if let unwrappedText = contentText, unwrappedText.count > 0 {
             text = unwrappedText
             
             if let initialText = initialText {
-                if text.characters.count > initialText.characters.count {
+                if text.count > initialText.count {
                     if let range = text.range(of: initialText) {
                         subString = text.substring(with: range)
                         prefix = text.substring(to: range.lowerBound)
@@ -296,7 +296,7 @@ extension ShareViewController {
                 }
             }
             
-            if subString.characters.count < 1 {
+            if subString.count < 1 {
                 if let startIndex = text.range(of: "["), let stopIndex = text.range(of: "]"),
                     startIndex.lowerBound < stopIndex.lowerBound {
                     
@@ -313,7 +313,7 @@ extension ShareViewController {
     
     func extractText(from contentText: String?, and url: URL?) -> String {
         var text: String = ""
-        if let unwrappedText = contentText, unwrappedText.characters.count > 0 {
+        if let unwrappedText = contentText, unwrappedText.count > 0 {
             text = unwrappedText
         } else if let url = url {
             text = url.absoluteString

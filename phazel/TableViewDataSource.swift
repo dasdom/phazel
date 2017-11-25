@@ -38,7 +38,7 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Number of rows: \(dataArray.count)")
+//        print("Number of rows: \(dataArray.count)")
         return dataArray.count
     }
     
@@ -55,13 +55,13 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
     func add(posts: [Object], adjustContentOffset: Bool = true) {
         
         UIView.setAnimationsEnabled(false)
-        
+
         var contentOffset = tableView.contentOffset.y
-        print("contentOffset: \(contentOffset)")
+//        print(":) before: contentOffset: \(contentOffset)")
         
         tableView.beginUpdates()
         
-        print("posts.count: \(posts.count)")
+//        print("posts.count: \(posts.count)")
         dataArray = posts + dataArray
         
         var indexPathsToInsert = [IndexPath]()
@@ -73,6 +73,8 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
                 contentOffset += cellHeight
             }
         }
+        // print(":) after: contentOffset: \(contentOffset)")
+
         if indexPathsToInsert.count > 0 {
             tableView.insertRows(at: indexPathsToInsert, with: .none)
         }
@@ -95,10 +97,10 @@ class TableViewDataSource<Delegate: TableViewDataSourceDelegate>: NSObject, UITa
         
         tableView.endUpdates()
         
-        print("contentOffset: \(contentOffset)")
+        // print("contentOffset: \(contentOffset)")
         if adjustContentOffset, tableView.contentOffset.y < -63, contentOffset < tableView.contentSize.height - tableView.bounds.size.height {
             tableView.contentOffset.y = contentOffset
-            print("contentOffset: \(contentOffset)")
+            // print("contentOffset: \(contentOffset)")
         }
         
         UIView.setAnimationsEnabled(true)
