@@ -62,6 +62,8 @@ class ShareViewController: UIViewController {
         super.viewWillAppear(animated)
         
         contentView.showSpinner(text: "Loading...")
+    
+        bottomConstraint = contentView.bottomView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -20)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,7 +76,6 @@ class ShareViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-        bottomConstraint = contentView.bottomView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -20)
         bottomConstraint?.isActive = true
     }
     
@@ -140,6 +141,7 @@ class ShareViewController: UIViewController {
         
         return contentText.count < 256 && contentText.count > 0
     }
+    
 }
 
 // MARK: - PostProtocol
@@ -325,7 +327,8 @@ extension ShareViewController {
         guard let frame = sender.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect else { return }
         let convertedFrame = view.convert(frame, from: nil)
         
-        bottomConstraint?.constant = -convertedFrame.height
+        print("convertedFrame: \(convertedFrame)")
+        bottomConstraint?.constant = -convertedFrame.height-10
         self.view.layoutIfNeeded()
     }
 }

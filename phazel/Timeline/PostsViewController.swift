@@ -173,6 +173,10 @@ extension PostsViewController: CellActionsProtocol {
 
         delegate?.showThread(self, for: post)
     }
+    
+    @objc func bookmark(sender: UIButton) {
+        
+    }
 
     func post(for button: UIButton) -> Post? {
         guard let point = button.superview?.convert(button.center, to: tableView) else { return nil }

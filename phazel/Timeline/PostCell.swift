@@ -17,6 +17,7 @@ class PostCell: UITableViewCell {
     let profileButton: DDHButton
     let replyButton: DDHButton
     let threadButton: DDHButton
+    let bookmarkButton: DDHButton
     let sourceLabel: DDHLabel
     fileprivate let sourceLabelBottom: CGFloat = 7
     var stackViewBottomConstraint: NSLayoutConstraint?
@@ -57,13 +58,17 @@ class PostCell: UITableViewCell {
         replyButton.setImage(#imageLiteral(resourceName: "reply"), for: .normal)
         replyButton.addTarget(nil, action: .reply, for: .touchUpInside)
         
-        profileButton = DDHButton(type: .system)
-        profileButton.setImage(#imageLiteral(resourceName: "showProfile"), for: .normal)
-        profileButton.addTarget(nil, action: .showProfile, for: .touchUpInside)
-        
         threadButton = DDHButton(type: .system)
         threadButton.setImage(#imageLiteral(resourceName: "showThread"), for: .normal)
         threadButton.addTarget(nil, action: .showThread, for: .touchUpInside)
+        
+        bookmarkButton = DDHButton(type: .system)
+        bookmarkButton.setImage(#imageLiteral(resourceName: "bookmark"), for: .normal)
+        bookmarkButton.addTarget(nil, action: .bookmark, for: .touchUpInside)
+        
+        profileButton = DDHButton(type: .system)
+        profileButton.setImage(#imageLiteral(resourceName: "showProfile"), for: .normal)
+        profileButton.addTarget(nil, action: .showProfile, for: .touchUpInside)
         
         buttonStackView = UIStackView(arrangedSubviews: [replyButton, threadButton, profileButton])
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -273,6 +278,7 @@ extension PostCell {
     @objc func showProfile(sender: UIButton)
     @objc func tap(sender: UITapGestureRecognizer)
     @objc func showThread(sender: UIButton)
+    @objc func bookmark(sender: UIButton)
 }
 
 fileprivate extension Selector {
@@ -280,4 +286,5 @@ fileprivate extension Selector {
     static let showProfile = #selector(CellActionsProtocol.showProfile(sender:))
     static let tap = #selector(CellActionsProtocol.tap(sender:))
     static let showThread = #selector(CellActionsProtocol.showThread(sender:))
+    static let bookmark = #selector(CellActionsProtocol.bookmark(sender:))
 }
